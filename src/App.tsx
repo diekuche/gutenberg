@@ -1,12 +1,11 @@
-import './App.css';
+import "./App.css";
+import Header from "./Header/Header";
 
 function App() {
   return (
     <div className="App font-link">
-        <header className="App-header">
-          <h1>gutenberg</h1>
-        </header>
-      </div>
+      <Header />
+    </div>
   );
 }
 
