@@ -2,8 +2,8 @@
   height: 10vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: start;
+  justify-content: start;
   font-size: calc(10px + 2vmin);
   color: #e2fb5f;
 }
