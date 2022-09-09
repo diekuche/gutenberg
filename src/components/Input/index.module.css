@@ -23,6 +23,12 @@ h2 {
     border-radius: 8px;
 }
 
+input::placeholder {
+    font-weight: 300;
+    opacity: 0.5;
+    color: #D3FF54;
+}
+
 .label {
     position: relative;
     display: flex;
