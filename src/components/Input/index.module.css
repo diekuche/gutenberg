@@ -1,6 +1,5 @@
 div.wrapper {
-    position: absolute;
-    top: 20vh;
+    position: relative;
     width: 35vw;
 }
 

@@ -1,0 +1,23 @@
+div.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: absolute;
+    top: 40vh;
+    width: 38vw;
+}
+
+button.title {
+    display: flex;
+    align-items: flex-start;
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: underline;
+    background-color: #E2FB5F;
+
+}
+
+div.children {
+    background-color:#E2FB5F;
+}
+
