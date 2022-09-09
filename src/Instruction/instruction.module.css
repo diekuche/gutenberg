@@ -1,0 +1,23 @@
+.inctruction {
+    position: absolute;
+    left: 0%;
+    right: 29.85%;
+    top: 57.6%;
+    bottom: 0%;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 22px;
+    /* or 138% */
+
+
+    color: #43B35B;
+
+    mix-blend-mode: normal;
+}
+
+.a {
+    color: #E2FB5F;
+}
