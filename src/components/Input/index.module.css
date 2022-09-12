@@ -1,6 +1,7 @@
-div.h2 {
+div.label {
     font-size: 14px;
     margin: 0px 0px 8px 0px;
+    color: #162833;
 }
 
 .input {
@@ -23,7 +24,7 @@ div.subtitle {
     padding: 0px; 
 }
 
-.label {
+label.inputComp {
     display: flex;
     box-sizing: border-box;
     padding: 10px;

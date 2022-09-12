@@ -1,14 +1,21 @@
 import React from 'react';
 import styles from './index.module.css';
 
+export interface InputProps {
+    label: string;
+    placeholder: string;
+    type: string;
+    subtitle: string;
+}
 
-export const Input = () => {
+
+export const Input = (props:InputProps) => {
 
     return (
-            <label className={styles.label}>
-                <div className='h2'>Token's Name:</div>
-                <input className={styles.input} type='text' placeholder='Jhon’s USD Obligation'/>
-                <div className={styles.subtitle}>You can specify any name you like. But it is better to come up with something original</div>
+            <label className={styles.inputComp}>
+                <div className={styles.label}>{props.label}</div>
+                <input className={styles.input} type={props.type} placeholder={props.placeholder}/>
+                <div className={styles.subtitle}>{props.subtitle}</div>
             </label>
     );
     }
