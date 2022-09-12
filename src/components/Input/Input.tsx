@@ -1,18 +1,23 @@
 import React from 'react';
 import styles from './index.module.css';
 
-class Input extends React.Component {
-    render() {
+export interface InputProps {
+    label: string;
+    placeholder: string;
+    type: string;
+    subtitle: string;
+}
+
+
+export const Input = (props:InputProps) => {
+
     return (
-        <div className={styles.wrapper}>
-            <label className={styles.label}>
-                <h2>Token's Name:</h2>
-                <input className={styles.input} type='text' placeholder='Jhon’s USD Obligation'/>
-                You can specify any name you like. But it is better to come up with something original
+            <label className={styles.inputComp}>
+                <div className={styles.label}>{props.label}</div>
+                <input className={styles.input} type={props.type} placeholder={props.placeholder}/>
+                <div className={styles.subtitle}>{props.subtitle}</div>
             </label>
-        </div>
     );
     }
-}
 
 export default Input;

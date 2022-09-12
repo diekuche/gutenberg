@@ -1,14 +1,14 @@
 import styles from './index.module.css';
 import React, { useState } from 'react';
-import Input from "../Input/Input"
 
 export interface CollapsibleProps {
+    children?: React.ReactNode;
     title: string;
-    children?: string;
+    type: string;
+
 }
 
-export const Collapsible = (props: CollapsibleProps) => {
-    const {title, children} = props
+export const Collapsible: React.FC<CollapsibleProps> = (props: CollapsibleProps) => {
     const [open, setOpen] = useState(false);
 
     const collapse = () => {
@@ -17,11 +17,10 @@ export const Collapsible = (props: CollapsibleProps) => {
 
     return(
         <div className={styles.wrapper}>
-            <button className={styles.title} onClick={collapse}>{title}</button>
+            <button className={styles.title} onClick={collapse}>{props.title}</button>
             {open && (
                 <div className={styles.children}>
-
-                    <Input />
+                    {props.children}
                 </div>
             )}
         </div>

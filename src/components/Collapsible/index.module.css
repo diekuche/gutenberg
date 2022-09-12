@@ -2,7 +2,6 @@ div.wrapper {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    position: absolute;
     top: 40vh;
     width: 38vw;
 }

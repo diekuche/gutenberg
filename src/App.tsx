@@ -1,17 +1,10 @@
 import "./App.css";
-import Header from "./Header/Header";
-import Input from "./components/Input/Input"
-import Collapsible from "./components/Collapsible/Collapsible"
+import MainPage from "./components/MainPage/MainPage";
 
 function App() {
   return (
     <div className="App font-link">
-      <Header />
-      <Input />
-      <Collapsible 
-        title="+Change Initial Balances"
-        children="changed"
-      />
+      <MainPage/>
     </div>
   );
 }
