@@ -1,22 +1,12 @@
-div.wrapper {
-    position: absolute;
-    top: 20vh;
-    width: 35vw;
-}
-
-h2 {
+div.h2 {
     font-size: 14px;
     margin: 0px 0px 8px 0px;
 }
 
 .input {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    width: 100%;
     padding: 16px 10px;
     gap: 10px;
-    width: 96%;
     height: 24px;
     color: #D3FF54;
     background: #000000;
@@ -29,14 +19,18 @@ input::placeholder {
     color: #D3FF54;
 }
 
+div.subtitle {
+    padding: 0px; 
+}
+
 .label {
-    position: relative;
     display: flex;
+    box-sizing: border-box;
     padding: 10px;
-    width: 100%;
+    width: 30vw;
     align-items: flex-start;
     flex-direction: column;
     justify-content: flex-start;
-    color: #000000;
+    color: #162833;
     background-color: #e2fb5f;
 }
