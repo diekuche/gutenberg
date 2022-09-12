@@ -1,9 +1,24 @@
 .header {
-  height: 10vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-content: flex-start;
+  flex-wrap: wrap;
   color: #e2fb5f;
+  font-family: 'Roboto';
+  align-items: flex-start;
+  margin: 0 auto;
+}
+
+.p {
+  flex-direction: column;
+  color: #43B25B ;
+  font-family: 'Roboto';
+}
+
+.header a {
+  color: #E2FB5F;
+}
+
+.header h1 {
+  color:#E2FB5F;
 }
