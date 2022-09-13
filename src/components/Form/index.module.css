@@ -1,9 +1,11 @@
 .form {
     display: flex;
+    align-self: center;
     flex-direction: column;
     box-sizing: border-box;
     width: 590px;
     padding: 0px 52px 0px 39px;
+    margin-top: 36px;
     background: #E2FB5F;
     border: 1px solid #E2FB5F;
     border-radius: 0px 16px 16px 16px;

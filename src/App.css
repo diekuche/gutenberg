@@ -12,18 +12,6 @@
   animation: change 10s easy-in-out infinite;
 }
 
-.App-header {
-  height: 10vh;
-  display: flex;
-  align-items: start;
-  font-size: calc(10px + 2vmin);
-  color: #e2fb5f;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
 .font-link {
   font-family: 'Roboto', bold;
 }

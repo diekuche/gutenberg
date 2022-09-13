@@ -13,8 +13,8 @@ export const MainPage = (props: MainProps) => {
 
     return (
         <div className={styles.mainpage}>
-            <Form></Form>
             <Header/>
+            <Form></Form>
         </div>
     );
     }
