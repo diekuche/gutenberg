@@ -1,12 +1,13 @@
-div.wrapper {
+.wrapper {
     display: flex;
     flex-direction: column;
+    align-self: center;
     justify-content: flex-start;
     top: 40vh;
     width: 38vw;
 }
 
-button.title {
+.title {
     display: flex;
     align-items: flex-start;
     font-size: 16px;
@@ -16,7 +17,11 @@ button.title {
 
 }
 
-div.children {
+.children {
     background-color:#E2FB5F;
 }
 
+.icon {
+    align-self: center;
+    padding-right: 5px;
+}
