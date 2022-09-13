@@ -4,10 +4,13 @@ import styles from './index.module.css';
 export interface InputProps {
     label: string;
     placeholder: string;
-    type: string;
-    subtitle: string;
+    type?:string & typeof defaultProps;
+    subtitle?: string;
 }
 
+const defaultProps = {
+    type: `text`,
+ };
 
 export const Input = (props:InputProps) => {
 

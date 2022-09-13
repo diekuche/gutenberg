@@ -2,23 +2,15 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    width: 42.14vw;
-    padding: 0px 39px 0px 52px;
-
-    position: absolute;
-    left: 20.3vw;
-    right: 37.5vw;
-    top: 14.5vh;
-    bottom: 12.9vh;
-
+    width: 590px;
+    padding: 0px 52px 0px 39px;
     background: #E2FB5F;
-    mix-blend-mode: normal;
     border: 1px solid #E2FB5F;
     border-radius: 0px 16px 16px 16px;
 }
 
-h1 {
-    display: flex;
-    justify-content: flex-start;
-    padding-left: 10px;
+.formheader {
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
 }
