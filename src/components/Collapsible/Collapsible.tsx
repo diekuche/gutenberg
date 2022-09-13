@@ -7,12 +7,10 @@ export interface CollapsibleProps {
     children: React.ReactNode;
     title: string;
     type: string;
-    icon?: JSX.Element;
 }
 
 export const Collapsible: React.FC<CollapsibleProps> = (props: CollapsibleProps) => {
     const [open, setOpen] = useState(false);
-    const icon = props.icon;
 
     const collapse = () => {
         setOpen(!open);
