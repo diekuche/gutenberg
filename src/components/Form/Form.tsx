@@ -31,7 +31,7 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
                 placeholder={`0`}
             />
             <Input 
-                label={`Logo URL:`} 
+                label={`Logo URL:`}
                 placeholder={`https://www.example.com/image.png`}
             />
         </div>
