@@ -1,14 +1,14 @@
 .header {
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
+
   justify-content: flex-start;
   flex-wrap: wrap;
-=======
+
   align-items: start;
   justify-content: start;
   font-size: calc(10px + 2vmin);
->>>>>>> main
+
   color: #e2fb5f;
   font-family: 'Roboto';
   align-items: flex-start;
