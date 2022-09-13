@@ -1,11 +1,7 @@
 .header {
   display: flex;
   flex-direction: column;
-
-  justify-content: flex-start;
   flex-wrap: wrap;
-
-  align-items: start;
   justify-content: start;
   font-size: calc(10px + 2vmin);
 
@@ -13,7 +9,7 @@
   font-family: 'Roboto';
   align-items: flex-start;
   margin: 0 auto;
-}
+}  
 
 .p {
   flex-direction: column;
