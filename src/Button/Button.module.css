@@ -1,9 +1,8 @@
 .button {
     display: flex;
-    position: absolute;
-    left: 512px;
-    right: 760px;
-    top: 762px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 250px;
     height: 25px;
 
@@ -12,15 +11,6 @@
     padding: 43px 8px 43px 12px;
     color: #E2FB5F;
     font-size: 4vmin;
-    align-items: center;
-    justify-content: center;
+    
 }
 
-.button:hover {
-
-}
-
-.button:disabled {
-    opacity: 0.6;
-    background: #8E8E8E;
-}
