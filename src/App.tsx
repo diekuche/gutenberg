@@ -1,9 +1,6 @@
 import { useEffect } from "react";
 import "./App.css";
-<<<<<<< HEAD
-=======
 import { Window as KeplrWindow } from "@keplr-wallet/types";
->>>>>>> e292aca66ea57e74fba4e6d586069303ccc4dd9a
 import MainPage from "./components/MainPage/MainPage";
 import { getAddress, getBalance } from "./utils/wallet";
 
