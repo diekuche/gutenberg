@@ -15,7 +15,7 @@
   margin: 0 auto;
 }
 
-.descript {
+.description {
   width: 700px;
   text-align: left;
   flex-direction: column;
@@ -27,7 +27,7 @@
   color: #E2FB5F;
 }
 
-.header h1 {
+.h1 {
   font-size: 46px;
   color:#E2FB5F;
 }
