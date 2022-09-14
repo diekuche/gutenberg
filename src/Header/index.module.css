@@ -16,6 +16,8 @@
 }
 
 .p {
+  width: 700px;
+  text-align: left;
   flex-direction: column;
   color: #43B25B ;
   font-family: 'Roboto';
