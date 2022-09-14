@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: flex-start;
+    top: 40vh;
+    width: 38vw;
+}
+
+.title {
+    display: flex;
+    align-items: flex-start;
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: underline;
+    background-color: #E2FB5F;
+
+}
+
+.children {
+    background-color:#E2FB5F;
+}
+
+.icon {
+    align-self: center;
+    padding-right: 5px;
+}
