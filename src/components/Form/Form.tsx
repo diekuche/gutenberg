@@ -4,9 +4,11 @@ import Collapsible from '../Collapsible/Collapsible'
 import Input from '../Input/Input'
 
 type FormProps = {
+
 }
 
-export const Form: React.FC<FormProps> = (type="text", props: FormProps) => {
+export const Form: React.FC<FormProps> = (props: FormProps) => {
+    
     return (
         <div className={styles.form}>
             <div className={styles.formheader}>Create New Token</div>
@@ -14,6 +16,7 @@ export const Form: React.FC<FormProps> = (type="text", props: FormProps) => {
                 label={`Token's Name:`} 
                 subtitle={`You can specify any name you like. But it is better to come up with something original`}
                 placeholder={`John's Obligations`}
+
             />
             <Input 
                 label={`Symbol:`} 
