@@ -1,16 +1,16 @@
 import styles from './index.module.css';
 import React, { useState } from 'react';
-import Input from '../Input/Input.tsx'
+import Collapsible from '../Collapsible/Collapsible'
+import Input from '../Input/Input'
 
 type FormProps = {
 }
 
-export const Form: React.FC<FormProps> = (props: FormProps) => {
-
+export const Form: React.FC<FormProps> = (type="text", props: FormProps) => {
     return (
         <div className={styles.form}>
             <div className={styles.formheader}>Create New Token</div>
-            <Input 
+            <Input
                 label={`Token's Name:`} 
                 subtitle={`You can specify any name you like. But it is better to come up with something original`}
                 placeholder={`John's Obligations`}
@@ -34,6 +34,8 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
                 label={`Logo URL:`}
                 placeholder={`https://www.example.com/image.png`}
             />
+            <Collapsible type='text' title='Changing Initial Balance' children='changed'/>
+            <Collapsible type='text' title='Token Details' children='changed'/>
         </div>
     );
     }
