@@ -1,6 +1,6 @@
 import styles from './index.module.css';
 import React, { useState } from 'react';
-import Input from '../Input/Input'
+import Input from '../Input/Input.tsx'
 
 type FormProps = {
 }
