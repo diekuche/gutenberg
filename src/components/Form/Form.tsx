@@ -7,7 +7,7 @@ type FormProps = {
 
 }
 
-export const Form: React.FC<FormProps> = (props: FormProps) => {
+export const Form: React.FC<FormProps> = () => {
     
     return (
         <div className={styles.form}>
