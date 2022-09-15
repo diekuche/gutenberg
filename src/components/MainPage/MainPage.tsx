@@ -3,6 +3,8 @@ import styles from './index.module.css';
 import Form from '../Form/Form'
 import Header from '../../Header/Header'
 import Button from '../Button/Button';
+import ButtonSend from '../ButtonSend/ButtonSend';
+import ButtonAddToken from '../ButtonAddToken/ButtonAddToken';
 
 
 type MainProps = {
@@ -16,6 +18,8 @@ export const MainPage = (props: MainProps) => {
             <Header/>
             <Form></Form>
             <Button />
+            <ButtonSend />
+            <ButtonAddToken />
         </div>
     );
     }
