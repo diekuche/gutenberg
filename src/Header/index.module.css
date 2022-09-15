@@ -1,15 +1,11 @@
 .header {
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
-  align-items: center;
-=======
 
   justify-content: flex-start;
   flex-wrap: wrap;
 
   align-items: start;
->>>>>>> 71e4f8274d11a296fdddaa04d609e4e2e40bd809
   justify-content: start;
   font-size: 16px;
 
