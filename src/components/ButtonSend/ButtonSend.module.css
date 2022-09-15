@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 114px;
+    width: fit-content;
     height: 41px;
     margin-top: 33px;
     background: #E2FB5F;
