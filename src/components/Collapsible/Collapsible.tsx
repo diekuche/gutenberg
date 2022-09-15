@@ -6,7 +6,7 @@ import minus from '../../assets/minus.svg';
 export interface CollapsibleProps {
     children: React.ReactNode;
     title: string;
-    type: string;
+    type?: string;
 }
 
 export const Collapsible: React.FC<CollapsibleProps> = (props: CollapsibleProps) => {

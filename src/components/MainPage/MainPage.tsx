@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './index.module.css';
-import Collapsible from '../Collapsible/Collapsible'
+import Form from '../Form/Form'
 import Header from '../../Header/Header'
 
 
@@ -13,7 +13,7 @@ export const MainPage = (props: MainProps) => {
     return (
         <div className={styles.mainpage}>
             <Header/>
-            <Collapsible type='text' title='Changing Initial Balance' children='changed'/>
+            <Form></Form>
         </div>
     );
     }

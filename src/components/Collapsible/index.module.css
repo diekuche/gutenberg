@@ -3,8 +3,7 @@
     flex-direction: column;
     align-self: center;
     justify-content: flex-start;
-    top: 40vh;
-    width: 38vw;
+    width: 100%;
 }
 
 .title {
@@ -14,11 +13,11 @@
     font-weight: 800;
     text-decoration: underline;
     background-color: #E2FB5F;
-
+    width: 100%;
 }
 
 .children {
-    background-color:#E2FB5F;
+    width: 100%;
 }
 
 .icon {
