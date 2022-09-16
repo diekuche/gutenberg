@@ -16,5 +16,6 @@ jobs:
 
     - name: Deploy react app to github pages
       uses: tanwanimohit/deploy-react-to-ghpages@v1.0.1
+
     - name: deploy to gh-pages
     - uses: paper-spa/deploy-pages@pages/get-build-conclusion
