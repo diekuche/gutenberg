@@ -30,5 +30,5 @@
 }
 
 .buttonAddToken:disabled {
-   opacity: 0;
+    background: #8E8E8E;
 }
