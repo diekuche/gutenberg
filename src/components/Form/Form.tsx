@@ -1,5 +1,5 @@
 import styles from './index.module.css';
-import React, { useState } from 'react';
+import React from 'react';
 import Collapsible from '../Collapsible/Collapsible'
 import Input from '../Input/Input'
 
