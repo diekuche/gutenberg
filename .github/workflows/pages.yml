@@ -18,4 +18,4 @@ jobs:
       uses: tanwanimohit/deploy-react-to-ghpages@v1.0.1
 
     - name: deploy to gh-pages
-    - uses: paper-spa/deploy-pages@pages/get-build-conclusion
+      uses: paper-spa/deploy-pages@pages/get-build-conclusion
