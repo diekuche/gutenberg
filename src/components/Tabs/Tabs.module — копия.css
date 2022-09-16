@@ -1,0 +1,22 @@
+.tabsTok {
+  display: inline-flex;
+  align-self: flex-start;
+  justify-content: center;
+  background-color: #E2FB5F;
+  border: 1px solid #E2FB5F;
+  border-radius: 9px 9px 0px 0px;
+  color: #222F34;
+  width: 125px ;
+
+}
+
+.tabsNFT {
+  display: inline-flex;
+  align-self: center;
+  justify-content: center;
+  background-color: #162833;
+  border: 1px solid #E2FB5F;
+  border-radius: 0px 9px 0px 0px;
+  color: #222F34;
+  width: 125px ;
+}
