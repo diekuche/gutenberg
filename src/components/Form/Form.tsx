@@ -29,22 +29,26 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
                 <Input 
                     label={`Symbol:`} 
                     subtitle={`How your token will be displayed in users' wallets`}
+                    pattern={`[A-Za-z-0-9]{2,5}`}
                     placeholder={`JUSD`}
                     required
                 />
                 <Input 
                     label={`Quantity:`} 
                     subtitle={`You can print as many tokens as you want`}
+                    pattern={`[0-9]{1,}`}
                     placeholder={`0`}
                     required
                 />
                 <Input 
                     label={`Decimals:`} 
                     subtitle={`The number of digits after the decimal point (e.x. Bitcoin has 8 digits)`}
+                    pattern={`[0-9]{,10}`}
                     placeholder={`0`}
                 />
                 <Input 
                     label={`Logo URL:`}
+                    pattern={`[A-Za-z-0-9]{3,99}`}
                     placeholder={`https://www.example.com/image.png`}
                 />
                 <Collapsible type='text' title='Changing Initial Balance' children='changed'/>
