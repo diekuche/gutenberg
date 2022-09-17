@@ -5,7 +5,6 @@
     align-items: center;
     width: fit-content;
     height: 46px;
-
     background: #162833;
     border-radius: 27.5px;
     padding: 8px 43px 12px 43px;
@@ -16,11 +15,67 @@
     
 }
 
+.buttonAddToken {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: 41px;
+    margin-top: 33px;
+    box-sizing: border-box;
+    border: 1px solid #43B25B;
+    border-radius: 27.5px;
+    padding: 13px 18px 12px 18px;
+    color: #43B25B;
+    font-size: 14px;
+    font-weight: 400; 
+}
+
+.buttonSend {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: 41px;
+    margin-top: 33px;
+    background: #E2FB5F;
+    border-radius: 27.5px;
+    padding: 12px 41px 13px 41px;
+    color: #162833;
+    font-size: 14px;
+    font-weight: 700;
+    border-style: none;
+}
+
 .button:active {
     box-shadow: inset 0px 3px 4px rgba(226, 251, 95, 0.3);
-    
 }
 
 .button:disabled {
     background: #8E8E8E;
+}
+
+.buttonAddToken:hover {
+    border: 1px solid #E2FB5F;
+    background-color: white;
+    color: #E2FB5F;
+}
+
+.buttonAddToken:active {
+    border: 1px solid #2E6C3C;
+    color: #2E6C3C;
+}
+
+.buttonAddToken:disabled {
+    background: #8E8E8E;
+}
+
+.buttonSend:active {
+    box-shadow: inset 0px 4px 4px rgba(104, 102, 47, 0.6);
+}
+
+.buttonSend:disabled {
+    background: #195443;
 }

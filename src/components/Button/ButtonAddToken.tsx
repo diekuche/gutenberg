@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ButtonAddToken.module.css";
+import styles from "./Button.module.css";
 
 const ButtonAddToken = () => {
     return (
