@@ -21,6 +21,7 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
                 <Input
                     label={`Token's Name:`} 
                     subtitle={`You can specify any name you like. But it is better to come up with something original`}
+                    pattern={`[A-Za-z-0-9]{3,50}`}
                     placeholder={`John's Obligations`}
                     name={'token'}
                     required
