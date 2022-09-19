@@ -5,8 +5,8 @@
   justify-content: flex-start;
   flex-wrap: wrap;
 
-  align-items: start;
-  justify-content: start;
+  align-items: flex-start;
+  justify-content: flex-start;
   font-size: 16px;
 
   color: #e2fb5f;

@@ -1,0 +1,34 @@
+.buttonAddToken {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: 41px;
+    margin-top: 33px;
+    box-sizing: border-box;
+    border: 1px solid #43B25B;
+    border-radius: 27.5px;
+    padding: 13px 18px 12px 18px;
+    color: #43B25B;
+    font-size: 14px;
+    font-weight: 400;
+    
+    
+}
+
+.buttonAddToken:hover {
+    border: 1px solid #E2FB5F;
+    background-color: white;
+    color: #E2FB5F;
+}
+
+.buttonAddToken:active {
+    border: 1px solid #2E6C3C;
+    color: #2E6C3C;
+    
+}
+
+.buttonAddToken:disabled {
+    background: #8E8E8E;
+}

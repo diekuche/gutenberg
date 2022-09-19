@@ -1,0 +1,26 @@
+.button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: 46px;
+
+    background: #162833;
+    border-radius: 27.5px;
+    padding: 8px 43px 12px 43px;
+    color: #E2FB5F;
+    font-size: 22px;
+    font-weight: 700;
+    border-style: none;
+    
+}
+
+.button:active {
+    box-shadow: inset 0px 3px 4px rgba(226, 251, 95, 0.3);
+    
+}
+
+.button:disabled {
+    background: #8E8E8E;
+}

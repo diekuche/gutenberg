@@ -1,0 +1,27 @@
+.buttonSend {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: 41px;
+    margin-top: 33px;
+    background: #E2FB5F;
+    border-radius: 27.5px;
+    padding: 12px 41px 13px 41px;
+    color: #162833;
+    font-size: 14px;
+    font-weight: 700;
+    border-style: none;
+    
+    
+}
+
+.buttonSend:active {
+    box-shadow: inset 0px 4px 4px rgba(104, 102, 47, 0.6);
+    
+}
+
+.buttonSend:disabled {
+    background: #195443;
+}
