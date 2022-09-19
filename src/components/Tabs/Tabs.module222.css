@@ -1,0 +1,34 @@
+.tabs { width: 100%; padding: 0px; margin: 0 auto; }
+.tabs>input { display: none; }
+.tabs>div {
+  /* скрыть контент по умолчанию, содержимое вкладок*/
+  display: none;
+    padding: 12px;
+    border: 1px solid #C0C0C0;
+    background: #FFFFFF;
+    
+    
+}
+
+.tabs>label {
+  display: inline-block;
+  padding: 7px;
+  margin: 0 -5px -1px 0;
+  text-align: center;
+  color: #222F34;
+  border: 1px solid #C0C0C0;
+  background: #E2FB5F;
+  position: relative;
+  top: 1px;
+  border-radius: 9px 9px 0px 0px; 
+}
+
+.tabs>input:checked + label {
+  color: #222F34;
+  border: 1px solid #C0C0C0;
+  border-bottom: 1px solid #FFFFFF;
+  
+}
+
+#tab_1:checked ~ #txt_1,
+#tab_2:checked ~ #txt_2, { display: block; }

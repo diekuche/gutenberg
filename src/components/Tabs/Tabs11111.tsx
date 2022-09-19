@@ -5,11 +5,11 @@ const Tabs = () => {
   return (
     <div className={styles.tabs}>
       <div className={styles.token}>NFT</div>
-      <Input type="radio"
+      <input type="radio"
          name="tab-btn"
          id="tab-btn-1"
          value="" checked>
-          </Input>
+          /</input>
       <div className={styles.NFT}>NFT</div>
     </div>
     
