@@ -1,5 +1,5 @@
 import styles from './index.module.css';
-import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import React, { FormEvent } from 'react';
 import Button from '../Button/Button'
 import Collapsible from '../Collapsible/Collapsible'
 import Input from '../Input/Input'
