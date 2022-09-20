@@ -1,12 +1,15 @@
 .tabs {
-  display: inline-flex;
-  align-self: flex-start;
+  display: flex;
+  
   justify-content: center;
-  width: 230px;
+  align-items: center;
+  width: fit-content;
+ 
   
 }
 .tabsToken {
-  display: inline-flex;
+  line-height: 35px;
+  padding: 8px 43px 9px 43px;
   align-items: center;
   justify-content: center;
   background-color: #E2FB5F;
@@ -14,22 +17,23 @@
   border-radius: 9px 9px 0px 0px;
   color: #222F34;
   font-weight: 700;
-  width: 125px;
+  width: fit-content;
   z-index: 2;
   height: 33px;
 
 }
 
 .tabsNFT {
-  display: inline-flex;
+  line-height: 35px;
+  padding: 8px 43px 9px 67px;
   align-items: center;
   justify-content: center;
   background-color: #162833;
   border: 1px solid #E2FB5F;
   border-radius: 0px 9px 0px 0px;
-  color: #D3FF54;;
-  font-weight: 700;
-  width: 125px;
+  color: #D3FF54;
+  font-weight: 300;
+  width: fit-content;
   margin-left: -20px;
   height: 33px;
   

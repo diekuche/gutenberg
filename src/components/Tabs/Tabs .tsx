@@ -7,7 +7,7 @@ const Tabs = () => {
       <div className={styles.tabsToken}>Token</div>
       <div className={styles.tabsNFT}>NFT</div>
     </div>
-    
+     
   );
 };
 
