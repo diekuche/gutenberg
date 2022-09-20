@@ -1,0 +1,40 @@
+.tabs {
+  display: flex;
+  
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+ 
+  
+}
+.tabsToken {
+  line-height: 35px;
+  padding: 8px 43px 9px 43px;
+  align-items: center;
+  justify-content: center;
+  background-color: #E2FB5F;
+  border: 1px solid #E2FB5F;
+  border-radius: 9px 9px 0px 0px;
+  color: #222F34;
+  font-weight: 700;
+  width: fit-content;
+  z-index: 2;
+  height: 33px;
+
+}
+
+.tabsNFT {
+  line-height: 35px;
+  padding: 8px 43px 9px 67px;
+  align-items: center;
+  justify-content: center;
+  background-color: #162833;
+  border: 1px solid #E2FB5F;
+  border-radius: 0px 9px 0px 0px;
+  color: #D3FF54;
+  font-weight: 300;
+  width: fit-content;
+  margin-left: -20px;
+  height: 33px;
+  
+}
