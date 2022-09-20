@@ -5,22 +5,20 @@ import Collapsible from '../Collapsible/Collapsible'
 import Input from '../Input/Input'
 
 type FormProps = {
-}
 
-interface InputState {
-    inputValue: string;
 }
 
 export const Form: React.FC<FormProps> = (props: FormProps) => {
-    const [inputValue, setinputValue] = useState('');
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        const { name, symbol } = event.target as typeof event.target & {
-            name: { value: string}
+        const { token, symbol } = event.target as typeof event.target & {
+            token: { value: string}
             symbol: { value: string}
         }
+
+    console.log(token.value, symbol.value)
 
     await fetch('/route', {
         headers: {
@@ -28,7 +26,7 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
         },
         method: 'POST',
         body: JSON.stringify({
-            name: name.value,
+            token: token.value,
             symbol: symbol.value
         })
     })
@@ -39,9 +37,9 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
             <div className={styles.formheader}>Create New Token</div>
             <form onSubmit={evt => {handleSubmit(evt)}}>
                 <Input
-                    id='name'
+                    id='token'
                     label={`Token's Name:`}
-                    htmlFor='name'
+                    htmlFor='token'
                     subtitle={`You can specify any name you like. But it is better to come up with something original`}
                     pattern={`[A-Za-z-0-9]{3,50}`}
                     placeholder={`John's Obligations`}
@@ -50,6 +48,7 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
                 />
                 <Input 
                     id='symbol'
+                    htmlFor='symbol'
                     label={`Symbol:`} 
                     name='symbol'
                     subtitle={`How your token will be displayed in users' wallets`}

@@ -20,7 +20,7 @@ export const Input = (props:InputProps) => {
     const { type="text", subtitle, required=true} = props;
 
     return (
-            <label htmlFor={props.htmlFor}className={styles.inputComp}>
+            <label htmlFor={props.htmlFor} className={styles.inputComp}>
                 <div className={styles.label}>{props.label}</div>
                 <input className={styles.input} id={props.id} name={props.name} onChange={props.onChange} pattern={props.pattern} required={required} type={type} placeholder={props.placeholder} value={props.value}/>
                 {subtitle && 
