@@ -1,11 +1,9 @@
 .tabs {
   display: flex;
-  
   justify-content: center;
   align-items: center;
   width: fit-content;
- 
-  
+  padding: 0px 52px 0px 22px;
 }
 .tabsToken {
   line-height: 35px;

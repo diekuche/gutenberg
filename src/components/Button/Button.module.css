@@ -1,8 +1,5 @@
 .button {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    align-self: center;
     width: fit-content;
     height: 46px;
     background: #162833;
@@ -16,9 +13,6 @@
 }
 
 .buttonAddToken {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: center;
     width: fit-content;
     height: 41px;
@@ -33,9 +27,6 @@
 }
 
 .buttonSend {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
     align-items: center;
     width: fit-content;
     height: 41px;

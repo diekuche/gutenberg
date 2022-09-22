@@ -42,13 +42,13 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
     return (
         <div className={styles.form}>
             <div className={styles.formheader}>Create New Token</div>
-            <form onSubmit={evt => {handleSubmit(evt)}}>
+            <form onSubmit={handleSubmit}>
                 <Input
                     id='token'
                     label={`Token's Name:`}
                     htmlFor='token'
                     subtitle={`You can specify any name you like. But it is better to come up with something original`}
-                    pattern={`[A-Za-z-0-9\s]{3,50}`}
+                    pattern={`[A-Za-z-0-9]{3,50}`}
                     placeholder={`John's Obligations`}
                     name='token'
                     required
@@ -87,7 +87,7 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
                     htmlFor='logo'
                     label={`Logo URL:`}
                     name='logo'
-                    pattern={`[A-Za-z-0-9]{3,200}`}
+                    pattern='https?://.+'
                     placeholder={`https://www.example.com/image.png`}
                 />
                 <Collapsible type='text' title='Changing Initial Balance' children='changed'/>
