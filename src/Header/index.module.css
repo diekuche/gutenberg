@@ -21,6 +21,7 @@
   flex-direction: column;
   color: #43B25B ;
   font-family: 'Roboto';
+  margin-top: 0;
 }
 
 .link {
@@ -30,4 +31,5 @@
 .h1 {
   font-size: 46px;
   color:#E2FB5F;
+  margin: 0px;
 }

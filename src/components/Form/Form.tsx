@@ -90,8 +90,8 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
                     pattern='https?://.+'
                     placeholder={`https://www.example.com/image.png`}
                 />
-                <Collapsible type='text' title='Changing Initial Balance' children='changed'/>
-                <Collapsible type='text' title='Token Details' children='changed'/>
+                <Collapsible title='Changing Initial Balance' children='changed'/>
+                <Collapsible title='Token Details' children='changed'/>
                 <Button type='submit'/>
             </form>
         </div>
