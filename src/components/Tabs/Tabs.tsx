@@ -28,13 +28,13 @@ export const Tabs: React.FC<TabsProps> = ({
             tab__selected: tab.id === selectedId,
           })}
           key={tab.id}
-          onClick={()=> onClick(tab.id)}
+          onClick={() => onClick(tab.id)}
           >
-
             <div 
               className={classNames(styles.tabLabel, {
                 tabLabel__selected: tab.id === selectedId,
-              })}>
+              })}
+            >
             {tab.label}
           </div>
         </div>
