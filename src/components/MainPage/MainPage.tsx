@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './index.module.css';
 import Form from '../Form/Form'
-import Header from '../../Header/Header'
+import Header from '../Header/Header'
 import Tabs from '../Tabs/Tabs ';
 
 type MainProps = {

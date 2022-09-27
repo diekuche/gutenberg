@@ -1,0 +1,19 @@
+.wallet {
+    width: 140px;
+    height: 29px;
+}
+
+.connectButton {
+    align-self: center;
+    background: #E2FB5F;
+    border-radius: 27.5px;
+    padding: 6px 20px 7px 16px;
+    color: #162833;
+    font-size: 14px;
+    font-weight: 700;
+    border-style: none;
+    text-align: center;
+    box-shadow: 0px 4px 4px rgba(104, 102, 47, 0.6);
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

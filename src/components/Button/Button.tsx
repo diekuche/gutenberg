@@ -3,6 +3,7 @@ import styles from "./Button.module.css";
 
 export interface ButtonProps {
     type: "button" | "submit" | "reset" | undefined
+    onClick?: () => void;
 }
 
 const Button = (props:ButtonProps) => {
