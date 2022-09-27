@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./ButtonSend.module.css";
+import styles from "./Button.module.css";
 
 const ButtonSend = () => {
     return (

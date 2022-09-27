@@ -1,10 +1,7 @@
 .header {
   display: flex;
   flex-direction: column;
-
-  justify-content: flex-start;
   flex-wrap: wrap;
-
   align-items: flex-start;
   justify-content: flex-start;
   font-size: 16px;
@@ -12,7 +9,6 @@
   color: #e2fb5f;
   font-family: 'Roboto';
   align-items: flex-start;
-  margin: 0 auto;
 }
 
 .description {
@@ -21,6 +17,7 @@
   flex-direction: column;
   color: #43B25B ;
   font-family: 'Roboto';
+  margin-top: 0;
 }
 
 .link {
@@ -30,4 +27,5 @@
 .h1 {
   font-size: 46px;
   color:#E2FB5F;
+  margin: 0px;
 }

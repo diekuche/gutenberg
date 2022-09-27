@@ -9,11 +9,13 @@
 .title {
     display: flex;
     align-items: flex-start;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 800;
     text-decoration: underline;
     background-color: #E2FB5F;
     width: 100%;
+    border: none;
+    text-transform: uppercase;
 }
 
 .children {
