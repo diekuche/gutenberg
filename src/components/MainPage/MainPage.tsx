@@ -1,15 +1,9 @@
 import React, {useState} from 'react';
 import styles from './index.module.css';
-<<<<<<< HEAD
-import Form from '../Form/Form'
 import Header from '../Header/Header'
-import Tabs from '../Tabs/Tabs ';
-=======
-import Header from '../../Header/Header'
 import { Tabs } from '../Tabs/Tabs';
 import { Tab } from '../Tabs/Tabs';
 import { Form } from '../Form/Form';
->>>>>>> e47ea99055a64d17cfe320d870e135edfc1acbea
 
 type MainProps = {
 
