@@ -22,6 +22,16 @@
   transition: all 0.15s;
 }
 
+.tab__selected {
+  background-color: #222F34;
+  color:#E2FB5F;
+}
+
+.tab__selected:hover {
+  background-color: #222F34;
+  color:#E2FB5F;
+}
+
 .tabLabel__selected {
   border: 1px solid #E2FB5F;
 }

@@ -28,7 +28,7 @@ const handleTabClick = (id: string | number) => {
                     <Form></Form>
                 )}
                 {selectedTabId === tabs[1].id && (
-                    <div>upyachka</div>
+                    <p className={styles.upyachka}>upyachka</p>
                 )}
             </div>
         </div>
