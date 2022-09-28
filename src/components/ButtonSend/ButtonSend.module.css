@@ -1,11 +1,11 @@
 .buttonSend {
     display: flex;
-    flex-direction: row;
+    
     justify-content: center;
     align-items: center;
     width: fit-content;
     height: 41px;
-    margin-top: 33px;
+    margin-top: 15px;
     background: #E2FB5F;
     border-radius: 27.5px;
     padding: 12px 41px 13px 41px;
@@ -13,7 +13,7 @@
     font-size: 14px;
     font-weight: 700;
     border-style: none;
-    
+    align-self: center;
     
 }
 

@@ -6,6 +6,7 @@ import Button from '../Button/Button';
 import ButtonSend from '../ButtonSend/ButtonSend';
 import ButtonAddToken from '../ButtonAddToken/ButtonAddToken';
 import Tabs from '../Tabs/Tabs ';
+import ManageTokens from '../ManageTokens/ManageTok';
 
 type MainProps = {
 
@@ -17,6 +18,7 @@ export const MainPage = (props: MainProps) => {
         <div className={styles.mainpage}>
             <Header/>
             <Tabs />
+            <ManageTokens />
             <Form></Form>
             <Button />
             <ButtonSend />
