@@ -1,11 +1,10 @@
 .tabs {
   display: flex;
-  
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
- 
-  
+  align-self: flex-start;
+  margin: 0 auto;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0;
 }
 .tabLabel {
   line-height: 35px;

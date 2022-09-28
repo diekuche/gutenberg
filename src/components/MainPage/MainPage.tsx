@@ -5,12 +5,7 @@ import { Tabs } from '../Tabs/Tabs';
 import { Tab } from '../Tabs/Tabs';
 import { Form } from '../Form/Form';
 
-export const MainPage: React.FC = () => {
-    const tabs: Tab[] = [
-        {id: "1", label: "Token"},
-        {id: "2", label: "NFT"}
-    ]
-    const [selectedTabId, setSelectedTabId] = useState(tabs[0].id);
+type MainProps = {
 
     const handleTabClick = (id: string | number) => {
         setSelectedTabId(id);
