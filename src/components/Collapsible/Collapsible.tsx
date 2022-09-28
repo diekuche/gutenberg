@@ -18,7 +18,7 @@ export const Collapsible: React.FC<CollapsibleProps> = (props: CollapsibleProps)
 
     return(
         <div className={styles.wrapper}>
-            <button className={styles.title} onClick={collapse}>{<img alt="" className={styles.icon} src={open ? minus : plus}/>}{props.title}</button>
+            <button className={styles.title} onClick={collapse}>{<img alt="icons" className={styles.icon} src={open ? minus : plus}/>}{props.title}</button>
             {open && (
                 <div className={styles.children}>
                     {props.children}
