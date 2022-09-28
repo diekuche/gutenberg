@@ -7,8 +7,8 @@ import { Form } from '../Form/Form';
 
 export const MainPage: React.FC = () => {
     const tabs: Tab[] = [
-        {id: "1", label: "Token"},
-        {id: "2", label: "NFT"}
+        {id: "0", label: "Token"},
+        {id: "1", label: "NFT"}
     ]
     const [selectedTabId, setSelectedTabId] = useState(tabs[0].id);
 
