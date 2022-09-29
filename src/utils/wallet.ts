@@ -1,7 +1,27 @@
 import { StargateClient } from "@cosmjs/stargate";
+import { defineChains, connect } from "graz";
 
-const chainId = "bostrom";
-const rpc = "https://rpc.bostrom.cybernode.ai";
+export const Bostrom = defineChains({
+    cosmos: {
+      chainId: "bostrom",
+      currencies: [
+        {
+          coinDenom: "boot",
+          coinMinimalDenom: "boot",
+          coinDecimals: 6,
+          coinGeckoId: "bostrom",
+          coinImageUrl: "https://raw.githubusercontent.com/cosmos/chain-registry/master/bostrom/images/boot.png",
+        },
+      ],
+      rpc: "https://rpc.cosmos.directory/bostrom",
+      rest: "https://rest.cosmos.directory/bostrom",
+    },
+  });
+  
+  connect(Bostrom.cosmos);
+
+const chainId = Bostrom.cosmos.chainId;
+const rpc = Bostrom.cosmos.rpc;
 
 export const getAddress = async () => {
     if (window.keplr) {
