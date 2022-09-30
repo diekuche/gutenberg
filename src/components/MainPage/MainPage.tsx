@@ -18,8 +18,8 @@ export const MainPage = (props: MainProps) => {
         <div className={styles.mainpage}>
             <Header/>
             <Tabs />
-            <ManageTokens />
             <Form></Form>
+            <ManageTokens />
             <Button />
             <ButtonSend />
             <ButtonAddToken />

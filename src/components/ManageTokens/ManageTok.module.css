@@ -1,13 +1,12 @@
 .manageTok {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     border-radius: 16px;
     background: #344243;
-    margin-left: auto;
+    margin-top: -510px;
     background: #162833;
     box-sizing: border-box;
-    align-self: center;
+    align-self: flex-end;
     width: 236px;
     min-height: 637px;;
     
