@@ -4,14 +4,12 @@
     justify-content: flex-start;
     border-radius: 16px;
     background: #344243;
-    width: 590px;
     margin-left: auto;
-    
     background: #162833;
     box-sizing: border-box;
     align-self: center;
     width: 236px;
-    height: 637px;;
+    min-height: 637px;;
     
 }
 
