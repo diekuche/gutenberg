@@ -8,7 +8,7 @@ const ManageTokens = () => {
         
            <div className={styles.manageTok}>
                 <div className={styles.name}>Manage Tokens</div>
-                <div className={styles.cashName} >StBOOT
+                <div className={styles.cashName} >🟢 StBOOT
                     <div className={styles.cash}>3 000 000 000</div>
                 </div>
                 
