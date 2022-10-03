@@ -1,13 +1,12 @@
 .tabs {
   display: flex;
-  
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
- 
-  
+  align-self: flex-start;
+  margin: 0 auto;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0;
 }
-.tabsToken {
+.tabLabel {
   line-height: 35px;
   padding: 8px 43px 9px 43px;
   align-items: center;
@@ -20,21 +19,13 @@
   width: fit-content;
   z-index: 2;
   height: 33px;
-
+  transition: all 0.15s;
 }
 
-.tabsNFT {
-  line-height: 35px;
-  padding: 8px 43px 9px 67px;
-  align-items: center;
-  justify-content: center;
-  background-color: #162833;
+.tabLabel__selected {
   border: 1px solid #E2FB5F;
-  border-radius: 0px 9px 0px 0px;
-  color: #D3FF54;
-  font-weight: 300;
-  width: fit-content;
-  margin-left: -20px;
-  height: 33px;
-  
+}
+
+.tabLabel__selected:hover {
+  background-color: #222F34;
 }
