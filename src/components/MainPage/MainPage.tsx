@@ -25,11 +25,7 @@ const handleTabClick = (id: string | number) => {
     return (
         <div className={styles.mainpage}>
             <Header/>
-
-            
-            
-            
-
+            <ManageTokens />
             <Tabs selectedId={selectedTabId} tabs={tabs} onClick={handleTabClick} />
             <div className={styles.tabPageContent}>
                 {selectedTabId === tabs[0].id && (
@@ -39,7 +35,7 @@ const handleTabClick = (id: string | number) => {
                     <div>upyachka</div>
                 )}
             </div>
-            <ManageTokens />
+            
         </div>
     );
     }

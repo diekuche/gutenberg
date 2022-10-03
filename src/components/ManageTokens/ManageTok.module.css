@@ -1,21 +1,17 @@
 .manageTok {
     display: flex;
     flex-direction: column;
-    
+    align-self: flex-start;
     border-radius: 16px;
     background:#344243;
-    margin-top: -518px;
-   
     box-sizing: border-box;
-    align-self: center;
+    align-self: flex-start;
     width: 236px;
-    min-height: 519px;;
-    
+    min-height: 519px;
 }
 
 
 .name {
-    
     width: fit-content;
     align-self:center;
     border-radius: 27.5px;
@@ -25,7 +21,6 @@
     font-weight: 700;
     border-style: none;
     font-style: normal;
-    
 }
 
 .cashName {
@@ -38,13 +33,12 @@
     color: white;
     align-self: center;
     margin-top: 15px;
+    margin-bottom: 15px;
     justify-content: space-between;
     min-width: 170px;
-    
 }
 
 .cash {
-   
     font-style: normal;
     font-weight: 300;
     color: #43B25B;
@@ -52,7 +46,6 @@
     color: white;
     align-self: center;
     margin-left: 40px;
-    
 }
     
 .info {
@@ -60,9 +53,7 @@
     font-weight: 700;
     color: #43B25B;
     font-size: 10px;
-    margin: 5px 4px 12px 0px;
-    
-    margin-bottom: 1px;
+    margin: 5px 4px 5px 0px;
     padding: 1px 25px 5px 25px;
 }
 
@@ -71,7 +62,6 @@
     width: 170px;
     margin-top: 15px;
     align-self: center;
-    
 }
 
 
