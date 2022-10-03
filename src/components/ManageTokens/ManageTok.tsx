@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ManageTok.module.css";
-import ButtonSend from '../ButtonSend/ButtonSend';
-import ButtonAddToken from "../ButtonAddToken/ButtonAddToken";
+import ButtonSend from '../Button/ButtonSend';
+import ButtonAddToken from "../Button/ButtonAddToken";
 
 const ManageTokens = () => {
     return (

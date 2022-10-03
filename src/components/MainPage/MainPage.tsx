@@ -28,7 +28,7 @@ const handleTabClick = (id: string | number) => {
 
             
             
-            <ManageTokens />
+            
 
             <Tabs selectedId={selectedTabId} tabs={tabs} onClick={handleTabClick} />
             <div className={styles.tabPageContent}>
@@ -39,7 +39,7 @@ const handleTabClick = (id: string | number) => {
                     <div>upyachka</div>
                 )}
             </div>
-
+            <ManageTokens />
         </div>
     );
     }
