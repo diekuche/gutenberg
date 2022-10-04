@@ -6,3 +6,16 @@
     justify-content: flex-start;
     align-items: flex-start;
 }
+
+.group {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin-right: 9px;
+}
+
+.tools {
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;
+}

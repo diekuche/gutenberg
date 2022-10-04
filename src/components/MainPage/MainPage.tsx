@@ -25,17 +25,21 @@ const handleTabClick = (id: string | number) => {
     return (
         <div className={styles.mainpage}>
             <Header/>
-            <ManageTokens />
-            <Tabs selectedId={selectedTabId} tabs={tabs} onClick={handleTabClick} />
-            <div className={styles.tabPageContent}>
-                {selectedTabId === tabs[0].id && (
-                    <Form></Form>
-                )}
-                {selectedTabId === tabs[1].id && (
-                    <div>upyachka</div>
-                )}
+            <div className={styles.tools}>
+                <div className={styles.group}>
+                    <Tabs selectedId={selectedTabId} tabs={tabs} onClick={handleTabClick} />
+                    <div className={styles.tabPageContent}>
+                        {selectedTabId === tabs[0].id && (
+                            <Form></Form>
+                        )}
+                        {selectedTabId === tabs[1].id && (
+                            <div>upyachka</div>
+                        )}
+                </div>
+                
+                </div>
+                <ManageTokens />
             </div>
-            
         </div>
     );
     }

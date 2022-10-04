@@ -1,11 +1,10 @@
 .manageTok {
     display: flex;
     flex-direction: column;
-    align-self: flex-start;
+    align-self: flex-end;
     border-radius: 16px;
     background:#344243;
     box-sizing: border-box;
-    align-self: flex-start;
     width: 236px;
     min-height: 519px;
 }
