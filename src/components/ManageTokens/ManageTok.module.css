@@ -1,66 +1,63 @@
 .manageTok {
-    display: flex;
-    flex-direction: column;
-    align-self: flex-end;
-    border-radius: 16px;
-    background:#344243;
-    box-sizing: border-box;
-    width: 236px;
-    min-height: 519px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  border-radius: 16px;
+  background: #344243;
+  box-sizing: border-box;
+  width: 236px;
+  min-height: 513px;
 }
 
-
 .name {
-    width: fit-content;
-    align-self:center;
-    border-radius: 27.5px;
-    padding: 22px 33px 0px 33px;
-    color: #E2FB5F;
-    font-size: 24px;
-    font-weight: 700;
-    border-style: none;
-    font-style: normal;
+  width: fit-content;
+  align-self: center;
+  border-radius: 27.5px;
+  padding: 22px 33px 0px 33px;
+  color: #e2fb5f;
+  font-size: 24px;
+  font-weight: 700;
+  border-style: none;
+  font-style: normal;
 }
 
 .cashName {
-    display: flex;
-    flex-direction: row;
-    font-style: normal;
-    font-weight: 300;
-    color: #43B25B;
-    font-size: 14px;
-    color: white;
-    align-self: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    justify-content: space-between;
-    min-width: 170px;
+  display: flex;
+  flex-direction: row;
+  font-style: normal;
+  font-weight: 300;
+  color: #43b25b;
+  font-size: 14px;
+  color: white;
+  align-self: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  justify-content: space-between;
+  min-width: 170px;
 }
 
 .cash {
-    font-style: normal;
-    font-weight: 300;
-    color: #43B25B;
-    font-size: 14px;
-    color: white;
-    align-self: center;
-    margin-left: 40px;
+  font-style: normal;
+  font-weight: 300;
+  color: #43b25b;
+  font-size: 14px;
+  color: white;
+  align-self: center;
+  margin-left: 40px;
 }
-    
+
 .info {
-    font-style: normal;
-    font-weight: 700;
-    color: #43B25B;
-    font-size: 10px;
-    margin: 5px 4px 5px 0px;
-    padding: 1px 25px 5px 25px;
+  font-style: normal;
+  font-weight: 700;
+  color: #43b25b;
+  font-size: 10px;
+  margin: 5px 4px 5px 0px;
+  padding: 1px 25px 5px 25px;
 }
 
 .line {
-    border-bottom: 1px solid #43B25B;
-    width: 170px;
-    margin-top: 15px;
-    align-self: center;
+  border-bottom: 1px solid #43b25b;
+  width: 170px;
+  margin-top: 15px;
+  align-self: center;
 }
-
-
