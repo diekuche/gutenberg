@@ -10,7 +10,7 @@
 .group {
   display: flex;
   flex-direction: column;
-  align-self: center;
+  align-self: flex-start;
   margin-right: 9px;
 }
 

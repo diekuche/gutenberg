@@ -1,12 +1,14 @@
 .manageTok {
   display: flex;
   flex-direction: column;
-  align-self: flex-end;
+  align-self: flex-start;
   border-radius: 16px;
-  background: #344243;
+  background: #133630;
   box-sizing: border-box;
   width: 236px;
-  min-height: 513px;
+  min-height: 514px;
+  margin-left: 9px;
+  opacity: 0.9;
 }
 
 .name {
@@ -30,8 +32,8 @@
   font-size: 14px;
   color: white;
   align-self: center;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   justify-content: space-between;
   min-width: 170px;
 }
@@ -47,6 +49,10 @@
 }
 
 .info {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+  text-align: left;
   font-style: normal;
   font-weight: 700;
   color: #43b25b;
