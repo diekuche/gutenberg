@@ -10,9 +10,10 @@ function Wallet() {
     return isConnected ? disconnect() : connect();
   }
 
+
   return (
     <div className={styles.wallet}>
-      <button className={styles.connectButton} onClick={handleConnect}>{account && isConnected ? `${account.bech32Address}` : "Connect Wallet"}</button>
+      <button className={styles.connectButton} onClick={handleConnect}>{account && isConnected ? `${account.bech32Address.slice(0,10)}...${account.bech32Address.slice(-10,-5)}` : "Connect Wallet"}</button>
     </div>
   );
 }
