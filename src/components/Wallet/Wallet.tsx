@@ -3,10 +3,13 @@ import styles from './index.module.css';
 import { getAddress} from "../../utils/wallet";
 
 export interface WalletProps {
-  
+  address: string;
+  isConnected: boolean;
 } 
 
 function Wallet(props: WalletProps) {
+
+  const { address="", isConnected = false} = props;
 
   const fetchAddress = async () => {
     const address = await getAddress();
@@ -17,8 +20,6 @@ function Wallet(props: WalletProps) {
   useEffect(() => {
     fetchAddress();
   }, []);
-
-  const isConnected = false;
 
   function handleConnect() {
     return isConnected ? disconnect() : connect();
