@@ -1,22 +1,19 @@
 import { StargateClient } from "@cosmjs/stargate";
+import { CYBER } from "./config";
 
-const chainId = "bostrom";
-const rpc = "https://rpc.bostrom.cybernode.ai";
 
 export const getAddress = async () => {
     if (window.keplr) {
-        await window.keplr.enable(chainId);
-        const offlineSigner = window.keplr.getOfflineSigner(chainId);
-        const accounts = await offlineSigner.getAccounts();
-        if (accounts) {
-            return accounts[0]?.address;
-        }
+        const offlineSigner = window.keplr.getOfflineSigner(CYBER.CHAIN_ID);
+        const [{ address }] = await offlineSigner.getAccounts();
+        return address;
     }
 }
 
 export const getBalance = async () => {
     if (window.keplr) {
-        const client = await StargateClient.connect(rpc);
+        const client = await StargateClient.connect(CYBER.CYBER_NODE_URL_API);
+        
         const address = await getAddress();
         if (address) {
             const balances = await client.getAllBalances(address);

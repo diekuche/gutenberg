@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@cosmjs/stargate": "^0.28.13",
+    "@cosmjs/cosmwasm-stargate": "^0.29.0",
+    "@cosmjs/launchpad": "^0.27.1",
+    "@cosmjs/stargate": "0.27.1",
+    "@cybercongress/cyber-js": "^0.3.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
