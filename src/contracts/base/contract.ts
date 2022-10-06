@@ -35,10 +35,15 @@ export const initContract = async ({
       name,
       symbol,
       decimals: parseInt(decimals, 10),
-      initial_balances: 10,
+      initial_balances: [
+        {
+          address: address,
+          amount: '100'
+        }
+      ],
       mint: {
         minter: address,
-        cap: parseInt(quantity, 10),
+        cap: quantity,
       },
       marketing: {
         project: "My Awesome Project",
@@ -53,7 +58,7 @@ export const initContract = async ({
     client
         .instantiate(
           address,
-          5,
+          1,
           data,
           data.name,
           calculateFee(600000, gasPrice)
