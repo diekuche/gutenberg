@@ -7,32 +7,40 @@ export interface WalletProps {
   isConnected: boolean;
 } 
 
-function Wallet(props: WalletProps) {
 
-  const { address="", isConnected = false} = props;
-
-  const fetchAddress = async () => {
-    const address = await getAddress();
-    console.log("address", address);
-  };
+const fetchAddress = async () => {
+  const address = await getAddress();
+  console.log("address", address);
+};
 
 
-  useEffect(() => {
-    fetchAddress();
-  }, []);
+useEffect(() => {
+  fetchAddress();
+}, []);
 
-  function handleConnect() {
-    return isConnected ? disconnect() : connect();
-  }
-
-  function disconnect () {
-
-  }
+function handleConnect() {
+  const isConnected = false;
 
   function connect () {
     
+  
   }
+  
+  function disconnect () {
+  
+  }
+  return isConnected ? connect() : disconnect();
+}
 
+
+
+function Wallet(props: WalletProps) {
+
+  const isConnected = false;
+
+  const address = useEffect(() => {
+    fetchAddress();
+  }, []);
 
   return (
     <div className={styles.wallet}>
