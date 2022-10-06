@@ -8,7 +8,6 @@
   width: 236px;
   min-height: 514px;
   margin-left: 9px;
-  opacity: 0.9;
 }
 
 .name {
@@ -65,5 +64,10 @@
   border-bottom: 1px solid #43b25b;
   width: 170px;
   margin-top: 15px;
+  align-self: center;
+}
+
+.indent {
+  padding-bottom: 15px;
   align-self: center;
 }

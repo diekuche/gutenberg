@@ -19,22 +19,24 @@ const ManageTokens = () => {
         Contract Address: bostrom123456789qwertyasdfghjkl
       </div>
       <ButtonSend />
-      <div className={styles.line}></div>
-      <div className={styles.cashName}>
-        {" "}
-        🇬🇪 KLARI
-        <div className={styles.cash}>1000</div>
-      </div>
-      <div className={styles.line}></div>
-      <div className={styles.cashName}>
-        💩 ShitCoin
-        <div className={styles.cash}>500</div>
-      </div>
-      <div className={styles.line}></div>
-      <div className={styles.cashName}>
-        {" "}
-        🐽PigNon
-        <div className={styles.cash}>10 000</div>
+      <div className={styles.indent}>
+        <div className={styles.line}></div>
+        <div className={styles.cashName}>
+          {" "}
+          🇬🇪 KLARI
+          <div className={styles.cash}>1000</div>
+        </div>
+        <div className={styles.line}></div>
+        <div className={styles.cashName}>
+          💩 ShitCoin
+          <div className={styles.cash}>500</div>
+        </div>
+        <div className={styles.line}></div>
+        <div className={styles.cashName}>
+          {" "}
+          🐽 PigNon
+          <div className={styles.cash}>10 000</div>
+        </div>
       </div>
       <ButtonAddToken />
     </div>

@@ -16,13 +16,16 @@
   width: fit-content;
   height: 41px;
   box-sizing: border-box;
-  border: 1px solid #43b25b;
+  border: 1px solid #2dff18;
+  color: #2dff18;
   border-radius: 27.5px;
-  padding: 13px 18px 12px 18px;
-  color: #43b25b;
+  text-align: center;
+  padding: 13px 25px 12px 25px;
+  background-color: #133630;
   font-size: 14px;
   font-weight: 400;
   align-self: center;
+  opacity: 0.5;
 }
 
 .buttonSend {
@@ -37,6 +40,7 @@
   font-weight: 700;
   border-style: none;
   align-self: center;
+  text-align: center;
 }
 
 .button:active {
@@ -49,7 +53,7 @@
 
 .buttonAddToken:hover {
   border: 1px solid #e2fb5f;
-  background-color: white;
+
   color: #e2fb5f;
 }
 
