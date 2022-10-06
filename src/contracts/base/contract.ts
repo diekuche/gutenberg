@@ -60,6 +60,7 @@ export const initContract = async ({
         )
         .then((result) => {
           console.log("success", result);
+          alert(`success: ${result.transactionHash}`)
         })
         .catch((err) => {
           console.log("err", err);
