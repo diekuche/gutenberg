@@ -1,0 +1,74 @@
+.manageTok {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  border-radius: 16px;
+  background: #163a34;
+  box-sizing: border-box;
+  width: 236px;
+  height: 100%;
+  margin-left: 9px;
+}
+
+.name {
+  width: fit-content;
+  align-self: center;
+  border-radius: 27.5px;
+  padding: 22px 33px 0px 33px;
+  color: #e2fb5f;
+  font-size: 24px;
+  font-weight: 700;
+  border-style: none;
+  font-style: normal;
+}
+
+.cashName {
+  display: flex;
+  flex-direction: row;
+  font-style: normal;
+  font-weight: 300;
+  color: #43b25b;
+  font-size: 14px;
+  color: white;
+  align-self: center;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  justify-content: space-between;
+  min-width: 170px;
+}
+
+.cash {
+  font-style: normal;
+  font-weight: 300;
+  color: #43b25b;
+  font-size: 14px;
+  color: white;
+  align-self: center;
+  margin-left: 40px;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+  text-align: left;
+  font-style: normal;
+  font-weight: 700;
+  color: #43b25b;
+  font-size: 10px;
+  margin: 5px 4px 5px 0px;
+  padding: 1px 25px 5px 25px;
+}
+
+.line {
+  border-bottom: 1px solid #43b25b;
+  width: 100%;
+  margin-top: 15px;
+  align-self: center;
+}
+
+.indent {
+  padding-bottom: 15px;
+  align-self: center;
+  min-width: 180px;
+}
