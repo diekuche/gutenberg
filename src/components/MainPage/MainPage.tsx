@@ -6,6 +6,7 @@ import ManageTokens from "../ManageTokens/ManageTok";
 import { Tabs } from "../Tabs/Tabs";
 import { Tab } from "../Tabs/Tabs";
 import { Form } from "../Form/Form";
+import Footer from "../Footer/Footer";
 
 type MainProps = {};
 export const MainPage: React.FC = (props: MainProps) => {
@@ -32,6 +33,7 @@ export const MainPage: React.FC = (props: MainProps) => {
           </div>
           <ManageTokens />
         </div>
+        <Footer />
       </div>
     </div>
   );

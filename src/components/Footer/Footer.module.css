@@ -1,0 +1,38 @@
+.footer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  margin-top: 136px;
+}
+
+.link {
+  display: flex;
+  color: #43b25b;
+  width: fit-content;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  margin-right: 12px;
+  line-height: 16px;
+}
+
+.linkCreate {
+  margin-right: auto;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  color: #43b25b;
+  line-height: 16px;
+}
+
+.create {
+  order: 4;
+  margin-left: auto;
+  color: #43b25b;
+  width: fit-content;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  margin-right: 12px;
+  line-height: 16px;
+}
