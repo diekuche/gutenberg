@@ -6,7 +6,6 @@
 }
 
 .link {
-  display: flex;
   color: #43b25b;
   width: fit-content;
   font-style: normal;
@@ -26,13 +25,11 @@
 }
 
 .create {
-  order: 4;
   margin-left: auto;
   color: #43b25b;
   width: fit-content;
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
-  margin-right: 12px;
   line-height: 16px;
 }
