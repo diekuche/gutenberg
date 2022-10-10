@@ -7,7 +7,6 @@ interface WalletProps {
 }
 
 const Wallet: React.FC<WalletProps> = (props: WalletProps) => {
-  const [connectButtonText] = useState("Connect Wallet");
   const [address, setAddress] = useState("");
 
 useEffect(() => {
@@ -30,7 +29,7 @@ useEffect(() => {
 
   return (
     <div className={styles.wallet}>
-      <button className={styles.connectButton} onClick={handleConnect}>{address ? `${address.slice(0,10)}...${address.slice(-10,-5)}`: connectButtonText}</button>
+      <button className={styles.connectButton} onClick={handleConnect}>{address ? `${address.slice(0,10)}...${address.slice(-10,-5)}`: `Connect Wallet`}</button>
     </div>
   );
 }
