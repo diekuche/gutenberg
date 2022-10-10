@@ -1,52 +1,37 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from './index.module.css';
 import { getAddress} from "../../utils/wallet";
 
-export interface WalletProps {
-  address: string;
-  isConnected: boolean;
-} 
 
+interface WalletProps {
+}
 
-const fetchAddress = async () => {
-  const address = await getAddress();
-  console.log("address", address);
-};
-
+const Wallet: React.FC<WalletProps> = (props: WalletProps) => {
+  const [connectButtonText] = useState("Connect Wallet");
+  const [address, setAddress] = useState("");
 
 useEffect(() => {
+  async function fetchAddress() {
+    let address = await getAddress();
+    if (address) {
+      setAddress(address);
+    }
+  }
   fetchAddress();
 }, []);
 
-function handleConnect() {
-  const isConnected = false;
+  console.log(address);
 
-  function connect () {
-    
-  
+  function handleConnect (): void {
+    if (!!address) {
+    return
   }
-  
-  function disconnect () {
-  
-  }
-  return isConnected ? connect() : disconnect();
 }
-
-
-
-function Wallet(props: WalletProps) {
-
-  const isConnected = false;
-
-  const address = useEffect(() => {
-    fetchAddress();
-  }, []);
 
   return (
     <div className={styles.wallet}>
-      <button className={styles.connectButton} onClick={handleConnect}>{address && isConnected ? `${address.slice(0,10)}...${address.bech32Address.slice(-10,-5)}` : "Connect Wallet"}</button>
+      <button className={styles.connectButton} onClick={handleConnect}>{address ? `${address.slice(0,10)}...${address.slice(-10,-5)}`: connectButtonText}</button>
     </div>
   );
 }
-
-export default Wallet
+export default Wallet;
