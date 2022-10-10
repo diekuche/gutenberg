@@ -1,72 +1,75 @@
 .button {
-    align-self: center;
-    width: fit-content;
-    height: 46px;
-    background: #162833;
-    border-radius: 27.5px;
-    padding: 8px 43px 12px 43px;
-    color: #E2FB5F;
-    font-size: 22px;
-    font-weight: 700;
-    border-style: none;
-    
+  align-self: center;
+  width: fit-content;
+  height: 46px;
+  background: #162833;
+  border-radius: 27.5px;
+  padding: 8px 43px 12px 43px;
+  color: #e2fb5f;
+  font-size: 22px;
+  font-weight: 700;
+  border-style: none;
 }
 
 .buttonAddToken {
-    align-items: center;
-    width: fit-content;
-    height: 41px;
-    margin-top: 33px;
-    box-sizing: border-box;
-    border: 1px solid #43B25B;
-    border-radius: 27.5px;
-    padding: 13px 18px 12px 18px;
-    color: #43B25B;
-    font-size: 14px;
-    font-weight: 400; 
+  align-items: center;
+  width: fit-content;
+  height: 41px;
+  box-sizing: border-box;
+  border: 1px solid #2dff18;
+  color: #2dff18;
+  border-radius: 27.5px;
+  text-align: center;
+  padding: 13px 25px 12px 25px;
+  background-color: #133630;
+  font-size: 14px;
+  font-weight: 400;
+  align-self: center;
+  opacity: 0.5;
 }
 
 .buttonSend {
-    align-items: center;
-    width: fit-content;
-    height: 41px;
-    margin-top: 33px;
-    background: #E2FB5F;
-    border-radius: 27.5px;
-    padding: 12px 41px 13px 41px;
-    color: #162833;
-    font-size: 14px;
-    font-weight: 700;
-    border-style: none;
+  align-items: center;
+  width: fit-content;
+  height: 41px;
+  background: #e2fb5f;
+  border-radius: 27.5px;
+  padding: 12px 41px 13px 41px;
+  color: #162833;
+  font-size: 14px;
+  font-weight: 700;
+  border-style: none;
+  align-self: center;
+  text-align: center;
 }
 
 .button:active {
-    box-shadow: inset 0px 3px 4px rgba(226, 251, 95, 0.3);
+  box-shadow: inset 0px 3px 4px rgba(226, 251, 95, 0.3);
 }
 
 .button:disabled {
-    background: #8E8E8E;
+  background: #8e8e8e;
 }
 
 .buttonAddToken:hover {
-    border: 1px solid #E2FB5F;
-    background-color: white;
-    color: #E2FB5F;
+  border: 1px solid #e2fb5f;
+
+  color: #e2fb5f;
 }
 
 .buttonAddToken:active {
-    border: 1px solid #2E6C3C;
-    color: #2E6C3C;
+  border: 1px solid #2e6c3c;
+  color: #2e6c3c;
 }
 
 .buttonAddToken:disabled {
-    background: #8E8E8E;
+  background: #8e8e8e;
 }
 
 .buttonSend:active {
-    box-shadow: inset 0px 4px 4px rgba(104, 102, 47, 0.6);
+  box-shadow: inset 0px 4px 4px rgba(104, 102, 47, 0.6);
 }
 
 .buttonSend:disabled {
-    background: #195443;
+  background: #195443;
 }
