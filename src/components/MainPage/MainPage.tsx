@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
-import Header from "../../Header/Header";
+import Header from "../Header/Header";
 import ManageTokens from "../ManageTokens/ManageTok";
 
 import { Tabs } from "../Tabs/Tabs";

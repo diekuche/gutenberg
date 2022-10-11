@@ -1,14 +1,14 @@
 .header {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
+  width: 50vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   font-size: 16px;
-
   color: #e2fb5f;
   font-family: 'Roboto';
-  align-items: flex-start;
+}
+
+.header .hero {
+  justify-self: start;
 }
 
 .description {
@@ -27,5 +27,12 @@
 .h1 {
   font-size: 46px;
   color:#E2FB5F;
-  margin: 0px;
+  font-family: 'Roboto';
+  font-weight: 700;
+  text-align: left;
+}
+
+.header .walletWrapper {
+  justify-self: end;
+  margin-top: 15px;
 }
