@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./ManageTok.module.css";
-import ButtonSend from "../Button/ButtonSend";
 import Button from "../Button/Button";
 
 const ManageTokens = () => {
