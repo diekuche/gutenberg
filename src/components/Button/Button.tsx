@@ -14,7 +14,7 @@ export interface StartButtonProps
 const Button: React.FC<StartButtonProps> = (props: StartButtonProps) => {
   let color = props.color;
   let size = props.size;
-  const { onClick, type } = props;
+  const { onClick, type, ...rest } = props;
 
   const btnClass = classNames(
     color === "white"
@@ -27,7 +27,7 @@ const Button: React.FC<StartButtonProps> = (props: StartButtonProps) => {
   );
 
   return (
-    <button type={type} onClick={onClick} className={btnClass}>
+    <button type={type} onClick={onClick} className={btnClass} {...rest}>
       {props.children}
     </button>
   );
