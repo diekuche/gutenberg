@@ -2,12 +2,11 @@ import React from "react";
 import styles from "./Button.module.css";
 import classNames from "classnames";
 
-export interface ButtonProps {
-  type: "button" | "submit" | "reset" | undefined;
-  children: string;
-}
-
-export interface StartButtonProps extends ButtonProps {
+export interface StartButtonProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   color?: "white" | "green" | "black";
   size?: "sm" | "lg";
 }
@@ -15,6 +14,7 @@ export interface StartButtonProps extends ButtonProps {
 const Button: React.FC<StartButtonProps> = (props: StartButtonProps) => {
   let color = props.color;
   let size = props.size;
+  const { onClick, type } = props;
 
   const btnClass = classNames(
     color === "white"
@@ -27,7 +27,7 @@ const Button: React.FC<StartButtonProps> = (props: StartButtonProps) => {
   );
 
   return (
-    <button color={color} type={props.type} className={btnClass}>
+    <button type={type} onClick={onClick} className={btnClass}>
       {props.children}
     </button>
   );

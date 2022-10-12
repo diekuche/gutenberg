@@ -17,7 +17,9 @@ const ManageTokens = () => {
       <div className={styles.info}>
         Contract Address: bostrom123456789qwertyasdfghjkl
       </div>
-      <Button color="white" type="button" children="Send" />
+      <Button color="white" type="button" size="lg">
+        Send
+      </Button>
       <div className={styles.indent}>
         <div className={styles.line}></div>
         <div className={styles.cashName}>
@@ -37,7 +39,9 @@ const ManageTokens = () => {
           <div className={styles.cash}>10 000</div>
         </div>
       </div>
-      <Button color="green" type="button" children="Add Token" />
+      <Button color="green" type="button" size="lg">
+        Add Token
+      </Button>
     </div>
   );
 };
