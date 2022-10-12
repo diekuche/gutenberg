@@ -9,6 +9,7 @@
   font-size: 22px;
   font-weight: 700;
   border-style: none;
+  cursor: pointer;
 }
 
 .green {
@@ -26,6 +27,7 @@
   font-weight: 400;
   align-self: center;
   opacity: 0.5;
+  cursor: pointer;
 }
 
 .white {
@@ -41,6 +43,7 @@
   border-style: none;
   align-self: center;
   text-align: center;
+  cursor: pointer;
 }
 
 .black:active {
