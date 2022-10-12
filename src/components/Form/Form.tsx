@@ -87,7 +87,9 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
         />
         <Collapsible title="Changing Initial Balance" children="changed" />
         <Collapsible title="Token Details" children="changed" />
-        <Button type="submit" />
+        <Button type="submit" color="black" size="lg">
+          mint!
+        </Button>
       </form>
     </div>
   );
