@@ -25,9 +25,10 @@ export const Tabs: React.FC<TabsProps> = ({
       {tabs &&
         tabs.map((tab) => (
           <div
-            className={classNames(styles.tab, {
-              tab__selected: tab.id === selectedId,
-            })}
+            className={classNames(
+              tab.id === selectedId ? styles.tab : styles.tab__selected,
+              {}
+            )}
             key={tab.id}
             onClick={() => {
               if (onClick) {
@@ -36,9 +37,12 @@ export const Tabs: React.FC<TabsProps> = ({
             }}
           >
             <div
-              className={classNames(styles.tabLabel, {
-                tabLabel__selected: tab.id === selectedId,
-              })}
+              className={classNames(
+                tab.id === selectedId
+                  ? styles.tabLabel
+                  : styles.tabLabel__selected,
+                {}
+              )}
             >
               {tab.label}
             </div>
