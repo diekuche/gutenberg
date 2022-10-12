@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ManageTok.module.css";
 import ButtonSend from "../Button/ButtonSend";
-import ButtonAddToken from "../Button/ButtonAddToken";
+import Button from "../Button/Button";
 
 const ManageTokens = () => {
   return (
@@ -18,7 +18,7 @@ const ManageTokens = () => {
       <div className={styles.info}>
         Contract Address: bostrom123456789qwertyasdfghjkl
       </div>
-      <ButtonSend />
+      <Button color="white" type="button" children="Send" />
       <div className={styles.indent}>
         <div className={styles.line}></div>
         <div className={styles.cashName}>
@@ -38,7 +38,7 @@ const ManageTokens = () => {
           <div className={styles.cash}>10 000</div>
         </div>
       </div>
-      <ButtonAddToken />
+      <Button color="green" type="button" children="Add Token" />
     </div>
   );
 };
