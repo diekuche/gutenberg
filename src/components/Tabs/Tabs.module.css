@@ -6,6 +6,7 @@
   align-items: flex-start;
   margin: 0;
 }
+
 .tabLabel {
   line-height: 35px;
   padding: 8px 43px 9px 43px;
@@ -22,11 +23,6 @@
   transition: all 0.15s;
 }
 
-.tab__selected {
-  background-color: #222f34;
-  color: #e2fb5f;
-}
-
 .tab__selected:hover {
   background-color: #222f34;
   color: #e2fb5f;
@@ -34,18 +30,7 @@
 
 .tabLabel__selected {
   background-color: #222f34;
-  border: 1px solid #e2fb5f;
-  line-height: 35px;
-  padding: 8px 43px 9px 43px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9px 9px 0px 0px;
   color: #e2fb5f;
-  font-weight: 700;
-  width: fit-content;
-  z-index: 2;
-  height: 33px;
-  transition: all 0.15s;
 }
 
 .tabLabel__selected:hover {

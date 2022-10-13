@@ -85,7 +85,7 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
           name="logo"
           placeholder={`https://www.example.com/image.png`}
         />
-        <Collapsible title="Changing Initial Balance" children="changed" />
+        <Collapsible title="Change Initial Balance" children="changed" />
         <Collapsible title="Token Details" children="changed" />
         <Button type="submit" color="black" size="lg">
           mint!
