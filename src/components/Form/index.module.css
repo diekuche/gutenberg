@@ -1,18 +1,37 @@
 .form {
-    display: flex;
-    align-self: flex-start;
-    flex-direction: column;
-    box-sizing: border-box;
-    width: 590px;
-    padding: 0px 52px 0px 39px;
-    background: #E2FB5F;
-    border: 1px solid #E2FB5F;
-    border-radius: 0px 16px 16px 16px;
+  display: flex;
+  align-self: flex-start;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 590px;
+  padding: 0px 52px 0px 39px;
+  background: #e2fb5f;
+  border: 1px solid #e2fb5f;
+  border-radius: 0px 16px 16px 16px;
 }
 
 .formheader {
-    text-align: left;
-    font-size: 24px;
-    font-weight: bold;
+  text-align: left;
+  font-size: 24px;
+  font-weight: bold;
 }
 
+.collapsedInputs {
+  display: grid;
+  grid-template-columns: repeat(3, 220px [col-start]);
+  grid-template-rows: repeat(1, 70px [row-start]);
+  gap: 30px;
+  align-items: end;
+}
+
+.dot {
+  text-align: center;
+  width: 47px;
+  height: 46px;
+  background-color: #162833;
+  color: #e2fb5f;
+  border-radius: 50%;
+  font-size: 22px;
+  margin-bottom: 4px;
+  font-weight: bold;
+}

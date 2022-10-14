@@ -85,8 +85,35 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
           name="logo"
           placeholder={`https://www.example.com/image.png`}
         />
-        <Collapsible title="Changing Initial Balance" children="changed" />
-        <Collapsible title="Token Details" children="changed" />
+        <Collapsible title="Changing Initial Balance">
+          <div className={styles.collapsedInputs}>
+            <Input
+              id="address"
+              htmlFor="address"
+              label="Wallet"
+              name="address"
+              placeholder="bostrom1vf...rr4p4"
+            />
+            <Input
+              id="amount"
+              htmlFor="amount"
+              label="Amount"
+              name="amount"
+              placeholder="42"
+            />
+            <button className={styles.dot}>+</button>
+          </div>
+        </Collapsible>
+        <Collapsible title="Token Details">
+          <Input
+            id="description"
+            htmlFor="description"
+            label="This information will be displayed in the description of the created token:"
+            name="description"
+            isTextArea
+          />
+        </Collapsible>
+
         <Button type="submit" color="black" size="lg">
           mint!
         </Button>

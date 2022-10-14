@@ -1,38 +1,51 @@
 import React from "react";
 import styles from "./index.module.css";
+import classNames from "classnames";
 
-export interface InputProps {
-  id: string;
+export interface InputProps
+  extends React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {
   label: string;
   htmlFor?: string;
-  placeholder: string;
-  type?: string;
   subtitle?: string | undefined;
-  value?: string;
-  name?: string;
-  required?: boolean;
-  pattern?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  isTextArea?: boolean;
 }
 
-export const Input = (props: InputProps) => {
-  const { type = "text", subtitle, required } = props;
+export interface TextAreaProps
+  extends React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLTextAreaElement>,
+    HTMLTextAreaElement
+  > {
+  label: string;
+  htmlFor?: string;
+  subtitle?: string | undefined;
+  isTextArea?: boolean;
+}
+
+type InputComponentProps = InputProps | TextAreaProps;
+
+export const Input = (props: InputComponentProps) => {
+  const { type = "text", isTextArea, name, onChange, ...rest } = props;
+  const InputComponent = isTextArea ? `textarea` : `input`;
 
   return (
     <label htmlFor={props.htmlFor} className={styles.inputComp}>
       <div className={styles.label}>{props.label}</div>
-      <input
-        className={styles.input}
-        id={props.id}
-        name={props.name}
-        onChange={props.onChange}
-        pattern={props.pattern}
-        required={required}
+      <InputComponent
+        className={classNames(styles.input, {
+          [styles.inputDescription]: name === "description",
+        })}
+        // @ts-ignore
+        onChange={onChange}
         type={type}
-        placeholder={props.placeholder}
-        value={props.value}
+        wrap="soft"
+        {...rest}
       />
-      {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
+      {props.subtitle && (
+        <div className={styles.subtitle}>{props.subtitle}</div>
+      )}
     </label>
   );
 };
