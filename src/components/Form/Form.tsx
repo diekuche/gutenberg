@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import React, { FormEvent } from "react";
+import React, { FormEvent, useState } from "react";
 import Button from "../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
@@ -34,6 +34,34 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
       decimals: decimals.value,
       logo: logo.value,
     });
+  };
+
+  const [balances, setBalances] = useState({
+    balance: "",
+    address: "",
+  });
+
+  type OnChangeEvent = React.ChangeEvent<HTMLInputElement>;
+
+  const balanceHandler = (event: OnChangeEvent) => {
+    let address = balances;
+    let balance = { ...balances, balance: "" };
+    const name = event.target.name;
+    name === "address"
+      ? (address = { address: event.target.value, balance: "" })
+      : name === "balance"
+      ? (balance = { address: "", balance: event.target.value })
+      : console.log("error");
+
+    setBalances({ balance: balances.balance, address: balances.address });
+  };
+  // @ts-ignore
+  const handleClick = (e) => {
+    e.preventDefault();
+    const address = balances.address;
+    const balance = balances.balance;
+
+    console.log(address, balance);
   };
 
   return (
@@ -86,22 +114,24 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
           placeholder={`https://www.example.com/image.png`}
         />
         <Collapsible title="Changing Initial Balance">
-          <div className={styles.collapsedInputs}>
-            <Input
-              id="address"
-              htmlFor="address"
-              label="Wallet"
-              name="address"
-              placeholder="bostrom1vf...rr4p4"
-            />
-            <Input
-              id="amount"
-              htmlFor="amount"
-              label="Amount"
-              name="amount"
-              placeholder="42"
-            />
-            <button className={styles.dot}>+</button>
+          <div className={styles.inputComponent}>
+            <div className={styles.inputs}>
+              <Input
+                label="Wallet"
+                value={balances.address}
+                onChange={balanceHandler}
+                name="address"
+              />
+              <Input
+                label="Amount"
+                value={balances.balance}
+                onChange={balanceHandler}
+                name="amount"
+              />
+            </div>
+            <button className={styles.dot} onClick={handleClick}>
+              +
+            </button>
           </div>
         </Collapsible>
         <Collapsible title="Token Details">

@@ -16,22 +16,28 @@
   font-weight: bold;
 }
 
-.collapsedInputs {
-  display: grid;
-  grid-template-columns: repeat(3, 220px [col-start]);
-  grid-template-rows: repeat(1, 70px [row-start]);
+.inputs {
+  display: flex;
   gap: 30px;
+}
+
+.inputComponent {
+  width: 100%;
+  display: flex;
+  justify-content: end;
   align-items: end;
+  gap: 40px;
 }
 
 .dot {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 47px;
   height: 46px;
   background-color: #162833;
   color: #e2fb5f;
   border-radius: 50%;
   font-size: 22px;
-  margin-bottom: 4px;
   font-weight: bold;
 }

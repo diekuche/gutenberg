@@ -9,6 +9,7 @@ export interface CollapsibleProps
     HTMLButtonElement
   > {
   title: string;
+  children: JSX.Element | JSX.Element[];
 }
 
 export const Collapsible: React.FC<CollapsibleProps> = (

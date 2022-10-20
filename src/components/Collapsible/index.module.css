@@ -1,19 +1,15 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  align-self: center;
-  justify-content: flex-start;
   width: 100%;
 }
 
 .title {
   display: flex;
-  align-items: flex-start;
   font-size: 14px;
   font-weight: 800;
   text-decoration: underline;
   background-color: #e2fb5f;
-  width: 100%;
   border: none;
   text-transform: uppercase;
 }
@@ -21,4 +17,10 @@
 .icon {
   align-self: center;
   padding-right: 5px;
+}
+
+.children {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }

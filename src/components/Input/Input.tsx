@@ -22,9 +22,10 @@ export interface TextAreaProps
   htmlFor?: string;
   subtitle?: string | undefined;
   isTextArea?: boolean;
+  children: JSX.Element | JSX.Element[];
 }
 
-type InputComponentProps = InputProps | TextAreaProps;
+export type InputComponentProps = InputProps | TextAreaProps;
 
 export const Input = (props: InputComponentProps) => {
   const { type = "text", isTextArea, name, onChange, ...rest } = props;
