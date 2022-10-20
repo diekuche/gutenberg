@@ -36,32 +36,21 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
     });
   };
 
-  const [balances, setBalances] = useState({
-    balance: "",
-    address: "",
-  });
+  const [balances, setBalances] = useState({ address: "", balance: "" });
 
   type OnChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
   const balanceHandler = (event: OnChangeEvent) => {
-    let address = balances;
-    let balance = { ...balances, balance: "" };
-    const name = event.target.name;
-    name === "address"
-      ? (address = { address: event.target.value, balance: "" })
-      : name === "balance"
-      ? (balance = { address: "", balance: event.target.value })
-      : console.log("error");
-
-    setBalances({ balance: balances.balance, address: balances.address });
+    let name = event.target.name.toString();
+    let _balance = event.target.value.toString();
+    let _balances = { ...balances, balance: _balance };
+    setBalances(_balances);
+    console.log(setBalances);
   };
+
   // @ts-ignore
   const handleClick = (e) => {
     e.preventDefault();
-    const address = balances.address;
-    const balance = balances.balance;
-
-    console.log(address, balance);
   };
 
   return (
