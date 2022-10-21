@@ -2,7 +2,12 @@ import { useEffect } from "react";
 import "./App.css";
 import { Window as KeplrWindow } from "@keplr-wallet/types";
 import MainPage from "./components/MainPage/MainPage";
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
+import ManageTokens from "./components/ManageTokens/ManageTok";
 import { configKeplr, CYBER } from "./utils/config";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 declare global {
   interface Window extends KeplrWindow {}
 }
@@ -21,8 +26,15 @@ function App() {
   }, []);
 
   return (
-    <div className="App font-link">
-      <MainPage />
+    <div className="App">
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<MainPage />}></Route>
+          <Route path="/legalinfo" element={<ManageTokens />}></Route>
+        </Routes>
+        <Footer />
+      </Router>
     </div>
   );
 }

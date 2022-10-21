@@ -22,8 +22,6 @@ export const MainPage: React.FC = (props: MainProps) => {
 
   return (
     <div className={styles.mainpage}>
-      <Header />
-
       <div className={styles.group}>
         <Tabs selectedId={selectedTabId} tabs={tabs} onClick={handleTabClick} />
         <div className={styles.tools}>
@@ -33,7 +31,6 @@ export const MainPage: React.FC = (props: MainProps) => {
           </div>
           <ManageTokens />
         </div>
-        <Footer />
       </div>
     </div>
   );
