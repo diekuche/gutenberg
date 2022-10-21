@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
-import Header from "../Header/Header";
 import ManageTokens from "../ManageTokens/ManageTok";
-
 import { Tabs } from "../Tabs/Tabs";
 import { Tab } from "../Tabs/Tabs";
 import { Form } from "../Form/Form";
-import Footer from "../Footer/Footer";
 
 type MainProps = {};
 export const MainPage: React.FC = (props: MainProps) => {
