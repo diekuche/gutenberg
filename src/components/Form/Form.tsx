@@ -7,6 +7,12 @@ import { initContract } from "../../contracts/base/contract";
 
 type FormProps = {};
 
+const initialBalance = {
+  id: 0, // замени здесь на айди из uuid,
+  address: "",
+  balance: "",
+};
+
 export const Form: React.FC<FormProps> = (props: FormProps) => {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -36,22 +42,41 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
     });
   };
 
-  const [balances, setBalances] = useState({ address: "", balance: "" });
+  const [balances, setBalances] = useState<Array<typeof initialBalance>>([
+    initialBalance,
+  ]);
 
-  type OnChangeEvent = React.ChangeEvent<HTMLInputElement>;
-
-  const balanceHandler = (event: OnChangeEvent) => {
-    let name = event.target.name.toString();
-    let _balance = event.target.value.toString();
-    let _balances = { ...balances, balance: _balance };
-    setBalances(_balances);
-    console.log(setBalances);
+  const handleAddNewBalance = () => {
+    setBalances([
+      ...balances,
+      {
+        id: balances.length, // замени здесь на айди из uuid,
+        address: "",
+        balance: "",
+      },
+    ]);
   };
 
-  // @ts-ignore
-  const handleClick = (e) => {
-    e.preventDefault();
+  const removeBalance = (id: number) => () => {
+    setBalances(balances.filter((item) => item.id !== id));
   };
+
+  const handleChangeInitialBalance =
+    (id: number, name: string) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setBalances(
+        balances.map((balance) => {
+          if (balance.id === id) {
+            return {
+              ...balance,
+              [name]: event.target.value,
+            };
+          } else {
+            return balance;
+          }
+        })
+      );
+    };
 
   return (
     <div className={styles.form}>
@@ -104,23 +129,30 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
         />
         <Collapsible title="Changing Initial Balance">
           <div className={styles.inputComponent}>
-            <div className={styles.inputs}>
-              <Input
-                label="Wallet"
-                value={balances.address}
-                onChange={balanceHandler}
-                name="address"
-              />
-              <Input
-                label="Amount"
-                value={balances.balance}
-                onChange={balanceHandler}
-                name="amount"
-              />
-            </div>
-            <button className={styles.dot} onClick={handleClick}>
-              +
-            </button>
+            {balances.map(({ id, address, balance }, index) => {
+              return (
+                <div className={styles.inputs} key={id}>
+                  <Input
+                    label="Wallet"
+                    value={address}
+                    onChange={handleChangeInitialBalance(id, "address")}
+                  />
+                  <Input
+                    label="Amount"
+                    value={balance}
+                    onChange={handleChangeInitialBalance(id, "balance")}
+                  />
+                  <button
+                    className={styles.dot}
+                    onClick={
+                      index === 0 ? handleAddNewBalance : removeBalance(id)
+                    }
+                  >
+                    {index === 0 ? "+" : "-"}
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </Collapsible>
         <Collapsible title="Token Details">
