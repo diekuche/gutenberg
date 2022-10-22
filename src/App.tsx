@@ -5,8 +5,8 @@ import MainPage from "./components/MainPage/MainPage";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import ManageTokens from "./components/ManageTokens/ManageTok";
-import { configKeplr, CYBER } from "./utils/config";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { configKeplr, CYBER } from "./utils/config";
 
 declare global {
   interface Window extends KeplrWindow {}
