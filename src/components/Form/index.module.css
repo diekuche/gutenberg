@@ -27,8 +27,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: end;
-  align-items: end;
   gap: 20px;
 }
 
@@ -43,4 +41,5 @@
   border-radius: 50%;
   font-size: 22px;
   font-weight: bold;
+  margin-top: 20px;
 }

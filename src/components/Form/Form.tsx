@@ -4,11 +4,12 @@ import Button from "../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
 import { initContract } from "../../contracts/base/contract";
+import { uuid } from "uuidv4";
 
 type FormProps = {};
 
 const initialBalance = {
-  id: 0, // замени здесь на айди из uuid,
+  id: uuid(), // замени здесь на айди из uuid,
   address: "",
   balance: "",
 };
@@ -50,19 +51,19 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
     setBalances([
       ...balances,
       {
-        id: balances.length, // замени здесь на айди из uuid,
+        id: uuid(), // замени здесь на айди из uuid,
         address: "",
         balance: "",
       },
     ]);
   };
 
-  const removeBalance = (id: number) => () => {
+  const removeBalance = (id: string) => () => {
     setBalances(balances.filter((item) => item.id !== id));
   };
 
   const handleChangeInitialBalance =
-    (id: number, name: string) =>
+    (id: string, name: string) =>
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setBalances(
         balances.map((balance) => {
