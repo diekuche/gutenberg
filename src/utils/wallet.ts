@@ -1,6 +1,7 @@
 import { StargateClient } from "@cosmjs/stargate";
 import { CYBER } from "./config";
-
+import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
+import { CyberClient } from "@cybercongress/cyber-js";
 
 export const getAddress = async () => {
     if (window.keplr) {
@@ -21,3 +22,30 @@ export const getBalance = async () => {
         }
     }
 };
+
+export const getContractInfo = async (contractAddress: string, address: string) => {
+    const tendermintClient = await Tendermint34Client.connect(
+        CYBER.CYBER_NODE_URL_API
+      );
+      // @ts-ignore next-line
+      const queryClient = new CyberClient(tendermintClient);
+      const result = await Promise.all([queryClient.queryContractSmart(
+        contractAddress,
+        {
+            balance: { address }
+        }
+      ),
+      queryClient.queryContractSmart(
+        contractAddress,
+        {
+            marketing_info: {}
+        }
+      )
+    ])
+    if (result && result.length === 2) {
+        return {
+            ...result[0],
+            ...result[1]
+        }
+    }     
+}
