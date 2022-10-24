@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./index.module.css";
 import Header from "../Header/Header";
 import ManageTokens from "../ManageTokens/ManageTok";
-
+import LegalInform from "../Legal Information/LegalInform";
 import { Tabs } from "../Tabs/Tabs";
 import { Tab } from "../Tabs/Tabs";
 import { Form } from "../Form/Form";
@@ -25,6 +25,7 @@ export const MainPage: React.FC = (props: MainProps) => {
       <Header />
 
       <div className={styles.group}>
+        <LegalInform />
         <Tabs selectedId={selectedTabId} tabs={tabs} onClick={handleTabClick} />
         <div className={styles.tools}>
           <div className={styles.tabPageContent}>

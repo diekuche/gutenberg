@@ -1,0 +1,30 @@
+.headlegal {
+  width: 841px;
+  height: 787px;
+  background: #f3f5e9;
+  border: 1px solid #e2fb5f;
+  border-radius: 0px 16px 16px 16px;
+  text-align: left;
+}
+
+.legal {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  color: #162833;
+  padding: 34px 653px 15px 28px;
+}
+
+.descript {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  color: #162833;
+
+  width: 517px;
+  height: 541px;
+  padding: 0px 296px 0px 28px;
+}

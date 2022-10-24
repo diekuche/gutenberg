@@ -4,10 +4,10 @@ import styles from "../Footer/Footer.module.css";
 const Footer = () => {
   return (
     <div className={styles.footer}>
-      <a className={styles.link} href="URL">
+      <a className={styles.link} href="/About">
         About
       </a>
-      <a className={styles.link} href="URL">
+      <a className={styles.link} href="/LegalInform">
         Legal Information
       </a>
       <a className={styles.link} href="URL">
