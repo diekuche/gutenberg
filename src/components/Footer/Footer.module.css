@@ -1,8 +1,8 @@
 .footer {
   display: flex;
-  width: 100%;
+  width: 50vw;
   justify-content: flex-start;
-  margin-top: 136px;
+  margin: 136px auto 0px;
 }
 
 .link {
@@ -25,7 +25,7 @@
 }
 
 .create {
-  margin-left: auto;
+  margin-left: 500px;
   color: #43b25b;
   width: fit-content;
   font-style: normal;
