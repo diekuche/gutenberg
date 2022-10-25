@@ -2,7 +2,7 @@
   display: flex;
   width: 50vw;
   justify-content: flex-start;
-  margin: 136px auto 0px;
+  margin-top: auto;
 }
 
 .link {

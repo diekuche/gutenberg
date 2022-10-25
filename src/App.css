@@ -17,9 +17,11 @@
 }
 
 .container {
+  flex-direction: column;
   width: 30vw;
   margin: 0 25vw;
-  display: block;
+  display: flex;
+  height: 100%;
 }
 
 .font-link {
@@ -36,4 +38,8 @@
   100% {
     background-position: 100 50%;
   }
+}
+
+.mainpage {
+  flex-grow: 1;
 }

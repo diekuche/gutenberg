@@ -20,7 +20,6 @@ export const MainPage: React.FC = (props: MainProps) => {
   return (
     <div className={styles.mainpage}>
       <div className={styles.group}>
-        <LegalInform />
         <Tabs selectedId={selectedTabId} tabs={tabs} onClick={handleTabClick} />
         <div className={styles.tools}>
           <div className={styles.tabPageContent}>
