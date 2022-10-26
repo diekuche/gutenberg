@@ -18,7 +18,7 @@
 
 .container {
   flex-direction: column;
-  width: 30vw;
+  width: 100%;
   margin: 0 25vw;
   display: flex;
   height: 100%;
