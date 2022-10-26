@@ -4,7 +4,7 @@ import { Window as KeplrWindow } from "@keplr-wallet/types";
 import MainPage from "./components/MainPage/MainPage";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
-import LegalInform from "./components/Legal Information/LegalInform";
+import LegalInform from "./components/LegalInformation/LegalInform";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { configKeplr, CYBER } from "./utils/config";
 
@@ -33,8 +33,6 @@ function App() {
           <Routes>
             <Route path="/" element={<MainPage />}></Route>
             <Route path="/legalinfo" element={<LegalInform />}></Route>
-
-            <Route path="/Legal Information" element={<LegalInform />} />
           </Routes>
           <Footer />
         </Router>

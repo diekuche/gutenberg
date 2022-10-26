@@ -18,7 +18,7 @@
 
 .container {
   flex-direction: column;
-  width: 100%;
+  width: fit-content;
   margin: 0 25vw;
   display: flex;
   height: 100%;
@@ -38,8 +38,4 @@
   100% {
     background-position: 100 50%;
   }
-}
-
-.mainpage {
-  flex-grow: 1;
 }

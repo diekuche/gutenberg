@@ -1,11 +1,11 @@
 import React from "react";
-import styles from "../Legal Information/LegalInform.module.css";
+import styles from "../LegalInformation/LegalInform.module.css";
 
 const Legal = () => {
   return (
     <div className={styles.headlegal}>
-      <div className={styles.legal}>Legal Information</div>
-      <p className={styles.descript}>
+      <div className={styles.legalInformation}>Legal Information</div>
+      <p className={styles.content}>
         Gutenberg.tools is a decentralized application (dApp) where individuals,
         communities or smart contracts can create and manage tokens.
         <p>
