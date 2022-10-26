@@ -4,7 +4,7 @@
   font-size: 16px;
   color: #e2fb5f;
   font-family: "Roboto";
-  margin: 0px auto;
+  justify-content: flex-start;
 }
 
 .hero {
@@ -14,7 +14,7 @@
 }
 
 .description {
-  width: 700px;
+  width: 590px;
   text-align: left;
   color: #43b25b;
   font-family: "Roboto";
@@ -38,4 +38,5 @@
 .header .walletWrapper {
   justify-self: end;
   margin-top: 15px;
+  margin-left: auto;
 }

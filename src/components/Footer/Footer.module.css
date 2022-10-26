@@ -1,8 +1,10 @@
 .footer {
   display: flex;
-  width: 50vw;
+  width: 100%;
   justify-content: flex-start;
-  margin: 136px auto 0px;
+  margin-top: auto;
+  margin-bottom: 30px;
+  padding-top: 15px;
 }
 
 .link {
@@ -22,10 +24,11 @@
   font-size: 14px;
   color: #43b25b;
   line-height: 16px;
+  width: fit-content;
 }
 
 .create {
-  margin-left: 500px;
+  margin-left: auto;
   color: #43b25b;
   width: fit-content;
   font-style: normal;
