@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <div className={styles.footer}>
-      <a className={styles.link} href="URL">
+      <a className={styles.link} href="/About">
         About
       </a>
       <Link className={styles.link} to="/legalinfo">
