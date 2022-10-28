@@ -41,7 +41,6 @@ export const Input = (props: InputComponentProps) => {
         // @ts-ignore
         onChange={onChange}
         type={type}
-        wrap="soft"
         {...rest}
       />
       {props.subtitle && (
