@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
 import ManageTokens from "../ManageTokens/ManageTok";
+import NFT from "../NFT/NFT";
 import { Tabs } from "../Tabs/Tabs";
 import { Tab } from "../Tabs/Tabs";
 import { Form } from "../Form/Form";
@@ -24,7 +25,7 @@ export const MainPage: React.FC = (props: MainProps) => {
         <div className={styles.tools}>
           <div className={styles.tabPageContent}>
             {selectedTabId === tabs[0].id && <Form></Form>}
-            {selectedTabId === tabs[1].id && <div>upyachka</div>}
+            {selectedTabId === tabs[1].id && <NFT></NFT>}
           </div>
           <ManageTokens />
         </div>
