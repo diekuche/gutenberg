@@ -1,6 +1,7 @@
 .manageTok {
   display: flex;
   flex-direction: column;
+  align-items: center;
   align-self: flex-start;
   border-radius: 16px;
   background: #163a34;
@@ -71,4 +72,26 @@
   padding-bottom: 15px;
   align-self: center;
   min-width: 180px;
+}
+
+.addContract {
+  display: flex;
+  width: 9vw;
+  padding-left: 13px;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 16px;
+  height: 24px;
+  color: #163a34;
+  background: #d3ff54;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.addContract::placeholder {
+  font-weight: 300;
+  padding: 11px 0px;
+  opacity: 0.5;
+  color: #163a34;
 }
