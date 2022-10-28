@@ -26,7 +26,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .dot {
@@ -41,4 +40,9 @@
   font-size: 22px;
   font-weight: bold;
   margin-top: 20px;
+}
+
+.article {
+  margin-top: 5px;
+  margin-bottom: 12px;
 }
