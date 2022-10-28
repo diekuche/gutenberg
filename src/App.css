@@ -1,29 +1,41 @@
 .App {
   display: flex;
   flex-direction: column;
-  width:100%;
+  width: 100%;
   height: 100vh;
-  text-align: center;
-  background: linear-gradient(131.3deg, #020202 -3.65%, #222F34 31.38%, #185543 68.6%, #1A2934 101.44%);
+  background: linear-gradient(
+    131.3deg,
+    #020202 -3.65%,
+    #222f34 31.38%,
+    #185543 68.6%,
+    #1a2934 101.44%
+  );
   background-size: 100% 100%;
   background-position: 30% 50%;
-  padding: 0 8.8vw;
   box-sizing: border-box;
   animation: change 10s easy-in-out infinite;
 }
 
+.container {
+  flex-direction: column;
+  width: fit-content;
+  margin: 0 25vw;
+  display: flex;
+  height: 100%;
+}
+
 .font-link {
-  font-family: 'Roboto', bold;
+  font-family: "Roboto", bold;
 }
 
 @keyframes change {
-  0%{
+  0% {
     background-position: 0 50%;
   }
-  50%{
+  50% {
     background-position: 50 100%;
   }
-  100%{
+  100% {
     background-position: 100 50%;
   }
 }

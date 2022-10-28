@@ -1,6 +1,5 @@
 .form {
   display: flex;
-  align-self: flex-start;
   flex-direction: column;
   box-sizing: border-box;
   width: 590px;

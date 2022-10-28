@@ -1,21 +1,26 @@
 .mainpage {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding: 0 180px;
   justify-content: flex-start;
-  align-items: flex-start;
+  margin: 0px auto;
+  width: 100%;
 }
 
 .group {
   display: flex;
   flex-direction: column;
-  align-self: flex-start;
-  margin-right: 9px;
+  justify-content: center;
 }
 
 .tools {
   display: flex;
   flex-direction: row;
   align-self: flex-start;
+}
+
+.tabPageContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
 }

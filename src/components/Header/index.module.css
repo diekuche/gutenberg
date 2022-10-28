@@ -1,38 +1,42 @@
 .header {
-  width: 50vw;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: row;
   font-size: 16px;
   color: #e2fb5f;
-  font-family: 'Roboto';
+  font-family: "Roboto";
+  justify-content: flex-start;
 }
 
-.header .hero {
+.hero {
+  display: flex;
+  flex-direction: column;
   justify-self: start;
 }
 
 .description {
-  width: 700px;
+  width: 590px;
   text-align: left;
-  flex-direction: column;
-  color: #43B25B ;
-  font-family: 'Roboto';
+  color: #43b25b;
+  font-family: "Roboto";
   margin-top: 0;
 }
 
 .link {
-  color: #E2FB5F;
+  color: #e2fb5f;
+  align-self: left;
 }
 
-.h1 {
+.linkhead {
+  color: #e2fb5f;
+  text-decoration: none;
   font-size: 46px;
-  color:#E2FB5F;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-weight: 700;
-  text-align: left;
+  justify-self: start;
 }
 
 .header .walletWrapper {
   justify-self: end;
   margin-top: 15px;
+  margin-left: auto;
 }

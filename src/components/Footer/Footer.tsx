@@ -1,15 +1,16 @@
 import React from "react";
 import styles from "../Footer/Footer.module.css";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
     <div className={styles.footer}>
-      <a className={styles.link} href="URL">
+      <a className={styles.link} href="/About">
         About
       </a>
-      <a className={styles.link} href="URL">
+      <Link className={styles.link} to="/legalinfo">
         Legal Information
-      </a>
+      </Link>
       <a className={styles.link} href="URL">
         Licence
       </a>
