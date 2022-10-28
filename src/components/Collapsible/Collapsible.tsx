@@ -24,7 +24,12 @@ export const Collapsible: React.FC<CollapsibleProps> = (
 
   return (
     <div className={styles.wrapper}>
-      <button className={styles.title} onClick={collapse} {...rest}>
+      <button
+        type="button"
+        className={styles.title}
+        onClick={collapse}
+        {...rest}
+      >
         {<img alt="icons" className={styles.icon} src={open ? minus : plus} />}
         {title}
       </button>
