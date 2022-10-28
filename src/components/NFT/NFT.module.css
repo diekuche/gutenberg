@@ -1,0 +1,29 @@
+.nft {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 596px;
+  height: 637px;
+  background: #e2fb5f;
+  border: 1px solid #e2fb5f;
+  border-radius: 0px 16px 16px 16px;
+}
+
+.create {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  text-transform: capitalize;
+  color: #162833;
+  padding: 22px 0px 0px 46px;
+}
+.cs {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  margin: auto;
+  text-transform: uppercase;
+  color: #162833;
+  text-align: center;
+}
