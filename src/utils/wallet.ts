@@ -1,7 +1,10 @@
 import { StargateClient } from "@cosmjs/stargate";
 import { CYBER } from "./config";
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
-import { CyberClient } from "@cybercongress/cyber-js";
+import { SigningCyberClient, CyberClient } from "@cybercongress/cyber-js";
+import { GasPrice } from '@cosmjs/launchpad';
+import { calculateFee } from '@cosmjs/stargate';
+
 
 export const getAddress = async () => {
     if (window.keplr) {
@@ -48,4 +51,27 @@ export const getContractInfo = async (contractAddress: string, address: string) 
             ...result[1]
         }
     }     
+}
+
+export const sendTokens = async (contractAddress: string, recipient: string, amount: string) => {
+    const address = await getAddress();
+    if (window.keplr && address) {
+        const signer = window.keplr.getOfflineSigner(CYBER.CHAIN_ID);
+        const options = { prefix: CYBER.BECH32_PREFIX_ACC_ADDR_CYBER };
+        const client = await SigningCyberClient.connectWithSigner(
+          CYBER.CYBER_NODE_URL_API,
+          signer,
+          options
+        );
+        const gasPrice = GasPrice.fromString('0.001boot') as any;
+        return await client.execute(address, contractAddress, {
+            transfer: {
+                recipient,
+                amount,
+              }
+        },
+        calculateFee(400000, gasPrice),
+        )
+        
+    }
 }
