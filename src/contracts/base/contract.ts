@@ -11,6 +11,11 @@ type Params = {
   quantity: string;
   decimals: string;
   logo: string;
+  initialBalance: Array<{
+    address: string,
+    amount: string,
+  }>
+  description?: string;
 }
 
 export const initContract = async ({
@@ -19,6 +24,8 @@ export const initContract = async ({
   quantity,
   decimals,
   logo,
+  initialBalance = [],
+  description,
 }: Params) => {
   if (window.keplr) {
     const offlineSigner = window.keplr.getOfflineSigner(CYBER.CHAIN_ID);
@@ -35,22 +42,17 @@ export const initContract = async ({
       name,
       symbol,
       decimals: parseInt(decimals, 10),
-      initial_balances: [
-        {
-          address: address,
-          amount: '100'
-        }
-      ],
+      initial_balances: initialBalance,
       mint: {
         minter: address,
         cap: quantity,
       },
       marketing: {
-        project: "My Awesome Project",
-        description: "This is my awesome contract project",
+        project: "",
+        description: description,
         marketing: address,
         logo: {
-          url: logo || "https://toppng.com/uploads/preview/sample-logo-11551056375txoo49urn6.png",
+          url: logo,
         },
       },
     };
