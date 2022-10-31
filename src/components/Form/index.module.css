@@ -13,20 +13,38 @@
   text-align: left;
   font-size: 24px;
   font-weight: bold;
+  margin-top: 22px;
+  margin-bottom: 11px;
 }
 
-.inputWrapper {
+.inputs {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+.inputComponent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .dot {
-  height: 40px;
-  width: 70px;
-  background-color: #222f34;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 47px;
+  height: 46px;
+  background-color: #162833;
   color: #e2fb5f;
   border-radius: 50%;
-  display: inline-block;
-  font-size: 30px;
-  cursor: pointer;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.article {
+  margin-top: 5px;
+  margin-bottom: 12px;
 }

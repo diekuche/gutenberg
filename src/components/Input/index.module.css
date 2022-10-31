@@ -1,40 +1,49 @@
 .input {
-    width: 100%;
-    padding-left: 13px;
-    gap: 10px;
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 16px;
-    height: 36px;
-    color: #D3FF54;
-    background: #000000;
-    border-radius: 8px;
+  width: 100%;
+  padding-left: 13px;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 16px;
+  height: 36px;
+  color: #d3ff54;
+  background: #000000;
+  border-radius: 8px;
 }
 
 .label {
-    padding-bottom: 4px;
+  padding-bottom: 4px;
 }
 input::placeholder {
-    font-weight: 300;
-    padding: 11px 0px;
-    opacity: 0.5;
-    color: #D3FF54;
+  font-weight: 300;
+  padding: 11px 0px;
+  opacity: 0.5;
+  color: #d3ff54;
 }
 
 .subtitle {
-    padding: 0px;
-    text-align: left;
-    font-size: 10px;
-    font-weight: 300;
+  padding: 0px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 300;
 }
 
 .inputComp {
-    margin: 5px 0px;
-    display: flex;
-    box-sizing: border-box;
-    width: 100%;
-    align-items: flex-start;
-    flex-direction: column;
-    justify-content: flex-start;
-    color: #162833;
+  margin: 5px 0px;
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: #162833;
+}
+
+.inputDescription {
+  height: 126px;
+  justify-content: top;
+  align-items: start;
+  resize: none;
+  box-sizing: border-box;
+  padding-bottom: 75px;
 }
