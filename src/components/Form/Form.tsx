@@ -6,15 +6,18 @@ import Input from "../Input/Input";
 import { initContract } from "../../contracts/base/contract";
 import { uuid } from "uuidv4";
 
-type FormProps = {};
-
 const initialBalance = {
   id: uuid(),
   address: "",
-  balance: "",
+  amount: "",
 };
 
-export const Form: React.FC<FormProps> = (props: FormProps) => {
+export const Form: React.FC = () => {
+  const [balances, setBalances] = useState<Array<typeof initialBalance>>([
+    initialBalance,
+  ]);
+  const [description, setDescription] = useState("");
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -27,25 +30,16 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
         logo: { value: string };
       };
 
-    console.log(
-      token.value,
-      symbol.value,
-      quantity.value,
-      decimals.value,
-      logo.value
-    );
     initContract({
       name: token.value,
       symbol: symbol.value,
       quantity: quantity.value,
       decimals: decimals.value,
       logo: logo.value,
+      initialBalance: balances,
+      description,
     });
   };
-
-  const [balances, setBalances] = useState<Array<typeof initialBalance>>([
-    initialBalance,
-  ]);
 
   const handleAddNewBalance = () => {
     setBalances([
@@ -53,7 +47,7 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
       {
         id: uuid(),
         address: "",
-        balance: "",
+        amount: "",
       },
     ]);
   };
@@ -133,7 +127,7 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
             By default all new tokens will be transfered to your wallet. You can
             change that.
           </div>
-          {balances.map(({ id, address, balance }, index) => {
+          {balances.map(({ id, address, amount }, index) => {
             return (
               <div className={styles.inputs} key={id}>
                 <Input
@@ -144,11 +138,11 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
                   onChange={handleChangeInitialBalance(id, "address")}
                 />
                 <Input
-                  id="balance"
+                  id="amount"
                   placeholder="100"
                   label="Amount"
-                  value={balance}
-                  onChange={handleChangeInitialBalance(id, "balance")}
+                  value={amount}
+                  onChange={handleChangeInitialBalance(id, "amount")}
                 />
                 <button
                   className={styles.dot}
@@ -166,10 +160,12 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
       </Collapsible>
       <Collapsible title="Token Details">
         <Input
-          id="description"
-          htmlFor="description"
-          label="This information will be displayed in the description of the created token:"
+          value={description}
           name="description"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setDescription(e.target.value)
+          }
+          label="This information will be displayed in the description of the created token:"
           isTextArea
         />
       </Collapsible>
