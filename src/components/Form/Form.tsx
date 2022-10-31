@@ -4,12 +4,12 @@ import Button from "../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
 import { initContract } from "../../contracts/base/contract";
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from "uuid";
 
 type FormProps = {};
 
 const initialBalance = {
-  id: uuid(),
+  id: uuidv4(),
   address: "",
   balance: "",
 };
@@ -51,7 +51,7 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
     setBalances([
       ...balances,
       {
-        id: uuid(),
+        id: uuidv4(),
         address: "",
         balance: "",
       },
