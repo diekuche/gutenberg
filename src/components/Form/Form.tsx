@@ -129,10 +129,10 @@ export const Form: React.FC<FormProps> = (props: FormProps) => {
       />
       <Collapsible title="Changing Initial Balance">
         <div className={styles.inputComponent}>
-          <p className={styles.article}>
+          <div className={styles.article}>
             By default all new tokens will be transfered to your wallet. You can
             change that.
-          </p>
+          </div>
           {balances.map(({ id, address, balance }, index) => {
             return (
               <div className={styles.inputs} key={id}>
