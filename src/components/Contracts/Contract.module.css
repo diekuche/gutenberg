@@ -1,0 +1,31 @@
+.cashName {
+  display: flex;
+  flex-direction: row;
+  font-style: normal;
+  font-weight: 300;
+  color: #43b25b;
+  font-size: 14px;
+  color: white;
+  align-self: center;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  justify-content: space-between;
+  min-width: 170px;
+}
+
+.cash {
+  font-style: normal;
+  font-weight: 300;
+  color: #43b25b;
+  font-size: 14px;
+  color: white;
+  align-self: center;
+  margin-left: 40px;
+}
+
+.line {
+  border-bottom: 1px solid #43b25b;
+  width: 100%;
+  margin-top: 15px;
+  align-self: center;
+}

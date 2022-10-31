@@ -1,28 +1,59 @@
 import React from "react";
 import styles from "./ManageTok.module.css";
 import Button from "../Button/Button";
+import Contract from "../Contracts/Contract";
 import { uuid } from "uuidv4";
 import { useState, useEffect } from "react";
-import { getContractInfo } from "../../utils/wallet";
-import { getAddress } from "../../utils/wallet";
+import { getContractInfo, getAddress } from "../../utils/wallet";
+import { IContract } from "../../models";
 
-const contractState = {
-  address: "",
-  token: "",
-  contractAddress: "",
-  id: uuid(),
-  logo: "",
-  amount: "",
-};
+const contracts: IContract[] = [
+  {
+    id: 0,
+    token: "",
+    logo: "",
+    amount: 0,
+  },
+];
 
-const ManageTokens = () => {
-  const [contract, setContract] = useState({
-    contractAddress: "",
-  });
+function ManageTokens() {
+  const [contractData, setContractData] = useState<IContract[]>(contracts);
+  const [address, setAddress] = useState("");
+  const [contract, setContract] = useState("");
 
-  const handleChangeContractAddress = () => (event: any) => {
-    setContract({ contractAddress: event.target.value });
+  const fetchAddress = async () => {
+    let response = await getAddress();
+    if (response) {
+      setAddress(response);
+    }
   };
+
+  function handleChangeContractAddress(event: any) {
+    const response = event.target.value;
+    if (response) {
+      setContract(response);
+    }
+  }
+
+  async function fetchContracts() {
+    const response = await getContractInfo(address, contract);
+    if (response) {
+      console.log(response.data);
+      setContractData(response.data);
+    }
+  }
+
+  useEffect(() => {
+    fetchAddress();
+    fetchContracts();
+  }, []);
+
+  console.log(address, contract);
+  console.log(contractData);
+
+  function handleAddNewContract(event: any) {
+    setContractData(contractData);
+  }
 
   return (
     <div className={styles.manageTok}>
@@ -42,18 +73,14 @@ const ManageTokens = () => {
         Send
       </Button>
       <div className={styles.indent}>
-        <div key={contractState.id}>
-          <div className={styles.line}></div>
-          <div className={styles.cashName}>
-            {contractState.logo} {contractState.token}
-            <div className={styles.cash}>{contractState.amount}</div>
-          </div>
-        </div>
+        {contractData.map((contract) => (
+          <Contract contract={contract} key={contract.id} />
+        ))}
         <div className={styles.inputs}>
           <input
             type="text"
             className={styles.addContract}
-            value={contract.contractAddress}
+            value={contract}
             onChange={handleChangeContractAddress}
           />
         </div>
@@ -62,12 +89,12 @@ const ManageTokens = () => {
         color="green"
         type="button"
         size="lg"
-        onClick={(e) => console.log("clicked")}
+        onClick={handleAddNewContract}
       >
         Add Token
       </Button>
     </div>
   );
-};
+}
 
 export default ManageTokens;
