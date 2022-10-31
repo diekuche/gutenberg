@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./ManageTok.module.css";
 import Button from "../Button/Button";
 import Contract from "../Contracts/Contract";
-import { uuid } from "uuidv4";
 import { useState, useEffect } from "react";
 import { getContractInfo, getAddress } from "../../utils/wallet";
 import { IContract } from "../../models";
