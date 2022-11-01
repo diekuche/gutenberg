@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  width: 596px;
-  height: 637px;
+  width: 590px;
+  height: 546px;
   background: #e2fb5f;
   border: 1px solid #e2fb5f;
   border-radius: 0px 16px 16px 16px;
@@ -15,7 +15,7 @@
   line-height: 28px;
   text-transform: capitalize;
   color: #162833;
-  padding: 22px 0px 0px 46px;
+  padding: 1px 0px 0px 39px;
 }
 .cs {
   font-style: normal;
@@ -26,4 +26,10 @@
   text-transform: uppercase;
   color: #162833;
   text-align: center;
+}
+
+.hammer {
+  width: 30px;
+  height: 30px;
+  background-image: #e2fb5f;
 }
