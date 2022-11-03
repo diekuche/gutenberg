@@ -41,7 +41,7 @@ function ManageTokens() {
       </Button>
       <div className={styles.indent}>
         {initial.map((contract) => (
-          <Contract contractAddress={contract} />
+          <Contract contractAddress={contract} key={contract} />
         ))}
         <div className={styles.inputs}>
           <input

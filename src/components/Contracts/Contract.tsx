@@ -7,8 +7,14 @@ interface ContractProps {
   contractAddress: string;
 }
 
+interface ContractDataProps extends ContractProps {
+  token: string;
+  balance: string;
+  logo: string;
+}
+
 export function Contract({ contractAddress }: ContractProps) {
-  const [contractData, setContractData] = useState<string[]>([]);
+  const [contractData, setContractData] = useState<ContractDataProps>();
 
   async function fetchContracts() {
     let address = (await getAddress()) as string;
@@ -16,7 +22,12 @@ export function Contract({ contractAddress }: ContractProps) {
     console.log("Address", address);
     const response = await getContractInfo(contractAddress, address);
     if (response !== undefined) {
-      setContractData(response);
+      setContractData({
+        token: response.symbol,
+        balance: response.balance,
+        logo: response.logo.url,
+        contractAddress: response.marketing,
+      });
     }
   }
 
@@ -29,10 +40,11 @@ export function Contract({ contractAddress }: ContractProps) {
   return (
     <>
       {contractData ? (
-        <div>
+        <div key={contractAddress}>
           <div className={styles.line}></div>
           <div className={styles.cashName}>
-            <div className={styles.cash}></div>
+            {contractData.logo} {contractData.token}
+            <div className={styles.cash}> {contractData.balance}</div>
           </div>
         </div>
       ) : (
