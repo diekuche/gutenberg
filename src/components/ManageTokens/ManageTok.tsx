@@ -3,29 +3,10 @@ import styles from "./ManageTok.module.css";
 import Button from "../Button/Button";
 import Contract from "../Contracts/Contract";
 import { useState, useEffect } from "react";
-import { getContractInfo, getAddress } from "../../utils/wallet";
-import { IContract } from "../../models";
-
-const contracts: IContract[] = [
-  {
-    id: 0,
-    token: "",
-    logo: "",
-    amount: 0,
-  },
-];
 
 function ManageTokens() {
-  const [contractData, setContractData] = useState<IContract[]>(contracts);
-  const [address, setAddress] = useState("");
+  const [initial, setInitial] = useState<string[]>([]);
   const [contract, setContract] = useState("");
-
-  const fetchAddress = async () => {
-    let response = await getAddress();
-    if (response) {
-      setAddress(response);
-    }
-  };
 
   function handleChangeContractAddress(event: any) {
     const response = event.target.value;
@@ -34,24 +15,11 @@ function ManageTokens() {
     }
   }
 
-  async function fetchContracts() {
-    const response = await getContractInfo(address, contract);
-    if (response) {
-      console.log(response.data);
-      setContractData(response.data);
+  function addContract() {
+    let _contract = contract;
+    if (_contract !== undefined) {
+      setInitial([_contract]);
     }
-  }
-
-  useEffect(() => {
-    fetchAddress();
-    fetchContracts();
-  }, []);
-
-  console.log(address, contract);
-  console.log(contractData);
-
-  function handleAddNewContract(event: any) {
-    setContractData(contractData);
   }
 
   return (
@@ -72,8 +40,8 @@ function ManageTokens() {
         Send
       </Button>
       <div className={styles.indent}>
-        {contractData.map((contract) => (
-          <Contract contract={contract} key={contract.id} />
+        {initial.map((contract) => (
+          <Contract contractAddress={contract} />
         ))}
         <div className={styles.inputs}>
           <input
@@ -84,12 +52,7 @@ function ManageTokens() {
           />
         </div>
       </div>
-      <Button
-        color="green"
-        type="button"
-        size="lg"
-        onClick={handleAddNewContract}
-      >
+      <Button color="green" type="button" size="lg" onClick={addContract}>
         Add Token
       </Button>
     </div>
