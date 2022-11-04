@@ -1,7 +1,9 @@
 import { StargateClient } from "@cosmjs/stargate";
 import { CYBER } from "./config";
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
-import { CyberClient } from "@cybercongress/cyber-js";
+import { SigningCyberClient, CyberClient } from "@cybercongress/cyber-js";
+import { GasPrice } from "@cosmjs/launchpad";
+import { calculateFee } from "@cosmjs/stargate";
 
 export const getAddress = async () => {
   if (window.keplr) {
