@@ -31,7 +31,7 @@ export function Contract({ contractAddress }: ContractProps) {
 
   useEffect(() => {
     fetchContracts();
-  }, []);
+  });
 
   return (
     <>
