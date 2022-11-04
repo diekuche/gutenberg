@@ -8,7 +8,7 @@ function ManageTokens() {
   const [initial, setInitial] = useState<string[]>(() => {
     const saved = localStorage.getItem("contract") as string;
     const initialValue = JSON.parse(saved);
-    return initialValue || "";
+    return initialValue || [];
   });
   const [contract, setContract] = useState("");
   const [loading, setLoading] = useState(false);
