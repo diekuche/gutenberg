@@ -18,8 +18,6 @@ export function Contract({ contractAddress }: ContractProps) {
 
   async function fetchContracts() {
     let address = (await getAddress()) as string;
-    console.log("contractAddress", contractAddress);
-    console.log("Address", address);
     const response = await getContractInfo(contractAddress, address);
     if (response !== undefined) {
       setContractData({
@@ -30,8 +28,6 @@ export function Contract({ contractAddress }: ContractProps) {
       });
     }
   }
-
-  console.log("contractData:", contractData);
 
   useEffect(() => {
     fetchContracts();
@@ -48,7 +44,7 @@ export function Contract({ contractAddress }: ContractProps) {
           </div>
         </div>
       ) : (
-        console.log("Contract not found")
+        console.log("Token not found")
       )}
     </>
   );

@@ -94,3 +94,41 @@
   opacity: 0.5;
   color: #163a34;
 }
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  animation: rotate 0.1s linear infinite;
+  width: 25px;
+  height: 25px;
+  padding: 0px 8px;
+}
+
+.path {
+  display: flex;
+  stroke: #d3ff54;
+  stroke-linecap: round;
+  animation: dash 0.1s ease-in-out infinite;
+  align-self: center;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}

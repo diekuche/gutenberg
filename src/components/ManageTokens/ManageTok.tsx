@@ -5,8 +5,13 @@ import Contract from "../Contracts/Contract";
 import { useState, useEffect } from "react";
 
 function ManageTokens() {
-  const [initial, setInitial] = useState<string[]>([]);
+  const [initial, setInitial] = useState<string[]>(() => {
+    const saved = localStorage.getItem("contract") as string;
+    const initialValue = JSON.parse(saved);
+    return initialValue || "";
+  });
   const [contract, setContract] = useState("");
+  const [loading, setLoading] = useState(false);
 
   function handleChangeContractAddress(event: any) {
     const response = event.target.value;
@@ -16,11 +21,18 @@ function ManageTokens() {
   }
 
   function addContract() {
+    setLoading(true);
     let _contract = contract;
     if (_contract !== undefined) {
-      setInitial([_contract]);
+      setInitial((st) => [...st, _contract]);
     }
+    setContract("");
+    setLoading(false);
   }
+
+  useEffect(() => {
+    localStorage.setItem("contract", JSON.stringify(initial));
+  }, [initial]);
 
   return (
     <div className={styles.manageTok}>
@@ -53,7 +65,24 @@ function ManageTokens() {
         </div>
       </div>
       <Button color="green" type="button" size="lg" onClick={addContract}>
-        Add Token
+        {loading ? (
+          <svg
+            className={styles.spinner}
+            viewBox="0 0 50 50"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              className={styles.path}
+              cx="25"
+              cy="25"
+              r="20"
+              stroke-width="5"
+              fill="none"
+            ></circle>
+          </svg>
+        ) : (
+          "Add Token"
+        )}
       </Button>
     </div>
   );
