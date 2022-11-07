@@ -25,7 +25,7 @@ function ManageTokens() {
     setLoading(true);
     if (contract !== undefined) {
       setInitial((st) => [...st, contract]);
-    }
+    } else setVisible(true);
     setContract("");
     setLoading(false);
   }
