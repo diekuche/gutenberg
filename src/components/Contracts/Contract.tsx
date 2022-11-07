@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./Contract.module.css";
 import { useState, useEffect } from "react";
 import { getContractInfo, getAddress } from "../../utils/wallet";
-import { isVisible } from "@testing-library/user-event/dist/utils";
 
 interface ContractDataProps {
   contractAddress: string;
@@ -33,7 +32,7 @@ export function Contract({ contractAddress }: ContractDataProps) {
 
   useEffect(() => {
     fetchContracts();
-  }, [fetchContracts()]);
+  }, [contractAddress]);
 
   return (
     <>
