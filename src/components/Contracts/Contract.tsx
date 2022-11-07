@@ -30,7 +30,9 @@ export function Contract({ contractAddress }: ContractDataProps) {
     }
   }
 
-  useEffect(() => {}, [fetchContracts(), contractAddress]);
+  useEffect(() => {
+    fetchContracts();
+  }, [fetchContracts, contractAddress]);
 
   return (
     <>
