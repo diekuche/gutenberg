@@ -6,13 +6,17 @@ import { isVisible } from "@testing-library/user-event/dist/utils";
 
 interface ContractDataProps {
   contractAddress: string;
-  token?: string;
-  balance?: string;
-  logo?: string;
+}
+
+interface ContractData {
+  token: string;
+  balance: string;
+  logo: string;
+  marketingAddress: string;
 }
 
 export function Contract({ contractAddress }: ContractDataProps) {
-  const [contractData, setContractData] = useState<ContractDataProps>();
+  const [contractData, setContractData] = useState<ContractData>();
 
   async function fetchContracts() {
     const address = (await getAddress()) as string;
@@ -22,14 +26,14 @@ export function Contract({ contractAddress }: ContractDataProps) {
         token: response.symbol,
         balance: response.balance,
         logo: response.logo.url,
-        contractAddress: response.marketing,
+        marketingAddress: response.marketing,
       });
     }
   }
 
   useEffect(() => {
     fetchContracts();
-  }, [contractData]);
+  }, [fetchContracts()]);
 
   return (
     <>
@@ -38,13 +42,13 @@ export function Contract({ contractAddress }: ContractDataProps) {
           <div className={styles.line}></div>
           <div className={styles.cashName}>
             {contractData.logo && contractData.logo.length > 1 ? (
-              contractData.logo
-            ) : (
               <img
                 src={contractData.logo}
                 alt="icon"
                 className={styles.logo}
               ></img>
+            ) : (
+              contractData.logo
             )}
             <div className={styles.token}>{contractData.token}</div>
             <div className={styles.balance}>{contractData.balance}</div>
