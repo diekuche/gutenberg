@@ -17,22 +17,21 @@ interface ContractData {
 export function Contract({ contractAddress }: ContractDataProps) {
   const [contractData, setContractData] = useState<ContractData>();
 
-  async function fetchContracts() {
-    const address = (await getAddress()) as string;
-    const response = await getContractInfo(contractAddress, address);
-    if (response !== undefined) {
-      setContractData({
-        token: response.symbol,
-        balance: response.balance,
-        logo: response.logo.url,
-        marketingAddress: response.marketing,
-      });
-    }
-  }
-
   useEffect(() => {
+    async function fetchContracts() {
+      const address = (await getAddress()) as string;
+      const response = await getContractInfo(contractAddress, address);
+      if (response !== undefined) {
+        setContractData({
+          token: response.symbol,
+          balance: response.balance,
+          logo: response.logo.url,
+          marketingAddress: response.marketing,
+        });
+      }
+    }
     fetchContracts();
-  }, [fetchContracts, contractAddress]);
+  }, [contractAddress]);
 
   return (
     <>
