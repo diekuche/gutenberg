@@ -3,24 +3,28 @@
   flex-direction: row;
   font-style: normal;
   font-weight: 300;
-  color: #43b25b;
   font-size: 14px;
   color: white;
   align-self: center;
+  align-items: center;
   margin-top: 10px;
   margin-bottom: 6px;
-  justify-content: space-between;
   min-width: 170px;
 }
 
-.cash {
+.token {
+  display: flex;
+  flex-grow: 3;
   font-style: normal;
   font-weight: 300;
-  color: #43b25b;
   font-size: 14px;
   color: white;
+  margin-left: 10px;
   align-self: center;
-  margin-left: 40px;
+}
+
+.balance {
+  display: flex;
 }
 
 .line {
@@ -28,4 +32,9 @@
   width: 100%;
   margin-top: 15px;
   align-self: center;
+}
+
+.logo {
+  width: 14px;
+  height: 14px;
 }

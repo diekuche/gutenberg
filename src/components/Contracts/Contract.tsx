@@ -2,22 +2,20 @@ import React from "react";
 import styles from "./Contract.module.css";
 import { useState, useEffect } from "react";
 import { getContractInfo, getAddress } from "../../utils/wallet";
+import { isVisible } from "@testing-library/user-event/dist/utils";
 
-interface ContractProps {
+interface ContractDataProps {
   contractAddress: string;
+  token?: string;
+  balance?: string;
+  logo?: string;
 }
 
-interface ContractDataProps extends ContractProps {
-  token: string;
-  balance: string;
-  logo: string;
-}
-
-export function Contract({ contractAddress }: ContractProps) {
+export function Contract({ contractAddress }: ContractDataProps) {
   const [contractData, setContractData] = useState<ContractDataProps>();
 
   async function fetchContracts() {
-    let address = (await getAddress()) as string;
+    const address = (await getAddress()) as string;
     const response = await getContractInfo(contractAddress, address);
     if (response !== undefined) {
       setContractData({
@@ -31,20 +29,29 @@ export function Contract({ contractAddress }: ContractProps) {
 
   useEffect(() => {
     fetchContracts();
-  });
+  }, [contractData]);
 
   return (
     <>
       {contractData ? (
-        <div key={contractAddress}>
+        <div>
           <div className={styles.line}></div>
           <div className={styles.cashName}>
-            {contractData.logo} {contractData.token}
-            <div className={styles.cash}> {contractData.balance}</div>
+            {contractData.logo && contractData.logo.length > 1 ? (
+              contractData.logo
+            ) : (
+              <img
+                src={contractData.logo}
+                alt="icon"
+                className={styles.logo}
+              ></img>
+            )}
+            <div className={styles.token}>{contractData.token}</div>
+            <div className={styles.balance}>{contractData.balance}</div>
           </div>
         </div>
       ) : (
-        console.log("Token not found")
+        <></>
       )}
     </>
   );

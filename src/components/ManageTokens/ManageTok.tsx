@@ -12,6 +12,7 @@ function ManageTokens() {
   });
   const [contract, setContract] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isVisible, setVisible] = useState(false);
 
   function handleChangeContractAddress(event: any) {
     const response = event.target.value;
@@ -22,9 +23,8 @@ function ManageTokens() {
 
   function addContract() {
     setLoading(true);
-    let _contract = contract;
-    if (_contract !== undefined) {
-      setInitial((st) => [...st, _contract]);
+    if (contract !== undefined) {
+      setInitial((st) => [...st, contract]);
     }
     setContract("");
     setLoading(false);
@@ -45,8 +45,7 @@ function ManageTokens() {
         Saint Bostrom — Blessed Bostroms for charitable deeds
       </div>
       <div className={styles.info}>
-        Contract Address:
-        bostrom17s7emulfygjuk0xn906athk5e5efsdtumsat5n2nad7mtrg4xresu66g83{" "}
+        Contract Address: bostrom123456789qwertyasdfghjkl
       </div>
       <Button color="white" type="button" size="lg">
         Send
@@ -56,12 +55,16 @@ function ManageTokens() {
           <Contract contractAddress={contract} key={contract} />
         ))}
         <div className={styles.inputs}>
+          <div className={styles.info}>
+            To add a token, specify its address:
+          </div>
           <input
             type="text"
             className={styles.addContract}
             value={contract}
             onChange={handleChangeContractAddress}
-          />
+          />{" "}
+          {isVisible === true ? <>Token not found</> : <></>}
         </div>
       </div>
       <Button color="green" type="button" size="lg" onClick={addContract}>

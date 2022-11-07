@@ -76,8 +76,7 @@
 
 .addContract {
   display: flex;
-  padding-left: 13px;
-  gap: 10px;
+  width: 200px;
   font-size: 14px;
   font-weight: 300;
   line-height: 16px;
@@ -85,14 +84,7 @@
   color: #163a34;
   background: #d3ff54;
   border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.addContract::placeholder {
-  font-weight: 300;
-  padding: 11px 0px;
-  opacity: 0.5;
-  color: #163a34;
+  margin: 5px 5px 5px 5px;
 }
 
 .spinner {
