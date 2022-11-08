@@ -121,7 +121,7 @@ export const Form: React.FC = () => {
         name="logo"
         placeholder={`https://www.example.com/image.png`}
       />
-      <Collapsible title="Changing Initial Balance">
+      <Collapsible title={<>Changing Initial Balance</>}>
         <div className={styles.inputComponent}>
           <div className={styles.article}>
             By default all new tokens will be transfered to your wallet. You can
@@ -158,7 +158,7 @@ export const Form: React.FC = () => {
           })}
         </div>
       </Collapsible>
-      <Collapsible title="Token Details">
+      <Collapsible title={<>Token Details</>}>
         <Input
           value={description}
           name="description"

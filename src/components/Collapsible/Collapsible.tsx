@@ -3,12 +3,8 @@ import React, { useState } from "react";
 import plus from "../../assets/plus.svg";
 import minus from "../../assets/minus.svg";
 
-export interface CollapsibleProps
-  extends React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
-  > {
-  title: string;
+export interface CollapsibleProps {
+  title: JSX.Element;
   children: JSX.Element | JSX.Element[];
 }
 

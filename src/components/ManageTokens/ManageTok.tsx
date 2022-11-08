@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./ManageTok.module.css";
 import Button from "../Button/Button";
 import Contract from "../Contracts/Contract";
+import Collapsible from "../Collapsible/Collapsible";
 import { useState, useEffect } from "react";
 
 function ManageTokens() {
