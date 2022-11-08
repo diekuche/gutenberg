@@ -6,13 +6,11 @@
   border-radius: 16px;
   background: #163a34;
   box-sizing: border-box;
-  width: 236px;
   height: 100%;
   margin-left: 9px;
 }
 
 .name {
-  width: fit-content;
   align-self: center;
   border-radius: 27.5px;
   padding: 22px 33px 0px 33px;
@@ -35,7 +33,6 @@
   margin-top: 10px;
   margin-bottom: 6px;
   justify-content: space-between;
-  min-width: 170px;
 }
 
 .cash {
@@ -71,12 +68,13 @@
 .indent {
   padding-bottom: 15px;
   align-self: center;
-  min-width: 180px;
 }
 
 .addContract {
   display: flex;
   width: 200px;
+  align-self: center;
+  justify-self: center;
   font-size: 14px;
   font-weight: 300;
   line-height: 16px;
