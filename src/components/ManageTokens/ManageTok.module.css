@@ -1,17 +1,16 @@
 .manageTok {
   display: flex;
   flex-direction: column;
+  align-items: center;
   align-self: flex-start;
   border-radius: 16px;
   background: #163a34;
   box-sizing: border-box;
-  width: 236px;
   height: 100%;
   margin-left: 9px;
 }
 
 .name {
-  width: fit-content;
   align-self: center;
   border-radius: 27.5px;
   padding: 20px 33px 0px 33px;
@@ -34,7 +33,6 @@
   margin-top: 13px;
   margin-bottom: 6px;
   justify-content: space-between;
-  min-width: 170px;
 }
 
 .cash {
@@ -70,5 +68,57 @@
 .indent {
   padding-bottom: 15px;
   align-self: center;
-  min-width: 180px;
+}
+
+.addContract {
+  display: flex;
+  width: 200px;
+  align-self: center;
+  justify-self: center;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 16px;
+  height: 24px;
+  color: #163a34;
+  background: #d3ff54;
+  border-radius: 8px;
+  margin: 5px 5px 5px 5px;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  animation: rotate 0.1s linear infinite;
+  width: 25px;
+  height: 25px;
+  padding: 0px 8px;
+}
+
+.path {
+  display: flex;
+  stroke: #d3ff54;
+  stroke-linecap: round;
+  animation: dash 0.1s ease-in-out infinite;
+  align-self: center;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
 }
