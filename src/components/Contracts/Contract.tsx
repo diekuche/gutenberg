@@ -1,9 +1,8 @@
 import React from "react";
 import styles from "./Contract.module.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Button from "../Button/Button";
 import { getContractInfo, getAddress, sendTokens } from "../../utils/wallet";
-import { v4 as uuidv4 } from "uuid";
 
 interface ContractDataProps {
   contractAddress: string;
@@ -50,24 +49,24 @@ export function Contract({ contractAddress }: ContractDataProps) {
     setBalances({ recepient: "", amount: "" });
   }
 
-  async function fetchContracts() {
-    const address = (await getAddress()) as string;
-    const response = await getContractInfo(contractAddress, address);
-    if (response !== undefined) {
-      setContractData({
-        token: response.symbol,
-        balance: response.balance,
-        logo: response.logo.url,
-        marketingAddress: response.marketing,
-      });
+  const getContracts = useCallback(() => {
+    async function fetchContracts() {
+      const address = (await getAddress()) as string;
+      const response = await getContractInfo(contractAddress, address);
+      if (response !== undefined) {
+        setContractData({
+          token: response.symbol,
+          balance: response.balance,
+          logo: response.logo.url,
+          marketingAddress: response.marketing,
+        });
+      }
     }
-  }
+    fetchContracts();
+  }, []);
 
   useEffect(() => {
-    fetchContracts();
-    if (isVisible === true) {
-      setContractData(contractData);
-    }
+    getContracts();
   }, [contractAddress, isVisible]);
 
   return (
