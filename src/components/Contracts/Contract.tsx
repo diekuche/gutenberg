@@ -17,7 +17,6 @@ interface ContractData {
 }
 
 const sendBalance = {
-  id: uuidv4(),
   recepient: "",
   amount: "",
 };
@@ -29,25 +28,14 @@ export function Contract({ contractAddress }: ContractDataProps) {
   const collapse = () => {
     setOpen(!open);
   };
-  const [balances, setBalances] = useState<Array<typeof sendBalance>>([
-    sendBalance,
-  ]);
+  const [balances, setBalances] = useState<typeof sendBalance>(sendBalance);
 
   const handleSendChange =
-    (id: string, name: string) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setBalances(
-        balances.map((balance) => {
-          if (balance.id === id) {
-            return {
-              ...balance,
-              [name]: event.target.value,
-            };
-          } else {
-            return balance;
-          }
-        })
-      );
+    (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setBalances({
+        ...balances,
+        [name]: event.target.value,
+      });
     };
 
   async function getTokensSent(
@@ -59,24 +47,28 @@ export function Contract({ contractAddress }: ContractDataProps) {
     if (response) {
       setIsVisible(true);
     }
-    setBalances([]);
+    setBalances({ recepient: "", amount: "" });
+  }
+
+  async function fetchContracts() {
+    const address = (await getAddress()) as string;
+    const response = await getContractInfo(contractAddress, address);
+    if (response !== undefined) {
+      setContractData({
+        token: response.symbol,
+        balance: response.balance,
+        logo: response.logo.url,
+        marketingAddress: response.marketing,
+      });
+    }
   }
 
   useEffect(() => {
-    async function fetchContracts() {
-      const address = (await getAddress()) as string;
-      const response = await getContractInfo(contractAddress, address);
-      if (response !== undefined) {
-        setContractData({
-          token: response.symbol,
-          balance: response.balance,
-          logo: response.logo.url,
-          marketingAddress: response.marketing,
-        });
-      }
-    }
     fetchContracts();
-  }, [contractAddress]);
+    if (isVisible === true) {
+      setContractData(contractData);
+    }
+  }, [contractAddress, isVisible]);
 
   return (
     <>
@@ -96,36 +88,39 @@ export function Contract({ contractAddress }: ContractDataProps) {
             <div className={styles.token}>{contractData.token}</div>
             <div className={styles.balance}>{contractData.balance}</div>
           </button>
-          {open &&
-            balances.map(({ id, recepient, amount }) => (
-              <div className={styles.children} key={id}>
-                <div className={styles.label}>Recepient:</div>
-                <input
-                  type="text"
-                  className={styles.addContract}
-                  value={recepient}
-                  onChange={handleSendChange(id, "recepient")}
-                />
-                <div className={styles.label}>Amount:</div>
-                <input
-                  type="text"
-                  className={styles.addContract}
-                  value={amount}
-                  onChange={handleSendChange(id, "amount")}
-                />
-                <div className={styles.liner}></div>
-                <Button
-                  color="white"
-                  type="button"
-                  size="lg"
-                  onClick={(e: any) =>
-                    getTokensSent(contractAddress, recepient, amount)
-                  }
-                >
-                  Send
-                </Button>
-              </div>
-            ))}
+          {open && (
+            <div className={styles.children}>
+              <div className={styles.label}>Recepient:</div>
+              <input
+                type="text"
+                className={styles.addContract}
+                value={balances.recepient}
+                onChange={handleSendChange("recepient")}
+              />
+              <div className={styles.label}>Amount:</div>
+              <input
+                type="text"
+                className={styles.addContract}
+                value={balances.amount}
+                onChange={handleSendChange("amount")}
+              />
+              <div className={styles.liner}></div>
+              <Button
+                color="white"
+                type="button"
+                size="lg"
+                onClick={(e: any) =>
+                  getTokensSent(
+                    contractAddress,
+                    balances.recepient,
+                    balances.amount
+                  )
+                }
+              >
+                Send
+              </Button>
+            </div>
+          )}
           {isVisible && <div className={styles.info}>sent!</div>}
         </div>
       ) : (
