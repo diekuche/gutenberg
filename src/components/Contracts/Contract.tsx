@@ -10,7 +10,7 @@ interface ContractDataProps {
 
 interface ContractData {
   token: string;
-  balance: string;
+  balance: number;
   logo: string;
   marketingAddress: string;
 }
@@ -23,16 +23,16 @@ const sendBalance = {
 export function Contract({ contractAddress }: ContractDataProps) {
   const [contractData, setContractData] = useState<ContractData>();
   const [open, setOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isSent, setSent] = useState(false);
   const collapse = () => {
     setOpen(!open);
   };
-  const [balances, setBalances] = useState<typeof sendBalance>(sendBalance);
+  const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
 
   const handleSendChange =
     (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setBalances({
-        ...balances,
+      setBalance({
+        ...balance,
         [name]: event.target.value,
       });
     };
@@ -43,31 +43,36 @@ export function Contract({ contractAddress }: ContractDataProps) {
     amount: string
   ) {
     const response = await sendTokens(contractAddress, recepient, amount);
-    if (response) {
-      setIsVisible(true);
+    if (response && contractData) {
+      setSent(true);
+      setContractData({
+        ...contractData,
+        balance: +contractData.balance - +balance.amount
+      })
+
+      setTimeout(() => {
+        setSent(false);
+      }, 2000)
     }
-    setBalances({ recepient: "", amount: "" });
+    setBalance({ recepient: "", amount: "" });
   }
 
-  const getContracts = useCallback(() => {
-    async function fetchContracts() {
-      const address = (await getAddress()) as string;
-      const response = await getContractInfo(contractAddress, address);
-      if (response !== undefined) {
-        setContractData({
-          token: response.symbol,
-          balance: response.balance,
-          logo: response.logo.url,
-          marketingAddress: response.marketing,
-        });
-      }
+  const fetchContracts = useCallback(async () => {
+    const address = (await getAddress()) as string;
+    const response = await getContractInfo(contractAddress, address);
+    if (response !== undefined) {
+      setContractData({
+        token: response.symbol,
+        balance: response.balance,
+        logo: response.logo.url,
+        marketingAddress: response.marketing,
+      });
     }
-    fetchContracts();
-  }, []);
+  }, [contractAddress]);
 
   useEffect(() => {
-    getContracts();
-  }, [contractAddress, isVisible]);
+    fetchContracts();
+  }, [fetchContracts]);
 
   return (
     <>
@@ -78,7 +83,7 @@ export function Contract({ contractAddress }: ContractDataProps) {
             {contractData.logo && contractData.logo.length > 10 ? (
               <img
                 src={contractData.logo}
-                alt="icon"
+                alt=""
                 className={styles.logo}
               ></img>
             ) : (
@@ -93,14 +98,14 @@ export function Contract({ contractAddress }: ContractDataProps) {
               <input
                 type="text"
                 className={styles.addContract}
-                value={balances.recepient}
+                value={balance.recepient}
                 onChange={handleSendChange("recepient")}
               />
               <div className={styles.label}>Amount:</div>
               <input
                 type="text"
                 className={styles.addContract}
-                value={balances.amount}
+                value={balance.amount}
                 onChange={handleSendChange("amount")}
               />
               <div className={styles.liner}></div>
@@ -111,8 +116,8 @@ export function Contract({ contractAddress }: ContractDataProps) {
                 onClick={(e: any) =>
                   getTokensSent(
                     contractAddress,
-                    balances.recepient,
-                    balances.amount
+                    balance.recepient,
+                    balance.amount
                   )
                 }
               >
@@ -120,7 +125,7 @@ export function Contract({ contractAddress }: ContractDataProps) {
               </Button>
             </div>
           )}
-          {isVisible && <div className={styles.info}>sent!</div>}
+          {isSent && <div className={styles.info}>sent!</div>}
         </div>
       ) : (
         <></>
