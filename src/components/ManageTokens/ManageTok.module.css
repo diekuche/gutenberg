@@ -84,7 +84,8 @@
   color: #163a34;
   background: #d3ff54;
   border-radius: 8px;
-  margin: 5px 5px 5px 5px;
+  border: none;
+  margin: 5px;
 }
 
 .spinner {
