@@ -30,7 +30,7 @@ input::placeholder {
 }
 
 .inputComp {
-  margin: 5px 0px;
+  margin-top: 7px;
   display: flex;
   box-sizing: border-box;
   width: 100%;
