@@ -5,11 +5,14 @@
   font-weight: 300;
   font-size: 14px;
   color: white;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
   align-self: center;
   align-items: center;
   margin-top: 10px;
   margin-bottom: 6px;
-  min-width: 170px;
+  min-width: 215px;
 }
 
 .token {
@@ -37,4 +40,55 @@
 .logo {
   width: 14px;
   height: 14px;
+}
+
+.addContract {
+  display: flex;
+  width: 200px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 16px;
+  height: 24px;
+  color: #163a34;
+  background: #d3ff54;
+  border-radius: 8px;
+  margin: 5px 5px 5px 5px;
+  border: none;
+}
+
+.children {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  font-style: normal;
+  font-weight: 700;
+  color: #43b25b;
+  font-size: 14px;
+  margin: 5px 4px 5px 0px;
+  padding: 1px 25px 5px 25px;
+}
+
+.contractData {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.label {
+  display: flex;
+  justify-self: flex-start;
+  font-weight: 700;
+  color: #43b25b;
+  font-size: 10px;
+  margin: 0px 5px;
+}
+
+.liner {
+  height: 10px;
 }
