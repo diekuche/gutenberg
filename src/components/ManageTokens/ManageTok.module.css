@@ -14,7 +14,7 @@
   width: fit-content;
   align-self: center;
   border-radius: 27.5px;
-  padding: 22px 33px 0px 33px;
+  padding: 20px 33px 0px 33px;
   color: #e2fb5f;
   font-size: 24px;
   font-weight: 700;
@@ -31,7 +31,7 @@
   font-size: 14px;
   color: white;
   align-self: center;
-  margin-top: 10px;
+  margin-top: 13px;
   margin-bottom: 6px;
   justify-content: space-between;
   min-width: 170px;
@@ -44,7 +44,7 @@
   font-size: 14px;
   color: white;
   align-self: center;
-  margin-left: 40px;
+  margin-left: 20px;
 }
 
 .info {
