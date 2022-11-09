@@ -18,10 +18,11 @@
 
 .container {
   flex-direction: column;
-  width: 1414px;
-  margin: 0 25vw;
+  align-self: center;
+  width: 840px;
+  margin: 0 auto;
   display: flex;
-  height: 1024px;
+  height: 100vh;
 }
 
 .font-link {
