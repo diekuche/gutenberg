@@ -20,7 +20,7 @@ const Footer = () => {
           className={styles.linkCreate}
           href="https://cyb.ai/"
           target="_blank"
-          rel="noopener"
+          rel="noreferrer"
         >
           Bostrom
         </a>
