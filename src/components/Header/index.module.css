@@ -18,7 +18,7 @@
   text-align: left;
   color: #43b25b;
   font-family: "Roboto";
-  margin-top: 0;
+  margin-top: 20px;
 }
 
 .link {
@@ -38,5 +38,5 @@
 .header .walletWrapper {
   justify-self: end;
   margin-top: 15px;
-  margin-left: auto;
+  margin-left: 20px;
 }
