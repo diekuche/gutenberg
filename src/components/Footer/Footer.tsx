@@ -16,7 +16,12 @@ const Footer = () => {
       </a>
       <div className={styles.create}>
         🟢 Powered by{" "}
-        <a className={styles.linkCreate} href="https://cyb.ai/" target="_blank">
+        <a
+          className={styles.linkCreate}
+          href="https://cyb.ai/"
+          target="_blank"
+          rel="noopener"
+        >
           Bostrom
         </a>
       </div>
