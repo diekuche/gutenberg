@@ -21,6 +21,7 @@
   z-index: 2;
   height: 33px;
   transition: all 0.15s;
+  cursor: pointer;
 }
 
 .tab__selected:hover {
