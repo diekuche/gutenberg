@@ -3,6 +3,7 @@ import styles from "./ManageTok.module.css";
 import Button from "../Button/Button";
 import Contract from "../Contracts/Contract";
 import { useState, useEffect } from "react";
+import BootSender from "../BootSender/BootSender";
 
 function ManageTokens() {
   const [initial, setInitial] = useState<string[]>(() => {
@@ -37,19 +38,7 @@ function ManageTokens() {
   return (
     <div className={styles.manageTok}>
       <div className={styles.name}>Manage Tokens</div>
-      <div className={styles.cashName}>
-        🟢 StBOOT
-        <div className={styles.cash}>3 000 000 000</div>
-      </div>
-      <div className={styles.info}>
-        Saint Bostrom — Blessed Bostroms for charitable deeds
-      </div>
-      <div className={styles.info}>
-        Contract Address: bostrom123456789qwertyasdfghjkl
-      </div>
-      <Button color="white" type="button" size="lg">
-        Send
-      </Button>
+      <BootSender></BootSender>
       <div className={styles.indent}>
         {initial.map((contract) => (
           <Contract contractAddress={contract} key={contract} />

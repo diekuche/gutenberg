@@ -21,30 +21,6 @@
   font-style: normal;
 }
 
-.cashName {
-  display: flex;
-  flex-direction: row;
-  font-style: normal;
-  font-weight: 300;
-  color: #43b25b;
-  font-size: 14px;
-  color: white;
-  align-self: center;
-  margin-top: 10px;
-  margin-bottom: 6px;
-  justify-content: space-between;
-}
-
-.cash {
-  font-style: normal;
-  font-weight: 300;
-  color: #43b25b;
-  font-size: 14px;
-  color: white;
-  align-self: center;
-  margin-left: 40px;
-}
-
 .info {
   display: flex;
   flex-direction: row;
