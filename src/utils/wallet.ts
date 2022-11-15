@@ -1,4 +1,4 @@
-import { StargateClient } from "@cosmjs/stargate";
+import { Coin, StargateClient } from "@cosmjs/stargate";
 import { CYBER } from "./config";
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
 import { SigningCyberClient, CyberClient } from "@cybercongress/cyber-js";
@@ -78,6 +78,30 @@ export const sendTokens = async (
           amount,
         },
       },
+      calculateFee(400000, gasPrice)
+    );
+  }
+};
+
+export const sendBoot = async (
+  senderAddress: string,
+  recepientAddress: string,
+  amount: readonly Coin[]
+) => {
+  const address = await getAddress();
+  if (window.keplr && address) {
+    const signer = window.keplr.getOfflineSigner(CYBER.CHAIN_ID);
+    const options = { prefix: CYBER.BECH32_PREFIX_ACC_ADDR_CYBER };
+    const client = await SigningCyberClient.connectWithSigner(
+      CYBER.CYBER_NODE_URL_API,
+      signer,
+      options
+    );
+    const gasPrice = GasPrice.fromString("0.001boot") as any;
+    return await client.sendTokens(
+      senderAddress,
+      recepientAddress,
+      amount,
       calculateFee(400000, gasPrice)
     );
   }

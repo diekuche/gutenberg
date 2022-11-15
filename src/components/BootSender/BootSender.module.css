@@ -1,0 +1,73 @@
+.cashName {
+  display: flex;
+  flex-direction: row;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  align-self: flex-start;
+  align-items: flex-start;
+  margin-top: 10px;
+  margin-bottom: 6px;
+  min-width: 215px;
+}
+
+.token {
+  display: flex;
+  flex-grow: 3;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  color: white;
+  margin-left: 10px;
+  align-self: center;
+}
+
+.balance {
+  display: flex;
+}
+
+.addContract {
+  display: flex;
+  width: 200px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 16px;
+  height: 24px;
+  color: #163a34;
+  background: #d3ff54;
+  border-radius: 8px;
+  margin: 5px 5px 5px 5px;
+  border: none;
+}
+
+.label {
+  display: flex;
+  justify-self: flex-start;
+  font-weight: 700;
+  color: #43b25b;
+  font-size: 10px;
+  margin: 0px 5px;
+}
+
+.children {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  font-style: normal;
+  font-weight: 700;
+  color: #43b25b;
+  font-size: 14px;
+  margin: 5px 4px 5px 0px;
+  padding: 1px 25px 5px 25px;
+}

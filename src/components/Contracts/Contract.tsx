@@ -47,12 +47,12 @@ export function Contract({ contractAddress }: ContractDataProps) {
       setSent(true);
       setContractData({
         ...contractData,
-        balance: +contractData.balance - +balance.amount
-      })
+        balance: +contractData.balance - +balance.amount,
+      });
 
       setTimeout(() => {
         setSent(false);
-      }, 2000)
+      }, 2000);
     }
     setBalance({ recepient: "", amount: "" });
   }
@@ -81,11 +81,7 @@ export function Contract({ contractAddress }: ContractDataProps) {
           <div className={styles.line}></div>
           <button type="button" onClick={collapse} className={styles.cashName}>
             {contractData.logo && contractData.logo.length > 10 ? (
-              <img
-                src={contractData.logo}
-                alt=""
-                className={styles.logo}
-              ></img>
+              <img src={contractData.logo} alt="" className={styles.logo}></img>
             ) : (
               contractData.logo
             )}
