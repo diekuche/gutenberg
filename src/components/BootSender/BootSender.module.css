@@ -8,8 +8,8 @@
   cursor: pointer;
   background-color: transparent;
   border: none;
-  align-self: start;
-  align-items: start;
+  align-self: flex-start;
+  align-items: flex-start;
   margin-top: 10px;
   margin-bottom: 6px;
   min-width: 215px;
