@@ -35,17 +35,18 @@ function BootSender() {
   async function getBootSent(recepientAddress: string, amount: string) {
     let coin: readonly Coin[];
     coin = [{ denom: "boot", amount: amount }];
-    const senderAddress = (await getAddress()) as string;
+    const senderAddress = await getAddress();
+    if (senderAddress) {
+      const response = await sendBoot(senderAddress, recepientAddress, coin);
+      if (response) {
+        setSent(true);
 
-    const response = await sendBoot(senderAddress, recepientAddress, coin);
-    if (response) {
-      setSent(true);
-
-      setTimeout(() => {
-        setSent(false);
-      }, 2000);
+        setTimeout(() => {
+          setSent(false);
+        }, 2000);
+      }
+      setBalance({ recepient: "", amount: "" });
     }
-    setBalance({ recepient: "", amount: "" });
   }
 
   return (
