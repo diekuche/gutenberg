@@ -35,17 +35,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 47px;
-  height: 46px;
+  min-width: 43px;
+  height: 43px;
   background-color: #162833;
   color: #e2fb5f;
   border-radius: 50%;
   font-size: 22px;
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .article {
   margin-top: 5px;
   margin-bottom: 12px;
+  padding-left: 5px;
 }

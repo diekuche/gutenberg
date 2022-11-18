@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   margin: 0px auto;
+  padding-top: 50px;
 }
 
 .group {

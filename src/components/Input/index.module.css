@@ -24,8 +24,10 @@ input::placeholder {
 
 .subtitle {
   padding: 0px;
+  padding-left: 9px;
+  padding-top: 2px;
   text-align: left;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 300;
 }
 
