@@ -25,6 +25,16 @@ export const getBalance = async () => {
   }
 };
 
+export const getDisconnected = async () => {
+  if (window.keplr) {
+    const client = await StargateClient.connect(CYBER.CYBER_NODE_URL_API);
+    if (client) {
+      const result = await client.disconnect();
+      return console.log("disconnected", result);
+    }
+  }
+};
+
 export const getContractInfo = async (
   contractAddress: string,
   address: string
