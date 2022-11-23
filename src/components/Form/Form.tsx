@@ -118,14 +118,9 @@ export const Form: React.FC = () => {
         htmlFor="symbol"
         label={`Symbol:`}
         name="symbol"
-<<<<<<< HEAD
-        subtitle={`How your token will be displayed in users' wallets`}
-        pattern={`[A-Za-z-0-9]{3,5}`}
-=======
         subtitle={`How your token will be displayed in users' wallets (min 3, max 5 symbols)
         `}
         pattern={`[A-Za-z-0-9]{2,5}`}
->>>>>>> f148364d3248c0b583c5cd6b80892a8ca272c4fa
         placeholder={`JUSD`}
         required
       />
