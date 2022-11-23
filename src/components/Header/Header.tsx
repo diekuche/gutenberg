@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./index.module.css";
 import Wallet from "../Wallet/Wallet";
 import { Link } from "react-router-dom";
-import Help from "../Help/Help";
 
 const Header = () => {
   return (
@@ -18,10 +17,8 @@ const Header = () => {
           <a className={styles.link} href="URL">
             instruction
           </a>
+          .
         </p>
-      </div>
-      <div className={styles.help}>
-        <Help />
       </div>
       <div className={styles.walletWrapper}>
         <Wallet />
