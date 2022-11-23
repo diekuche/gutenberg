@@ -55,15 +55,16 @@ export const initContract = async ({
       },
     };
 
-    client
+    return client
       .instantiate(address, 1, data, data.name, calculateFee(600000, gasPrice))
       .then((result) => {
-        console.log("success", result);
-        localStorage.setItem("txHash", JSON.stringify(result.transactionHash));
+        const txHash = result.transactionHash;
+        return txHash;
       })
       .catch((err) => {
         console.log("err", err);
         alert(err);
       });
   }
+
 };

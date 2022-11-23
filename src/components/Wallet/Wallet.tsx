@@ -2,12 +2,16 @@ import { useEffect, useState } from "react";
 import { getAddress, getDisconnected } from "../../utils/wallet";
 import { configKeplr, CYBER } from "../../utils/config";
 import Button from "../Button/Button";
+import styles from "./Wallet.module.css";
+import classNames from "classnames";
+
 
 const Wallet: React.FC = () => {
   const [address, setAddress] = useState("");
-  const [connect, setDisconnect] = useState(
-    `${address.slice(0, 10)}...${address.slice(-10, -5)}` || `disconnect`
+  const [connectedAddress, setAddressConnected] = useState(
+    `${address.slice(0, 10)}...${address.slice(-10, -5)}`
   );
+  const [disconnect, setDisconnect] = useState(false);
 
   const initKeplr = async () => {
     if (window.keplr) {
@@ -19,7 +23,7 @@ const Wallet: React.FC = () => {
   const handleConnect = () => {
     if (!address) {
       initKeplr();
-    } else if (address) {
+    } else {
       getDisconnected();
     }
   };
@@ -36,24 +40,30 @@ const Wallet: React.FC = () => {
     fetchAddress();
   }, []);
 
-  function MouseOver(event: any) {
-    event.target.style.background = "red";
-    setDisconnect(`disconnect`);
+  function MouseOver() {
+    if (address) {
+      setAddressConnected(`disconnect`);
+      setDisconnect(true);
+    }
+
   }
-  function MouseOut(event: any) {
-    event.target.style.background = "";
-    setDisconnect(`${address.slice(0, 10)}...${address.slice(-10, -5)}`);
+  function MouseOut() {
+    setAddressConnected(`${address.slice(0, 10)}...${address.slice(-10, -5)}`);
+    setDisconnect(false)
   }
 
   return (
     <div>
       <Button
-        color="white"
+        className={classNames(styles.whiteButton, {
+          [styles.disconnect]: disconnect === true,
+          [styles.whiteButton]: disconnect === false,
+        })}
         onClick={handleConnect}
         onMouseOver={MouseOver}
         onMouseOut={MouseOut}
       >
-        {address ? connect : `Connect Wallet`}
+        {address ? connectedAddress : `Connect Wallet`}
       </Button>
     </div>
   );

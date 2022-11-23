@@ -7,9 +7,11 @@ import Header from "./components/Header/Header";
 import LegalInform from "./components/LegalInformation/LegalInform";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { configKeplr, CYBER } from "./utils/config";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 declare global {
-  interface Window extends KeplrWindow {}
+  interface Window extends KeplrWindow { }
 }
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
           </Routes>
           <Footer />
         </Router>
+        <ToastContainer autoClose={false} />
       </div>
     </div>
   );
