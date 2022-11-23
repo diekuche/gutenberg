@@ -108,7 +108,7 @@ export const Form: React.FC = () => {
         id="token"
         label={`Token's Name:`}
         htmlFor="token"
-        subtitle={`You can specify any name you like. But it is better to come up with something original`}
+        subtitle={`You can specify any name you like. But it is better to come up with something original (min 3, max 50 symbols)`}
         placeholder={`John's Obligations`}
         name="token"
         required
@@ -118,8 +118,14 @@ export const Form: React.FC = () => {
         htmlFor="symbol"
         label={`Symbol:`}
         name="symbol"
+<<<<<<< HEAD
         subtitle={`How your token will be displayed in users' wallets`}
         pattern={`[A-Za-z-0-9]{3,5}`}
+=======
+        subtitle={`How your token will be displayed in users' wallets (min 3, max 5 symbols)
+        `}
+        pattern={`[A-Za-z-0-9]{2,5}`}
+>>>>>>> f148364d3248c0b583c5cd6b80892a8ca272c4fa
         placeholder={`JUSD`}
         required
       />
@@ -138,7 +144,7 @@ export const Form: React.FC = () => {
         htmlFor="decimals"
         label={`Decimals:`}
         name="decimals"
-        subtitle={`The number of digits after the decimal point (e.x. Bitcoin has 8 digits)`}
+        subtitle={`The number of digits after the decimal point (e.x. Bitcoin has 8 digits, max 10 symbols)`}
         pattern={`[0-9]{0,10}`}
         placeholder={`0`}
       />
@@ -193,13 +199,13 @@ export const Form: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setDescription(e.target.value)
           }
-          label="This information will be displayed in the description of the created token:"
+          label="This information will be displayed in the description of the created token:(max 160 symbols)"
           isTextArea
         />
       </Collapsible>
 
       <Button type="submit" color="black" size="lg">
-        mint!
+        create!
       </Button>
 
     </form>

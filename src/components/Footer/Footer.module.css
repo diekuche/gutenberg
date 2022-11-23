@@ -5,6 +5,7 @@
   margin-top: auto;
   margin-bottom: 30px;
   padding-top: 15px;
+  align-items: center;
 }
 
 .link {
@@ -27,10 +28,13 @@
 }
 
 .create {
-  margin-left: 460px;
+  margin-left: 425px;
   color: #43b25b;
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
   line-height: 16px;
+}
+.git {
+  height: 20px;
 }
