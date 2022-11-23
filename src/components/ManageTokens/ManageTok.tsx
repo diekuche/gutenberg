@@ -37,13 +37,20 @@ function ManageTokens() {
     localStorage.setItem("contract", JSON.stringify(initial));
   }, [initial]);
 
+  function removeContract(contract: string) {
+    setInitital(initial.filter((item) => item.contract !== contract));
+  }
+
   return (
     <div className={styles.manageTok}>
       <div className={styles.name}>Manage Tokens</div>
       <BootSender></BootSender>
       <div className={styles.indent}>
         {initial.map((contract) => (
-          <Token contractAddress={contract} key={contract} />
+          <>
+            <Token contractAddress={contract} key={contract} />
+            <Button color="black" size="sm" onClick={(e) => removeContract(contract)}>х</Button>
+          </>
         ))}
         <div className={styles.inputs}>
           <div className={styles.info}>
