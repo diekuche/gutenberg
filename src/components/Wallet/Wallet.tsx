@@ -16,20 +16,10 @@ const Wallet: React.FC = () => {
     }
   };
 
-  const handleConnect = () => {
-    if (!address) {
-      initKeplr();
-    } else {
-      getDisconnected();
-    }
-  };
-
   const fetchAddress = async () => {
     let response = await getAddress();
     if (response) {
       setAddress(response);
-    }
-    if (address) {
     }
   };
 
@@ -37,6 +27,14 @@ const Wallet: React.FC = () => {
     initKeplr();
     fetchAddress();
   }, []);
+
+  const handleConnect = () => {
+    if (!address) {
+      initKeplr();
+    } else {
+      getDisconnected();
+    }
+  };
 
   function MouseOver() {
     if (address) {

@@ -38,7 +38,9 @@ function ManageTokens() {
   }, [initial]);
 
   function removeContract(contract: string) {
-    setInitial(initial.filter((_contract) => _contract !== contract));
+    if (contract !== undefined) {
+      setInitial(initial.filter((_contract) => _contract !== contract));
+    }
   }
 
   return (
@@ -49,12 +51,16 @@ function ManageTokens() {
         {initial.map((contract) => (
           <>
             <Token contractAddress={contract} key={contract} />
-            <button
-              className={styles.x}
-              onClick={(e) => removeContract(contract)}
-            >
-              х
-            </button>
+            {contract !== "" ? (
+              <button
+                className={styles.x}
+                onClick={(e) => removeContract(contract)}
+              >
+                х
+              </button>
+            ) : (
+              <></>
+            )}
           </>
         ))}
         <div className={styles.inputs}>

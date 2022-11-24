@@ -40,7 +40,7 @@ function BootSender() {
     let coin: readonly Coin[];
     coin = [{ denom: "boot", amount: amount }];
     const senderAddress = await getAddress();
-    if (senderAddress) {
+    if (senderAddress && recepientAddress !== "" && amount !== "") {
       const response = await sendBoot(senderAddress, recepientAddress, coin);
       if (response) {
         setSent(true);
