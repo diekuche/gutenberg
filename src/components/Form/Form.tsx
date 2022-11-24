@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 import { getAddress } from "../../utils/wallet";
 import { toast } from "react-toastify";
 
-
 const initialBalance = {
   id: uuidv4(),
   address: "",
@@ -86,20 +85,20 @@ export const Form: React.FC = () => {
 
   const handleChangeInitialBalance =
     (id: string, name: string) =>
-      (event: React.ChangeEvent<HTMLInputElement>) => {
-        setBalances(
-          balances.map((balance) => {
-            if (balance.id === id) {
-              return {
-                ...balance,
-                [name]: event.target.value,
-              };
-            } else {
-              return balance;
-            }
-          })
-        );
-      };
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setBalances(
+        balances.map((balance) => {
+          if (balance.id === id) {
+            return {
+              ...balance,
+              [name]: event.target.value,
+            };
+          } else {
+            return balance;
+          }
+        })
+      );
+    };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -202,7 +201,6 @@ export const Form: React.FC = () => {
       <Button type="submit" color="black" size="lg">
         create!
       </Button>
-
     </form>
   );
 };

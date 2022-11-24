@@ -56,11 +56,11 @@ const Wallet: React.FC = () => {
         onMouseOver={MouseOver}
         onMouseOut={MouseOut}
       >
-        {address && disconnect === false
-          ? `${address.slice(0, 10)}...${address.slice(-10, -5)}`
-          : disconnect === true
-          ? "disconnect"
-          : `Connect Wallet`}
+        {address
+          ? disconnect
+            ? "disconnect"
+            : `${address.slice(0, 10)}...${address.slice(-10, -5)}`
+          : "Connect Wallet"}
       </Button>
     </div>
   );
