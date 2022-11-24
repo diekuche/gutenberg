@@ -48,9 +48,9 @@ const Wallet: React.FC = () => {
   return (
     <div>
       <Button
-        className={classNames(styles.whiteButton, {
+        color="white"
+        className={classNames({
           [styles.disconnect]: disconnect === true,
-          [styles.whiteButton]: disconnect === false,
         })}
         onClick={handleConnect}
         onMouseOver={MouseOver}
