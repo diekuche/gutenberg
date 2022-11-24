@@ -74,6 +74,10 @@ export function Token({ contractAddress }: ContractDataProps) {
 
   useEffect(() => {
     fetchContracts();
+    const interval = setInterval(() => fetchContracts(), 30000);
+    return () => {
+      clearInterval(interval);
+    };
   }, [fetchContracts]);
 
   return (
