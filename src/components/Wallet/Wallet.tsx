@@ -5,12 +5,8 @@ import Button from "../Button/Button";
 import styles from "./Wallet.module.css";
 import classNames from "classnames";
 
-
 const Wallet: React.FC = () => {
   const [address, setAddress] = useState("");
-  const [connectedAddress, setAddressConnected] = useState(
-    `${address.slice(0, 10)}...${address.slice(-10, -5)}`
-  );
   const [disconnect, setDisconnect] = useState(false);
 
   const initKeplr = async () => {
@@ -33,6 +29,8 @@ const Wallet: React.FC = () => {
     if (response) {
       setAddress(response);
     }
+    if (address) {
+    }
   };
 
   useEffect(() => {
@@ -42,14 +40,11 @@ const Wallet: React.FC = () => {
 
   function MouseOver() {
     if (address) {
-      setAddressConnected(`disconnect`);
       setDisconnect(true);
     }
-
   }
   function MouseOut() {
-    setAddressConnected(`${address.slice(0, 10)}...${address.slice(-10, -5)}`);
-    setDisconnect(false)
+    setDisconnect(false);
   }
 
   return (
@@ -63,7 +58,11 @@ const Wallet: React.FC = () => {
         onMouseOver={MouseOver}
         onMouseOut={MouseOut}
       >
-        {address ? connectedAddress : `Connect Wallet`}
+        {address && disconnect === false
+          ? `${address.slice(0, 10)}...${address.slice(-10, -5)}`
+          : disconnect === true
+          ? "disconnect"
+          : `Connect Wallet`}
       </Button>
     </div>
   );

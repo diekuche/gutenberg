@@ -81,7 +81,7 @@
 
 .x {
   position: relative;
-  left: 205px;
+  left: 207px;
   bottom: 25px;
   width: 20px;
   background-color: transparent;
@@ -89,6 +89,7 @@
   border-radius: 10px;
   color: #d3ff54;
   text-align: center;
+  cursor: pointer;
 }
 
 @keyframes rotate {
