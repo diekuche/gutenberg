@@ -50,7 +50,7 @@ const Wallet: React.FC = () => {
       <Button
         color="white"
         className={classNames({
-          [styles.disconnect]: disconnect === true,
+          [styles.disconnect]: disconnect,
         })}
         onClick={handleConnect}
         onMouseOver={MouseOver}
