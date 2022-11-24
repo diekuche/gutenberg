@@ -26,11 +26,16 @@ function BootSender() {
 
   async function fetchBalance() {
     let response = await getBalance();
-    if (response) setBootBalance(response);
+    if (response !== undefined) setBootBalance(response);
+    else setBootBalance("0");
   }
 
   useEffect(() => {
     fetchBalance();
+    const interval = setInterval(() => fetchBalance(), 30000);
+    return () => {
+      clearInterval(interval);
+    };
   }, [setSent]);
 
   async function getBootSent(recepientAddress: string, amount: string) {
