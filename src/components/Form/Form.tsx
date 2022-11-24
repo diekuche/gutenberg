@@ -5,6 +5,8 @@ import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
 import { initContract } from "../../contracts/base/contract";
 import { v4 as uuidv4 } from "uuid";
+import { getAddress } from "../../utils/wallet";
+import { toast } from "react-toastify";
 
 const initialBalance = {
   id: uuidv4(),
@@ -30,7 +32,19 @@ export const Form: React.FC = () => {
         logo: { value: string };
       };
 
-    initContract({
+    if (!decimals.value) {
+      decimals.value = "0";
+    }
+
+    if (!initialBalance.amount) {
+      let initialAddress = await getAddress();
+      if (initialAddress) {
+        initialBalance.address = initialAddress;
+        initialBalance.amount = quantity.value;
+      }
+    }
+
+    const txHash = await initContract({
       name: token.value,
       symbol: symbol.value,
       quantity: quantity.value,
@@ -39,6 +53,19 @@ export const Form: React.FC = () => {
       initialBalance: balances,
       description,
     });
+
+    if (txHash) {
+      console.log(txHash);
+      toast(
+        <a
+          href={"https://cyb.ai/network/bostrom/tx/" + txHash}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Click to show tx
+        </a>
+      );
+    }
   };
 
   const handleAddNewBalance = () => {

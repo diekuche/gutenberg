@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ManageTok.module.css";
 import Button from "../Button/Button";
-import Contract from "../Contracts/Contract";
+import Token from "../Token/Token";
 import { useState, useEffect } from "react";
 import BootSender from "../BootSender/BootSender";
 
@@ -14,6 +14,7 @@ function ManageTokens() {
   const [contract, setContract] = useState("");
   const [loading, setLoading] = useState(false);
   const [isVisible, setVisible] = useState(false);
+  const [isShown, setIsShown] = useState(false);
 
   function handleChangeContractAddress(event: any) {
     const response = event.target.value;
@@ -29,11 +30,18 @@ function ManageTokens() {
     } else setVisible(true);
     setContract("");
     setLoading(false);
+    setIsShown(true);
   }
 
   useEffect(() => {
     localStorage.setItem("contract", JSON.stringify(initial));
   }, [initial]);
+
+  function removeContract(contract: string) {
+    if (contract !== undefined) {
+      setInitial(initial.filter((_contract) => _contract !== contract));
+    }
+  }
 
   return (
     <div className={styles.manageTok}>
@@ -41,18 +49,32 @@ function ManageTokens() {
       <BootSender></BootSender>
       <div className={styles.indent}>
         {initial.map((contract) => (
-          <Contract contractAddress={contract} key={contract} />
+          <>
+            <Token contractAddress={contract} key={contract} />
+            {contract !== "" ? (
+              <button
+                className={styles.x}
+                onClick={(e) => removeContract(contract)}
+              >
+                х
+              </button>
+            ) : (
+              <></>
+            )}
+          </>
         ))}
         <div className={styles.inputs}>
           <div className={styles.info}>
             To add a token, specify its address:
           </div>
-          <input
-            type="text"
-            className={styles.addContract}
-            value={contract}
-            onChange={handleChangeContractAddress}
-          />{" "}
+          {isShown && (
+            <input
+              type="text"
+              className={styles.addContract}
+              value={contract}
+              onChange={handleChangeContractAddress}
+            />
+          )}
           {isVisible === true ? <>Token not found</> : <></>}
         </div>
       </div>

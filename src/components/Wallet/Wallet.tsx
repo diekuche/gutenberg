@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
-import { getAddress } from "../../utils/wallet";
+import { getAddress, getDisconnected } from "../../utils/wallet";
 import { configKeplr, CYBER } from "../../utils/config";
 import Button from "../Button/Button";
+import styles from "./Wallet.module.css";
+import classNames from "classnames";
 
 const Wallet: React.FC = () => {
   const [address, setAddress] = useState("");
+  const [disconnect, setDisconnect] = useState(false);
 
   const initKeplr = async () => {
     if (window.keplr) {
       await window.keplr.experimentalSuggestChain(configKeplr("bostrom"));
       await window.keplr.enable(CYBER.CHAIN_ID);
-    }
-  };
-
-  const handleConnect = () => {
-    if (!address) {
-      initKeplr();
     }
   };
 
@@ -31,12 +28,39 @@ const Wallet: React.FC = () => {
     fetchAddress();
   }, []);
 
+  const handleConnect = () => {
+    if (!address) {
+      initKeplr();
+    } else {
+      getDisconnected();
+    }
+  };
+
+  function MouseOver() {
+    if (address) {
+      setDisconnect(true);
+    }
+  }
+  function MouseOut() {
+    setDisconnect(false);
+  }
+
   return (
     <div>
-      <Button color="white" onClick={handleConnect}>
+      <Button
+        color="white"
+        className={classNames({
+          [styles.disconnect]: disconnect,
+        })}
+        onClick={handleConnect}
+        onMouseOver={MouseOver}
+        onMouseOut={MouseOut}
+      >
         {address
-          ? `${address.slice(0, 10)}...${address.slice(-10, -5)}`
-          : `Connect Wallet`}
+          ? disconnect
+            ? "disconnect"
+            : `${address.slice(0, 10)}...${address.slice(-10, -5)}`
+          : "Connect Wallet"}
       </Button>
     </div>
   );

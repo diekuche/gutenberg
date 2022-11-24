@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Contract.module.css";
+import styles from "./Token.module.css";
 import { useState, useEffect, useCallback } from "react";
 import Button from "../Button/Button";
 import { getContractInfo, getAddress, sendTokens } from "../../utils/wallet";
@@ -20,7 +20,7 @@ const sendBalance = {
   amount: "",
 };
 
-export function Contract({ contractAddress }: ContractDataProps) {
+export function Token({ contractAddress }: ContractDataProps) {
   const [contractData, setContractData] = useState<ContractData>();
   const [open, setOpen] = useState(false);
   const [isSent, setSent] = useState(false);
@@ -58,15 +58,17 @@ export function Contract({ contractAddress }: ContractDataProps) {
   }
 
   const fetchContracts = useCallback(async () => {
-    const address = (await getAddress()) as string;
-    const response = await getContractInfo(contractAddress, address);
-    if (response !== undefined) {
-      setContractData({
-        token: response.symbol,
-        balance: response.balance,
-        logo: response.logo.url,
-        marketingAddress: response.marketing,
-      });
+    const address = await getAddress();
+    if (address) {
+      const response = await getContractInfo(contractAddress, address);
+      if (response !== undefined) {
+        setContractData({
+          token: response.symbol,
+          balance: response.balance,
+          logo: response.logo.url,
+          marketingAddress: response.marketing,
+        });
+      }
     }
   }, [contractAddress]);
 
@@ -130,4 +132,4 @@ export function Contract({ contractAddress }: ContractDataProps) {
   );
 }
 
-export default Contract;
+export default Token;

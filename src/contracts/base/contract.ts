@@ -1,9 +1,7 @@
 import { CYBER } from "../../utils/config";
 import { calculateFee } from "@cosmjs/stargate";
 import { GasPrice } from "@cosmjs/launchpad";
-import {
-  SigningCyberClient,
-} from "@cybercongress/cyber-js";
+import { SigningCyberClient } from "@cybercongress/cyber-js";
 
 type Params = {
   name: string;
@@ -12,11 +10,11 @@ type Params = {
   decimals: string;
   logo: string;
   initialBalance: Array<{
-    address: string,
-    amount: string,
-  }>
+    address: string;
+    amount: string;
+  }>;
   description?: string;
-}
+};
 
 export const initContract = async ({
   name,
@@ -31,13 +29,13 @@ export const initContract = async ({
     const offlineSigner = window.keplr.getOfflineSigner(CYBER.CHAIN_ID);
     const [{ address }] = await offlineSigner.getAccounts();
     const gasPrice = GasPrice.fromString("0.001boot") as any;
-    
+
     const options = { prefix: CYBER.BECH32_PREFIX_ACC_ADDR_CYBER };
     const client = await SigningCyberClient.connectWithSigner(
       CYBER.CYBER_NODE_URL_API,
       offlineSigner,
       options
-    ); 
+    );
     const data = {
       name,
       symbol,
@@ -56,22 +54,17 @@ export const initContract = async ({
         },
       },
     };
-    
-    client
-        .instantiate(
-          address,
-          1,
-          data,
-          data.name,
-          calculateFee(600000, gasPrice)
-        )
-        .then((result) => {
-          console.log("success", result);
-          alert(`success: ${result.transactionHash}`)
-        })
-        .catch((err) => {
-          console.log("err", err);
-          alert(err);
-        });
+
+    return client
+      .instantiate(address, 1, data, data.name, calculateFee(600000, gasPrice))
+      .then((result) => {
+        const txHash = result.transactionHash;
+        return txHash;
+      })
+      .catch((err) => {
+        console.log("err", err);
+        alert(err);
+      });
   }
-}
+
+};
