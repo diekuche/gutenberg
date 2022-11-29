@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-self: flex-start;
+  
   border-radius: 16px;
   background: #163a34;
   box-sizing: border-box;
-  height: 100%;
+  
   margin-left: 9px;
 }
 
