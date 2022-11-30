@@ -11,6 +11,7 @@ export interface InputProps
   htmlFor?: string;
   subtitle?: string | undefined;
   isTextArea?: boolean;
+  required?: boolean;
 }
 
 export interface TextAreaProps
@@ -22,6 +23,7 @@ export interface TextAreaProps
   htmlFor?: string;
   subtitle?: string | undefined;
   isTextArea?: boolean;
+  required?: boolean;
   children: JSX.Element | JSX.Element[];
 }
 
@@ -29,26 +31,17 @@ export type InputComponentProps = InputProps | TextAreaProps;
 
 export const Input = (props: InputComponentProps) => {
   const { type = "text", isTextArea, name, onChange, ...rest } = props;
+
   const InputComponent = isTextArea ? `textarea` : `input`;
 
-  function star() {
-    const value = props.label;
-    if (value === "Token's Name:") {
-      return <span className={styles.star}>*</span>;
-    } else if (value === "Symbol:") {
-      return <span className={styles.star}>*</span>;
-    } else if (value === "Quantity:") {
-      return <span className={styles.star}>*</span>;
-    } else {
-      return null;
-    }
-  }
-
+  console.log(props);
   return (
     <label htmlFor={props.htmlFor} className={styles.inputComp}>
       <div className={styles.label}>
         {props.label}
-        <span>{star()}</span>
+        {props.required === true ? (
+          <span className={styles.star}>*</span>
+        ) : null}
       </div>
 
       <InputComponent
