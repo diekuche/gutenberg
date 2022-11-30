@@ -26,16 +26,10 @@
 }
 
 .info {
-  display: flex;
-  flex-direction: row;
-  align-self: flex-start;
-  text-align: left;
-  font-style: normal;
   font-weight: 700;
   color: #43b25b;
-  font-size: 12px;
-  margin: 5px 4px 5px 0px;
-  padding: 1px 10px 5px;
+  font-size: 10px;
+  margin: 0px 0px 5px 0px;
 }
 
 .inputs {
