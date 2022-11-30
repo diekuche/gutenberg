@@ -34,14 +34,11 @@ export const Input = (props: InputComponentProps) => {
 
   const InputComponent = isTextArea ? `textarea` : `input`;
 
-  console.log(props);
   return (
     <label htmlFor={props.htmlFor} className={styles.inputComp}>
       <div className={styles.label}>
         {props.label}
-        {props.required === true ? (
-          <span className={styles.star}>*</span>
-        ) : null}
+        {props.required && <span className={styles.star}>*</span>}
       </div>
 
       <InputComponent
