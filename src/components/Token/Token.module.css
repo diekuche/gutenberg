@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  margin-bottom: 15px;
 }
 
 .cashName {
@@ -58,7 +59,7 @@
   font-weight: 700;
   color: #43b25b;
   font-size: 10px;
-  margin: 0px 5px;
+  margin: 0px 5px 5px;
 }
 
 .token {
@@ -73,14 +74,11 @@
   background: #d3ff54;
   border-radius: 8px;
   border: none;
+  margin-bottom: 14px;
 }
 
 .info {
   color: #43b25b;
   font-size: 14px;
   padding: 1px 25px 5px 25px;
-}
-
-.tokenButton {
-  margin-top: 15px;
 }

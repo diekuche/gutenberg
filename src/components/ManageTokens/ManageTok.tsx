@@ -73,7 +73,7 @@ function ManageTokens() {
             onChange={handleChangeContractAddress}
           />
         )}
-        {isVisible && <div className={styles.info}>token not found</div>}
+        {isVisible && <div className={styles.error}>Token not found</div>}
       </div>
 
       <Button
