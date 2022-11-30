@@ -50,3 +50,6 @@ input::placeholder {
   box-sizing: border-box;
   padding-bottom: 75px;
 }
+.star {
+  color: red;
+}

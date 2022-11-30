@@ -29,11 +29,15 @@ export type InputComponentProps = InputProps | TextAreaProps;
 
 export const Input = (props: InputComponentProps) => {
   const { type = "text", isTextArea, name, onChange, ...rest } = props;
+
   const InputComponent = isTextArea ? `textarea` : `input`;
 
   return (
     <label htmlFor={props.htmlFor} className={styles.inputComp}>
-      <div className={styles.label}>{props.label}</div>
+      <div className={styles.label}>
+        {props.label}
+        {props.required && <span className={styles.star}>*</span>}
+      </div>
 
       <InputComponent
         className={classNames(styles.input, {
