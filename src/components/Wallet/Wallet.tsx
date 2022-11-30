@@ -26,6 +26,10 @@ const Wallet: React.FC = () => {
   useEffect(() => {
     initKeplr();
     fetchAddress();
+    const interval = setInterval(() => fetchAddress(), 30000);
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const handleConnect = () => {

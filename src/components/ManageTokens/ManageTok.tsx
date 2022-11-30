@@ -18,7 +18,7 @@ function ManageTokens() {
 
   function handleChangeContractAddress(event: any) {
     const response = event.target.value;
-    if (response) {
+    if (response !== undefined) {
       setContract(response);
     }
   }
