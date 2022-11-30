@@ -34,6 +34,7 @@ export const Input = (props: InputComponentProps) => {
   return (
     <label htmlFor={props.htmlFor} className={styles.inputComp}>
       <div className={styles.label}>{props.label}</div>
+
       <InputComponent
         className={classNames(styles.input, {
           [styles.inputDescription]: name === "description",
