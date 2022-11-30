@@ -11,7 +11,6 @@ export interface InputProps
   htmlFor?: string;
   subtitle?: string | undefined;
   isTextArea?: boolean;
-  required?: boolean;
 }
 
 export interface TextAreaProps
@@ -23,7 +22,6 @@ export interface TextAreaProps
   htmlFor?: string;
   subtitle?: string | undefined;
   isTextArea?: boolean;
-  required?: boolean;
   children: JSX.Element | JSX.Element[];
 }
 
