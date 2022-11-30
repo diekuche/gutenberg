@@ -59,9 +59,9 @@ function BootSender() {
   }
 
   return (
-    <>
+    <div className={styles.contractData}>
       <div className={styles.cashName}>
-        <div className={styles.token}>🟢BOOT</div>
+        <div className={styles.token}>🟢 BOOT</div>
         <div className={styles.balance}>{bootBalance}</div>
       </div>
       {isShown && (
@@ -86,13 +86,14 @@ function BootSender() {
         color="white"
         type="button"
         size="lg"
+        className={styles.tokenButton}
         onClick={(e: any) => getBootSent(balance.recepient, balance.amount)}
       >
         Send
       </Button>
 
       {isSent && <div className={styles.info}>sent!</div>}
-    </>
+    </div>
   );
 }
 

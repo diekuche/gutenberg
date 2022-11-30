@@ -6,6 +6,7 @@ import { getContractInfo, getAddress, sendTokens } from "../../utils/wallet";
 
 interface ContractDataProps {
   contractAddress: string;
+  removeContract: (contract: string) => void;
 }
 
 interface ContractData {
@@ -20,14 +21,15 @@ const sendBalance = {
   amount: "",
 };
 
-export function Token({ contractAddress }: ContractDataProps) {
+export function Token({ contractAddress, removeContract }: ContractDataProps) {
   const [contractData, setContractData] = useState<ContractData>();
   const [open, setOpen] = useState(false);
   const [isSent, setSent] = useState(false);
+  const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
+
   const collapse = () => {
     setOpen(!open);
   };
-  const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
 
   const handleSendChange =
     (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,15 +87,31 @@ export function Token({ contractAddress }: ContractDataProps) {
       {contractData ? (
         <div className={styles.contractData}>
           <div className={styles.line}></div>
-          <button type="button" onClick={collapse} className={styles.cashName}>
-            {contractData.logo && contractData.logo.length > 10 ? (
-              <img src={contractData.logo} alt="" className={styles.logo}></img>
-            ) : (
-              contractData.logo
-            )}
-            <div className={styles.token}>{contractData.token}</div>
-            <div className={styles.balance}>{contractData.balance}</div>
-          </button>
+          <div className={styles.tokenTitle}>
+            <button
+              type="button"
+              onClick={collapse}
+              className={styles.cashName}
+            >
+              {contractData.logo && contractData.logo.length > 10 ? (
+                <img
+                  src={contractData.logo}
+                  alt=""
+                  className={styles.logo}
+                ></img>
+              ) : (
+                <div className={styles.logo}>{contractData.logo}</div>
+              )}
+              <div className={styles.token}>{contractData.token}</div>
+              <div className={styles.balance}>{contractData.balance}</div>
+            </button>
+            <button
+              className={styles.x}
+              onClick={(e) => removeContract(contractAddress)}
+            >
+              х
+            </button>
+          </div>
           {open && (
             <div className={styles.children}>
               <div className={styles.label}>Recepient:</div>
@@ -110,11 +128,11 @@ export function Token({ contractAddress }: ContractDataProps) {
                 value={balance.amount}
                 onChange={handleSendChange("amount")}
               />
-              <div className={styles.liner}></div>
               <Button
                 color="white"
                 type="button"
                 size="lg"
+                className={styles.tokenButton}
                 onClick={(e: any) =>
                   getTokensSent(
                     contractAddress,
