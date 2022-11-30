@@ -25,9 +25,14 @@ function ManageTokens() {
 
   function addContract() {
     setLoading(true);
-    if (contract !== undefined) {
+    if (contract.includes("bostrom")) {
       setInitial((st) => [...st, contract]);
-    } else setVisible(true);
+    } else {
+      setVisible(true);
+      setTimeout(() => {
+        setVisible(false);
+      }, 2000);
+    }
     setContract("");
     setLoading(false);
     setIsShown(true);
@@ -38,7 +43,7 @@ function ManageTokens() {
   }, [initial]);
 
   function removeContract(contract: string) {
-    if (contract !== undefined) {
+    if (contract) {
       setInitial(initial.filter((_contract) => _contract !== contract));
     }
   }
@@ -46,39 +51,37 @@ function ManageTokens() {
   return (
     <div className={styles.manageTok}>
       <div className={styles.name}>Manage Tokens</div>
+
       <BootSender></BootSender>
-      <div className={styles.indent}>
+
+      <div className={styles.tokenList}>
         {initial.map((contract) => (
-          <>
-            <Token contractAddress={contract} key={contract} />
-            {contract !== "" ? (
-              <button
-                className={styles.x}
-                onClick={(e) => removeContract(contract)}
-              >
-                х
-              </button>
-            ) : (
-              <></>
-            )}
-          </>
+          <Token
+            contractAddress={contract}
+            removeContract={removeContract}
+            key={contract}
+          />
         ))}
-        <div className={styles.inputs}>
-          <div className={styles.info}>
-            To add a token, specify its address:
-          </div>
-          {isShown && (
-            <input
-              type="text"
-              className={styles.addContract}
-              value={contract}
-              onChange={handleChangeContractAddress}
-            />
-          )}
-          {isVisible === true ? <>Token not found</> : <></>}
-        </div>
       </div>
-      <Button color="green" type="button" size="lg" onClick={addContract}>
+      <div className={styles.inputs}>
+        <div className={styles.info}>To add a token, specify its address:</div>
+        {isShown && (
+          <input
+            type="text"
+            className={styles.addContract}
+            value={contract}
+            onChange={handleChangeContractAddress}
+          />
+        )}
+      </div>
+
+      <Button
+        color="green"
+        type="button"
+        size="lg"
+        onClick={addContract}
+        className={styles.addTokenButton}
+      >
         {loading ? (
           <svg
             className={styles.spinner}
@@ -98,6 +101,8 @@ function ManageTokens() {
           "Add Token"
         )}
       </Button>
+
+      {isVisible && <div className={styles.error}>Token not found</div>}
     </div>
   );
 }

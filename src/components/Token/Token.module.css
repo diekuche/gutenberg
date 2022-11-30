@@ -1,59 +1,52 @@
-.cashName {
+.tokensBlock {
+  width: 100%;
+  display: flex;
+}
+
+.contractData {
+  font-size: 14px;
+  width: 100%;
+}
+
+.tokenTitle {
   display: flex;
   flex-direction: row;
-  font-style: normal;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+}
+
+.cashName {
+  display: flex;
+  width: 100%;
+  align-items: center;
   font-weight: 300;
   font-size: 14px;
   color: white;
   cursor: pointer;
   background-color: transparent;
   border: none;
-  align-self: center;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 6px;
-  min-width: 215px;
+  padding: 0px;
 }
 
-.token {
+.logo {
   display: flex;
-  flex-grow: 3;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 14px;
-  color: white;
-  margin-left: 10px;
-  align-self: center;
-}
-
-.balance {
-  display: flex;
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
 }
 
 .line {
   border-bottom: 1px solid #43b25b;
   width: 100%;
   margin-top: 15px;
-  align-self: center;
+  margin-bottom: 15px;
 }
 
-.logo {
-  width: 14px;
-  height: 14px;
-}
-
-.addContract {
-  display: flex;
-  width: 200px;
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 16px;
-  height: 24px;
-  color: #163a34;
-  background: #d3ff54;
-  border-radius: 8px;
-  margin: 5px 5px 5px 5px;
+.x {
+  background: transparent;
   border: none;
+  color: #43b25b;
+  padding: 0px 0px 0px 5px;
 }
 
 .children {
@@ -62,33 +55,30 @@
   justify-content: center;
 }
 
-.info {
-  display: flex;
-  flex-direction: row;
-  align-self: center;
-  font-style: normal;
-  font-weight: 700;
-  color: #43b25b;
-  font-size: 14px;
-  margin: 5px 4px 5px 0px;
-  padding: 1px 25px 5px 25px;
-}
-
-.contractData {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .label {
-  display: flex;
-  justify-self: flex-start;
   font-weight: 700;
   color: #43b25b;
   font-size: 10px;
-  margin: 0px 5px;
+  margin: 0px px 5px;
 }
 
-.liner {
-  height: 10px;
+.token {
+  display: flex;
+  flex-grow: 1;
+}
+
+.addContract {
+  line-height: 16px;
+  height: 24px;
+  color: #163a34;
+  background: #d3ff54;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 14px;
+}
+
+.info {
+  color: #43b25b;
+  font-size: 14px;
+  padding: 1px 25px 5px 25px;
 }
