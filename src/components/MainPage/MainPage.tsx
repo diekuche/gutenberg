@@ -9,8 +9,15 @@ import { Form } from "../Form/Form";
 export const MainPage: React.FC = () => {
   const [initial, setInitial] = useState<string[]>(() => {
     const saved = localStorage.getItem("contract") as string;
-    const initialValue = JSON.parse(saved);
-    return initialValue || [];
+    if (saved) {
+      try {
+        const initialValue = JSON.parse(saved);
+        return initialValue || [];
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    return [];
   });
 
   const setContracts = (st: string) => {

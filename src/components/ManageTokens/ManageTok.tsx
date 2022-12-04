@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ManageTok.module.css";
 import Button from "../Button/Button";
 import Token from "../Token/Token";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import BootSender from "../BootSender/BootSender";
 
 interface TokenProps {

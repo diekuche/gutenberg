@@ -117,9 +117,18 @@ export const sendBoot = async (
   }
 };
 
-export const getContractAddress = async (txHash: string) => {
+export const getContractAddress = async (
+  txHash: string
+): Promise<string | null> => {
   const regexp = /bostrom([a-z0-9]){59}/;
   const result = await fetch(`https://lcd.bostrom.cybernode.ai/txs/${txHash}`);
-  const json = await result.json();
-  return json.raw_log.match(regexp)[0];
+  if (result) {
+    const json = await result.json();
+    if (json && json.raw_log && json.raw_log.match) {
+      return json.raw_log.match(regexp)[0];
+    }
+
+    return null;
+  }
+  return null;
 };

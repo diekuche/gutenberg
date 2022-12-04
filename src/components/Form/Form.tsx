@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import React, { FormEvent, useState, useEffect, useCallback } from "react";
+import React, { FormEvent, useState } from "react";
 import Button from "../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
@@ -24,7 +24,6 @@ export const Form = ({ setInitial }: FormProps) => {
     initialBalance,
   ]);
   const [description, setDescription] = useState("");
-  const [txHash, setTxHash] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -62,7 +61,10 @@ export const Form = ({ setInitial }: FormProps) => {
 
     if (txHash) {
       console.log(txHash);
-      setTxHash(txHash);
+      const response = await getContractAddress(txHash);
+      if (response) {
+        setInitial(response);
+      }
       toast(
         <a
           href={"https://cyb.ai/network/bostrom/tx/" + txHash}
@@ -74,20 +76,6 @@ export const Form = ({ setInitial }: FormProps) => {
       );
     }
   };
-
-  const fetchTokenAddress = useCallback(
-    async (txHash: string) => {
-      const response = await getContractAddress(txHash);
-      if (response) {
-        setInitial(response);
-      }
-    },
-    [txHash]
-  );
-
-  useEffect(() => {
-    fetchTokenAddress(txHash);
-  }, [fetchTokenAddress]);
 
   const handleAddNewBalance = () => {
     setBalances([
