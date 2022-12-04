@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import ManageTokens from "../ManageTokens/ManageTok";
 import NFT from "../NFT/NFT";
@@ -6,8 +6,22 @@ import { Tabs } from "../Tabs/Tabs";
 import { Tab } from "../Tabs/Tabs";
 import { Form } from "../Form/Form";
 
-type MainProps = {};
-export const MainPage: React.FC = (props: MainProps) => {
+export const MainPage: React.FC = () => {
+  const [initial, setInitial] = useState<string[]>(() => {
+    const saved = localStorage.getItem("contract") as string;
+    const initialValue = JSON.parse(saved);
+    return initialValue || [];
+  });
+
+  const setContracts = (st: string) => {
+    const updateStrings = [...initial, st];
+    return setInitial(updateStrings);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("contract", JSON.stringify(initial));
+  }, [initial]);
+
   const tabs: Tab[] = [
     { id: "1", label: "Token" },
     { id: "2", label: "NFT" },
@@ -24,10 +38,12 @@ export const MainPage: React.FC = (props: MainProps) => {
         <Tabs selectedId={selectedTabId} tabs={tabs} onClick={handleTabClick} />
         <div className={styles.tools}>
           <div className={styles.tabPageContent}>
-            {selectedTabId === tabs[0].id && <Form></Form>}
+            {selectedTabId === tabs[0].id && (
+              <Form initial={initial} setInitial={setContracts}></Form>
+            )}
             {selectedTabId === tabs[1].id && <NFT></NFT>}
           </div>
-          <ManageTokens />
+          <ManageTokens initial={initial} setInitial={setContracts} />
         </div>
       </div>
     </div>

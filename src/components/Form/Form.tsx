@@ -1,11 +1,11 @@
 import styles from "./index.module.css";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, useEffect, useCallback } from "react";
 import Button from "../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
 import { initContract } from "../../contracts/base/contract";
 import { v4 as uuidv4 } from "uuid";
-import { getAddress } from "../../utils/wallet";
+import { getAddress, getContractAddress } from "../../utils/wallet";
 import { toast } from "react-toastify";
 
 const initialBalance = {
@@ -14,11 +14,17 @@ const initialBalance = {
   amount: "",
 };
 
-export const Form: React.FC = () => {
+interface FormProps {
+  initial: string[];
+  setInitial: (st: string) => void;
+}
+
+export const Form = ({ setInitial }: FormProps) => {
   const [balances, setBalances] = useState<Array<typeof initialBalance>>([
     initialBalance,
   ]);
   const [description, setDescription] = useState("");
+  const [txHash, setTxHash] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -56,6 +62,7 @@ export const Form: React.FC = () => {
 
     if (txHash) {
       console.log(txHash);
+      setTxHash(txHash);
       toast(
         <a
           href={"https://cyb.ai/network/bostrom/tx/" + txHash}
@@ -67,6 +74,20 @@ export const Form: React.FC = () => {
       );
     }
   };
+
+  const fetchTokenAddress = useCallback(
+    async (txHash: string) => {
+      const response = await getContractAddress(txHash);
+      if (response) {
+        setInitial(response);
+      }
+    },
+    [txHash]
+  );
+
+  useEffect(() => {
+    fetchTokenAddress(txHash);
+  }, [fetchTokenAddress]);
 
   const handleAddNewBalance = () => {
     setBalances([
@@ -164,6 +185,8 @@ export const Form: React.FC = () => {
                   label="Wallet"
                   value={address}
                   onChange={handleChangeInitialBalance(id, "address")}
+                  title="add bostrom wallet"
+                  pattern="^bostrom.+"
                 />
                 <Input
                   id="amount"
