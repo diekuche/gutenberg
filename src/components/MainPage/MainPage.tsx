@@ -20,10 +20,6 @@ export const MainPage: React.FC = () => {
     return [];
   });
 
-  const setContracts = (st: string[]) => {
-    return setInitial(st);
-  };
-
   useEffect(() => {
     localStorage.setItem("contract", JSON.stringify(initial));
   }, [initial]);
@@ -34,22 +30,22 @@ export const MainPage: React.FC = () => {
   ];
   const [selectedTabId, setSelectedTabId] = useState(tabs[0].id);
 
-  const handleTabClick = (id: string | number) => {
-    setSelectedTabId(id);
-  };
-
   return (
     <div className={styles.mainpage}>
       <div className={styles.group}>
-        <Tabs selectedId={selectedTabId} tabs={tabs} onClick={handleTabClick} />
+        <Tabs
+          selectedId={selectedTabId}
+          tabs={tabs}
+          onClick={setSelectedTabId}
+        />
         <div className={styles.tools}>
           <div className={styles.tabPageContent}>
             {selectedTabId === tabs[0].id && (
-              <Form initial={initial} setInitial={setContracts}></Form>
+              <Form initial={initial} setInitial={setInitial}></Form>
             )}
             {selectedTabId === tabs[1].id && <NFT></NFT>}
           </div>
-          <ManageTokens initial={initial} setInitial={setContracts} />
+          <ManageTokens initial={initial} setInitial={setInitial} />
         </div>
       </div>
     </div>
