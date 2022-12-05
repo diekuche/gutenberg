@@ -47,6 +47,7 @@
   border: none;
   color: #43b25b;
   padding: 0px 0px 0px 5px;
+  cursor: pointer;
 }
 
 .children {

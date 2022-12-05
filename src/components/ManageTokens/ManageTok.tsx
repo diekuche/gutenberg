@@ -2,15 +2,15 @@ import React from "react";
 import styles from "./ManageTok.module.css";
 import Button from "../Button/Button";
 import Token from "../Token/Token";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import BootSender from "../BootSender/BootSender";
 
-function ManageTokens() {
-  const [initial, setInitial] = useState<string[]>(() => {
-    const saved = localStorage.getItem("contract") as string;
-    const initialValue = JSON.parse(saved);
-    return initialValue || [];
-  });
+interface TokenProps {
+  initial: string[];
+  setInitial: (st: string[]) => void;
+}
+
+function ManageTokens(props: TokenProps) {
   const [contract, setContract] = useState("");
   const [loading, setLoading] = useState(false);
   const [isVisible, setVisible] = useState(false);
@@ -26,7 +26,7 @@ function ManageTokens() {
   function addContract() {
     setLoading(true);
     if (contract.includes("bostrom")) {
-      setInitial((st) => [...st, contract]);
+      props.setInitial([...props.initial, contract]);
     } else {
       setVisible(true);
       setTimeout(() => {
@@ -38,13 +38,12 @@ function ManageTokens() {
     setIsShown(true);
   }
 
-  useEffect(() => {
-    localStorage.setItem("contract", JSON.stringify(initial));
-  }, [initial]);
-
   function removeContract(contract: string) {
     if (contract) {
-      setInitial(initial.filter((_contract) => _contract !== contract));
+      const newInitial = props.initial.filter(
+        (_contract) => _contract !== contract
+      );
+      props.setInitial(newInitial);
     }
   }
 
@@ -55,7 +54,7 @@ function ManageTokens() {
       <BootSender></BootSender>
 
       <div className={styles.tokenList}>
-        {initial.map((contract) => (
+        {props.initial.map((contract) => (
           <Token
             contractAddress={contract}
             removeContract={removeContract}

@@ -5,7 +5,7 @@ import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
 import { initContract } from "../../contracts/base/contract";
 import { v4 as uuidv4 } from "uuid";
-import { getAddress } from "../../utils/wallet";
+import { getAddress, getContractAddress } from "../../utils/wallet";
 import { toast } from "react-toastify";
 
 const initialBalance = {
@@ -14,7 +14,12 @@ const initialBalance = {
   amount: "",
 };
 
-export const Form: React.FC = () => {
+interface FormProps {
+  initial: string[];
+  setInitial: (st: string[]) => void;
+}
+
+export const Form = ({ setInitial, initial }: FormProps) => {
   const [balances, setBalances] = useState<Array<typeof initialBalance>>([
     initialBalance,
   ]);
@@ -56,6 +61,10 @@ export const Form: React.FC = () => {
 
     if (txHash) {
       console.log(txHash);
+      const response = await getContractAddress(txHash);
+      if (response) {
+        setInitial([...initial, response]);
+      }
       toast(
         <a
           href={"https://cyb.ai/network/bostrom/tx/" + txHash}
@@ -164,6 +173,8 @@ export const Form: React.FC = () => {
                   label="Wallet"
                   value={address}
                   onChange={handleChangeInitialBalance(id, "address")}
+                  title="add bostrom wallet"
+                  pattern="^bostrom.+"
                 />
                 <Input
                   id="amount"
