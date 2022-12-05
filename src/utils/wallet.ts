@@ -121,14 +121,26 @@ export const getContractAddress = async (
   txHash: string
 ): Promise<string | null> => {
   const regexp = /bostrom([a-z0-9]){59}/;
-  const result = await fetch(`https://lcd.bostrom.cybernode.ai/txs/${txHash}`);
-  if (result) {
+  let retries = 0;
+  const maxRetries = 10;
+  const retryDelay = 2000;
+  const delay = (ms: number) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
+  let result = await fetch(`https://lcd.bostrom.cybernode.ai/txs/${txHash}`);
+
+  while (result.status === 404 && retries < maxRetries) {
+    await delay(retryDelay);
+    result = await fetch(`https://lcd.bostrom.cybernode.ai/txs/${txHash}`);
+    retries += 1;
+  }
+
+  if (result.status === 200) {
     const json = await result.json();
     if (json && json.raw_log && json.raw_log.match) {
       return json.raw_log.match(regexp)[0];
     }
-
-    return null;
   }
+
   return null;
 };

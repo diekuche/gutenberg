@@ -16,10 +16,10 @@ const initialBalance = {
 
 interface FormProps {
   initial: string[];
-  setInitial: (st: string) => void;
+  setInitial: (st: string[]) => void;
 }
 
-export const Form = ({ setInitial }: FormProps) => {
+export const Form = ({ setInitial, initial }: FormProps) => {
   const [balances, setBalances] = useState<Array<typeof initialBalance>>([
     initialBalance,
   ]);
@@ -63,7 +63,7 @@ export const Form = ({ setInitial }: FormProps) => {
       console.log(txHash);
       const response = await getContractAddress(txHash);
       if (response) {
-        setInitial(response);
+        setInitial([...initial, response]);
       }
       toast(
         <a

@@ -20,9 +20,8 @@ export const MainPage: React.FC = () => {
     return [];
   });
 
-  const setContracts = (st: string) => {
-    const updateStrings = [...initial, st];
-    return setInitial(updateStrings);
+  const setContracts = (st: string[]) => {
+    return setInitial(st);
   };
 
   useEffect(() => {

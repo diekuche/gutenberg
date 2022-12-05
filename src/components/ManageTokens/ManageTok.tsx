@@ -7,7 +7,7 @@ import BootSender from "../BootSender/BootSender";
 
 interface TokenProps {
   initial: string[];
-  setInitial: (st: string) => void;
+  setInitial: (st: string[]) => void;
 }
 
 function ManageTokens(props: TokenProps) {
@@ -26,7 +26,7 @@ function ManageTokens(props: TokenProps) {
   function addContract() {
     setLoading(true);
     if (contract.includes("bostrom")) {
-      props.setInitial(contract);
+      props.setInitial([...props.initial, contract]);
     } else {
       setVisible(true);
       setTimeout(() => {
@@ -40,7 +40,10 @@ function ManageTokens(props: TokenProps) {
 
   function removeContract(contract: string) {
     if (contract) {
-      props.initial.filter((_contract) => _contract !== contract);
+      const newInitial = props.initial.filter(
+        (_contract) => _contract !== contract
+      );
+      props.setInitial(newInitial);
     }
   }
 
