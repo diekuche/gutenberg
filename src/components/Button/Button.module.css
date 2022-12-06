@@ -3,8 +3,8 @@
   width: fit-content;
   height: 41px;
   box-sizing: border-box;
-  border: 1px solid #2dff18;
-  color: #2dff18;
+  border: 1px solid #43b25b;
+  color: #43b25b;
   border-radius: 27.5px;
   text-align: center;
   padding: 7px 25px 7px 25px;
@@ -12,7 +12,7 @@
   font-size: 14px;
   font-weight: 400;
   align-self: center;
-  opacity: 0.5;
+  opacity: 0.8;
   cursor: pointer;
   margin-bottom: 10px;
 }
