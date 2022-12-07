@@ -6,7 +6,7 @@ import git from "../Footer/git.png";
 const Footer = () => {
   return (
     <div className={styles.footer}>
-      <a href="https://github.com/diekuche/gutenberg">
+      <a href="https://github.com/diekuche/gutenberg" target="_blank" rel="noreferrer">
         <img className={styles.git} src={git} alt=""></img>
       </a>
       <a className={styles.link} href="/About">

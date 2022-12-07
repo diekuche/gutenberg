@@ -116,7 +116,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
         id="token"
         label={`Token's Name:`}
         htmlFor="token"
-        subtitle={`You can specify any name you like. But it is better to come up with something original (min 3, max 50 symbols)`}
+        subtitle={`You can specify any name you like. But it is better to come up with something original \n (min 3, max 50 symbols)`}
         placeholder={`John's Obligations`}
         name="token"
         required
@@ -161,7 +161,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
       <Collapsible title="Changing Initial Balance">
         <div className={styles.inputComponent}>
           <div className={styles.article}>
-            By default all new tokens will be transfered to your wallet. You can
+            By default all new tokens will be transfered to your wallet.<br/>You can
             change that.
           </div>
           {balances.map(({ id, address, amount }, index) => {
@@ -204,7 +204,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setDescription(e.target.value)
           }
-          label="This information will be displayed in the description of the created token:(max 160 symbols)"
+          label={"This information will be displayed in the description of the created token \n (max 160 symbols):"}
           isTextArea
         />
       </Collapsible>

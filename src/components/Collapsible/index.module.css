@@ -27,4 +27,5 @@
 .children {
   display: flex;
   flex-direction: row;
+  white-space: pre-line;
 }
