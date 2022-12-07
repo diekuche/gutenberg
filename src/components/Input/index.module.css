@@ -12,6 +12,8 @@
   border: 0px;
   outline:none;
   margin-left: 7px;
+  box-shadow: inset 20px 20px 0px 20px #162833;
+  -webkit-text-fill-color:#d3ff54 ;
 }
 
 .label {
@@ -23,7 +25,6 @@ input::placeholder {
   padding: 11px 0px;
   opacity: 0.5;
   color: #d3ff54;
-  
 }
 
 .subtitle {
@@ -34,6 +35,7 @@ input::placeholder {
   font-size: 12px;
   font-weight: 300;
   white-space: pre-line;
+  
 }
 
 .inputComp {
