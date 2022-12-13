@@ -29,6 +29,7 @@
   background: #E2FB5F;;
   border-radius: 8px;
   border: none;
+  outline:none;
 }
 
 .label {
