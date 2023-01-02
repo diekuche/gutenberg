@@ -1,0 +1,23 @@
+.year {
+  display: flex;
+  color: #E2FB5F; 
+  font-size: 20px;
+line-height: 23px;
+} 
+.tigD {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  transform: rotate(90deg);
+  margin-right: 5px;
+  border-right: 17px solid #E2FB5F;
+  margin-top: 10px;
+} 
+.arrow {
+  display: flex;
+  border-left: 2px solid #E2FB5F;
+    height: 400px;
+    margin-left: 9px;
+    margin-bottom: 10px;
+}

@@ -9,6 +9,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { configKeplr, CYBER } from "./utils/config";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import HeaderSpoiler from "./components/HeaderSpoiler/HeaderSpoiler";
+import Txt from "./components/Txt/Txt";
+import ManageTok from "./components/ManageTok/ManageTok";
+
 
 declare global {
   interface Window extends KeplrWindow { }
@@ -31,11 +35,13 @@ function App() {
     <div className="App">
       <div className="container">
         <Router>
-          <Header />
-          <Routes>
-            <Route path="/" element={<MainPage />}></Route>
+          <HeaderSpoiler />
+          <Routes> 
+            <Route path="/" element={<Txt />}></Route>
             <Route path="/legalinfo" element={<LegalInform />}></Route>
+            <Route path="/old" element={<MainPage/>}></Route>
           </Routes>
+          <ManageTok />
           <Footer />
         </Router>
         <ToastContainer autoClose={false} />

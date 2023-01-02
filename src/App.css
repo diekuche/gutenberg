@@ -19,7 +19,7 @@
 .container {
   flex-direction: column;
   align-self: center;
-  width: 840px;
+  width: 1440px;
   margin: 0 auto;
   display: flex;
   min-height: 100vh;

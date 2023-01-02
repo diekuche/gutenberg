@@ -1,0 +1,44 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  color: #e2fb5f;
+  font-family: "Roboto";
+  justify-content: space-between;
+}
+
+.linkhead {
+  color: #e2fb5f;
+  text-decoration: none;
+  font-size: 46px;
+  font-family: "Roboto";
+  font-weight: 700;
+  padding-left: 19px;
+}
+
+.middle {
+  font-family: 'Roboto';
+font-style: normal;
+font-weight: 400;
+font-size: 18px;
+line-height: 21px;
+text-align: center;
+color: #43B25B;
+margin-top: 16px;
+}
+
+.btnClass {
+  width: 170px;
+  border-radius: 100px;
+  background: #E2FB5F;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+border: 0px;
+margin-top: 16px;
+}
+
+span {
+  margin-right: 36px;
+}
