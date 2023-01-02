@@ -1,4 +1,5 @@
 import React from "react";
+import ManageTok from "../ManageTok/ManageTok"; 
 import styles from "../Txt/Txt.module.css";
 
 const Txt = () => {
@@ -13,6 +14,7 @@ const Txt = () => {
         </button>
         </div>
         <div className={styles.inf}>This project allows to create, mint and manage any possible number of tokens.</div>
+        <ManageTok />
     </div>
   );
 };

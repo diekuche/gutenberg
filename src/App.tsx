@@ -11,7 +11,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderSpoiler from "./components/HeaderSpoiler/HeaderSpoiler";
 import Txt from "./components/Txt/Txt";
-import ManageTok from "./components/ManageTok/ManageTok";
+
 
 
 declare global {
@@ -41,7 +41,6 @@ function App() {
             <Route path="/legalinfo" element={<LegalInform />}></Route>
             <Route path="/old" element={<MainPage/>}></Route>
           </Routes>
-          <ManageTok />
           <Footer />
         </Router>
         <ToastContainer autoClose={false} />
