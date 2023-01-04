@@ -1,120 +1,112 @@
 .mt {
-    display: flex;
+  display: flex;
+  margin-top: 170px;
 }
 .vert {
-color: yellow;
-writing-mode: vertical-rl;
-transform: rotate(0.5turn);
+  color: yellow;
+  writing-mode: vertical-rl;
+  transform: rotate(0.5turn);
 }
-.txtR {
-    display: flex;
-    flex-direction: column;
-font-weight: 800;
-font-size: 133px;
-line-height: 156px;
-margin-right: 230px;
-color: rgba(67, 178, 91, 0.15);
+.roadmap {
+  display: flex;
+  flex-direction: column;
+  font-weight: 800;
+  font-size: 133px;
+  line-height: 156px;
+  margin-right: 230px;
+  color: rgba(67, 178, 91, 0.15);
 }
-.txtS {
-    display: flex;
-font-size: 20px;
-line-height: 23px;
-color: rgba(67, 178, 91, 0.5);
+.switchNet {
+  display: flex;
+  font-size: 20px;
+  line-height: 23px;
+  color: rgba(67, 178, 91, 0.5);
+  margin-top: 9px;
 }
 .txt2 {
-    display: flex;
-font-weight: 400;
-font-size: 20px;
-line-height: 23px;
-color: #E2FB5F;
+  display: flex;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+  color: #e2fb5f;
 }
 .bridge {
-    display: flex;
-    margin-bottom: 5px;
-    margin-top: 15px;
+  display: flex;
+  margin-bottom: 5px;
+  margin-top: 15px;
 }
-.tigD {
-    width: 0;
-height: 0;
-border-top: 6px solid transparent;
-border-bottom: 6px solid transparent;
-border-right: 13px solid rgba(67, 178, 91, 0.5);
-transform: rotate(90deg);
-margin-right: 6px;
-margin-top: 5px;
+.triangleD {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 13px solid rgba(67, 178, 91, 0.5);
+  transform: rotate(90deg);
+  margin-right: 6px;
+  margin-top: 5px;
 }
 .bn {
-    color: #E2FB5F;
+  color: #e2fb5f;
 }
-.tigU {
-    width: 0;
-height: 0;
-border-top: 6px solid transparent;
-border-bottom: 6px solid transparent;
-border-right: 13px solid rgba(67, 178, 91, 0.5);
-transform: rotate(-90deg);
-margin-right: 7px;
-margin-bottom: 8px;
+.triangleU {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 13px solid rgba(67, 178, 91, 0.5);
+  transform: rotate(-90deg);
+  margin-right: 7px;
+  margin-bottom: 8px;
 }
-.namestr:focus {
-    height: 47px;
-background:#162833;
-color:#E2FB5F;
-border-radius: 30px;
-border:0px;
-font-weight: 600;
-font-size: 20px;
-line-height: 23px;
-width: fit-content; 
-padding: 12px 20px;
-
+.namestrFS {
+  height: 47px;
+  background: #162833;
+  color: #e2fb5f;
+  border-radius: 30px;
+  border: 0px;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 23px;
+  width: fit-content;
+  padding: 12px 20px;
 }
 .namestr {
-height: 47px;
-background:rgba(22, 40, 51, 0.4);
-color:#E2FB5F;
-border-radius: 30px;
-border:0px;
-font-weight: 600;
-font-size: 20px;
-line-height: 23px;
-width: fit-content; 
-padding: 12px 20px;
+  height: 47px;
+  background: rgba(22, 40, 51, 0.4);
+  color: #e2fb5f;
+  border-radius: 30px;
+  border: 0px;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 23px;
+  width: fit-content;
+  padding: 12px 20px;
 }
 .icon {
-    background-color: rgba(67, 178, 91, 0); 
-    height: 47px;
-border-radius: 30px;
-font-weight: 400;
-font-size: 14px;
-line-height: 16px;
-border: 1px solid #43B25B;
-color:rgba(67, 178, 91, 0.5);
-width: fit-content; 
-padding: 12px 20px;
+  background-color: rgba(67, 178, 91, 0);
+  height: 47px;
+  border-radius: 30px;
+  font-size: 14px;
+  border: 1px solid #43b25b;
+  color: rgba(67, 178, 91, 0.5);
+  width: fit-content;
+  padding: 12px 20px;
 }
-.tigR {
-    width: 6px;
-    height: 6px;
-    border-top: 1px solid #43B25B;
-    border-right: 1px solid #43B25B;
-    transform: rotate(45deg);
-    margin: 18px 10px;
+.triangleR {
+  width: 6px;
+  height: 6px;
+  border-top: 1px solid #43b25b;
+  border-right: 1px solid #43b25b;
+  transform: rotate(45deg);
+  margin: 18px 10px;
 }
 .choice {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .tokenstr {
-   display: flex;
-   flex-direction: row;
-   margin-bottom:20px;
-}
-.icon:hover {
-    border-color: #E2FB5F;
-    color: #E2FB5F;
-}
-.check {
-    color: green;
-    border-radius: 15px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
 }

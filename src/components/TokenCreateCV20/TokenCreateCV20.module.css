@@ -1,0 +1,35 @@
+.tokenstr {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+.namestrFS {
+  height: 47px;
+  background: #162833;
+  color: #e2fb5f;
+  border-radius: 30px;
+  border: 0px;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 23px;
+  width: fit-content;
+  padding: 12px 20px;
+}
+.icon {
+  background-color: rgba(67, 178, 91, 0);
+  height: 47px;
+  border-radius: 30px;
+  font-size: 14px;
+  border: 1px solid #43b25b;
+  color: rgba(67, 178, 91, 0.5);
+  width: fit-content;
+  padding: 12px 20px;
+}
+.triangleR {
+  width: 6px;
+  height: 6px;
+  border-top: 1px solid #43b25b;
+  border-right: 1px solid #43b25b;
+  transform: rotate(45deg);
+  margin: 18px 10px;
+}

@@ -29,6 +29,7 @@
 
 .create {
   margin-left: auto;
+  margin-right: 24px;
   color: #43b25b;
   font-style: normal;
   font-weight: 300;
@@ -37,8 +38,6 @@
 }
 .git {
   margin-right: 15px;
-  color: #43b25b;
+  margin-left: 20px;
   height: 40px;
-  
- 
 }

@@ -1,23 +1,24 @@
 .year {
   display: flex;
-  color: #E2FB5F; 
+  color: #e2fb5f;
   font-size: 20px;
-line-height: 23px;
-} 
+  line-height: 23px;
+  margin-top: 9px;
+}
 .tigD {
   width: 0;
   height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
   transform: rotate(90deg);
-  margin-right: 5px;
-  border-right: 17px solid #E2FB5F;
+  margin-right: 6px;
+  border-right: 13px solid #e2fb5f;
   margin-top: 10px;
-} 
+}
 .arrow {
   display: flex;
-  border-left: 2px solid #E2FB5F;
-    height: 400px;
-    margin-left: 9px;
-    margin-bottom: 10px;
+  border-left: 2px solid #e2fb5f;
+  height: 390px;
+  margin-left: 9px;
+  margin-bottom: 10px;
 }
