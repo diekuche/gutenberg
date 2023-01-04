@@ -1,7 +1,7 @@
 .header {
   display: flex;
   flex-direction: row;
-  font-size: 16px;
+  font-size: 35px;
   color: #e2fb5f;
   font-family: "Roboto";
   justify-content: space-between;
@@ -17,27 +17,27 @@
 }
 
 .middle {
-  font-family: 'Roboto';
-font-style: normal;
-font-weight: 400;
-font-size: 18px;
-line-height: 21px;
-text-align: center;
-color: #43B25B;
-margin-top: 16px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  color: #43b25b;
+  margin-top: 16px;
 }
 
 .btnClass {
   width: 170px;
   border-radius: 100px;
-  background: #E2FB5F;
-font-style: normal;
-font-weight: 400;
-font-size: 16px;
-line-height: 19px;
-border: 0px;
-margin-top: 16px;
-margin-right: 20px;
+  background: #e2fb5f;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  border: 0px;
+  margin-top: 16px;
+  margin-right: 20px;
 }
 
 span {

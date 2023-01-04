@@ -6,6 +6,9 @@
   color: yellow;
   writing-mode: vertical-rl;
   transform: rotate(0.5turn);
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
 }
 .roadmap {
   display: flex;
@@ -109,4 +112,14 @@
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
+}
+.iconsecond {
+  background-color: rgba(67, 178, 91, 0);
+  border-color: #d9fb5f;
+  color: #e2fb5f;
+  height: 47px;
+  border-radius: 30px;
+  font-size: 14px;
+  width: fit-content;
+  padding: 12px 20px;
 }

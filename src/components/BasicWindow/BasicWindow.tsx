@@ -1,17 +1,16 @@
 import React from "react";
-import ManageTok from "../ManageTok/ManageTok";
 import styles from "../BasicWindow/BasicWindow.module.css";
 
 const BasicWindow = () => {
   return (
     <div className={styles.mid}>
-      <div className={styles.text}>create!</div>
-      <div className={styles.text}>manage!</div>
-      <div className={styles.text}>
+      <div className={styles.headerstr}>create!</div>
+      <div className={styles.headerstr}>manage!</div>
+      <div className={styles.headerstr}>
         swap!
         <button className={styles.gocre}>go create!</button>
       </div>
-      <div className={styles.inf}>
+      <div className={styles.info}>
         This project allows to create, mint and manage any possible number of
         tokens.
       </div>

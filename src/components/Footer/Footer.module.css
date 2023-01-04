@@ -11,10 +11,10 @@
 .link {
   color: #43b25b;
   width: fit-content;
-  font-style: normal;
+  font-style: regular;
   font-weight: 300;
-  font-size: 14px;
-  margin-right: 12px;
+  font-size: 16px;
+  margin-right: 29px;
   line-height: 16px;
 }
 
@@ -37,7 +37,7 @@
   line-height: 16px;
 }
 .git {
-  margin-right: 15px;
+  margin-right: 29px;
   margin-left: 20px;
-  height: 40px;
+  height: 25px;
 }

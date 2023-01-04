@@ -1,10 +1,10 @@
-.text {
+.headerstr {
   display: flex;
   color: rgba(67, 178, 91, 0.15);
   font-weight: 700;
   font-size: 180px;
   line-height: 128px;
-  margin-left: 17%;
+  margin-left: 13%;
   align-items: center;
 }
 
@@ -24,10 +24,9 @@
 .mid {
   display: flex;
   flex-direction: column;
-  margin-left: 249px;
   margin-top: 68px;
 }
-.inf {
+.info {
   margin-left: 769px;
   width: 444px;
   height: 93px;

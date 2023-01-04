@@ -2,14 +2,6 @@ import React from "react";
 import styles from "../ManageTok/ManageTok.module.css";
 import Arrow from "../Arrow/Arrow";
 import Year from "../Year/Year";
-import TokenCreateCV20 from "../TokenCreateCV20/TokenCreateCV20";
-import TokenCreateManage from "../TokenCreateManage/TokenCreateManage";
-import TokenSwap from "../TokenSwap/TokenSwap";
-import TokenCreateNTT from "../TokenCreateNTT/TokenCreateNTT";
-import TokenCreateNFT from "../TokenCreateNFT/TokenCreateNFT";
-import TokenCreateCV721 from "../TokenCreateCV721/TokenCreateCV721";
-import TokenCNameServis from "../TokenCNameServis/TokenCNameServis";
-import TokenCreateDeFi from "../TokenCreateDeFi/TokenCreateDeFi";
 
 const ManTok = () => {
   return (
@@ -28,14 +20,70 @@ const ManTok = () => {
         <Year />
       </div>
       <div className={styles.choice}>
-        <TokenCreateCV20 />
-        <TokenCreateManage />
-        <TokenSwap />
-        <TokenCreateNTT />
-        <TokenCreateCV721 />
-        <TokenCreateNFT />
-        <TokenCNameServis />
-        <TokenCreateDeFi />
+        <div className={styles.tokenstr}>
+          <button className={styles.namestrFS}>Create CV20</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Icons Storage</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Terms Storage</button>
+        </div>
+        <div className={styles.tokenstr}>
+          <button className={styles.namestrFS}>Manage CV20</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.iconsecond}>Send</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Mint</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Burn</button>
+        </div>
+        <div className={styles.tokenstr}>
+          <button className={styles.namestr}>Swap CV20</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Liquidity Pools</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Farms</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Registries</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Deposit/Withdraw</button>
+        </div>
+        <div className={styles.tokenstr}>
+          <button className={styles.namestr}>Create NTT</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Non-transferable Standart</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Manage</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Registries</button>
+        </div>
+        <div className={styles.tokenstr}>
+          <button className={styles.namestr}>Create CV721 (NFT)</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Images Data Storage</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Collections</button>
+        </div>
+        <div className={styles.tokenstr}>
+          <button className={styles.namestr}>NFT Marketplace</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>P2P Trades</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Swap</button>
+        </div>
+        <div className={styles.tokenstr}>
+          <button className={styles.namestr}>Name Servis</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Registries</button>
+        </div>
+        <div className={styles.tokenstr}>
+          <button className={styles.namestr}>DeFi Tools</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Loans</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Options</button>
+          <div className={styles.triangleR}></div>
+          <button className={styles.icon}>Prediction Markets</button>
+        </div>
       </div>
     </div>
   );

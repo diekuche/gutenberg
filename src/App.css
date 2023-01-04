@@ -32,7 +32,6 @@
 }
 
 .colorhead {
-  height: 753px;
   background: radial-gradient(
     95.73% 182.36% at 4.67% 4.74%,
     #185543 0%,
@@ -41,7 +40,6 @@
   );
 }
 .colorsecond {
-  height: 753px;
   background: radial-gradient(
     95.73% 182.36% at 95.73% 4.74%,
     #185543 0%,
