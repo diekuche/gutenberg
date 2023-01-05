@@ -3,7 +3,7 @@ import styles from "../BasicWindow/BasicWindow.module.css";
 
 const BasicWindow = () => {
   return (
-    <div className={styles.mid}>
+    <div className={styles.middle}>
       <div className={styles.headerstr}>create!</div>
       <div className={styles.headerstr}>manage!</div>
       <div className={styles.headerstr}>

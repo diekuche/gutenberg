@@ -1,14 +1,15 @@
-.mt {
+.mantok {
   display: flex;
   margin-top: 170px;
 }
-.vert {
+.vertical {
   color: yellow;
   writing-mode: vertical-rl;
   transform: rotate(0.5turn);
   display: flex;
   flex-direction: column;
   margin-left: 30px;
+  margin-right: 15px;
 }
 .roadmap {
   display: flex;
@@ -26,13 +27,6 @@
   color: rgba(67, 178, 91, 0.5);
   margin-top: 9px;
 }
-.txt2 {
-  display: flex;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 23px;
-  color: #e2fb5f;
-}
 .bridge {
   display: flex;
   margin-bottom: 5px;
@@ -48,7 +42,7 @@
   margin-right: 6px;
   margin-top: 5px;
 }
-.bn {
+.bostnetw {
   color: #e2fb5f;
 }
 .triangleU {
@@ -106,12 +100,12 @@
 .choice {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  height: 156px;
 }
 .tokenstr {
   display: flex;
   flex-direction: row;
-  margin-bottom: 20px;
+  margin-bottom: 21px;
 }
 .iconsecond {
   background-color: rgba(67, 178, 91, 0);

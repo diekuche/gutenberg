@@ -12,12 +12,10 @@ const Header = () => {
         </Link>
       </div>
       <div className={styles.middle}>
-        <span>Create</span>
-        <span>Manage assets</span>
+        <div className={styles.name}>Create</div>
+        <div className={styles.name}>Manage assets</div>
       </div>
-      <button className={styles.btnClass}>
-     Enter App
-    </button>
+      <button className={styles.btnClass}>Enter App</button>
     </header>
   );
 };

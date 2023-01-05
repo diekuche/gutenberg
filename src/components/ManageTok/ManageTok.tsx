@@ -5,8 +5,8 @@ import Year from "../Year/Year";
 
 const ManTok = () => {
   return (
-    <div className={styles.mt}>
-      <div className={styles.vert}>
+    <div className={styles.mantok}>
+      <div className={styles.vertical}>
         <div className={styles.roadmap}>roadmap</div>
         <div className={styles.switchNet}>
           Switch Netorks
@@ -15,7 +15,7 @@ const ManTok = () => {
           <div className={styles.bridge}>Bridge</div>
           <Arrow />
           <div className={styles.triangleU}></div>
-          <div className={styles.bn}>Bostrom Network</div>
+          <div className={styles.bostnetw}>Bostrom Network</div>
         </div>
         <Year />
       </div>
