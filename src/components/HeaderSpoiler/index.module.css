@@ -17,6 +17,7 @@
 }
 
 .middle {
+  display: flex;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
@@ -40,6 +41,6 @@
   margin-right: 20px;
 }
 
-span {
+.name {
   margin-right: 36px;
 }
