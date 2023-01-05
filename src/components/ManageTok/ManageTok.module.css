@@ -1,6 +1,6 @@
 .mantok {
   display: flex;
-  margin-top: 170px;
+  margin-top: 92px;
 }
 .vertical {
   color: yellow;
@@ -56,7 +56,8 @@
   margin-bottom: 8px;
 }
 .namestrFS {
-  height: 47px;
+  display: flex;
+  font-family: Roboto;
   background: #162833;
   color: #e2fb5f;
   border-radius: 30px;
@@ -65,10 +66,10 @@
   font-size: 20px;
   line-height: 23px;
   width: fit-content;
-  padding: 12px 20px;
+  padding: 0px 20px;
+  align-items: center;
 }
 .namestr {
-  height: 47px;
   background: rgba(22, 40, 51, 0.4);
   color: #e2fb5f;
   border-radius: 30px;
@@ -77,11 +78,13 @@
   font-size: 20px;
   line-height: 23px;
   width: fit-content;
-  padding: 12px 20px;
+  padding: 0px 20px;
+  font-family: Roboto;
 }
 .icon {
+  display: flex;
   background-color: rgba(67, 178, 91, 0);
-  height: 47px;
+  font-family: Roboto;
   border-radius: 30px;
   font-size: 14px;
   border: 1px solid #43b25b;
@@ -105,15 +108,23 @@
 .tokenstr {
   display: flex;
   flex-direction: row;
-  margin-bottom: 21px;
+  margin-bottom: 26px;
 }
 .iconsecond {
   background-color: rgba(67, 178, 91, 0);
+  display: flex;
   border-color: #d9fb5f;
   color: #e2fb5f;
-  height: 47px;
   border-radius: 30px;
   font-size: 14px;
   width: fit-content;
-  padding: 12px 20px;
+  padding: 0px 20px;
+  align-items: center;
+}
+.icongreen {
+  padding-left: 8px;
+  padding-bottom: 4px;
+}
+.iconyellow {
+  padding-left: 8px;
 }

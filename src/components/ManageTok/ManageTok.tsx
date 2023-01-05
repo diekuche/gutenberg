@@ -2,6 +2,8 @@ import React from "react";
 import styles from "../ManageTok/ManageTok.module.css";
 import Arrow from "../Arrow/Arrow";
 import Year from "../Year/Year";
+import green from "../ManageTok/green.png";
+import yellow from "../ManageTok/yellow.png";
 
 const ManTok = () => {
   return (
@@ -21,16 +23,25 @@ const ManTok = () => {
       </div>
       <div className={styles.choice}>
         <div className={styles.tokenstr}>
-          <button className={styles.namestrFS}>Create CV20</button>
+          <button className={styles.namestrFS}>
+            Create CV20
+            <img className={styles.icongreen} src={green} alt=""></img>
+          </button>
           <div className={styles.triangleR}></div>
           <button className={styles.icon}>Icons Storage</button>
           <div className={styles.triangleR}></div>
           <button className={styles.icon}>Terms Storage</button>
         </div>
         <div className={styles.tokenstr}>
-          <button className={styles.namestrFS}>Manage CV20</button>
+          <button className={styles.namestrFS}>
+            Manage CV20
+            <img className={styles.icongreen} src={green} alt=""></img>
+          </button>
           <div className={styles.triangleR}></div>
-          <button className={styles.iconsecond}>Send</button>
+          <button className={styles.iconsecond}>
+            Send
+            <img className={styles.iconyellow} src={yellow} alt=""></img>
+          </button>
           <div className={styles.triangleR}></div>
           <button className={styles.icon}>Mint</button>
           <div className={styles.triangleR}></div>
