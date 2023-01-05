@@ -112,8 +112,7 @@
 }
 .iconsecond {
   background-color: rgba(67, 178, 91, 0);
-  display: flex;
-  border-color: #d9fb5f;
+  border: 1px solid #d9fb5f;
   color: #e2fb5f;
   border-radius: 30px;
   font-size: 14px;
