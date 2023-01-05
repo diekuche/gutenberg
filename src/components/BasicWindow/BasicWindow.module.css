@@ -4,7 +4,7 @@
   font-weight: 700;
   font-size: 180px;
   line-height: 128px;
-  margin-left: 17%;
+
   align-items: center;
 }
 
@@ -26,12 +26,12 @@
   display: flex;
   flex-direction: column;
   margin-top: 68px;
+  margin-left: 249px;
 }
 .info {
-  margin-left: 769px;
+  margin-left: 520px;
   width: 444px;
   height: 93px;
-  margin-left: 869px;
   font-weight: 300;
   font-size: 22px;
   line-height: 32px;

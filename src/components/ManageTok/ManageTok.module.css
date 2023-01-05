@@ -1,6 +1,7 @@
 .mantok {
   display: flex;
   margin-top: 92px;
+  margin-left: 230px;
 }
 .vertical {
   color: yellow;
@@ -17,7 +18,7 @@
   font-weight: 800;
   font-size: 133px;
   line-height: 156px;
-  margin-right: 230px;
+
   color: rgba(67, 178, 91, 0.15);
 }
 .switchNet {
@@ -111,6 +112,7 @@
   margin-bottom: 26px;
 }
 .iconsecond {
+  display: flex;
   background-color: rgba(67, 178, 91, 0);
   border: 1px solid #d9fb5f;
   color: #e2fb5f;
@@ -119,6 +121,7 @@
   width: fit-content;
   padding: 0px 20px;
   align-items: center;
+  font-family: Roboto;
 }
 .icongreen {
   padding-left: 8px;

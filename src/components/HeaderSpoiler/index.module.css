@@ -4,7 +4,11 @@
   font-size: 35px;
   color: #e2fb5f;
   font-family: "Roboto";
+  font-weight: 800;
   justify-content: space-between;
+  line-height: 41px;
+  margin-top: 11px;
+  margin-left: 19px;
 }
 
 .linkhead {
@@ -29,7 +33,8 @@
 }
 
 .btnClass {
-  width: 170px;
+  width: fit-content;
+  font-family: "Roboto";
   border-radius: 100px;
   background: #e2fb5f;
   font-style: normal;
@@ -39,6 +44,7 @@
   border: 0px;
   margin-top: 16px;
   margin-right: 20px;
+  padding: 9px 50px;
 }
 
 .name {

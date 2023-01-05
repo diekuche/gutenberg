@@ -39,12 +39,13 @@ function App() {
           </div>
           <div className="colorsecond">
             <ManageTok />
-            <Routes>
-              <Route path="/legalinfo" element={<LegalInform />}></Route>
-              <Route path="/old" element={<MainPage />}></Route>
-            </Routes>
             <Footer />
           </div>
+
+          <Routes>
+            <Route path="/legalinfo" element={<LegalInform />}></Route>
+            <Route path="/old" element={<MainPage />}></Route>
+          </Routes>
         </Router>
 
         <ToastContainer autoClose={false} />
