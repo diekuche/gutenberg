@@ -3,15 +3,17 @@ import "./App.css";
 import { Window as KeplrWindow } from "@keplr-wallet/types";
 import MainPage from "./components/MainPage/MainPage";
 import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
 import LegalInform from "./components/LegalInformation/LegalInform";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { configKeplr, CYBER } from "./utils/config";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import HeaderSpoiler from "./components/HeaderSpoiler/HeaderSpoiler";
+import BasicWindow from "./components/BasicWindow/BasicWindow";
+import ManageTok from "./components/ManageTok/ManageTok";
 
 declare global {
-  interface Window extends KeplrWindow { }
+  interface Window extends KeplrWindow {}
 }
 
 function App() {
@@ -31,13 +33,21 @@ function App() {
     <div className="App">
       <div className="container">
         <Router>
-          <Header />
+          <div className="colorhead">
+            <HeaderSpoiler />
+            <BasicWindow />
+          </div>
+          <div className="colorsecond">
+            <ManageTok />
+            <Footer />
+          </div>
+
           <Routes>
-            <Route path="/" element={<MainPage />}></Route>
             <Route path="/legalinfo" element={<LegalInform />}></Route>
+            <Route path="/old" element={<MainPage />}></Route>
           </Routes>
-          <Footer />
         </Router>
+
         <ToastContainer autoClose={false} />
       </div>
     </div>

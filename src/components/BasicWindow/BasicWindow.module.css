@@ -1,0 +1,43 @@
+.headerstr {
+  display: flex;
+  color: rgba(67, 178, 91, 0.15);
+  font-weight: 700;
+  font-size: 180px;
+  line-height: 128px;
+
+  align-items: center;
+}
+
+.gocre {
+  background: #162833;
+  padding: 12px 40px;
+  border-radius: 34px;
+  border: 0px;
+  color: #e2fb5f;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 35px;
+  margin-top: 20px;
+  margin-left: 30px;
+  font-family: Roboto;
+}
+
+.middle {
+  display: flex;
+  flex-direction: column;
+  margin-top: 68px;
+  margin-left: 300px;
+}
+.info {
+  margin-left: 520px;
+  width: 444px;
+  height: 93px;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 32px;
+  color: #43b25b;
+}
+
+.value {
+  color: #e2fb5f;
+}

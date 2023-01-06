@@ -3,13 +3,6 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    131.3deg,
-    #020202 -3.65%,
-    #222f34 31.38%,
-    #185543 68.6%,
-    #1a2934 101.44%
-  );
   background-size: 100% 100%;
   background-position: 30% 50%;
   box-sizing: border-box;
@@ -18,9 +11,6 @@
 
 .container {
   flex-direction: column;
-  align-self: center;
-  width: 840px;
-  margin: 0 auto;
   display: flex;
   min-height: 100vh;
 }
@@ -39,4 +29,22 @@
   100% {
     background-position: 100 50%;
   }
+}
+
+.colorhead {
+  flex: 1;
+  background: radial-gradient(
+    95.73% 182.36% at 4.67% 4.74%,
+    #185543 0%,
+    #204b51 32.81%,
+    #1f3644 100%
+  );
+}
+.colorsecond {
+  background: radial-gradient(
+    95.73% 182.36% at 95.73% 4.74%,
+    #185543 0%,
+    #204b51 32.81%,
+    #1f3644 100%
+  );
 }
