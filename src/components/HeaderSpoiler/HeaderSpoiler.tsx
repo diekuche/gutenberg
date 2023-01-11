@@ -7,12 +7,10 @@ function Header2() {
   const [header, setHeader] = useState("header");
 
   const listenScrollEvent = () => {
-    if (window.scrollY < 5) {
-      console.log("up");
-      return setHeader("header");
-    } else if (window.scrollY > 7) {
-      console.log("down");
-      return setHeader("header2");
+    if (window.scrollY < 50) {
+      return setHeader(styles.header);
+    } else if (window.scrollY > 52) {
+      return setHeader(styles.header2);
     }
   };
 
@@ -33,7 +31,7 @@ function Header2() {
           <div className={styles.name}>Create</div>
           <div className={styles.name}>Manage assets</div>
         </div>
-        <button className={styles.btnClass}>Enter App</button>
+        <button className={styles.btnClass}>Connect Wallet</button>
       </div>
     </header>
   );

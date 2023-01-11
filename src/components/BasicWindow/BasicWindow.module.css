@@ -31,6 +31,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-right: 210px;
+  margin-top: 110px;
 }
 .info {
   margin-left: 754px;
@@ -40,6 +42,7 @@
   font-size: 22px;
   line-height: 32px;
   color: #43b25b;
+  margin-bottom: 170px;
 }
 
 .value {

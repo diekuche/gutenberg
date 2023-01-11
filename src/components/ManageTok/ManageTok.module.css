@@ -21,7 +21,6 @@
   font-weight: 800;
   font-size: 133px;
   line-height: 156px;
-
   color: rgba(67, 178, 91, 0.15);
 }
 .switchNet {
@@ -34,8 +33,13 @@
 }
 .bridge {
   display: flex;
-  margin-bottom: 5px;
+  margin-bottom: 13px;
   margin-top: 15px;
+}
+
+.switch {
+  display: flex;
+  margin-bottom: 15px;
 }
 .triangleD {
   width: 0;
@@ -48,7 +52,9 @@
   margin-top: 5px;
 }
 .bostnetw {
+  display: flex;
   color: #e2fb5f;
+  margin-top: 14px;
 }
 .triangleU {
   width: 0;
@@ -68,11 +74,12 @@
   border-radius: 30px;
   border: 0px;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 23px;
   width: fit-content;
   padding: 0px 20px;
   align-items: center;
+  margin-right: 10px;
 }
 .namestr {
   background: rgba(22, 40, 51, 0.4);
@@ -80,11 +87,12 @@
   border-radius: 30px;
   border: 0px;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 23px;
   width: fit-content;
   padding: 0px 20px;
   font-family: Roboto;
+  margin-right: 10px;
 }
 .icon {
   display: flex;
@@ -96,14 +104,8 @@
   color: rgba(67, 178, 91, 0.5);
   width: fit-content;
   padding: 12px 20px;
-}
-.triangleR {
-  width: 6px;
-  height: 6px;
-  border-top: 1px solid #43b25b;
-  border-right: 1px solid #43b25b;
-  transform: rotate(45deg);
-  margin: 18px 10px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 .choice {
   display: flex;
@@ -122,11 +124,13 @@
   border: 1px solid #d9fb5f;
   color: #e2fb5f;
   border-radius: 30px;
-  font-size: 14px;
+  font-size: 18px;
   width: fit-content;
   padding: 0px 20px;
   align-items: center;
   font-family: Roboto;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 .icongreen {
   padding-left: 8px;
