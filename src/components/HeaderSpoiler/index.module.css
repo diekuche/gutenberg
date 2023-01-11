@@ -33,7 +33,7 @@
   height: 50px;
   background-color: gray;
   animation: myanimation 3s;
-  z-index: 2;
+  z-index: 5;
 }
 @keyframes myanimation {
   0% {
@@ -88,4 +88,7 @@
 
 .name {
   margin-right: 36px;
+}
+.btnClass:hover {
+  background-color: #edff8e;
 }

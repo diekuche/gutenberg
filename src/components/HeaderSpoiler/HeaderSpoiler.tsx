@@ -10,7 +10,7 @@ function Header2() {
     if (window.scrollY < 5) {
       console.log("up");
       return setHeader("header");
-    } else if (window.scrollY > 8) {
+    } else if (window.scrollY > 7) {
       console.log("down");
       return setHeader("header2");
     }
