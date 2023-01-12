@@ -1,10 +1,9 @@
 .mantok {
   display: flex;
-  margin-top: 70px;
   align-items: flex-start;
-  height: 529px;
   justify-content: center;
-  margin-left: 244 px;
+  margin-top: 23px;
+  padding-top: 85px;
 }
 .vertical {
   color: yellow;

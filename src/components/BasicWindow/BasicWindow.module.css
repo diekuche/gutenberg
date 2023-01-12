@@ -33,6 +33,7 @@
   align-items: center;
   margin-right: 210px;
   margin-top: 110px;
+  margin-bottom: 70px;
 }
 .info {
   margin-left: 780px;
@@ -42,7 +43,6 @@
   font-size: 22px;
   line-height: 32px;
   color: #43b25b;
-  margin-bottom: 170px;
 }
 
 .value {

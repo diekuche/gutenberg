@@ -6,9 +6,8 @@
   background-size: 100% 100%;
   background-position: 30% 50%;
   box-sizing: border-box;
-  animation: change 10s easy-in-out infinite;
   background: radial-gradient(
-    95.73% 182.36% at 4.67% 4.74%,
+    95.73% 182.36% at 95.73% 4.74%,
     #185543 0%,
     #204b51 32.81%,
     #1f3644 100%
