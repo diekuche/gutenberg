@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./index.module.css";
 import BasicWindow from "../BasicWindow/BasicWindow";
 import ManageTok from "../ManageTok/ManageTok";
 

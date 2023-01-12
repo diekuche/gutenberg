@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "../ManageTok/ManageTok.module.css";
-import Arrow from "../Arrow/Arrow";
 import Year from "../Year/Year";
 import green from "../ManageTok/vargreen.svg";
 import yellow from "../ManageTok/varyellow.svg";
