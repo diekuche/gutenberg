@@ -9,8 +9,7 @@ import { configKeplr, CYBER } from "./utils/config";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderSpoiler from "./components/HeaderSpoiler/HeaderSpoiler";
-import BasicWindow from "./components/BasicWindow/BasicWindow";
-import ManageTok from "./components/ManageTok/ManageTok";
+import Main from "./components/Main/Main";
 
 declare global {
   interface Window extends KeplrWindow {}
@@ -33,19 +32,13 @@ function App() {
     <div className="App">
       <div className="container">
         <Router>
-          <div className="colorhead">
-            <HeaderSpoiler />
-            <BasicWindow />
-          </div>
-          <div className="colorsecond">
-            <ManageTok />
-            <Footer />
-          </div>
-
+          <HeaderSpoiler />
           <Routes>
+            <Route path="/" element={<Main />}></Route>
             <Route path="/legalinfo" element={<LegalInform />}></Route>
             <Route path="/old" element={<MainPage />}></Route>
           </Routes>
+          <Footer />
         </Router>
 
         <ToastContainer autoClose={false} />

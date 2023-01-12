@@ -1,7 +1,9 @@
 .mantok {
   display: flex;
-  margin-top: 92px;
-  margin-left: 230px;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 23px;
+  padding-top: 85px;
 }
 .vertical {
   color: yellow;
@@ -18,7 +20,6 @@
   font-weight: 800;
   font-size: 133px;
   line-height: 156px;
-
   color: rgba(67, 178, 91, 0.15);
 }
 .switchNet {
@@ -27,11 +28,17 @@
   line-height: 23px;
   color: rgba(67, 178, 91, 0.5);
   margin-top: 9px;
+  margin-left: 5px;
 }
 .bridge {
   display: flex;
-  margin-bottom: 5px;
+  margin-bottom: 13px;
   margin-top: 15px;
+}
+
+.switch {
+  display: flex;
+  margin-bottom: 15px;
 }
 .triangleD {
   width: 0;
@@ -44,7 +51,9 @@
   margin-top: 5px;
 }
 .bostnetw {
+  display: flex;
   color: #e2fb5f;
+  margin-top: 14px;
 }
 .triangleU {
   width: 0;
@@ -64,52 +73,49 @@
   border-radius: 30px;
   border: 0px;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 23px;
   width: fit-content;
   padding: 0px 20px;
   align-items: center;
+  margin-right: 10px;
 }
 .namestr {
   background: rgba(22, 40, 51, 0.4);
-  color: #e2fb5f;
+  color: rgb(89%, 98%, 37%, 50%);
   border-radius: 30px;
   border: 0px;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 23px;
   width: fit-content;
   padding: 0px 20px;
   font-family: Roboto;
+  margin-right: 10px;
 }
 .icon {
   display: flex;
   background-color: rgba(67, 178, 91, 0);
   font-family: Roboto;
   border-radius: 30px;
-  font-size: 14px;
-  border: 1px solid #43b25b;
+  font-size: 18px;
+  border: 1px solid rgba(67, 178, 91, 0.5);
   color: rgba(67, 178, 91, 0.5);
   width: fit-content;
   padding: 12px 20px;
-}
-.triangleR {
-  width: 6px;
-  height: 6px;
-  border-top: 1px solid #43b25b;
-  border-right: 1px solid #43b25b;
-  transform: rotate(45deg);
-  margin: 18px 10px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 .choice {
   display: flex;
   flex-direction: column;
-  height: 156px;
 }
 .tokenstr {
   display: flex;
   flex-direction: row;
-  margin-bottom: 26px;
+  margin-bottom: 20px;
+  min-width: fit-content;
+  min-height: 47px;
 }
 .iconsecond {
   display: flex;
@@ -117,16 +123,22 @@
   border: 1px solid #d9fb5f;
   color: #e2fb5f;
   border-radius: 30px;
-  font-size: 14px;
+  font-size: 18px;
   width: fit-content;
   padding: 0px 20px;
   align-items: center;
   font-family: Roboto;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 .icongreen {
   padding-left: 8px;
   padding-bottom: 4px;
+  width: 22px;
+  height: 22px;
 }
 .iconyellow {
   padding-left: 8px;
+  width: 22px;
+  height: 22px;
 }
