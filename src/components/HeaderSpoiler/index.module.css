@@ -24,12 +24,13 @@
   width: 100%;
   height: 70px;
   background-color: rgba(22, 40, 51, 0.9);
+  filter: blur(1.5px);
 }
 
 .linkhead {
   color: #e2fb5f;
   text-decoration: none;
-  font-size: 46px;
+  font-size: 35px;
   font-family: "Roboto";
   font-weight: 700;
 }
@@ -45,7 +46,9 @@
   color: #43b25b;
   margin-top: 16px;
 }
-
+.name:hover {
+  color: #e2fb5f;
+}
 .btnClass {
   width: fit-content;
   font-family: "Roboto";
@@ -58,12 +61,13 @@
   border: 0px;
   margin-top: 5px;
   margin-right: 20px;
-  padding: 0px 33px;
+  padding: 0px 28px;
 }
 
 .name {
   margin-right: 36px;
 }
+
 .btnClass:hover {
   background-color: #edff8e;
 }
