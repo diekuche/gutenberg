@@ -1,0 +1,38 @@
+.headlegal {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-top: 200px;
+  align-items: center;
+}
+
+.legalInformation {
+  display: flex;
+  justify-content: center;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 120px;
+  line-height: 23px;
+  color: rgba(67, 178, 91, 0.15);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: "Roboto";
+  font-style: light;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 26px;
+  color: #43b25b;
+  width: 600px;
+  height: 503px;
+  margin-top: 85px;
+}
+.contentSec {
+  margin-bottom: 35px;
+}
+.contentThi {
+  margin-bottom: 35px;
+}

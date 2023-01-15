@@ -3,7 +3,7 @@ import "./App.css";
 import { Window as KeplrWindow } from "@keplr-wallet/types";
 import MainPage from "./components/MainPage/MainPage";
 import Footer from "./components/Footer/Footer";
-import LegalInform from "./components/LegalInformation/LegalInform";
+import LegalPage from "./components/LegalPage/LegalPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { configKeplr, CYBER } from "./utils/config";
 import { ToastContainer } from "react-toastify";
@@ -35,7 +35,7 @@ function App() {
           <HeaderSpoiler />
           <Routes>
             <Route path="/" element={<Main />}></Route>
-            <Route path="/legalinfo" element={<LegalInform />}></Route>
+            <Route path="/legalinfo" element={<LegalPage />}></Route>
             <Route path="/old" element={<MainPage />}></Route>
           </Routes>
           <Footer />
