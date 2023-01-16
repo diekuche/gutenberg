@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../Footer/Footer.module.css";
 import { Link } from "react-router-dom";
-import git from "../Footer/github.svg";
+import git from "../../assets/github.svg";
 
 const Footer = () => {
   return (
