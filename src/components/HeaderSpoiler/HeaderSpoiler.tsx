@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
+import Wallet from "../Wallet/Wallet";
 
 import { Link } from "react-router-dom";
 
@@ -30,7 +31,9 @@ function Header2() {
           <div className={styles.name}>Create</div>
           <div className={styles.name}>Manage assets</div>
         </div>
-        <button className={styles.btnClass}>Connect Wallet</button>
+        <div className={styles.walletWrapper}>
+          <Wallet />
+        </div>
       </div>
     </header>
   );

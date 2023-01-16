@@ -1,6 +1,5 @@
 .green {
   align-items: center;
-  width: fit-content;
   height: 41px;
   box-sizing: border-box;
   border: 1px solid #43b25b;
@@ -8,7 +7,7 @@
   border-radius: 27.5px;
   text-align: center;
   padding: 7px 25px 7px 25px;
-  background-color: #133630;
+  background-color: transparent;
   font-size: 14px;
   font-weight: 400;
   align-self: center;
@@ -18,17 +17,12 @@
 
 .black {
   align-self: center;
-  width: fit-content;
   height: 46px;
   background: #162833;
   border-radius: 27.5px;
-  padding: 8px 43px 12px 43px;
+  padding: auto;
   color: #e2fb5f;
-  font-size: 22px;
-  font-weight: 700;
-  border-style: none;
   cursor: pointer;
-  margin-bottom: 30px;
   margin-top: 26px;
 }
 
@@ -38,14 +32,27 @@
   height: 41px;
   background: #e2fb5f;
   border-radius: 27.5px;
-  padding: 12px 41px 13px 41px;
+  padding: 12px;
   color: #162833;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 600;
   border-style: none;
   align-self: center;
   text-align: center;
   cursor: pointer;
+}
+
+.lg {
+  width: 217px;
+  height: 44px;
+  font-size: 16px;
+}
+
+.sm {
+  width: 167px;
+  height: 50px;
+  font-weight: 800;
+  font-size: 22px;
 }
 
 .black:active {

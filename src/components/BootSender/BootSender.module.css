@@ -19,17 +19,24 @@
 
 .token {
   display: flex;
-  flex-grow: 1;
+  flex-grow: 0;
+}
+
+.image {
 }
 
 .addContract {
-  line-height: 16px;
-  height: 24px;
-  color: #163a34;
-  background: #E2FB5F;;
-  border-radius: 8px;
-  border: none;
-  outline:none;
+  height: 44px;
+  color: #e2fb5f;
+  font-weight: 400;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 28px;
+  background: transparent;
+  border-radius: 10px;
+  padding: 8px;
+  border: 1px solid rgba(67, 178, 91, 0.35);
+  outline: none;
 }
 
 .label {

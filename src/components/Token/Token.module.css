@@ -70,9 +70,9 @@
 
 .addContract {
   line-height: 16px;
-  height: 24px;
+  height: 44px;
   color: #163a34;
-  background: #d3ff54;
+  background: transparent;
   border-radius: 8px;
   border: none;
   margin-bottom: 14px;

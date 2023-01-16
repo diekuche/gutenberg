@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import { useState, useEffect } from "react";
 import { getAddress, getBalance, sendBoot } from "../../utils/wallet";
 import { Coin } from "@cosmjs/stargate";
+import collapse_arrow from "../../assets/collapse_arrow.svg";
 
 const sendBalance = {
   recepient: "",
@@ -14,7 +15,11 @@ function BootSender() {
   const [bootBalance, setBootBalance] = useState("");
   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
   const [isSent, setSent] = useState(false);
-  const [isShown, setIsShown] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const collapse = () => {
+    setOpen(!open);
+  };
 
   const handleSendChange =
     (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,9 +44,6 @@ function BootSender() {
   }, [setSent]);
 
   async function getBootSent(recepientAddress: string, amount: string) {
-    if (!recepientAddress || amount) {
-      setIsShown(true);
-    }
     let coin: readonly Coin[];
     coin = [{ denom: "boot", amount: amount }];
     const senderAddress = await getAddress();
@@ -60,11 +62,12 @@ function BootSender() {
 
   return (
     <div className={styles.contractData}>
-      <div className={styles.cashName}>
+      <button className={styles.cashName} onClick={collapse}>
         <div className={styles.token}>🟢 BOOT</div>
+        <img src={collapse_arrow} alt="" className={styles.image} />
         <div className={styles.balance}>{bootBalance}</div>
-      </div>
-      {isShown && (
+      </button>
+      {open && (
         <div className={styles.children}>
           <div className={styles.label}>Recepient:</div>
           <input
@@ -80,17 +83,17 @@ function BootSender() {
             value={balance.amount}
             onChange={handleSendChange("amount")}
           />
+          <Button
+            color="white"
+            type="button"
+            size="lg"
+            className={styles.tokenButton}
+            onClick={(e: any) => getBootSent(balance.recepient, balance.amount)}
+          >
+            Send
+          </Button>
         </div>
       )}
-      <Button
-        color="white"
-        type="button"
-        size="lg"
-        className={styles.tokenButton}
-        onClick={(e: any) => getBootSent(balance.recepient, balance.amount)}
-      >
-        Send
-      </Button>
 
       {isSent && <div className={styles.info}>sent!</div>}
     </div>

@@ -10,6 +10,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 103px;
 }
 
 .tools {
@@ -23,4 +24,19 @@
   align-items: flex-start;
   justify-content: center;
   justify-items: center;
+}
+
+.createtext {
+  position: absolute;
+  width: 379px;
+  height: 143px;
+  left: 989px;
+  top: 580px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 122px;
+  line-height: 143px;
+  color: rgba(67, 178, 91, 0.15);
+  transform: rotate(-90deg);
 }

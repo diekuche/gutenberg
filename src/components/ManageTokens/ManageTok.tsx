@@ -49,7 +49,7 @@ function ManageTokens(props: TokenProps) {
 
   return (
     <div className={styles.manageTok}>
-      <div className={styles.name}>Manage Tokens</div>
+      <div className={styles.name}>Assets</div>
 
       <BootSender></BootSender>
 

@@ -1,13 +1,13 @@
 .manageTok {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   border-radius: 16px;
-  background: #163a34;
+  background: rgba(22, 40, 51, 0.5);
   box-sizing: border-box;
-
+  width: 262px;
   margin-left: 9px;
-  padding: 17px 25px;
+  padding: 12px 24px 24px;
 }
 
 .name {
