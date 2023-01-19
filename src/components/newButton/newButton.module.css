@@ -33,8 +33,7 @@
   font-weight: 400;
   color: #162833;
   margin-left: 50px;
-  height: 36px;
-  width: 170px;
+  margin-bottom: 15px;
 }
 .smallsize:hover {
   background-color: #edff8e;
@@ -55,12 +54,22 @@
   color: #162833;
   margin-left: 50px;
   color: #e2fb5f;
-  width: 170px;
-  height: 36px;
+
   align-items: center;
-  padding-left: 30px;
+  padding: 8px 30px;
 }
 .download {
   margin-left: 10px;
-  width: 18px;
+  animation-name: rotation;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

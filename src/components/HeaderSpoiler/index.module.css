@@ -25,6 +25,7 @@
   height: 70px;
   background-color: rgba(22, 40, 51, 0.9);
   backdrop-filter: blur(7.5px);
+  z-index: 10;
 }
 
 .linkhead {
@@ -66,6 +67,7 @@
 
 .name {
   margin-right: 36px;
+  cursor: pointer;
 }
 
 .btnClass:hover {
