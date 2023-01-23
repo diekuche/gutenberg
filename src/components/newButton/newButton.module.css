@@ -62,7 +62,7 @@
   margin-left: 10px;
   animation-name: rotation;
   animation-duration: 4s;
-  animation-iteration-count: infinite;
+  animation-iteration-count: 1;
   animation-timing-function: linear;
 }
 @keyframes rotation {
