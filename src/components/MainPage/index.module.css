@@ -1,5 +1,6 @@
 .mainpage {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: flex-start;
   margin: 0px auto;
@@ -25,13 +26,12 @@
   justify-content: center;
   justify-items: center;
 }
-
 .createtext {
   position: absolute;
+  top: 575px;
+  left: 460px;
   width: 379px;
   height: 143px;
-  left: 989px;
-  top: 580px;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;

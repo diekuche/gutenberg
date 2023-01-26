@@ -9,7 +9,9 @@
 .cashName {
   display: flex;
   width: 100%;
+  padding: 0px;
   align-items: center;
+  justify-content: space-between;
   font-weight: 300;
   font-size: 14px;
   color: white;
@@ -18,11 +20,16 @@
 }
 
 .token {
-  display: flex;
-  flex-grow: 0;
+  order: 1;
 }
 
 .image {
+  order: 2;
+  margin-left: -50px;
+}
+
+.balance {
+  order: 3;
 }
 
 .addContract {

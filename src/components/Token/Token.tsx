@@ -3,6 +3,8 @@ import styles from "./Token.module.css";
 import { useState, useEffect, useCallback } from "react";
 import Button from "../Button/Button";
 import { getContractInfo, getAddress, sendTokens } from "../../utils/wallet";
+import deleteButton from "../../assets/Button_Delite.svg";
+import collapse_arrow from "../../assets/collapse_arrow.svg";
 
 interface ContractDataProps {
   contractAddress: string;
@@ -86,7 +88,6 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
     <>
       {contractData ? (
         <div className={styles.contractData}>
-          <div className={styles.line}></div>
           <div className={styles.tokenTitle}>
             <button
               type="button"
@@ -103,13 +104,14 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
                 <div className={styles.logo}>{contractData.logo}</div>
               )}
               <div className={styles.token}>{contractData.token}</div>
+              <img src={collapse_arrow} alt="" className={styles.image} />
               <div className={styles.balance}>{contractData.balance}</div>
             </button>
             <button
               className={styles.x}
               onClick={(e) => removeContract(contractAddress)}
             >
-              х
+              <img src={deleteButton} alt=""></img>
             </button>
           </div>
           {open && (
