@@ -2,9 +2,71 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 80px;
 }
 
+.tllist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+table {
+  background-color: rgba(22, 40, 51, 0.9);
+  border-radius: 16px;
+  border-collapse: collapse;
+}
+
+td {
+  text-align: center;
+  padding-top: 19px;
+  padding-bottom: 19px;
+}
+.network,
+.pool,
+.tl,
+.bon,
+.ar {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 200;
+  color: #43b25b;
+}
+.poolarp {
+  color: white;
+  padding-right: 103px;
+  font-size: 18px;
+}
+.tlb {
+  color: #43b25b;
+  padding-right: 50px;
+  padding-left: 50px;
+  font-size: 18px;
+}
+.trcolor {
+  background-color: rgba(67, 151, 178, 0.1);
+}
+.pool {
+  text-align: start;
+}
+.network {
+  padding: 9px 18px;
+}
+.arp {
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: bold;
+  font-size: 18px;
+}
+.circle {
+  width: 18px;
+}
+.atom {
+  width: 18px;
+}
 .name {
+  position: absolute;
   color: rgba(67, 178, 91, 0.15);
   font-weight: bold;
   font-size: 167px;
@@ -12,10 +74,10 @@
 .filter {
   display: flex;
   align-items: center;
-  width: 698px;
-  height: 56px;
+  padding: 19px 530px 15px 0px;
   background-color: rgba(22, 40, 51, 0.9);
   border-radius: 16px;
+  margin-top: 100px;
 }
 .searchfil {
   display: flex;
@@ -26,74 +88,6 @@
 }
 .iconfilter {
   padding-left: 25px;
-}
-.sheets {
-  display: flex;
-  flex-direction: column;
-  background-color: rgba(22, 40, 51, 0.9);
-  border-radius: 16px;
-  margin-top: 10px;
-  width: 698px;
-}
-.columnname {
-  display: flex;
-  color: #43b25b;
-  font-size: 14px;
-  margin-left: 18px;
-}
-.firststr {
-  display: flex;
-  padding-top: 9px;
-  padding-bottom: 7px;
-  justify-content: space-between;
-}
-.secondstr {
-  display: flex;
-  background-color: rgba(67, 151, 178, 0.1);
-  padding-top: 21px;
-  padding-bottom: 22px;
-  justify-content: space-between;
-}
-.secsec {
-  color: white;
-  margin-left: -59px;
-}
-.thisec {
-  color: white;
-  margin-left: -59px;
-}
-.fotsec {
-  color: #43b25b;
-}
-.fifsec {
-  color: white;
-  margin-left: -52px;
-}
-.thisrt {
-  display: flex;
-  padding-top: 21px;
-  padding-bottom: 22px;
-  justify-content: space-between;
-}
-.fotystr {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 21px;
-  padding-bottom: 22px;
-  background-color: rgba(67, 151, 178, 0.1);
-}
-.fiftstr {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 21px;
-  padding-bottom: 22px;
-}
-.sixstr {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 21px;
-  padding-bottom: 22px;
-  background-color: rgba(67, 151, 178, 0.1);
 }
 .page {
   display: flex;
@@ -108,39 +102,9 @@
 .rightarrow {
   margin-left: 10px;
 }
-.circle {
-  padding-left: 35px;
-  width: 18px;
+.downarrow {
+  margin-left: 6px;
 }
-.circletwo {
-  width: 18px;
-  padding-right: 8px;
-}
-.atom {
-  padding-left: 35px;
-  width: 18px;
-}
-.atomtwo {
-  width: 18px;
-  padding-right: 8px;
-}
-.group {
-  width: 18px;
-}
-.usd {
-  padding-right: 8px;
-}
-.dk {
-  padding-right: 8px;
-}
-.pool {
-  margin-left: -49px;
-  color: #43b25b;
-}
-.sixsec {
-  margin-left: -52px;
-  color: white;
-}
-.tl {
+span {
   color: #43b25b;
 }

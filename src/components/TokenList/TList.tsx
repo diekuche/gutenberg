@@ -8,6 +8,7 @@ import usd from "../../assets/usdlogo.svg";
 import dk from "../../assets/die_kuche.svg";
 import leftarrow from "../../assets/leftarrow.svg";
 import rightarrow from "../../assets/rightarrow.svg";
+import downarrow from "../../assets/downarrow.svg";
 
 const TList = () => {
   return (
@@ -17,69 +18,89 @@ const TList = () => {
         <img className={styles.iconfilter} src={filter} alt=""></img>
         <div className={styles.searchfil}>Filter tokens</div>
       </div>
-      <div className={styles.sheets}>
-        <div className={styles.firststr}>
-          <div className={styles.columnname}>Network</div>
-          <div className={styles.pool}>Pool</div>
-          <div className={styles.columnname}>Total Liquidity</div>
-          <div className={styles.columnname}>Bonded</div>
-          <div className={styles.columnname}>ARP</div>
-        </div>
-        <div className={styles.secondstr}>
-          <img className={styles.circle} src={circle} alt=""></img>
-          <div className={styles.secsec}>
-            <img className={styles.group} src={group} alt=""></img>
-            <img className={styles.circletwo} src={circle} alt=""></img>
-            GUT / BOOT
-          </div>
-          <div className={styles.tl}>3.7m</div>
-          <div className={styles.fotsec}>--</div>
-          <div className={styles.fifsec}>54.51%</div>
-        </div>
-        <div className={styles.thisrt}>
-          <img className={styles.atom} src={atom} alt=""></img>
-          <div className={styles.thisec}>
-            <img className={styles.group} src={group} alt=""></img>
-            <img className={styles.atomtwo} src={atom} alt=""></img>
-            GUT / BOOT
-          </div>
-          <div className={styles.tl}>3.7m</div>
-          <div className={styles.fotsec}>--</div>
-          <div className={styles.fifsec}>0.13%</div>
-        </div>
-        <div className={styles.fotystr}>
-          <img className={styles.atom} src={atom} alt=""></img>
-          <div className={styles.thisec}>
-            <img className={styles.group} src={group} alt=""></img>
-            <img className={styles.usd} src={usd} alt=""></img>
-            GUT / BOOT
-          </div>
-          <div className={styles.tl}>3.7m</div>
-          <div className={styles.fotsec}>--</div>
-          <div className={styles.fifsec}>4.11%</div>
-        </div>
-        <div className={styles.fiftstr}>
-          <img className={styles.circle} src={circle} alt=""></img>
-          <div className={styles.fifsec}>
-            <img className={styles.group} src={group} alt=""></img>
-            <img className={styles.dk} src={dk} alt=""></img>
-            GUT / BOOT
-          </div>
-          <div className={styles.tl}>3.7m</div>
-          <div className={styles.fotsec}>--</div>
-          <div className={styles.fifsec}>143,32%</div>
-        </div>
-        <div className={styles.sixstr}>
-          <img className={styles.circle} src={circle} alt=""></img>
-          <div className={styles.sixsec}>
-            <img className={styles.group} src={group} alt=""></img>
-            <img className={styles.dk} src={dk} alt=""></img>
-            GUT / BOOT
-          </div>
-          <div className={styles.tl}>3.7m</div>
-          <div className={styles.fotsec}>--</div>
-          <div className={styles.fifsec}>54.51%</div>
-        </div>
+      <div className={styles.tllist}>
+        <table>
+          <tbody>
+            <tr>
+              <th className={styles.network}>Network</th>
+              <th className={styles.pool}>Pool</th>
+              <th className={styles.tl}>
+                Total Liquidity
+                <img className={styles.downarrow} src={downarrow} alt=""></img>
+              </th>
+              <th className={styles.bon}>Bonded</th>
+              <th className={styles.ar}>ARP</th>
+            </tr>
+
+            <tr className={styles.trcolor}>
+              <td>
+                <img className={styles.circle} src={circle} alt=""></img>
+              </td>
+              <td className={styles.poolarp}>
+                <img className={styles.group} src={group} alt=""></img>
+                <img className={styles.circle} src={circle} alt=""></img>
+                GUT
+                <span> / </span>
+                BOOT
+              </td>
+              <td className={styles.tlb}>3.7m</td>
+              <td className={styles.tlb}>--</td>
+              <td className={styles.arp}>54.51%</td>
+            </tr>
+            <tr>
+              <td>
+                <img className={styles.atom} src={atom} alt=""></img>
+              </td>
+              <td className={styles.poolarp}>
+                <img className={styles.group} src={group} alt=""></img>
+                <img className={styles.atom} src={atom} alt=""></img>
+                GUT / BOOT
+              </td>
+              <td className={styles.tlb}>3.7m</td>
+              <td className={styles.tlb}>--</td>
+              <td className={styles.arp}>0.13%</td>
+            </tr>
+            <tr className={styles.trcolor}>
+              <td>
+                <img className={styles.atom} src={atom} alt=""></img>
+              </td>
+              <td className={styles.poolarp}>
+                <img className={styles.group} src={group} alt=""></img>
+                <img className={styles.usd} src={usd} alt=""></img>
+                GUT / BOOT
+              </td>
+              <td className={styles.tlb}>3.7m</td>
+              <td className={styles.tlb}>--</td>
+              <td className={styles.arp}>4.11%</td>
+            </tr>
+            <tr>
+              <td>
+                <img className={styles.circle} src={circle} alt=""></img>
+              </td>
+              <td className={styles.poolarp}>
+                <img className={styles.group} src={group} alt=""></img>
+                <img className={styles.dk} src={dk} alt=""></img>
+                GUT / BOOT
+              </td>
+              <td className={styles.tlb}>3.7m</td>
+              <td className={styles.tlb}>--</td>
+              <td className={styles.arp}>143.32%</td>
+            </tr>
+            <tr className={styles.trcolor}>
+              <td>
+                <img className={styles.circle} src={circle} alt=""></img>
+              </td>
+              <td className={styles.poolarp}>
+                <img className={styles.group} src={group} alt=""></img>
+                <img className={styles.circle} src={circle} alt=""></img>
+                GUT / BOOT
+              </td>
+              <td className={styles.tlb}>3.7m</td>
+              <td className={styles.tlb}>--</td>
+              <td className={styles.arp}>54.51%</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div className={styles.page}>
         <img className={styles.leftarrow} src={leftarrow} alt=""></img>
