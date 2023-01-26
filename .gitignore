@@ -17,7 +17,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
-.compose-dev.yaml
+/compose-dev.yaml
 
 
 npm-debug.log*
