@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "../ManageTok/ManageTok.module.css";
 import Year from "../Year/Year";
-import green from "../ManageTok/vargreen.svg";
-import yellow from "../ManageTok/varyellow.svg";
-import arrowGD from "../ManageTok/ArrowGreenD.svg";
-import arrowGUp from "../ManageTok/ArrowGUp.svg";
-import arrRight from "../ManageTok/Icon.svg";
-import arrRiYel from "../ManageTok/IconYelow.svg";
+import green from "../../assets/vargreen.svg";
+import yellow from "../../assets/varyellow.svg";
+import arrowGD from "../../assets/ArrowGreenD.svg";
+import arrowGUp from "../../assets/ArrowGUp.svg";
+import arrRight from "../../assets/Icon.svg";
+import arrRiYel from "../../assets/IconYelow.svg";
 
 const ManTok = () => {
   return (

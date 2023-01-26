@@ -3,13 +3,14 @@ import "./App.css";
 import { Window as KeplrWindow } from "@keplr-wallet/types";
 import MainPage from "./components/MainPage/MainPage";
 import Footer from "./components/Footer/Footer";
-import LegalInform from "./components/LegalInformation/LegalInform";
+import LegalPage from "./components/LegalPage/LegalPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { configKeplr, CYBER } from "./utils/config";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderSpoiler from "./components/HeaderSpoiler/HeaderSpoiler";
 import Main from "./components/Main/Main";
+import NewButton from "./components/newButton/newButton";
 
 declare global {
   interface Window extends KeplrWindow {}
@@ -35,8 +36,9 @@ function App() {
           <HeaderSpoiler />
           <Routes>
             <Route path="/" element={<Main />}></Route>
-            <Route path="/legalinfo" element={<LegalInform />}></Route>
+            <Route path="/legalinfo" element={<LegalPage />}></Route>
             <Route path="/old" element={<MainPage />}></Route>
+            <Route path="/newBT" element={<NewButton />}></Route>
           </Routes>
           <Footer />
         </Router>
