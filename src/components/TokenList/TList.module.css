@@ -32,7 +32,9 @@ td {
   font-weight: 200;
   color: #43b25b;
 }
+
 .poolarp {
+  display: flex;
   color: white;
   padding-right: 103px;
   font-size: 18px;
@@ -61,9 +63,11 @@ td {
 }
 .circle {
   width: 18px;
+  padding-right: 8px;
 }
 .atom {
   width: 18px;
+  padding-right: 8px;
 }
 .name {
   position: absolute;
@@ -71,14 +75,7 @@ td {
   font-weight: bold;
   font-size: 167px;
 }
-.filter {
-  display: flex;
-  align-items: center;
-  padding: 19px 530px 15px 0px;
-  background-color: rgba(22, 40, 51, 0.9);
-  border-radius: 16px;
-  margin-top: 100px;
-}
+
 .searchfil {
   display: flex;
   color: #43b25b;
@@ -107,4 +104,26 @@ td {
 }
 span {
   color: #43b25b;
+}
+.usd,
+.dk {
+  padding-right: 8px;
+}
+.inp::placeholder {
+  color: #43b25b;
+  font-size: 18px;
+  font-weight: 100;
+  padding-left: 40px;
+}
+.inp {
+  background-image: url("../../assets/filter.svg");
+  background-repeat: no-repeat;
+  background-position: 15px;
+  padding: 19px 529px 15px 0px;
+  background-color: rgba(22, 40, 51, 0.9);
+  border-radius: 16px;
+  margin-top: 100px;
+}
+.test {
+  padding-left: 10px;
 }

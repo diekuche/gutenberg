@@ -14,13 +14,12 @@ const TList = () => {
   return (
     <div className={styles.list}>
       <div className={styles.name}>poooooooools!</div>
-      <div className={styles.filter}>
-        <img className={styles.iconfilter} src={filter} alt=""></img>
-        <div className={styles.searchfil}>Filter tokens</div>
+      <div>
+        <input className={styles.inp} type="text" placeholder="Filter tokens" />
       </div>
       <div className={styles.tllist}>
         <table>
-          <tbody>
+          <thead className={styles.thead}>
             <tr>
               <th className={styles.network}>Network</th>
               <th className={styles.pool}>Pool</th>
@@ -31,7 +30,8 @@ const TList = () => {
               <th className={styles.bon}>Bonded</th>
               <th className={styles.ar}>ARP</th>
             </tr>
-
+          </thead>
+          <tbody>
             <tr className={styles.trcolor}>
               <td>
                 <img className={styles.circle} src={circle} alt=""></img>
@@ -39,9 +39,11 @@ const TList = () => {
               <td className={styles.poolarp}>
                 <img className={styles.group} src={group} alt=""></img>
                 <img className={styles.circle} src={circle} alt=""></img>
-                GUT
-                <span> / </span>
-                BOOT
+                <div className={styles.cent}>
+                  GUT
+                  <span> / </span>
+                  BOOT
+                </div>
               </td>
               <td className={styles.tlb}>3.7m</td>
               <td className={styles.tlb}>--</td>
@@ -54,7 +56,9 @@ const TList = () => {
               <td className={styles.poolarp}>
                 <img className={styles.group} src={group} alt=""></img>
                 <img className={styles.atom} src={atom} alt=""></img>
-                GUT / BOOT
+                GUT
+                <span> / </span>
+                BOOT
               </td>
               <td className={styles.tlb}>3.7m</td>
               <td className={styles.tlb}>--</td>
@@ -67,7 +71,9 @@ const TList = () => {
               <td className={styles.poolarp}>
                 <img className={styles.group} src={group} alt=""></img>
                 <img className={styles.usd} src={usd} alt=""></img>
-                GUT / BOOT
+                GUT
+                <span> / </span>
+                BOOT
               </td>
               <td className={styles.tlb}>3.7m</td>
               <td className={styles.tlb}>--</td>
@@ -80,7 +86,9 @@ const TList = () => {
               <td className={styles.poolarp}>
                 <img className={styles.group} src={group} alt=""></img>
                 <img className={styles.dk} src={dk} alt=""></img>
-                GUT / BOOT
+                GUT
+                <span> / </span>
+                BOOT
               </td>
               <td className={styles.tlb}>3.7m</td>
               <td className={styles.tlb}>--</td>
@@ -93,7 +101,9 @@ const TList = () => {
               <td className={styles.poolarp}>
                 <img className={styles.group} src={group} alt=""></img>
                 <img className={styles.circle} src={circle} alt=""></img>
-                GUT / BOOT
+                GUT
+                <span> / </span>
+                BOOT
               </td>
               <td className={styles.tlb}>3.7m</td>
               <td className={styles.tlb}>--</td>
