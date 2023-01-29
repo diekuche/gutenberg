@@ -3,7 +3,7 @@ import styles from "../ManageTok/ManageTok.module.css";
 import Year from "../Year/Year";
 import green from "../../assets/vargreen.svg";
 import yellow from "../../assets/varyellow.svg";
-import arrowGD from "../../assets/ArrowGreenD.svg";
+
 import arrowGUp from "../../assets/ArrowGUp.svg";
 import arrRight from "../../assets/Icon.svg";
 import arrRiYel from "../../assets/IconYelow.svg";
