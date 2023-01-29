@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./TList.module.css";
-import filter from "../../assets/filter.svg";
 import circle from "../../assets/circle.svg";
 import group from "../../assets/group16.svg";
 import atom from "../../assets/atom.svg";
