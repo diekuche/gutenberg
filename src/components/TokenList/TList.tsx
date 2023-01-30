@@ -13,7 +13,7 @@ const TList = () => {
   return (
     <div className={styles.list}>
       <div className={styles.name}>poooooooools!</div>
-      <div>
+      <div className={styles.pad}>
         <input className={styles.inp} type="text" placeholder="Filter tokens" />
       </div>
       <div className={styles.tllist}>
