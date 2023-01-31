@@ -7,7 +7,7 @@
 .tokenTitle {
   display: flex;
   flex-direction: row;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   align-items: center;
   justify-content: flex-start;
 }
