@@ -73,8 +73,7 @@
 .btnClass:hover {
   background-color: #edff8e;
 }
-
-.walletWrapper {
-  align-items: center;
-  justify-content: center;
+.lin {
+  color: #43b25b;
+  text-decoration: none;
 }

@@ -28,7 +28,11 @@ function Header2() {
           </Link>
         </div>
         <div className={styles.middle}>
-          <div className={styles.name}>Create</div>
+          <div className={styles.name}>
+            <Link to="/old" className={styles.lin}>
+              Create
+            </Link>
+          </div>
           <div className={styles.name}>Manage assets</div>
         </div>
         <div className={styles.walletWrapper}>
