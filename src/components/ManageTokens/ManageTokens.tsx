@@ -13,7 +13,6 @@ interface TokenProps {
 
 function ManageTokens(props: TokenProps) {
   const [contract, setContract] = useState("");
-  const [loading, setLoading] = useState(false);
   const [isVisible, setVisible] = useState(false);
   const [isShown, setIsShown] = useState(false);
   const [addressExists, setAddressExists] = useState(false);
@@ -36,7 +35,6 @@ function ManageTokens(props: TokenProps) {
   }
 
   function addContract() {
-    setLoading(true);
     if (contract.includes("bostrom")) {
       props.setInitial([...props.initial, contract]);
     } else {
@@ -46,7 +44,6 @@ function ManageTokens(props: TokenProps) {
       }, 2000);
     }
     setContract("");
-    setLoading(false);
     setIsShown(true);
   }
 
@@ -96,24 +93,7 @@ function ManageTokens(props: TokenProps) {
               onClick={addContract}
               className={styles.addTokenButton}
             >
-              {loading ? (
-                <svg
-                  className={styles.spinner}
-                  viewBox="0 0 50 50"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    className={styles.path}
-                    cx="25"
-                    cy="25"
-                    r="20"
-                    stroke-width="5"
-                    fill="none"
-                  ></circle>
-                </svg>
-              ) : (
-                "Add Token"
-              )}
+              Add Token
             </Button>
 
             {isVisible && <div className={styles.error}>Token not found</div>}

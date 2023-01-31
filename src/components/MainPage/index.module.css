@@ -22,6 +22,8 @@
 
 .tabPageContent {
   display: flex;
+  width: 596px;
+  height: 665px;
   align-items: flex-start;
   justify-content: center;
   justify-items: center;
@@ -30,8 +32,6 @@
   position: absolute;
   top: 575px;
   left: 460px;
-  width: 379px;
-  height: 143px;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;

@@ -86,7 +86,6 @@ function BootSender() {
           <Button
             color="white"
             type="button"
-            size="lg"
             className={styles.tokenButton}
             onClick={(e: any) => getBootSent(balance.recepient, balance.amount)}
           >

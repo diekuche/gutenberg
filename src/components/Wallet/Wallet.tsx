@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { getAddress, getDisconnected } from "../../utils/wallet";
 import { configKeplr, CYBER } from "../../utils/config";
 import Button from "../Button/Button";
-/*import styles from "./Wallet.module.css";
-import classNames from "classnames";*/
+import styles from "./Wallet.module.css";
+/*import classNames from "classnames";*/
 
 const Wallet: React.FC = () => {
   const [address, setAddress] = useState("");
@@ -56,6 +56,7 @@ const Wallet: React.FC = () => {
         /*className={classNames({
           [styles.disconnect]: disconnect,
         })}*/
+        className={styles.wallet}
         onClick={handleConnect}
         /* onMouseOver={MouseOver}
         onMouseOut={MouseOut}*/

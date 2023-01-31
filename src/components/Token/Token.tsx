@@ -133,7 +133,6 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
               <Button
                 color="white"
                 type="button"
-                size="lg"
                 className={styles.tokenButton}
                 onClick={(e: any) =>
                   getTokensSent(

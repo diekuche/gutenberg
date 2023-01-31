@@ -5,7 +5,6 @@
   border-radius: 16px;
   background: rgba(22, 40, 51, 0.5);
   box-sizing: border-box;
-  width: 100%;
   min-width: 262px;
   height: 100%;
   margin-left: 9px;
@@ -44,8 +43,8 @@
 }
 
 .info2 {
+  padding: 80px 40px;
   display: flex;
-  height: 210px;
   justify-content: center;
   align-items: center;
   font-weight: 300;
@@ -61,8 +60,7 @@
 }
 
 .addContract {
-  width: 217px;
-  height: 44px;
+  width: 100%;
   color: #e2fb5f;
   font-weight: 400;
   box-sizing: border-box;

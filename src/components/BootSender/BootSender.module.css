@@ -33,7 +33,6 @@
 }
 
 .addContract {
-  height: 44px;
   color: #e2fb5f;
   font-weight: 400;
   box-sizing: border-box;
@@ -73,4 +72,5 @@
 
 .tokenButton {
   margin-top: 20px;
+  padding: 12px 90px;
 }
