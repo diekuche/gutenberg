@@ -65,7 +65,9 @@ function BootSender() {
       <button className={styles.cashName} onClick={collapse}>
         <div className={styles.token}>🟢 BOOT</div>
         <img src={collapse_arrow} alt="" className={styles.image} />
-        <div className={styles.balance}>{Number(bootBalance).toLocaleString()}</div>
+        <div className={styles.balance}>
+          {Number(bootBalance).toLocaleString()}
+        </div>
       </button>
       {open && (
         <div className={styles.children}>

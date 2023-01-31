@@ -13,23 +13,18 @@
   align-items: center;
   justify-content: space-between;
   font-weight: 300;
-  font-size: 14px;
+  font-size: 18px;
   color: white;
   background-color: transparent;
   border: none;
 }
 
 .token {
-  order: 1;
+  font-size: 14px;
 }
 
 .image {
-  order: 2;
-  margin-left: -50px;
-}
-
-.balance {
-  order: 3;
+  margin-right: auto;
 }
 
 .addContract {
