@@ -25,6 +25,8 @@ function ManageTokens(props: TokenProps) {
       }
     };
     checkAddress();
+    const intervalId = setInterval(checkAddress, 3000);
+    return () => clearInterval(intervalId);
   }, []);
 
   function handleChangeContractAddress(event: any) {

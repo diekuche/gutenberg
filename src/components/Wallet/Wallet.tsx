@@ -26,7 +26,7 @@ const Wallet: React.FC = () => {
   useEffect(() => {
     initKeplr();
     fetchAddress();
-    const interval = setInterval(() => fetchAddress(), 30000);
+    const interval = setInterval(() => fetchAddress(), 10000);
     return () => {
       clearInterval(interval);
     };

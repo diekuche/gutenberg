@@ -42,6 +42,8 @@ export const Form = ({ setInitial, initial }: FormProps) => {
       }
     };
     checkAddress();
+    const intervalId = setInterval(checkAddress, 3000);
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
