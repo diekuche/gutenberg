@@ -7,6 +7,7 @@ import { initContract } from "../../contracts/base/contract";
 import { v4 as uuidv4 } from "uuid";
 import { getAddress, getContractAddress } from "../../utils/wallet";
 import { toast } from "react-toastify";
+import { configKeplr, CYBER } from "../../utils/config";
 
 const initialBalance = {
   id: uuidv4(),
@@ -25,6 +26,13 @@ export const Form = ({ setInitial, initial }: FormProps) => {
   ]);
   const [description, setDescription] = useState("");
   const [addressExists, setAddressExists] = useState(false);
+
+  const initKeplr = async () => {
+    if (window.keplr) {
+      await window.keplr.experimentalSuggestChain(configKeplr("bostrom"));
+      await window.keplr.enable(CYBER.CHAIN_ID);
+    }
+  };
 
   useEffect(() => {
     const checkAddress = async () => {
@@ -226,10 +234,10 @@ export const Form = ({ setInitial, initial }: FormProps) => {
         </Button>
       ) : (
         <Button
-          type="submit"
           color="black"
           size="sm"
           className={styles.connectButton}
+          onClick={initKeplr}
         >
           Connect Wallet
         </Button>
