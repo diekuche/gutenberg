@@ -14,9 +14,7 @@
 
 .cashName {
   display: flex;
-  justify-content: space-between;
   width: 100%;
-  padding: 0px;
   align-items: center;
   font-weight: 300;
   font-size: 14px;
@@ -30,7 +28,7 @@
   background: transparent;
   border: none;
   color: #43b25b;
-  padding: 0px 0px 0px 5px;
+  padding: 0px;
   cursor: pointer;
 }
 
@@ -48,24 +46,20 @@
 }
 
 .logo {
-  order: 1;
   width: 16px;
   height: 16px;
-  margin-right: 5px;
 }
 
 .token {
-  order: 2;
-  margin-right: -10px;
+  margin-left: 3px;
 }
 
 .image {
-  order: 3;
   margin-left: 5px;
 }
 
 .balance {
-  order: 4;
+  margin-left: auto;
 }
 
 .addContract {
