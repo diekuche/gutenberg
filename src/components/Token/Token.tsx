@@ -105,7 +105,9 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
               )}
               <div className={styles.token}>{contractData.token}</div>
               <img src={collapse_arrow} alt="" className={styles.image} />
-              <div className={styles.balance}>{contractData.balance}</div>
+              <div className={styles.balance}>
+                {Number(contractData.balance).toLocaleString()}
+              </div>
             </button>
             <button
               className={styles.x}
