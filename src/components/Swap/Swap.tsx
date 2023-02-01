@@ -47,7 +47,6 @@ const NewButton = () => {
         <div></div>
       </div>
       <NewBT />
-      {/* <button className={styles.hugesize}>Connect Wallet!</button>*/}
     </div>
   );
 };
