@@ -11,7 +11,8 @@
 .common {
   display: flex;
   justify-content: center;
-  margin-top: 150px;
+  margin-left: 223px;
+  min-width: 750px;
 }
 
 .hugesize:hover {

@@ -3,6 +3,7 @@ import styles from "./Swap.module.css";
 import downarrow from "../../assets/downarrow.svg";
 import UpDoAr from "../../assets/UpDoAr.svg";
 import downyellow from "../../assets/downyellow.svg";
+import NewBT from "../newButton/newButton";
 
 const NewButton = () => {
   return (
@@ -45,7 +46,8 @@ const NewButton = () => {
         </div>
         <div></div>
       </div>
-      <button className={styles.hugesize}>Connect Wallet!</button>
+      <NewBT />
+      {/* <button className={styles.hugesize}>Connect Wallet!</button>*/}
     </div>
   );
 };
