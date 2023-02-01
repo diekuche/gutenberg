@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./newButton.module.css";
-import download from "../../assets/download.svg";
 
 const NewButton = () => {
   return (
