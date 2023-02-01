@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import React, { FormEvent, useState, useEffect } from "react";
+import React, { FormEvent, useState } from "react";
 import Button from "../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
@@ -25,7 +25,6 @@ export const Form = ({ setInitial, initial }: FormProps) => {
     initialBalance,
   ]);
   const [description, setDescription] = useState("");
-  const [addressExists, setAddressExists] = useState(false);
 
   const initKeplr = async () => {
     if (window.keplr) {
@@ -33,18 +32,6 @@ export const Form = ({ setInitial, initial }: FormProps) => {
       await window.keplr.enable(CYBER.CHAIN_ID);
     }
   };
-
-  useEffect(() => {
-    const checkAddress = async () => {
-      const address = await getAddress();
-      if (address) {
-        setAddressExists(true);
-      }
-    };
-    checkAddress();
-    const intervalId = setInterval(checkAddress, 3000);
-    return () => clearInterval(intervalId);
-  }, []);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -230,7 +217,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           isTextArea
         />
       </Collapsible>
-      {addressExists ? (
+      {window.keplr ? (
         <Button type="submit" color="black" size="sm">
           create
         </Button>

@@ -2,9 +2,8 @@ import React from "react";
 import styles from "./ManageTok.module.css";
 import Button from "../Button/Button";
 import Token from "../Token/Token";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import BootSender from "../BootSender/BootSender";
-import { getAddress } from "../../utils/wallet";
 
 interface TokenProps {
   initial: string[];
@@ -15,19 +14,6 @@ function ManageTokens(props: TokenProps) {
   const [contract, setContract] = useState("");
   const [isVisible, setVisible] = useState(false);
   const [isShown, setIsShown] = useState(false);
-  const [addressExists, setAddressExists] = useState(false);
-
-  useEffect(() => {
-    const checkAddress = async () => {
-      const address = await getAddress();
-      if (address) {
-        setAddressExists(true);
-      }
-    };
-    checkAddress();
-    const intervalId = setInterval(checkAddress, 3000);
-    return () => clearInterval(intervalId);
-  }, []);
 
   function handleChangeContractAddress(event: any) {
     const response = event.target.value;
@@ -64,7 +50,7 @@ function ManageTokens(props: TokenProps) {
         <div className={styles.name}>Assets</div>
       </div>
 
-      {addressExists ? (
+      {window.keplr ? (
         <div className={styles.tokens}>
           <BootSender></BootSender>
           <div className={styles.tokenList}>
