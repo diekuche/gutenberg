@@ -12,7 +12,7 @@ const NewButton = () => {
           <div className={styles.priceup}>0</div>
           <button className={styles.select}>
             Select Token
-            <img className={styles.downarrow} src={downarrow} />
+            <img className={styles.downarrow} src={downarrow} alt="" />
           </button>
         </div>
         <div className={styles.secstr}>
@@ -22,14 +22,14 @@ const NewButton = () => {
         <div className={styles.center}>
           <div className={styles.line}></div>
           <div className={styles.circle}>
-            <img className={styles.uda} src={UpDoAr} />
+            <img className={styles.uda} src={UpDoAr} alt="" />
           </div>
         </div>
         <div className={styles.lower}>
           <div className={styles.lowerprice}>0</div>
           <button className={styles.lowerselect}>
             Select Token
-            <img className={styles.downarrow} src={downarrow} />
+            <img className={styles.downarrow} src={downarrow} alt="" />
           </button>
         </div>
         <div className={styles.secstr}>
@@ -39,7 +39,7 @@ const NewButton = () => {
         <div className={styles.strslip}>
           <div className={styles.slip}>
             Slippage 1%
-            <img className={styles.downar} src={downyellow} />
+            <img className={styles.downar} src={downyellow} alt="" />
           </div>
           <div className={styles.fee}>Swap fee (0.3%)</div>
         </div>
