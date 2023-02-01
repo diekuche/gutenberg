@@ -37,16 +37,17 @@
   color: #43b25b;
   border: 0;
   background-color: rgba(22, 40, 51, 0.4);
-  margin: 17px 29px 0px 123px;
+  margin: 36px 29px 0px 123px;
   padding: 0px 0px 0px 20px;
   align-items: center;
   justify-content: center;
   max-height: 45px;
+  font-size: 18px;
 }
 .lowerprice {
   font-size: 39px;
   color: #e2fb5f;
-  margin: 0px 110px 0px 0px;
+  margin: 15px 110px 0px 0px;
   padding: 5px 33px 0px 34px;
 }
 .lowerselect {
@@ -55,11 +56,12 @@
   color: #43b25b;
   border: 0;
   background-color: rgba(22, 40, 51, 0.4);
-  margin: 2px 28px 0px 0px;
+  margin: 15px 28px 0px 0px;
   padding: 0px 0px 0px 20px;
   align-items: center;
   justify-content: center;
   max-height: 45px;
+  font-size: 18px;
 }
 .downarrow {
   padding: 0px 15px 0px 30px;
@@ -73,7 +75,7 @@
 .priceup {
   font-size: 39px;
   color: #e2fb5f;
-  margin: 0px 110px 0px 0px;
+  margin: 16px 84px 0px 0px;
   padding: 20px 33px 0px 34px;
 }
 .pricedown {
