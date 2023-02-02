@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Swap.module.css";
-import downArrow from "../../assets/downarrow.svg";
+import downArrow from "../../assets/downSwapArrow.svg";
 import UpDoAr from "../../assets/UpDoAr.svg";
 import downyellow from "../../assets/downyellow.svg";
 import NewBT from "../newButton/newButton";
@@ -16,7 +16,7 @@ const Swap = () => {
             <img className={styles.downArrow} src={downArrow} alt="" />
           </button>
         </div>
-        <div className={styles.secstr}>
+        <div className={styles.secondString}>
           <div className={styles.priceDown}>$0.00</div>
           <div className={styles.priceDown}>Balance:0</div>
         </div>
