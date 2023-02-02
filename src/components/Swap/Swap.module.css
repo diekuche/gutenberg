@@ -26,7 +26,7 @@
   max-height: 45px;
   font-size: 18px;
 }
-.lowerprice {
+.lowerPrice {
   font-size: 39px;
   color: #e2fb5f;
   margin: 15px 110px 0px 0px;
@@ -36,7 +36,7 @@
   margin: 15px 28px 0px 0px;
   padding: 0px 0px 0px 20px;
 }
-.downarrow {
+.downArrow {
   padding: 0px 15px 0px 30px;
 }
 .up,
@@ -45,20 +45,20 @@
   justify-content: space-between;
 }
 
-.priceup {
+.priceUp {
   font-size: 39px;
   color: #e2fb5f;
   margin: 16px 84px 0px 0px;
   padding: 20px 33px 0px 34px;
 }
-.pricedown {
+.priceDown {
   font-size: 14px;
   color: #43b25b;
   margin: 10px 31px 0px 0px;
   padding: 0px 0px 7px 37px;
 }
 
-.secstr {
+.secondString {
   display: flex;
   justify-content: space-between;
 }
@@ -77,17 +77,17 @@
   margin-top: 1px;
 }
 
-.uda {
+.iconSwap {
   padding: 9px 7px;
 }
 
-.strslip {
+.stringSlippage {
   display: flex;
   background-color: rgba(22, 40, 51, 0.9);
   color: #e2fb5f;
   justify-content: space-between;
   padding: 16px 31px 17px 34px;
 }
-.downar {
+.downArrowYellow {
   padding-left: 10px;
 }
