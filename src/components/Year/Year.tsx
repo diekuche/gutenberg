@@ -1,13 +1,13 @@
 import React from "react";
 import styles from "../Year/Year.module.css";
-import arrowY from "../Year/ArrowYellow.svg";
 
 const Year = () => {
   return (
     <div className={styles.year}>
-      2024
-      <img className={styles.arrow} src={arrowY} alt=""></img>
-      <div className={styles.year}>2023</div>
+      <div className={styles.yearDown}>
+        2024
+        <div className={styles.yearUp}>2023</div>
+      </div>
     </div>
   );
 };

@@ -1,13 +1,13 @@
-.year {
+.yearDown {
   display: flex;
-  color: #e2fb5f;
+  justify-content: space-between;
+  flex-direction: row;
   font-size: 20px;
   line-height: 23px;
   margin-top: 9px;
+  color: rgba(67, 178, 91, 0.5);
 }
 
-.arrow {
-  display: flex;
-  margin-top: 12px;
-  margin-bottom: 12px;
+.yearUp {
+  color: #e2fb5f;
 }
