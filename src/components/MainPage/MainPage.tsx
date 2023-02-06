@@ -5,7 +5,6 @@ import NFT from "../NFT/NFT";
 import { Tabs } from "../Tabs/Tabs";
 import { Tab } from "../Tabs/Tabs";
 import { Form } from "../Form/Form";
-import Header from "../Header/Header";
 
 export const MainPage: React.FC = () => {
   const [initial, setInitial] = useState<string[]>(() => {
@@ -32,9 +31,7 @@ export const MainPage: React.FC = () => {
   const [selectedTabId, setSelectedTabId] = useState(tabs[0].id);
 
   return (
-    
     <div className={styles.mainpage}>
-      <Header/>
       <div className={styles.group}>
         <Tabs
           selectedId={selectedTabId}
