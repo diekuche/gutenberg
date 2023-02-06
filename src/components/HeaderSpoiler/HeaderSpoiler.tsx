@@ -22,19 +22,19 @@ function Header2() {
   return (
     <header className={header}>
       <div className={styles.nav}>
-        <div className={styles.hero}>
-          <Link to="/" className={styles.linkhead}>
+        <div>
+          <Link to="/" className={styles.linkHead}>
             gutenberg!
           </Link>
         </div>
         <div className={styles.middle}>
           <div>
-            <Link to="/swap" className={styles.swapLink}>
+            <Link to="/swap" className={styles.link}>
               Swap
             </Link>
           </div>
           <div className={styles.name}>
-            <Link to="/old" className={styles.lin}>
+            <Link to="/old" className={styles.link}>
               Create
             </Link>
           </div>

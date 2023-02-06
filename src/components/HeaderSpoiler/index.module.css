@@ -28,7 +28,7 @@
   z-index: 10;
 }
 
-.linkhead {
+.linkHead {
   color: #e2fb5f;
   text-decoration: none;
   font-size: 35px;
@@ -43,14 +43,11 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 21px;
-  padding-left: 145px;
   color: #43b25b;
   margin-top: 16px;
   padding-left: 150px;
 }
-.name:hover {
-  color: #e2fb5f;
-}
+
 .btnClass {
   font-family: "Roboto";
   border-radius: 100px;
@@ -60,34 +57,26 @@
   font-size: 16px;
   line-height: 19px;
   border: 0px;
-
   margin-right: 20px;
   padding: 9px 31px;
 }
 
 .name {
-  margin-right: 36px;
   cursor: pointer;
 }
 
 .btnClass:hover {
   background-color: #edff8e;
 }
-.lin {
+.link {
   color: #43b25b;
   text-decoration: none;
+  margin-right: 36px;
 }
-.lin:hover {
+.link:hover {
   color: #e2fb5f;
 }
-.swapLink:hover {
-  color: #e2fb5f;
-}
-.swapLink {
-  color: #43b25b;
-  text-decoration-line: none;
-  margin-right: 39px;
-}
+
 .bostrom {
   display: flex;
   align-items: center;
