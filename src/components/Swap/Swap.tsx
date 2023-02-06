@@ -4,6 +4,8 @@ import downArrow from "../../assets/downSwapArrow.svg";
 import UpDoAr from "../../assets/UpDoAr.svg";
 import downyellow from "../../assets/downyellow.svg";
 import NewBT from "../newButton/newButton";
+import TList from "../TokenList/TList";
+import iconYellowDown from "../../assets/IconYllowDown.svg";
 
 const Swap = () => {
   return (
@@ -47,6 +49,11 @@ const Swap = () => {
         <div></div>
       </div>
       <NewBT text="Connect Wallet!" />
+      <div className={styles.middleString}>
+        Provide liquidity to he market and receive swap fees each trade.
+      </div>
+      <img className={styles.iconYellowDown} src={iconYellowDown} alt="" />
+      <TList />
     </div>
   );
 };
