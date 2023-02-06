@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
-
+import circle from "../../assets/circle.svg";
+import downSwapArrow from "../../assets/downSwapArrow.svg";
 import { Link } from "react-router-dom";
 
 function Header2() {
@@ -21,20 +22,34 @@ function Header2() {
   return (
     <header className={header}>
       <div className={styles.nav}>
-        <div className={styles.hero}>
-          <Link to="/" className={styles.linkhead}>
+        <div>
+          <Link to="/" className={styles.linkHead}>
             gutenberg!
           </Link>
         </div>
         <div className={styles.middle}>
+          <div>
+            <Link to="/swap" className={styles.link}>
+              Swap
+            </Link>
+          </div>
           <div className={styles.name}>
-            <Link to="/old" className={styles.lin}>
+            <Link to="/old" className={styles.link}>
               Create
             </Link>
           </div>
+
           <div className={styles.name}>Manage assets</div>
         </div>
-        <button className={styles.btnClass}>Connect Wallet</button>
+        <div className={styles.rightButton}>
+          <button className={styles.bostrom}>
+            <img src={circle} className={styles.circle} alt="" />
+            Bostorm
+            <img src={downSwapArrow} className={styles.downSwapArrow} alt="" />
+          </button>
+
+          <button className={styles.btnClass}>Connect Wallet</button>
+        </div>
       </div>
     </header>
   );

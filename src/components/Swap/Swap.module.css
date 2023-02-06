@@ -91,3 +91,13 @@
 .downArrowYellow {
   padding-left: 10px;
 }
+.middleString {
+  color: #e2fb5f;
+  font-size: 16px;
+  font-weight: 200;
+  margin-top: 76px;
+}
+.iconYellowDown {
+  margin-top: 28px;
+  margin-left: 12px;
+}
