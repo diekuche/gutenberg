@@ -1,0 +1,93 @@
+.common {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 150px;
+}
+
+.swap {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e2fb5f;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+.select,
+.lowerselect {
+  display: flex;
+  border-radius: 28px;
+  color: #43b25b;
+  border: 0;
+  background-color: rgba(22, 40, 51, 0.4);
+  margin: 36px 29px 0px 123px;
+  padding: 0px 0px 0px 20px;
+  align-items: center;
+  justify-content: center;
+  max-height: 45px;
+  font-size: 18px;
+}
+.lowerPrice {
+  font-size: 39px;
+  color: #e2fb5f;
+  margin: 15px 110px 0px 0px;
+  padding: 5px 33px 0px 34px;
+}
+.lowerselect {
+  margin: 15px 28px 0px 0px;
+  padding: 0px 0px 0px 20px;
+}
+.downArrow {
+  padding: 0px 15px 0px 30px;
+}
+.up,
+.lower {
+  display: flex;
+  justify-content: space-between;
+}
+
+.priceUp {
+  font-size: 39px;
+  color: #e2fb5f;
+  margin: 16px 84px 0px 0px;
+  padding: 20px 33px 0px 34px;
+}
+.priceDown {
+  font-size: 14px;
+  color: #43b25b;
+  margin: 10px 31px 0px 0px;
+  padding: 0px 0px 7px 37px;
+}
+
+.secondString {
+  display: flex;
+  justify-content: space-between;
+}
+.circle {
+  margin: auto;
+  border: 1px solid;
+  background-color: #e2fb5f;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  color: #e2fb5f;
+  margin-top: -15px;
+}
+.line {
+  border: 1px solid #e2fb5f;
+  margin-top: 1px;
+}
+
+.iconSwap {
+  padding: 9px 7px;
+}
+
+.stringSlippage {
+  display: flex;
+  background-color: rgba(22, 40, 51, 0.9);
+  color: #e2fb5f;
+  justify-content: space-between;
+  padding: 16px 31px 17px 34px;
+}
+.downArrowYellow {
+  padding-left: 10px;
+}
