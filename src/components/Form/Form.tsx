@@ -7,7 +7,7 @@ import { initContract } from "../../contracts/base/contract";
 import { v4 as uuidv4 } from "uuid";
 import { getAddress, getContractAddress } from "../../utils/wallet";
 import { toast } from "react-toastify";
-import { configKeplr, CYBER } from "../../utils/config";
+import { useAddressExists } from "../../hooks/useAddressExists";
 
 const initialBalance = {
   id: uuidv4(),
@@ -25,13 +25,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
     initialBalance,
   ]);
   const [description, setDescription] = useState("");
-
-  const initKeplr = async () => {
-    if (window.keplr) {
-      await window.keplr.experimentalSuggestChain(configKeplr("bostrom"));
-      await window.keplr.enable(CYBER.CHAIN_ID);
-    }
-  };
+  const { addressExists, initKeplr } = useAddressExists();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -217,11 +211,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           isTextArea
         />
       </Collapsible>
-      {window.keplr ? (
-        <Button type="submit" color="black" size="sm">
-          create
-        </Button>
-      ) : (
+      {!addressExists ? (
         <Button
           color="black"
           size="sm"
@@ -229,6 +219,10 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           onClick={initKeplr}
         >
           Connect Wallet
+        </Button>
+      ) : (
+        <Button type="submit" color="black" size="sm">
+          create
         </Button>
       )}
     </form>

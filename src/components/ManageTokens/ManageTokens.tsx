@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import Token from "../Token/Token";
 import { useState } from "react";
 import BootSender from "../BootSender/BootSender";
+import { useAddressExists } from "../../hooks/useAddressExists";
 
 interface TokenProps {
   initial: string[];
@@ -14,6 +15,7 @@ function ManageTokens(props: TokenProps) {
   const [contract, setContract] = useState("");
   const [isVisible, setVisible] = useState(false);
   const [isShown, setIsShown] = useState(false);
+  const { addressExists } = useAddressExists();
 
   function handleChangeContractAddress(event: any) {
     const response = event.target.value;
@@ -21,6 +23,18 @@ function ManageTokens(props: TokenProps) {
       setContract(response);
     }
   }
+
+  /*const initKeplr = async () => {
+    if (window.keplr) {
+      await window.keplr.experimentalSuggestChain(configKeplr("bostrom"));
+      await window.keplr.enable(CYBER.CHAIN_ID);
+      setAddressExists(true);
+    }
+  };
+
+  useEffect(() => {
+    initKeplr();
+  }, []);*/
 
   function addContract() {
     if (contract.includes("bostrom")) {
@@ -50,7 +64,7 @@ function ManageTokens(props: TokenProps) {
         <div className={styles.name}>Assets</div>
       </div>
 
-      {window.keplr ? (
+      {addressExists ? (
         <div className={styles.tokens}>
           <BootSender></BootSender>
           <div className={styles.tokenList}>
