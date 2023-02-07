@@ -1,27 +1,8 @@
-.hugesize {
-  padding: 20px 170px;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
-  background-color: #e2fb5f;
-  border: 1px solid #e2fb5f;
-  line-height: 26px;
-  font-size: 22px;
-  font-weight: 700;
-}
 .common {
   display: flex;
   justify-content: center;
+  margin-left: 223px;
   min-width: 750px;
-}
-
-.hugesize:hover {
-  background-color: #edff8e;
-  border: 1px solid #d0e857;
-}
-.hugesize:active {
-  background-color: rgba(67, 178, 91, 0.35);
-  border: 1px solid #d0e857;
-  color: rgba(226, 251, 95, 0.35);
 }
 .smallsize {
   border-radius: 100px;
