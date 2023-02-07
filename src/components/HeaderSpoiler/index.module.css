@@ -28,7 +28,7 @@
   z-index: 10;
 }
 
-.linkhead {
+.linkHead {
   color: #e2fb5f;
   text-decoration: none;
   font-size: 35px;
@@ -43,15 +43,12 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 21px;
-  text-align: center;
   color: #43b25b;
   margin-top: 16px;
+  padding-left: 150px;
 }
-.name:hover {
-  color: #e2fb5f;
-}
+
 .btnClass {
-  width: fit-content;
   font-family: "Roboto";
   border-radius: 100px;
   background: #e2fb5f;
@@ -60,21 +57,51 @@
   font-size: 16px;
   line-height: 19px;
   border: 0px;
-  margin-top: 5px;
   margin-right: 20px;
-  padding: 0px 27px;
+  padding: 9px 31px;
 }
 
 .name {
-  margin-right: 36px;
   cursor: pointer;
 }
 
 .btnClass:hover {
   background-color: #edff8e;
 }
+<<<<<<< HEAD
 
 .walletWrapper {
   align-items: center;
   justify-content: center;
+=======
+.link {
+  color: #43b25b;
+  text-decoration: none;
+  margin-right: 36px;
+}
+.link:hover {
+  color: #e2fb5f;
+}
+
+.bostrom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(67, 151, 178, 0.1);
+  border-radius: 18px;
+  font-size: 16px;
+  border: 0;
+  color: #43b25b;
+  margin-right: 21px;
+}
+.rightButton {
+  display: flex;
+}
+.circle {
+  width: 18px;
+  padding: 9px 28px 9px 10px;
+}
+.downSwapArrow {
+  padding: 16px 15px 13px 29px;
+>>>>>>> 6386fa9e40f11bf313c40b8a020b10e360a75a3b
 }

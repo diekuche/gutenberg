@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import HeaderSpoiler from "./components/HeaderSpoiler/HeaderSpoiler";
 import Main from "./components/Main/Main";
 import NewButton from "./components/newButton/newButton";
+import Swap from "./components/Swap/Swap";
 
 declare global {
   interface Window extends KeplrWindow {}
@@ -39,6 +40,7 @@ function App() {
             <Route path="/legalinfo" element={<LegalPage />}></Route>
             <Route path="/old" element={<MainPage />}></Route>
             <Route path="/newBT" element={<NewButton />}></Route>
+            <Route path="/swap" element={<Swap />}></Route>
           </Routes>
           <Footer />
         </Router>

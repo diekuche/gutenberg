@@ -1,0 +1,137 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -85px;
+}
+
+.tllist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+table {
+  background-color: rgba(22, 40, 51, 0.9);
+  border-radius: 16px;
+  border-collapse: collapse;
+}
+
+td {
+  text-align: center;
+  padding-top: 19px;
+  padding-bottom: 19px;
+}
+.network,
+.pool,
+.tl,
+.bon,
+.ar {
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 200;
+  color: #43b25b;
+}
+
+.poolarp {
+  display: flex;
+  color: white;
+  padding-right: 103px;
+  font-size: 18px;
+}
+.tlb {
+  color: #43b25b;
+  padding-right: 50px;
+  padding-left: 50px;
+  font-size: 18px;
+}
+.trcolor {
+  background-color: rgba(67, 151, 178, 0.1);
+}
+.pool {
+  text-align: start;
+}
+.network {
+  padding: 9px 18px;
+}
+.arp {
+  color: white;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: bold;
+  font-size: 18px;
+}
+.circle {
+  width: 18px;
+  padding-right: 8px;
+}
+.atom {
+  width: 18px;
+  padding-right: 8px;
+}
+.name {
+  position: absolute;
+  color: rgba(67, 178, 91, 0.15);
+  font-weight: bold;
+  font-size: 167px;
+}
+
+.searchfil {
+  display: flex;
+  color: #43b25b;
+  font-size: 18px;
+  font-weight: 200;
+  margin-left: 11px;
+}
+.iconfilter {
+  padding-left: 25px;
+}
+.page {
+  display: flex;
+  margin-top: 20px;
+  color: #e2fb5f;
+  font-weight: 100;
+  font-size: 18px;
+}
+.leftarrow {
+  margin-right: 10px;
+}
+.rightarrow {
+  margin-left: 10px;
+}
+.downarrow {
+  margin-left: 6px;
+}
+span {
+  color: #43b25b;
+}
+.usd,
+.dk {
+  padding-right: 8px;
+}
+.inp::placeholder {
+  color: #43b25b;
+  font-size: 18px;
+  padding-left: 40px;
+  background-image: url("../../assets/filter.svg");
+  background-repeat: no-repeat;
+  background-position: 5px;
+}
+.inp {
+  padding: 19px 456px 15px 0px;
+  background-color: rgba(22, 40, 51, 0.9);
+  border-radius: 16px;
+  border: none;
+  outline: none;
+  color: #e2fb5f;
+  font-size: 18px;
+  padding-left: 20px;
+}
+.test {
+  padding-left: 10px;
+}
+.pad {
+  z-index: 5;
+  margin-top: 100px;
+  font-weight: 100;
+}

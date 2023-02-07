@@ -24,21 +24,22 @@
 }
 .switchNet {
   display: flex;
+  justify-content: space-between;
   font-size: 20px;
   line-height: 23px;
   color: rgba(67, 178, 91, 0.5);
-  margin-top: 9px;
+  margin-top: 7px;
   margin-left: 5px;
 }
 .bridge {
   display: flex;
-  margin-bottom: 13px;
-  margin-top: 15px;
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .switch {
   display: flex;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 .triangleD {
   width: 0;

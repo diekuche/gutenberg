@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
+import circle from "../../assets/circle.svg";
+import downSwapArrow from "../../assets/downSwapArrow.svg";
 import Wallet from "../Wallet/Wallet";
 
 import { Link } from "react-router-dom";
@@ -22,18 +24,26 @@ function Header2() {
   return (
     <header className={header}>
       <div className={styles.nav}>
-        <div className={styles.hero}>
-          <Link to="/" className={styles.linkhead}>
+        <div>
+          <Link to="/" className={styles.linkHead}>
             gutenberg!
           </Link>
         </div>
         <div className={styles.middle}>
-          <div className={styles.name}>Create</div>
+          <div>
+            <Link to="/swap" className={styles.link}>
+              Swap
+            </Link>
+          </div>
+          <div className={styles.name}>
+            <Link to="/old" className={styles.link}>
+              Create
+            </Link>
+          </div>
+
           <div className={styles.name}>Manage assets</div>
         </div>
-        <div className={styles.walletWrapper}>
-          <Wallet />
-        </div>
+        <button className={styles.btnClass}>Connect Wallet</button>
       </div>
     </header>
   );
