@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
-import Wallet from "../Wallet/Wallet";
-
 import circle from "../../assets/circle.svg";
 import downSwapArrow from "../../assets/downSwapArrow.svg";
 import { Link } from "react-router-dom";
@@ -43,10 +41,6 @@ function Header2() {
 
           <div className={styles.name}>Manage assets</div>
         </div>
-<<<<<<< HEAD
-        <div className={styles.walletWrapper}>
-          <Wallet />
-=======
         <div className={styles.rightButton}>
           <button className={styles.bostrom}>
             <img src={circle} className={styles.circle} alt="" />
@@ -55,7 +49,6 @@ function Header2() {
           </button>
 
           <button className={styles.btnClass}>Connect Wallet</button>
->>>>>>> 6386fa9e40f11bf313c40b8a020b10e360a75a3b
         </div>
       </div>
     </header>
