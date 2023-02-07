@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
-<<<<<<< HEAD
 import Wallet from "../Wallet/Wallet";
 
-=======
 import circle from "../../assets/circle.svg";
 import downSwapArrow from "../../assets/downSwapArrow.svg";
->>>>>>> 6386fa9e40f11bf313c40b8a020b10e360a75a3b
 import { Link } from "react-router-dom";
 
 function Header2() {
