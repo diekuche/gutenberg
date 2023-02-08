@@ -1,20 +1,15 @@
 import { useEffect, useState } from "react";
 import { getAddress, getDisconnected } from "../../utils/wallet";
-import { configKeplr, CYBER } from "../../utils/config";
 import Button from "../Button/Button";
 import styles from "./Wallet.module.css";
-import classNames from "classnames";
+import { useAddressExists } from "../../hooks/useAddressExists";
+/*import classNames from "classnames";*/
 
 const Wallet: React.FC = () => {
   const [address, setAddress] = useState("");
-  const [disconnect, setDisconnect] = useState(false);
+  /*const [disconnect, setDisconnect] = useState(false);*/
 
-  const initKeplr = async () => {
-    if (window.keplr) {
-      await window.keplr.experimentalSuggestChain(configKeplr("bostrom"));
-      await window.keplr.enable(CYBER.CHAIN_ID);
-    }
-  };
+  const { initKeplr } = useAddressExists();
 
   const fetchAddress = async () => {
     let response = await getAddress();
@@ -26,11 +21,11 @@ const Wallet: React.FC = () => {
   useEffect(() => {
     initKeplr();
     fetchAddress();
-    const interval = setInterval(() => fetchAddress(), 30000);
+    const interval = setInterval(() => fetchAddress(), 10000);
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [initKeplr]);
 
   const handleConnect = () => {
     if (!address) {
@@ -40,30 +35,29 @@ const Wallet: React.FC = () => {
     }
   };
 
-  function MouseOver() {
+  /*function MouseOver() {
     if (address) {
       setDisconnect(true);
     }
   }
   function MouseOut() {
     setDisconnect(false);
-  }
+  }*/
 
   return (
     <div>
       <Button
         color="white"
-        className={classNames({
+        /*className={classNames({
           [styles.disconnect]: disconnect,
-        })}
+        })}*/
+        className={styles.wallet}
         onClick={handleConnect}
-        onMouseOver={MouseOver}
-        onMouseOut={MouseOut}
+        /* onMouseOver={MouseOver}
+        onMouseOut={MouseOut}*/
       >
         {address
-          ? disconnect
-            ? "disconnect"
-            : `${address.slice(0, 10)}...${address.slice(-10, -5)}`
+          ? `${address.slice(0, 10)}...${address.slice(-10, -5)}`
           : "Connect Wallet"}
       </Button>
     </div>

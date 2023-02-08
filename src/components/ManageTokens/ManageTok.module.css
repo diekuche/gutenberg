@@ -3,21 +3,31 @@
   flex-direction: column;
   align-items: center;
   border-radius: 16px;
-  background: #163a34;
+  background: rgba(22, 40, 51, 0.5);
   box-sizing: border-box;
-
+  min-width: 262px;
+  height: 100%;
   margin-left: 9px;
-  padding: 17px 25px;
+
+  z-index: 100;
 }
 
+.highlighter {
+  width: 100%;
+  border-radius: 16px 16px 0px 0px;
+  background: rgba(22, 40, 51, 0.8);
+}
 .name {
-  border-radius: 27.5px;
   color: #e2fb5f;
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 400;
   border-style: none;
   font-style: normal;
-  margin-bottom: 17px;
+  padding: 12px 24px;
+}
+
+.tokens {
+  padding: 12px 24px 24px;
 }
 
 .tokenList {
@@ -26,26 +36,41 @@
 }
 
 .info {
-  font-weight: 700;
+  font-weight: 300;
   color: #43b25b;
-  font-size: 10px;
+  font-size: 12px;
   margin: 0px 0px 5px 0px;
+}
+
+.info2 {
+  padding: 80px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 300;
+  color: #43b25b;
+  font-size: 14px;
+  line-height: 18px;
 }
 
 .inputs {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .addContract {
-  line-height: 16px;
   width: 100%;
-  height: 24px;
-  color: #163a34;
-  background: #d3ff54;
-  border-radius: 8px;
-  border: none;
+  color: #e2fb5f;
+  font-weight: 400;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 28px;
+  background: transparent;
+  border-radius: 10px;
+  padding: 8px;
+  border: 1px solid rgba(67, 178, 91, 0.35);
+  outline: none;
 }
 
 .spinner {
@@ -66,7 +91,7 @@
 }
 
 .addTokenButton {
-  margin-top: 15px;
+  margin-top: 16px;
 }
 
 .error {
