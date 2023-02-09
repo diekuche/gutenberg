@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
 }
 .name {
   position: absolute;
@@ -76,9 +77,7 @@ table {
   font-size: 12px;
   font-weight: 200;
 }
-.field::placeholder {
-  color: red;
-}
+
 .buttonY {
   margin-left: 50px;
 }
@@ -95,17 +94,7 @@ table {
   outline: none;
   margin: 5px 14px 5px 0px;
 }
-.buttonSend {
-  background-color: #e2fb5f;
-  padding: 11px 60px;
-  font-size: 14px;
-  font-weight: 500;
-  margin: 10px 0px 0px 20px;
-  color: black;
-  border-radius: 50px;
-  line-height: 16px;
-  height: 41px;
-}
+
 .add {
   display: flex;
   justify-content: center;
@@ -115,10 +104,21 @@ table {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-.addToken {
+/*.addToken {
   color: #43b25b;
   font-size: 14px;
   font-weight: 100;
   background-color: rgba(22, 40, 51, 0.5);
   border: 1px #43b25b solid;
+}*/
+.tokenSend {
+  margin-top: 10px;
+  margin-left: 30px;
+}
+.addToken {
+  margin-left: 10px;
+}
+.lg {
+  padding: 0px 56px 0px 56px;
+  font-weight: 100;
 }

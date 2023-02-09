@@ -49,18 +49,28 @@ const ManageAssets = () => {
         <div className={styles.exchange}>
           <div className={styles.exchangeField}>
             Recepient:
-            <input className={styles.field} type="text" placeholder="example" />
+            <input className={styles.field} type="text" />
           </div>
           <div className={styles.exchangeField}>
             Amount:
-            <input className={styles.field} type="text" placeholder="example" />
+            <input className={styles.field} type="text" />
           </div>
-          <Button type="button" className={styles.buttonSend}>
+          <Button
+            color="white"
+            type="button"
+            size="sm"
+            className={styles.tokenSend}
+          >
             Send
           </Button>
         </div>
         <div className={styles.add}>
-          <Button type="button" className={styles.addToken}>
+          <Button
+            color="green"
+            type="button"
+            size="lg"
+            className={styles.addToken}
+          >
             Add Token
           </Button>
         </div>

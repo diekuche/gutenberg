@@ -40,7 +40,7 @@ function Header2() {
           </div>
 
           <div className={styles.name}>
-            <Link to="/manageassets" className={styles.link}>
+            <Link to="/manage-assets" className={styles.link}>
               Manage assets
             </Link>
           </div>
