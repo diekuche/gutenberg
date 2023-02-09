@@ -3,6 +3,7 @@ import styles from "./index.module.css";
 import circle from "../../assets/circle.svg";
 import downSwapArrow from "../../assets/downSwapArrow.svg";
 import { Link } from "react-router-dom";
+import Wallet from "../Wallet/Wallet";
 
 function Header2() {
   const [header, setHeader] = useState(styles.header);
@@ -52,7 +53,7 @@ function Header2() {
             <img src={downSwapArrow} className={styles.downSwapArrow} alt="" />
           </button>
 
-          <button className={styles.btnClass}>Connect Wallet</button>
+          <Wallet/>
         </div>
       </div>
     </header>

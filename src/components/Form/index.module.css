@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  width: 595px;
-  padding: 0px 65px 0px 37px;
+  width: 100%;
+  padding: 31px 62px 34px 33px;
   background: #e2fb5f;
   border: 1px solid #e2fb5f;
   border-radius: 0px 16px 16px 16px;
@@ -50,4 +50,9 @@
   margin-top: 5px;
   margin-bottom: 12px;
   padding-left: 5px;
+}
+
+.connectButton {
+  font-size: 16px;
+  font-weight: 500;
 }

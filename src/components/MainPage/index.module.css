@@ -1,8 +1,9 @@
 .mainpage {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: flex-start;
-  margin: 150px auto;
+  margin: auto;
   padding-top: 30px;
 }
 
@@ -10,6 +11,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 103px;
 }
 
 .tools {
@@ -20,7 +22,21 @@
 
 .tabPageContent {
   display: flex;
+  width: 596px;
+  height: 665px;
   align-items: flex-start;
   justify-content: center;
   justify-items: center;
+}
+.createtext {
+  position: absolute;
+  top: 575px;
+  left: 460px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 122px;
+  line-height: 143px;
+  color: rgba(67, 178, 91, 0.15);
+  transform: rotate(-90deg);
 }

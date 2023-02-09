@@ -7,6 +7,7 @@ import { initContract } from "../../contracts/base/contract";
 import { v4 as uuidv4 } from "uuid";
 import { getAddress, getContractAddress } from "../../utils/wallet";
 import { toast } from "react-toastify";
+import { useAddressExists } from "../../hooks/useAddressExists";
 
 const initialBalance = {
   id: uuidv4(),
@@ -24,6 +25,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
     initialBalance,
   ]);
   const [description, setDescription] = useState("");
+  const { addressExists, initKeplr } = useAddressExists();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -111,12 +113,11 @@ export const Form = ({ setInitial, initial }: FormProps) => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <div className={styles.formheader}>Create New Token</div>
       <Input
         id="token"
         label={`Token's Name:`}
         htmlFor="token"
-        subtitle={`You can specify any name you like. But it is better to come up with something original \n (min 3, max 50 symbols)`}
+        subtitle={`You can specify any name you like. But it is better to come up with something original (min 3, max 50 symbols)`}
         placeholder={`John's Obligations`}
         name="token"
         required
@@ -126,8 +127,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
         htmlFor="symbol"
         label={`Symbol:`}
         name="symbol"
-        subtitle={`How your token will be displayed in users' wallets (min 3, max 5 symbols)
-        `}
+        subtitle={`How your token will be displayed in users'wallets (min 3, max 5 symbols)`}
         pattern={`[A-Za-z-0-9]{2,5}`}
         placeholder={`JUSD`}
         required
@@ -158,11 +158,12 @@ export const Form = ({ setInitial, initial }: FormProps) => {
         name="logo"
         placeholder={`https://www.example.com/image.png`}
       />
-      <Collapsible title="Changing Initial Balance">
+      <Collapsible title="Changing initial balances">
         <div className={styles.inputComponent}>
           <div className={styles.article}>
-            By default all new tokens will be transfered to your wallet.<br/>You can
-            change that.
+            By default all new tokens will be transfered to your wallet.
+            <br />
+            You can change that.
           </div>
           {balances.map(({ id, address, amount }, index) => {
             return (
@@ -197,21 +198,33 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           })}
         </div>
       </Collapsible>
-      <Collapsible title="Token Details">
+      <Collapsible title="Token details">
         <Input
           value={description}
           name="description"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setDescription(e.target.value)
           }
-          label={"This information will be displayed in the description of the created token \n (max 160 symbols):"}
+          label={
+            "This information will be displayed in the description of the created token \n (max 160 symbols):"
+          }
           isTextArea
         />
       </Collapsible>
-
-      <Button type="submit" color="black" size="lg">
-        create!
-      </Button>
+      {!addressExists ? (
+        <Button
+          color="black"
+          size="sm"
+          className={styles.connectButton}
+          onClick={initKeplr}
+        >
+          Connect Wallet
+        </Button>
+      ) : (
+        <Button type="submit" color="black" size="sm">
+          create
+        </Button>
+      )}
     </form>
   );
 };
