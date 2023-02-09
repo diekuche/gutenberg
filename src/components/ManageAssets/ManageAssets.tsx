@@ -58,7 +58,7 @@ const ManageAssets = () => {
           <Button
             color="white"
             type="button"
-            size="sm"
+            size="lg"
             className={styles.tokenSend}
           >
             Send

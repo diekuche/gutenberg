@@ -21,6 +21,7 @@
 table {
   border-collapse: collapse;
 }
+
 .thead {
   background-color: rgba(22, 40, 51, 0.9);
 }
@@ -36,7 +37,7 @@ table {
   padding-right: 62px;
 }
 .balance {
-  padding-right: 150px;
+  padding-right: 188px;
 }
 .other {
   padding-right: 17px;
@@ -104,17 +105,13 @@ table {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-/*.addToken {
-  color: #43b25b;
-  font-size: 14px;
-  font-weight: 100;
-  background-color: rgba(22, 40, 51, 0.5);
-  border: 1px #43b25b solid;
-}*/
 .tokenSend {
   margin-top: 10px;
   margin-left: 30px;
 }
 .addToken {
-  margin-left: 10px;
+  margin-left: 0px;
+}
+.lg {
+  font-weight: 100;
 }
