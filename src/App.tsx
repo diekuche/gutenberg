@@ -42,7 +42,7 @@ function App() {
             <Route path="/old" element={<MainPage />}></Route>
             <Route path="/newBT" element={<NewButton />}></Route>
             <Route path="/swap" element={<Swap />}></Route>
-            <Route path="/manageassets" element={<ManageAssets />}></Route>
+            <Route path="/manage-assets" element={<ManageAssets />}></Route>
           </Routes>
           <Footer />
         </Router>
