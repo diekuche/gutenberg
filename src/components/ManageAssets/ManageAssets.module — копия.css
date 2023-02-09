@@ -1,0 +1,80 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.name {
+  color: rgba(67, 178, 91, 0.15);
+  font-size: 167px;
+  font-weight: bold;
+  text-align: center;
+}
+.border {
+  border-radius: 16px;
+  border: 1px solid black;
+}
+/*.tableMA {
+  border-radius: 16px;
+  border: 1px solid black;
+}*/
+.thead {
+  background-color: rgba(22, 40, 51, 0.9);
+}
+.thead th {
+  color: #43b25b;
+  font-size: 14px;
+  font-weight: 200;
+  padding-top: 9px;
+  padding-bottom: 11px;
+}
+.tokens {
+  padding-left: 75px;
+  padding-right: 62px;
+}
+.balance {
+  padding-right: 150px;
+}
+.other {
+  padding-right: 17px;
+  padding-left: 17px;
+}
+.nameToken {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.boot {
+  color: white;
+  font-size: 20px;
+}
+.bostorm {
+  color: #43b25b;
+  font-size: 12px;
+  padding-right: 5px;
+}
+.price {
+  color: white;
+}
+.circle {
+  width: 32px;
+  margin-right: 13px;
+}
+.price {
+  color: white;
+  font-size: 24px;
+}
+.menu {
+  background-color: rgba(22, 40, 51, 0.5);
+  backdrop-filter: blur(15px);
+}
+.exchangeField {
+  color: #e2fb5f;
+  font-size: 12px;
+  font-weight: 200;
+}
+.field::placeholder {
+  color: red;
+}
+.buttonY {
+  margin-left: 50px;
+}
