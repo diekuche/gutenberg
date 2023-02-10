@@ -14,16 +14,13 @@ export interface StartButtonProps
 const Button: React.FC<StartButtonProps> = (props: StartButtonProps) => {
   const { color, size, className, children, ...rest } = props;
 
-  const btnClass = classNames(
-    className,
-    color === "white"
-      ? styles.white
-      : color === "green"
-      ? styles.green
-      : styles.black,
-    size === "sm" ? styles.sm : styles.lg,
-    {}
-  );
+  const btnClass = classNames(className, {
+    [styles.white]: color === "white",
+    [styles.green]: color === "green",
+    [styles.black]: color === "black",
+    [styles.sm]: size === "sm",
+    [styles.lg]: size === "lg",
+  });
 
   return (
     <button type="button" className={btnClass} {...rest}>
