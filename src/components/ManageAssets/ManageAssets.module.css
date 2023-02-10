@@ -16,6 +16,8 @@
   z-index: 5;
   display: block;
   margin-top: 170px;
+  border-radius: 10px !important;
+  overflow: hidden !important;
 }
 .test {
   display: flex;
@@ -38,7 +40,7 @@
   padding-bottom: 11px;
 }
 .tokens {
-  padding-left: 75px;
+  padding-left: 76px;
   padding-right: 62px;
 }
 .balance {
@@ -96,9 +98,10 @@
   border: 1px solid rgba(67, 178, 91, 0.35);
   border-radius: 10px;
   background-color: rgba(22, 40, 51, 0.1);
-  padding: 13px 20px 13px 10px;
+  padding: 13px 33px 13px 10px;
   outline: none;
   margin: 5px 14px 5px 0px;
+  color: #e2fb5f;
 }
 
 .add {
@@ -107,12 +110,10 @@
   background-color: rgba(22, 40, 51, 0.5);
   padding-top: 21px;
   padding-bottom: 21px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
 }
 .tokenSend {
   margin-top: 10px;
-  margin-left: 30px;
+  margin-left: 15px;
   padding: 10px 55px;
 }
 .addToken {
