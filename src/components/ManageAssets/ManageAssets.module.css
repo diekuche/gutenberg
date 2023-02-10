@@ -14,11 +14,16 @@
 }
 .border {
   z-index: 5;
-  border-radius: 10px;
+  display: block;
   margin-top: 170px;
 }
-
-table {
+.test {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tableMA {
+  border-radius: 10px;
   border-collapse: collapse;
 }
 
@@ -108,9 +113,11 @@ table {
 .tokenSend {
   margin-top: 10px;
   margin-left: 30px;
+  padding: 10px 55px;
 }
 .addToken {
   margin-left: 0px;
+  padding: 10px 45px;
 }
 .lg {
   font-weight: 100;

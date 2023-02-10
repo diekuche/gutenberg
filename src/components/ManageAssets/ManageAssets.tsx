@@ -12,40 +12,44 @@ const ManageAssets = () => {
     <div className={styles.nav}>
       <div className={styles.name}>manage assets</div>
       <div className={styles.border}>
-        <table className={styles.tableMA}>
-          <thead className={styles.thead}>
-            <th className={styles.tokens}>Tokens</th>
-            <th className={styles.balance}>Balance</th>
-            <th className={styles.other}>Send</th>
-            <th className={styles.other}>Swap</th>
-            <th className={styles.other}>Mint</th>
-            <th className={styles.other}>Burn</th>
-          </thead>
-          <tbody>
-            <tr className={styles.menu}>
-              <td className={styles.nameToken}>
-                <img src={circle} className={styles.circle} alt="" />
-                <div>
-                  <div className={styles.boot}>BOOT</div>
-                  <div className={styles.bostorm}>Bostorm</div>
-                </div>
-              </td>
-              <td className={styles.price}>937,453,452.00</td>
-              <td>
-                <img src={icon_send} alt="" />
-              </td>
-              <td>
-                <img src={swapMA} alt="" />
-              </td>
-              <td>
-                <img src={icon_mint} alt="" />
-              </td>
-              <td>
-                <img src={icon_burn} alt="" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className={styles.test}>
+          <table className={styles.tableMA}>
+            <thead className={styles.thead}>
+              <tr>
+                <th className={styles.tokens}>Tokens</th>
+                <th className={styles.balance}>Balance</th>
+                <th className={styles.other}>Send</th>
+                <th className={styles.other}>Swap</th>
+                <th className={styles.other}>Mint</th>
+                <th className={styles.other}>Burn</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className={styles.menu}>
+                <td className={styles.nameToken}>
+                  <img src={circle} className={styles.circle} alt="" />
+                  <div>
+                    <div className={styles.boot}>BOOT</div>
+                    <div className={styles.bostorm}>Bostorm</div>
+                  </div>
+                </td>
+                <td className={styles.price}>937,453,452.00</td>
+                <td>
+                  <img src={icon_send} alt="" />
+                </td>
+                <td>
+                  <img src={swapMA} alt="" />
+                </td>
+                <td>
+                  <img src={icon_mint} alt="" />
+                </td>
+                <td>
+                  <img src={icon_burn} alt="" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div className={styles.exchange}>
           <div className={styles.exchangeField}>
             Recepient:
@@ -59,7 +63,7 @@ const ManageAssets = () => {
             color="white"
             type="button"
             size="lg"
-            className={styles.tokenSend}
+            className={styles.tokenSend + " " + styles.lg}
           >
             Send
           </Button>
@@ -69,7 +73,7 @@ const ManageAssets = () => {
             color="green"
             type="button"
             size="lg"
-            className={styles.addToken}
+            className={styles.addToken + " " + styles.lg}
           >
             Add Token
           </Button>
