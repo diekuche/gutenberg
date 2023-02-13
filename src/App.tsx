@@ -12,6 +12,7 @@ import HeaderSpoiler from "./components/HeaderSpoiler/HeaderSpoiler";
 import Main from "./components/Main/Main";
 import NewButton from "./components/newButton/newButton";
 import Swap from "./components/Swap/Swap";
+import ManageAssets from "./components/ManageAssets/ManageAssets";
 
 declare global {
   interface Window extends KeplrWindow {}
@@ -41,6 +42,7 @@ function App() {
             <Route path="/old" element={<MainPage />}></Route>
             <Route path="/newBT" element={<NewButton />}></Route>
             <Route path="/swap" element={<Swap />}></Route>
+            <Route path="/manage-assets" element={<ManageAssets />}></Route>
           </Routes>
           <Footer />
         </Router>

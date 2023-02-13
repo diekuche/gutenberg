@@ -1,0 +1,125 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px auto auto auto;
+}
+.name {
+  position: absolute;
+  color: rgba(67, 178, 91, 0.15);
+  font-size: 167px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 50px;
+}
+.border {
+  z-index: 5;
+  display: block;
+  margin-top: 170px;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+.test {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tableMA {
+  border-radius: 10px;
+  border-collapse: collapse;
+}
+
+.thead {
+  background-color: rgba(22, 40, 51, 0.9);
+}
+.thead th {
+  color: #43b25b;
+  font-size: 14px;
+  font-weight: 200;
+  padding-top: 9px;
+  padding-bottom: 11px;
+}
+.tokens {
+  padding-left: 76px;
+  padding-right: 62px;
+}
+.balance {
+  padding-right: 188px;
+}
+.other {
+  padding-right: 17px;
+  padding-left: 17px;
+}
+.nameToken {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.boot {
+  color: white;
+  font-size: 20px;
+}
+.bostorm {
+  color: #43b25b;
+  font-size: 12px;
+  padding-right: 5px;
+}
+
+.circle {
+  width: 32px;
+  margin-right: 13px;
+}
+.price {
+  color: white;
+  font-size: 24px;
+  text-align: start;
+}
+.menu {
+  background-color: rgba(22, 40, 51, 0.5);
+  backdrop-filter: blur(15px);
+}
+.exchangeField {
+  display: flex;
+  flex-direction: column;
+  color: #e2fb5f;
+  font-size: 12px;
+  font-weight: 200;
+}
+
+.buttonY {
+  margin-left: 50px;
+}
+.exchange {
+  display: flex;
+  background-color: rgba(22, 40, 51, 0.5);
+  padding: 10px 0px 10px 15px;
+}
+.field {
+  border: 1px solid rgba(67, 178, 91, 0.35);
+  border-radius: 10px;
+  background-color: rgba(22, 40, 51, 0.1);
+  padding: 13px 33px 13px 10px;
+  outline: none;
+  margin: 5px 14px 5px 0px;
+  color: #e2fb5f;
+}
+
+.add {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(22, 40, 51, 0.5);
+  padding-top: 21px;
+  padding-bottom: 21px;
+}
+.tokenSend {
+  margin-top: 10px;
+  margin-left: 15px;
+  padding: 10px 55px;
+}
+.addToken {
+  margin-left: 0px;
+  padding: 10px 45px;
+}
+.lg {
+  font-weight: 100;
+}

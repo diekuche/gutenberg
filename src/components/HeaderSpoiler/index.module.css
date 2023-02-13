@@ -76,7 +76,9 @@
 .link:hover {
   color: #e2fb5f;
 }
-
+.link:focus {
+  color: #e2fb5f;
+}
 .bostrom {
   display: flex;
   align-items: center;

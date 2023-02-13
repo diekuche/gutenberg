@@ -17,7 +17,7 @@ const TList = () => {
         <input className={styles.inp} type="text" placeholder="Filter tokens" />
       </div>
       <div className={styles.tllist}>
-        <table>
+        <table className={styles.tableTL}>
           <thead className={styles.thead}>
             <tr>
               <th className={styles.network}>Network</th>
