@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 84vh;
+  margin: auto;
+  margin-top: 10px;
 }
 .name {
   position: absolute;
