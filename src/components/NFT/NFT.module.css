@@ -2,11 +2,12 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  width: 596px;
-  height: 665px;
+  width: 100%;
+  height: 100%;
   background: #e2fb5f;
   border: 1px solid #e2fb5f;
   border-radius: 0px 16px 16px 16px;
+  padding: 45px;
 }
 
 .cs {
@@ -14,13 +15,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 512px;
-  height: 569px;
+  width: 100%;
+  height: 100%;
   background-color: rgba(32, 75, 81, 0.2);
   border-radius: 16px;
   font-weight: 800;
   font-size: 38px;
-  margin: auto;
   color: #162833;
 }
 

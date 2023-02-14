@@ -11,7 +11,7 @@
   align-items: center;
   margin-top: 20px;
 }
-table {
+.tableTL {
   background-color: rgba(22, 40, 51, 0.9);
   border-radius: 16px;
   border-collapse: collapse;
@@ -118,14 +118,13 @@ span {
   background-position: 5px;
 }
 .inp {
-  padding: 19px 456px 15px 0px;
+  padding: 19px 456px 15px 20px;
   background-color: rgba(22, 40, 51, 0.9);
   border-radius: 16px;
   border: none;
   outline: none;
   color: #e2fb5f;
   font-size: 18px;
-  padding-left: 20px;
 }
 .test {
   padding-left: 10px;

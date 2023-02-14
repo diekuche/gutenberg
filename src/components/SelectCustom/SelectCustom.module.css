@@ -1,0 +1,14 @@
+.select-container {
+  display: flex;
+  width: 100px;
+  border-radius: 28px;
+  color: #43b25b;
+  border: 0;
+  background-color: rgba(22, 40, 51, 0.4);
+  margin: 36px 29px 0px 123px;
+  padding: 0px 0px 0px 20px;
+  align-items: center;
+  justify-content: center;
+  max-height: 45px;
+  font-size: 18px;
+}

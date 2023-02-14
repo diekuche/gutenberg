@@ -28,8 +28,6 @@
 
 .white {
   align-items: center;
-  width: fit-content;
-  height: 41px;
   background: #e2fb5f;
   border-radius: 27.5px;
   padding: 12px;
@@ -43,16 +41,14 @@
 }
 
 .lg {
-  width: 217px;
-  height: 44px;
+  padding: 10px 70px;
   font-size: 16px;
 }
 
 .sm {
-  width: 167px;
-  height: 50px;
   font-weight: 800;
   font-size: 22px;
+  padding: 5px 50px;
 }
 
 .black:active {

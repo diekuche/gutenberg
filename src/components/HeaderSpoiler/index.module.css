@@ -68,21 +68,24 @@
 .btnClass:hover {
   background-color: #edff8e;
 }
-<<<<<<< HEAD
 
 .walletWrapper {
   align-items: center;
   justify-content: center;
-=======
+}
+
 .link {
   color: #43b25b;
   text-decoration: none;
   margin-right: 36px;
 }
+
 .link:hover {
   color: #e2fb5f;
 }
-
+.link:focus {
+  color: #e2fb5f;
+}
 .bostrom {
   display: flex;
   align-items: center;
@@ -103,5 +106,4 @@
 }
 .downSwapArrow {
   padding: 16px 15px 13px 29px;
->>>>>>> 6386fa9e40f11bf313c40b8a020b10e360a75a3b
 }

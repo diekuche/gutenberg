@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
-import ManageTokens from "../ManageTokens/ManageTok";
+import ManageTokens from "../ManageTokens/ManageTokens";
 import NFT from "../NFT/NFT";
 import NTT from "../NTT/NTT";
 import { Tabs } from "../Tabs/Tabs";

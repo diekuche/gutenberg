@@ -1,18 +1,15 @@
-.tokensBlock {
-  width: 100%;
-  display: flex;
-}
-
 .contractData {
   font-size: 14px;
   width: 100%;
+  margin-top: 12px;
 }
 
 .tokenTitle {
   display: flex;
   flex-direction: row;
+  margin-bottom: 12px;
+  align-items: center;
   justify-content: flex-start;
-  margin-bottom: 15px;
 }
 
 .cashName {
@@ -22,31 +19,16 @@
   font-weight: 300;
   font-size: 14px;
   color: white;
-  cursor: pointer;
   background-color: transparent;
   border: none;
-  padding: 0px;
-}
-
-.logo {
-  display: flex;
-  width: 16px;
-  height: 16px;
-  margin-right: 5px;
-}
-
-.line {
-  border-bottom: 1px solid #43b25b;
-  width: 100%;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  cursor: pointer;
 }
 
 .x {
   background: transparent;
   border: none;
   color: #43b25b;
-  padding: 0px 0px 0px 5px;
+  padding: 0px;
   cursor: pointer;
 }
 
@@ -60,26 +42,47 @@
   font-weight: 700;
   color: #43b25b;
   font-size: 10px;
-  margin: 0px px 5px;
+  margin: 0px 5px;
+}
+
+.logo {
+  width: 16px;
+  height: 16px;
 }
 
 .token {
-  display: flex;
-  flex-grow: 1;
+  margin-left: 3px;
+}
+
+.image {
+  margin-left: 5px;
+}
+
+.balance {
+  margin-left: auto;
 }
 
 .addContract {
-  line-height: 16px;
   height: 44px;
-  color: #163a34;
+  color: #e2fb5f;
+  font-weight: 400;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 28px;
   background: transparent;
-  border-radius: 8px;
-  border: none;
-  margin-bottom: 14px;
+  border-radius: 10px;
+  padding: 8px;
+  border: 1px solid rgba(67, 178, 91, 0.35);
+  outline: none;
+  margin-bottom: 12px;
 }
 
 .info {
   color: #43b25b;
   font-size: 14px;
   padding: 1px 25px 5px 25px;
+}
+
+.tokenButton {
+  padding: 12px 90px;
 }

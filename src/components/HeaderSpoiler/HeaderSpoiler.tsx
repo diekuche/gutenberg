@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import circle from "../../assets/circle.svg";
 import downSwapArrow from "../../assets/downSwapArrow.svg";
-import Wallet from "../Wallet/Wallet";
-
 import { Link } from "react-router-dom";
+import Wallet from "../Wallet/Wallet";
 
 function Header2() {
   const [header, setHeader] = useState(styles.header);
@@ -41,9 +40,21 @@ function Header2() {
             </Link>
           </div>
 
-          <div className={styles.name}>Manage assets</div>
+          <div className={styles.name}>
+            <Link to="/manage-assets" className={styles.link}>
+              Manage assets
+            </Link>
+          </div>
         </div>
-        <button className={styles.btnClass}>Connect Wallet</button>
+        <div className={styles.rightButton}>
+          <button className={styles.bostrom}>
+            <img src={circle} className={styles.circle} alt="" />
+            Bostorm
+            <img src={downSwapArrow} className={styles.downSwapArrow} alt="" />
+          </button>
+
+          <Wallet/>
+        </div>
       </div>
     </header>
   );

@@ -9,24 +9,26 @@
 .cashName {
   display: flex;
   width: 100%;
+  padding: 0px;
   align-items: center;
+  justify-content: space-between;
   font-weight: 300;
-  font-size: 14px;
+  font-size: 18px;
   color: white;
   background-color: transparent;
   border: none;
 }
 
 .token {
-  display: flex;
-  flex-grow: 0;
+  font-size: 14px;
+  margin-right: 3px;
 }
 
 .image {
+  margin-right: auto;
 }
 
 .addContract {
-  height: 44px;
   color: #e2fb5f;
   font-weight: 400;
   box-sizing: border-box;
@@ -66,4 +68,5 @@
 
 .tokenButton {
   margin-top: 20px;
+  padding: 12px 90px;
 }

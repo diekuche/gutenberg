@@ -6,6 +6,7 @@ import downyellow from "../../assets/downyellow.svg";
 import NewBT from "../newButton/newButton";
 import TList from "../TokenList/TList";
 import iconYellowDown from "../../assets/IconYllowDown.svg";
+import SelectCustom from "../SelectCustom/SelectCustom";
 
 const Swap = () => {
   return (
@@ -13,10 +14,7 @@ const Swap = () => {
       <div className={styles.swap}>
         <div className={styles.up}>
           <div className={styles.priceUp}>0</div>
-          <button className={styles.select}>
-            Select Token
-            <img className={styles.downArrow} src={downArrow} alt="" />
-          </button>
+          <SelectCustom className={styles.select} />
         </div>
         <div className={styles.secondString}>
           <div className={styles.priceDown}>$0.00</div>
@@ -30,10 +28,7 @@ const Swap = () => {
         </div>
         <div className={styles.lower}>
           <div className={styles.lowerPrice}>0</div>
-          <button className={styles.lowerselect}>
-            Select Token
-            <img className={styles.downArrow} src={downArrow} alt="" />
-          </button>
+          <SelectCustom className={styles.select} />
         </div>
         <div className={styles.secondString}>
           <div className={styles.priceDown}>$0.00</div>

@@ -1,8 +1,9 @@
 .mainpage {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: flex-start;
-  margin: 150px auto;
+  margin: auto;
   padding-top: 30px;
 }
 
@@ -21,17 +22,16 @@
 
 .tabPageContent {
   display: flex;
+  width: 596px;
+  height: 665px;
   align-items: flex-start;
   justify-content: center;
   justify-items: center;
 }
-
 .createtext {
   position: absolute;
-  width: 379px;
-  height: 143px;
-  left: 989px;
-  top: 580px;
+  top: 575px;
+  left: 460px;
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;

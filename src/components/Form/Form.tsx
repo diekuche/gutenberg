@@ -1,5 +1,5 @@
 import styles from "./index.module.css";
-import React, { FormEvent, useState, useEffect } from "react";
+import React, { FormEvent, useState } from "react";
 import Button from "../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
@@ -7,6 +7,7 @@ import { initContract } from "../../contracts/base/contract";
 import { v4 as uuidv4 } from "uuid";
 import { getAddress, getContractAddress } from "../../utils/wallet";
 import { toast } from "react-toastify";
+import { useAddressExists } from "../../hooks/useAddressExists";
 
 const initialBalance = {
   id: uuidv4(),
@@ -24,17 +25,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
     initialBalance,
   ]);
   const [description, setDescription] = useState("");
-  const [addressExists, setAddressExists] = useState(false);
-
-  useEffect(() => {
-    const checkAddress = async () => {
-      const address = await getAddress();
-      if (address) {
-        setAddressExists(true);
-      }
-    };
-    checkAddress();
-  }, []);
+  const { addressExists, initKeplr } = useAddressExists();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -220,18 +211,18 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           isTextArea
         />
       </Collapsible>
-      {addressExists ? (
-        <Button type="submit" color="black" size="sm">
-          create
-        </Button>
-      ) : (
+      {!addressExists ? (
         <Button
-          type="submit"
           color="black"
           size="sm"
           className={styles.connectButton}
+          onClick={initKeplr}
         >
           Connect Wallet
+        </Button>
+      ) : (
+        <Button type="submit" color="black" size="sm">
+          create
         </Button>
       )}
     </form>
