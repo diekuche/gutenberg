@@ -48,7 +48,7 @@ const Swap = () => {
         </div>
         <div></div>
       </div>
-      <NewBT text="Connect Wallet!" />
+      <NewBT color="red">Connect Wallet!</NewBT>
       <div className={styles.middleString}>
         Provide liquidity to he market and receive swap fees each trade.
       </div>
