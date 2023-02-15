@@ -1,4 +1,4 @@
-.headerstr {
+.headerStr {
   display: flex;
   color: rgba(67, 178, 91, 0.15);
   font-weight: 700;
@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.gocre {
+.goCre {
   background: #162833;
   padding: 12px 40px;
   border-radius: 34px;
@@ -23,7 +23,7 @@
   min-width: 215px;
 }
 
-.gocre:hover {
+.goCre:hover {
   background: rgba(22, 40, 51, 0.6);
 }
 
@@ -48,7 +48,7 @@
 .value {
   color: #e2fb5f;
 }
-.headerstrfirst {
+.headerStrFirst {
   display: flex;
   color: rgba(67, 178, 91, 0.15);
   font-weight: 700;
@@ -57,7 +57,7 @@
   align-items: center;
   margin-right: 132px;
 }
-.headerstrthird {
+.headerStrThird {
   display: flex;
   color: rgba(67, 178, 91, 0.15);
   font-weight: 700;

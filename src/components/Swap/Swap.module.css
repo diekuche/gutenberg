@@ -13,7 +13,7 @@
   border-top-right-radius: 16px;
 }
 .select,
-.lowerselect {
+.lowerSelect {
   display: flex;
   border-radius: 28px;
   color: #43b25b;
@@ -32,7 +32,7 @@
   margin: 15px 110px 0px 0px;
   padding: 5px 33px 0px 34px;
 }
-.lowerselect {
+.lowerSelect {
   margin: 15px 28px 0px 0px;
   padding: 0px 0px 0px 20px;
 }
@@ -81,7 +81,7 @@
   padding: 9px 7px;
 }
 
-.stringSlippage {
+.stringSlipPage {
   display: flex;
   background-color: rgba(22, 40, 51, 0.9);
   color: #e2fb5f;

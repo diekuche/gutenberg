@@ -91,12 +91,14 @@
   border: 0;
   color: #43b25b;
   margin-right: 21px;
+  font-weight: 400;
 }
 .rightButton {
   display: flex;
 }
 .circle {
   width: 18px;
+  height: 18xp;
   padding: 9px 28px 9px 10px;
 }
 .downSwapArrow {
