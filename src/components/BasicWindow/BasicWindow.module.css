@@ -1,4 +1,4 @@
-.headerStr {
+.middleStringSecond {
   display: flex;
   color: rgba(67, 178, 91, 0.15);
   font-weight: 700;
@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.goCre {
+.goCreate {
   background: #162833;
   padding: 12px 40px;
   border-radius: 34px;
@@ -23,7 +23,7 @@
   min-width: 215px;
 }
 
-.goCre:hover {
+.goCreate:hover {
   background: rgba(22, 40, 51, 0.6);
 }
 
@@ -48,7 +48,7 @@
 .value {
   color: #e2fb5f;
 }
-.headerStrFirst {
+.middleStringFirst {
   display: flex;
   color: rgba(67, 178, 91, 0.15);
   font-weight: 700;
@@ -57,7 +57,7 @@
   align-items: center;
   margin-right: 132px;
 }
-.headerStrThird {
+.middleStringThird {
   display: flex;
   color: rgba(67, 178, 91, 0.15);
   font-weight: 700;
