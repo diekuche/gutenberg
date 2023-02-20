@@ -1,18 +1,32 @@
 import React from "react";
 import styles from "./newButton.module.css";
+import classNames from "classnames";
 
-const NewButton = (props: any) => {
-  const handleClick = () => {
-    console.log("took");
-  };
+export interface StartButtonProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
+  color?: "white" | "green" | "black";
+  size?: "sm" | "lg" | "hg";
+}
+
+const NewButton: React.FC<StartButtonProps> = (props: StartButtonProps) => {
+  const { color, size, className, children, ...rest } = props;
+
+  const btnClass = classNames(className, {
+    [styles.white]: color === "white",
+    [styles.green]: color === "green",
+    [styles.black]: color === "black",
+    [styles.sm]: size === "sm",
+    [styles.lg]: size === "lg",
+    [styles.hugeSize]: size === "hg",
+  });
 
   return (
-    <div className={styles.common}>
-      <button className={styles.hugesize} onClick={handleClick}>
-        {props.text}
-      </button>
-    </div>
+    <button className={btnClass} {...rest}>
+      {children}
+    </button>
   );
 };
-
 export default NewButton;

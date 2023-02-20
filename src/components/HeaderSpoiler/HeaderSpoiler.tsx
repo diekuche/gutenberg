@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import circle from "../../assets/circle.svg";
 import downSwapArrow from "../../assets/downSwapArrow.svg";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Wallet from "../Wallet/Wallet";
 
 function Header2() {
@@ -24,26 +24,41 @@ function Header2() {
     <header className={header}>
       <div className={styles.nav}>
         <div>
-          <Link to="/" className={styles.linkHead}>
+          <NavLink to="/" className={styles.linkHead}>
             gutenberg!
-          </Link>
+          </NavLink>
         </div>
         <div className={styles.middle}>
           <div>
-            <Link to="/swap" className={styles.link}>
+            <NavLink
+              to="/swap"
+              className={(link) =>
+                link.isActive ? styles.active : styles.link
+              }
+            >
               Swap
-            </Link>
+            </NavLink>
           </div>
           <div className={styles.name}>
-            <Link to="/old" className={styles.link}>
+            <NavLink
+              to="/create"
+              className={(link) =>
+                link.isActive ? styles.active : styles.link
+              }
+            >
               Create
-            </Link>
+            </NavLink>
           </div>
 
           <div className={styles.name}>
-            <Link to="/manage-assets" className={styles.link}>
+            <NavLink
+              to="/manage-assets"
+              className={(link) =>
+                link.isActive ? styles.active : styles.link
+              }
+            >
               Manage assets
-            </Link>
+            </NavLink>
           </div>
         </div>
         <div className={styles.rightButton}>
@@ -53,7 +68,7 @@ function Header2() {
             <img src={downSwapArrow} className={styles.downSwapArrow} alt="" />
           </button>
 
-          <Wallet/>
+          <Wallet />
         </div>
       </div>
     </header>

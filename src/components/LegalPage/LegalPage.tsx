@@ -3,17 +3,17 @@ import styles from "../LegalPage/LegalPage.module.css";
 
 const Legal = () => {
   return (
-    <div className={styles.headlegal}>
+    <div className={styles.headLegal}>
       <div className={styles.legalInformation}>legal Information</div>
       <div className={styles.content}>
         Gutenberg.tools is a decentralized application (dApp) where individuals,
         communities or smart contracts can create and manage tokens.
-        <div className={styles.contentSec}>
+        <div className={styles.contentSecond}>
           Gutenberg comes as open source software built on top of decentralized
           networks (blockchains) and provided “As Is” at your own risk, without
           warranties of any kind.
         </div>
-        <div className={styles.contentThi}>
+        <div className={styles.contentThird}>
           Anyone can use Gutenberg's functionality without any restrictions. If
           your jurisdiction does not allow the use of decentralized
           applications, you must immediately stop using Gutenberg.
