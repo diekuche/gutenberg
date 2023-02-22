@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 150px;
+  margin: 150px auto auto auto;
 }
 
 .swap {
@@ -14,6 +14,20 @@
 }
 
 .select {
+  display: flex;
+  border-radius: 28px;
+  color: #43b25b;
+  margin: 36px 29px 0px 123px;
+  padding: 0px 0px 0px 20px;
+  align-items: center;
+  justify-content: center;
+  max-height: 45px;
+  font-size: 18px;
+}
+
+.lowerSelect {
+  display: flex;
+  border-radius: 28px;
   color: #43b25b;
   margin: 36px 29px 0px 123px;
   padding: 0px 0px 0px 20px;
@@ -29,13 +43,16 @@
   margin: 15px 110px 0px 0px;
   padding: 5px 33px 0px 34px;
 }
-.lowerselect {
+
+.lowerSelect {
   margin: 15px 28px 0px 0px;
   padding: 0px 0px 0px 20px;
 }
+
 .downArrow {
   padding: 0px 15px 0px 30px;
 }
+
 .up,
 .lower {
   display: flex;
@@ -78,7 +95,7 @@
   padding: 9px 7px;
 }
 
-.stringSlippage {
+.stringSlipPage {
   display: flex;
   background-color: rgba(22, 40, 51, 0.9);
   color: #e2fb5f;

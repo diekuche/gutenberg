@@ -6,11 +6,11 @@ const BasicWindow = () => {
   const navigate = useNavigate();
   return (
     <div className={styles.middle}>
-      <div className={styles.headerstrfirst}>create!</div>
-      <div className={styles.headerstr}>manage!</div>
-      <div className={styles.headerstrthird}>
+      <div className={styles.middleStringFirst}>create!</div>
+      <div className={styles.middleStringSecond}>manage!</div>
+      <div className={styles.middleStringThird}>
         swap!
-        <button className={styles.gocre} onClick={() => navigate("/old")}>
+        <button className={styles.goCreate} onClick={() => navigate("/old")}>
           go create!
         </button>
       </div>

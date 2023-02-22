@@ -1,4 +1,4 @@
-.hugesize {
+.hugeSize {
   padding: 20px 170px;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
@@ -14,11 +14,11 @@
   min-width: 750px;
 }
 
-.hugesize:hover {
+.hugeSize:hover {
   background-color: #edff8e;
   border: 1px solid #d0e857;
 }
-.hugesize:active {
+.hugeSize:active {
   background-color: rgba(67, 178, 91, 0.35);
   border: 1px solid #d0e857;
   color: rgba(226, 251, 95, 0.35);

@@ -39,7 +39,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />}></Route>
             <Route path="/legalinfo" element={<LegalPage />}></Route>
-            <Route path="/old" element={<MainPage />}></Route>
+            <Route path="/create" element={<MainPage />}></Route>
             <Route path="/newBT" element={<NewButton />}></Route>
             <Route path="/swap" element={<Swap />}></Route>
             <Route path="/manage-assets" element={<ManageAssets />}></Route>

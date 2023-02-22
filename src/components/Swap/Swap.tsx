@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./Swap.module.css";
-import downArrow from "../../assets/downSwapArrow.svg";
 import UpDoAr from "../../assets/UpDoAr.svg";
 import downyellow from "../../assets/downyellow.svg";
 import NewBT from "../newButton/newButton";
@@ -34,8 +33,8 @@ const Swap = () => {
           <div className={styles.priceDown}>$0.00</div>
           <div className={styles.priceDown}>Balance:0</div>
         </div>
-        <div className={styles.stringSlippage}>
-          <div className={styles.slippage}>
+        <div className={styles.stringSlipPage}>
+          <div className={styles.slipPage}>
             Slippage 1%
             <img className={styles.downArrowYellow} src={downyellow} alt="" />
           </div>
@@ -43,7 +42,7 @@ const Swap = () => {
         </div>
         <div></div>
       </div>
-      <NewBT text="Connect Wallet!" />
+      <NewBT size="hg">Connect Wallet!</NewBT>
       <div className={styles.middleString}>
         Provide liquidity to he market and receive swap fees each trade.
       </div>

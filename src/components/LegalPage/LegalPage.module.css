@@ -1,4 +1,4 @@
-.headlegal {
+.headLegal {
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -30,9 +30,9 @@
   height: 503px;
   margin-top: 85px;
 }
-.contentSec {
+.contentSecond {
   margin-bottom: 35px;
 }
-.contentThi {
+.contentThird {
   margin-bottom: 35px;
 }
