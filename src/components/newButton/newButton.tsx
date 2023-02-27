@@ -25,7 +25,7 @@ const NewButton: React.FC<StartButtonProps> = (props: StartButtonProps) => {
 
   return (
     <button className={btnClass} {...rest}>
-      {children}
+      <div className={styles.button_text}>{children}</div>
     </button>
   );
 };

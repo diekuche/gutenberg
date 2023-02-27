@@ -2,11 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 150px auto auto auto;
+  margin: 150px auto;
 }
 
 .swap {
   display: flex;
+  width: 505px;
   flex-direction: column;
   border: 1px solid #e2fb5f;
   border-top-left-radius: 16px;
@@ -17,8 +18,8 @@
   display: flex;
   border-radius: 28px;
   color: #43b25b;
-  margin: 36px 29px 0px 123px;
-  padding: 0px 0px 0px 20px;
+  margin: 0px 35px;
+  padding: 36px 0px 0px;
   align-items: center;
   justify-content: center;
   max-height: 45px;
