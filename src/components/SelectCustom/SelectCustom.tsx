@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./SelectCustom.module.css";
-import AsyncSelect, { Options, components } from "react-select";
-import atom from "./assets/atom.svg"
+import AsyncSelect from "react-select";
 
 const options = [
   { value: "boot", label: "BOOT" },
@@ -21,7 +20,6 @@ interface SelectCustomProps {
 }
 
 const SelectCustom = ({ className}: SelectCustomProps) => {
-  const [inputValue, setInputValue] = useState("");
 
   const filterTokens = (inputValue: string) => {
     return options.filter((i) =>
