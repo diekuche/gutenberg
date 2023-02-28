@@ -1,0 +1,8 @@
+.pig {
+  display: flex;
+  color: white;
+}
+.pigIcon {
+  width: 18px;
+  padding-right: 9px;
+}

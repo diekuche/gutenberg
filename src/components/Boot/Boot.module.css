@@ -1,0 +1,8 @@
+.boot {
+  display: flex;
+  color: white;
+}
+.circle {
+  width: 18px;
+  padding-right: 9px;
+}

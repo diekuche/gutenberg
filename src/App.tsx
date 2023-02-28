@@ -13,6 +13,7 @@ import Main from "./components/Main/Main";
 import NewButton from "./components/newButton/newButton";
 import Swap from "./components/Swap/Swap";
 import ManageAssets from "./components/ManageAssets/ManageAssets";
+import SelectToken from "./components/SelectToken/SelectToken";
 
 declare global {
   interface Window extends KeplrWindow {}
@@ -43,6 +44,7 @@ function App() {
             <Route path="/newBT" element={<NewButton />}></Route>
             <Route path="/swap" element={<Swap />}></Route>
             <Route path="/manage-assets" element={<ManageAssets />}></Route>
+            <Route path="/licence" element={<SelectToken />}></Route>
           </Routes>
           <Footer />
         </Router>

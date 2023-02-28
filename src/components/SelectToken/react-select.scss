@@ -1,0 +1,20 @@
+.select-react {
+  &__indicator-separator {
+    display: none !important;
+  }
+  &__control {
+    border-radius: 28px !important;
+    background-color: rgba(22, 40, 51, 0.4) !important;
+    border: 0 !important;
+  }
+  &__indicator {
+    color: green !important;
+  }
+  &__placeholder {
+    color: #43b25b !important;
+    font-size: 18px !important;
+  }
+  &__menu {
+    background-color: rgba(22, 40, 51, 0.4) !important;
+  }
+}
