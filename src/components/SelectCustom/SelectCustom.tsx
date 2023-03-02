@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "./SelectCustom.module.css";
 import AsyncSelect from "react-select";
+import AsyncSelectProps from "react-select";
 
-interface SelectCustomProps {
+interface SelectCustomProps extends AsyncSelectProps {
   className: string | undefined;
   options: {
     value: string;
@@ -11,12 +12,8 @@ interface SelectCustomProps {
   placeholder: string;
 }
 
-const SelectCustom = ({
-  className,
-  options,
-  placeholder,
-  ...rest
-}: SelectCustomProps) => {
+const SelectCustom = (props: SelectCustomProps) => {
+  const { className, options, placeholder, ...rest } = props;
   /*const filterTokens = (inputValue: string) => {
     return options.filter((i) =>
       i.label.toLowerCase().includes(inputValue.toLowerCase())

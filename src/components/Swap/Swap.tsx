@@ -13,7 +13,7 @@ import Mew from "../Tokens/Mew/Mew";
 import Ps from "../Tokens/PS/Ps";
 
 const options = [
-  { value: "boot", label: <Boot /> },
+  { value: "boot", label: <Boot />, icon: "/assets/circle.svg" },
   { value: "pig", label: <Pig /> },
   { value: "shit", label: <Shit /> },
   { value: "mew", label: <Mew /> },
