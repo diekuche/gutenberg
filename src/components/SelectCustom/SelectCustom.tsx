@@ -78,9 +78,12 @@ const SelectCustom = ({
           }),
           option: (provided, state) => ({
             ...provided,
-            backgroundColor: state.isSelected
-              ? "#rgba(67, 151, 178, 0.1)"
-              : provided.backgroundColor,
+            background: state.isSelected
+              ? "rgba(67, 151, 178, 0.1)"
+              : state.isFocused
+              ? "rgba(67, 151, 178, 0.1)"
+              : provided.background,
+            borderRadius: "20px",
           }),
           singleValue: (provided, state) => ({
             ...provided,
