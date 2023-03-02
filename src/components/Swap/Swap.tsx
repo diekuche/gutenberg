@@ -13,7 +13,7 @@ import Mew from "../Tokens/Mew/Mew";
 import Ps from "../Tokens/PS/Ps";
 
 const options = [
-  { value: "boot", label: <Boot />, icon: "/assets/circle.svg" },
+  { value: "boot", label: <Boot /> },
   { value: "pig", label: <Pig /> },
   { value: "shit", label: <Shit /> },
   { value: "mew", label: <Mew /> },
@@ -26,11 +26,9 @@ const Swap = () => {
       <div className={styles.swap}>
         <div className={styles.up}>
           <div className={styles.priceUp}>0</div>
-          <SelectCustom
-            className={styles.select}
-            options={options}
-            placeholder="Select Token"
-          />
+          <div className={styles.selectWrapper}>
+            <SelectCustom options={options} placeholder="Select Token" />
+          </div>
         </div>
         <div className={styles.secondString}>
           <div className={styles.priceDown}>$0.00</div>
@@ -44,11 +42,9 @@ const Swap = () => {
         </div>
         <div className={styles.lower}>
           <div className={styles.lowerPrice}>0</div>
-          <SelectCustom
-            className={styles.select}
-            options={options}
-            placeholder="Select Token"
-          />
+          <div className={styles.selectWrapper}>
+            <SelectCustom options={options} placeholder="Select Token" />
+          </div>
         </div>
         <div className={styles.secondString}>
           <div className={styles.priceDown}>$0.00</div>

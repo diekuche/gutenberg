@@ -26,6 +26,12 @@
   font-size: 18px;
 }
 
+.selectWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .lowerSelect {
   display: flex;
   border-radius: 28px;
