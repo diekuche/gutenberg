@@ -19,18 +19,6 @@ declare global {
 }
 
 function App() {
-  const initKeplr = async () => {
-    if (window.keplr) {
-      await window.keplr.experimentalSuggestChain(configKeplr("bostrom"));
-      await window.keplr.enable(CYBER.CHAIN_ID);
-      console.log("init");
-    }
-  };
-
-  useEffect(() => {
-    initKeplr();
-  }, []);
-
   return (
     <div className="App">
       <div className="container">
