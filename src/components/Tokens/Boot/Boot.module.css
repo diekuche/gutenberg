@@ -1,0 +1,47 @@
+.boot {
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .circle {
+    width: 18px;
+    padding-right: 9px;
+  }
+
+  .name {
+    font-size: 14px;
+    line-height: 16px;
+    text-transform: uppercase;
+    padding: 0;
+    margin:0;
+  }
+
+  .chainName {
+    padding:0;
+    margin:0;
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 13px;
+    color: #43B25B;
+  }
+
+  .balance {
+    font-size: 14px;
+    line-height: 16px;
+    text-align: right;
+    text-transform: capitalize;
+    margin:0;
+    
+  }
+  
+  .wrapperBalance {
+    flex-direction: row;
+    margin-left: 40px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-bottom: 15px;
+    text-align: right;
+    width: 100%;
+  }

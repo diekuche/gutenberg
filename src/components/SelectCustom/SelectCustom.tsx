@@ -1,11 +1,18 @@
 import React from "react";
 import styles from "./SelectCustom.module.css";
 import AsyncSelect from "react-select";
+import Boot from "../Tokens/Boot/Boot"
+import Pig from "../Tokens/Pig/Pig"
+import Shit from "../Tokens/Shit/Shit"
+import Mew from "../Tokens/Mew/Mew"
+import Ps from "../Tokens/PS/Ps"
 
 const options = [
-  { value: "boot", label: "BOOT" },
-  { value: "gut", label: "GUT" },
-  { value: "pignon", label: "PIGNON" },
+  { value: "boot", label: <Boot /> },
+  { value: "pig", label: <Pig /> },
+  { value: "shit", label: <Shit /> },
+  { value: "mew", label: <Mew /> },
+  { value: "ps", label: <Ps /> },
 ];
 
 
@@ -21,7 +28,7 @@ interface SelectCustomProps {
 
 const SelectCustom = ({ className}: SelectCustomProps) => {
 
-  const filterTokens = (inputValue: string) => {
+  /*const filterTokens = (inputValue: string) => {
     return options.filter((i) =>
       i.label.toLowerCase().includes(inputValue.toLowerCase())
     );
@@ -34,7 +41,7 @@ const SelectCustom = ({ className}: SelectCustomProps) => {
     setTimeout(() => {
       callback(filterTokens(inputValue));
     }, 1000);
-  };
+  }; */
 
   return (
     <div className={className}>
@@ -99,8 +106,7 @@ const SelectCustom = ({ className}: SelectCustomProps) => {
         options={options}
         isSearchable
         //@ts-ignores
-        cacheOptions
-        loadOptions={loadOptions}
+        cacheOptions  
         defaultOptions
       />
     </div>
