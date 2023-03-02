@@ -6,6 +6,19 @@ import NewBT from "../newButton/newButton";
 import TList from "../TokenList/TList";
 import iconYellowDown from "../../assets/IconYllowDown.svg";
 import SelectCustom from "../SelectCustom/SelectCustom";
+import Boot from "../Tokens/Boot/Boot";
+import Pig from "../Tokens/Pig/Pig";
+import Shit from "../Tokens/Shit/Shit";
+import Mew from "../Tokens/Mew/Mew";
+import Ps from "../Tokens/PS/Ps";
+
+const options = [
+  { value: "boot", label: <Boot /> },
+  { value: "pig", label: <Pig /> },
+  { value: "shit", label: <Shit /> },
+  { value: "mew", label: <Mew /> },
+  { value: "ps", label: <Ps /> },
+];
 
 const Swap = () => {
   return (
@@ -13,7 +26,11 @@ const Swap = () => {
       <div className={styles.swap}>
         <div className={styles.up}>
           <div className={styles.priceUp}>0</div>
-          <SelectCustom className={styles.select} />
+          <SelectCustom
+            className={styles.select}
+            options={options}
+            placeholder="Select Token"
+          />
         </div>
         <div className={styles.secondString}>
           <div className={styles.priceDown}>$0.00</div>
@@ -27,7 +44,11 @@ const Swap = () => {
         </div>
         <div className={styles.lower}>
           <div className={styles.lowerPrice}>0</div>
-          <SelectCustom className={styles.select} />
+          <SelectCustom
+            className={styles.select}
+            options={options}
+            placeholder="Select Token"
+          />
         </div>
         <div className={styles.secondString}>
           <div className={styles.priceDown}>$0.00</div>
