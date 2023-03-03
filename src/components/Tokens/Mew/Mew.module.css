@@ -15,7 +15,7 @@
     text-transform: uppercase;
     padding: 0;
     margin: 0px;
-    width:40px;
+    width: 40px;
   }
 
   .chainName {
@@ -26,8 +26,7 @@
     line-height: 13px;
     color: #43B25B;
     height:5px;
-    width:100%;
-    min-width: 130px;
+    min-width: 100px;
   }
 
   .balance {
@@ -35,8 +34,8 @@
     line-height: 16px;
     text-align: right;
     text-transform: capitalize;
-    margin:0;
-    
+    margin: 0;
+    padding: 0;
   }
   
   .wrapperBalance {
@@ -47,5 +46,5 @@
     justify-content: flex-end;
     padding-bottom: 15px;
     text-align: right;
-    width: 100%;
+    max-width: 60px;
   }

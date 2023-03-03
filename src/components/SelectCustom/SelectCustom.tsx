@@ -13,17 +13,18 @@ const SelectCustom = (props: Props) => {
       styles={{
         control: (baseStyles, state) => ({
           ...baseStyles,
-          border: "0px solid transparent",
+          border: "none",
           height: "50px",
           borderColor: state.isFocused ? "green" : "transparent",
-          borderRadius: "28px",
+          borderRadius: state.menuIsOpen ? "28px 28px 0px 0px" : "28px",
           background: "rgba(22, 40, 51);",
           color: "#43b25b",
           fontSize: "18px",
-          padding: "0px 26px",
           zIndex: 14,
-          width: "215px",
+          width: "198px",
+          maxWidth: "198px",
           boxShadow: "none",
+          padding: "0px 0px 0px 24px",
         }),
         placeholder: (baseStyles, state) => ({
           ...baseStyles,
@@ -32,6 +33,7 @@ const SelectCustom = (props: Props) => {
         dropdownIndicator: (baseStyles) => ({
           ...baseStyles,
           color: "#43b25b",
+          padding: "0px 24px 0px 0px",
         }),
         indicatorSeparator: (baseStyles) => ({
           ...baseStyles,
@@ -47,7 +49,12 @@ const SelectCustom = (props: Props) => {
           backgroundColor: "rgba(22, 40, 51)",
           overflow: "hidden",
           maxHeight: "auto",
-          width: "215px",
+          width: "auto",
+          maxWidth: "198px",
+          transition: "opacity 2s",
+          border: "none",
+          boxShadow: "none",
+          padding: "5px",
         }),
         option: (provided, state) => ({
           ...provided,
@@ -57,15 +64,12 @@ const SelectCustom = (props: Props) => {
             ? "rgba(67, 151, 178, 0.1)"
             : provided.background,
           borderRadius: "20px",
+          border: "none",
         }),
         singleValue: (provided, state) => ({
           ...provided,
           color: "#43b25b",
           zIndex: 15,
-        }),
-        input: (baseStyles) => ({
-          ...baseStyles,
-          color: "#43b25b",
         }),
       }}
       className={classNames(styles.select_container, className)}
