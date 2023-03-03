@@ -25,6 +25,7 @@ const SelectCustom = (props: Props) => {
           maxWidth: "198px",
           boxShadow: "none",
           padding: "0px 0px 0px 24px",
+          transition: "border-radius 0.3s",
         }),
         placeholder: (baseStyles, state) => ({
           ...baseStyles,
