@@ -1,11 +1,9 @@
-import { useEffect } from "react";
 import "./App.css";
 import { Window as KeplrWindow } from "@keplr-wallet/types";
 import MainPage from "./components/MainPage/MainPage";
 import Footer from "./components/Footer/Footer";
 import LegalPage from "./components/LegalPage/LegalPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { configKeplr, CYBER } from "./utils/config";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderSpoiler from "./components/HeaderSpoiler/HeaderSpoiler";
