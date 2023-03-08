@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { getAddress } from "../../utils/wallet";
 import Button from "../Button/Button";
 import styles from "./Wallet.module.css";
@@ -11,12 +11,12 @@ const Wallet: React.FC = () => {
 
   const { initKeplr } = useAddressExists();
 
-  const fetchAddress = async () => {
+  const fetchAddress = useCallback(async () => {
     let response = await getAddress();
     if (response) {
       setAddress(response);
     }
-  };
+  }, [setAddress]);
 
   useEffect(() => {
     fetchAddress();
@@ -27,7 +27,7 @@ const Wallet: React.FC = () => {
     }, 30000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [address, fetchAddress]);
 
   const connectWallet = async () => {
     initKeplr();
