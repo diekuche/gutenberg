@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 import { getAddress, getContractAddress } from "../../utils/wallet";
 import { toast } from "react-toastify";
 import { useAddressExists } from "../../hooks/useAddressExists";
+import { AppStateContext } from "../../context/AppStateContext";
+import { useContext } from "react";
 
 const initialBalance = {
   id: uuidv4(),
@@ -25,7 +27,8 @@ export const Form = ({ setInitial, initial }: FormProps) => {
     initialBalance,
   ]);
   const [description, setDescription] = useState("");
-  const { addressExists, initKeplr } = useAddressExists();
+  const { initKeplr } = useAddressExists();
+  const { address } = useContext(AppStateContext);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -211,7 +214,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           isTextArea
         />
       </Collapsible>
-      {!addressExists ? (
+      {!address ? (
         <Button
           color="black"
           size="sm"

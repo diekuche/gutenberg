@@ -13,5 +13,5 @@ export function useAddressExists() {
   }, []);
   initKeplr();
 
-  return { addressExists, initKeplr };
+  return { addressExists, initKeplr, setAddressExists };
 }

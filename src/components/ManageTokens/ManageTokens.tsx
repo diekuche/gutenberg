@@ -4,7 +4,8 @@ import Button from "../Button/Button";
 import Token from "../Token/Token";
 import { useState } from "react";
 import BootSender from "../BootSender/BootSender";
-import { useAddressExists } from "../../hooks/useAddressExists";
+import { AppStateContext } from "../../context/AppStateContext";
+import { useContext } from "react";
 
 interface TokenProps {
   initial: string[];
@@ -15,7 +16,7 @@ function ManageTokens(props: TokenProps) {
   const [contract, setContract] = useState("");
   const [isVisible, setVisible] = useState(false);
   const [isShown, setIsShown] = useState(false);
-  const { addressExists } = useAddressExists();
+  const { address } = useContext(AppStateContext);
 
   function handleChangeContractAddress(event: any) {
     const response = event.target.value;
@@ -52,7 +53,7 @@ function ManageTokens(props: TokenProps) {
         <div className={styles.name}>Assets</div>
       </div>
 
-      {addressExists ? (
+      {address ? (
         <div className={styles.tokens}>
           <BootSender></BootSender>
           <div className={styles.tokenList}>
