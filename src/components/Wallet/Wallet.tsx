@@ -1,15 +1,12 @@
 import { useEffect, useCallback } from "react";
-import { getAddress } from "../../utils/wallet";
+import { initKeplr, getAddress } from "../../utils/wallet";
 import Button from "../Button/Button";
 import styles from "./Wallet.module.css";
-import { useAddressExists } from "../../hooks/useAddressExists";
 import { AppStateContext } from "../../context/AppStateContext";
 import { useContext } from "react";
 
 const Wallet: React.FC = () => {
   const { address, setAddress } = useContext(AppStateContext);
-
-  const { initKeplr } = useAddressExists();
 
   const fetchAddress = useCallback(async () => {
     let response = await getAddress();
