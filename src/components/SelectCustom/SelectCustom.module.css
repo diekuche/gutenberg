@@ -1,0 +1,15 @@
+.select_container {
+  display: flex;
+  width: 100%;
+  border-radius: 28px;
+  color: #43b25b;
+  border: 0;
+  align-items: center;
+  justify-content: center;
+  max-height: 45px;
+  font-size: 18px;
+}
+
+.SelectCustom_select_container {
+  background-color: #43b25b;
+}

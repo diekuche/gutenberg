@@ -1,61 +1,39 @@
-import { useEffect, useState } from "react";
-import { getAddress, getDisconnected } from "../../utils/wallet";
+import { useEffect, useCallback } from "react";
+import { initKeplr, getAddress } from "../../utils/wallet";
 import Button from "../Button/Button";
 import styles from "./Wallet.module.css";
-import { useAddressExists } from "../../hooks/useAddressExists";
-/*import classNames from "classnames";*/
+import { AppStateContext } from "../../context/AppStateContext";
+import { useContext } from "react";
 
 const Wallet: React.FC = () => {
-  const [address, setAddress] = useState("");
-  /*const [disconnect, setDisconnect] = useState(false);*/
+  const { address, setAddress } = useContext(AppStateContext);
 
-  const { initKeplr } = useAddressExists();
-
-  const fetchAddress = async () => {
+  const fetchAddress = useCallback(async () => {
     let response = await getAddress();
     if (response) {
       setAddress(response);
     }
-  };
+  }, [setAddress]);
 
   useEffect(() => {
-    initKeplr();
     fetchAddress();
-    const interval = setInterval(() => fetchAddress(), 10000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [initKeplr]);
+    let timer = setTimeout(() => {
+      if (address) {
+        fetchAddress();
+      }
+    }, 30000);
 
-  const handleConnect = () => {
-    if (!address) {
-      initKeplr();
-    } else {
-      getDisconnected();
-    }
+    return () => clearTimeout(timer);
+  }, [address, fetchAddress]);
+
+  const connectWallet = async () => {
+    await initKeplr();
+    fetchAddress();
   };
-
-  /*function MouseOver() {
-    if (address) {
-      setDisconnect(true);
-    }
-  }
-  function MouseOut() {
-    setDisconnect(false);
-  }*/
 
   return (
     <div>
-      <Button
-        color="white"
-        /*className={classNames({
-          [styles.disconnect]: disconnect,
-        })}*/
-        className={styles.wallet}
-        onClick={handleConnect}
-        /* onMouseOver={MouseOver}
-        onMouseOut={MouseOut}*/
-      >
+      <Button color="white" className={styles.wallet} onClick={connectWallet}>
         {address
           ? `${address.slice(0, 10)}...${address.slice(-10, -5)}`
           : "Connect Wallet"}

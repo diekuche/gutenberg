@@ -1,9 +1,18 @@
 import { Coin, StargateClient } from "@cosmjs/stargate";
-import { CYBER } from "./config";
+import { configKeplr, CYBER } from "./config";
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
 import { SigningCyberClient, CyberClient } from "@cybercongress/cyber-js";
 import { GasPrice } from "@cosmjs/launchpad";
 import { calculateFee } from "@cosmjs/stargate";
+
+
+export const initKeplr = async () => {
+  if (window.keplr) {
+    await window.keplr.experimentalSuggestChain(configKeplr("bostrom"));
+    await window.keplr.enable(CYBER.CHAIN_ID);
+  }
+}
+
 
 export const getAddress = async () => {
   if (window.keplr) {

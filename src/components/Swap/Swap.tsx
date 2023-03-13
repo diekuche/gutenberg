@@ -1,11 +1,58 @@
 import React from "react";
 import styles from "./Swap.module.css";
-import downArrow from "../../assets/downSwapArrow.svg";
 import UpDoAr from "../../assets/UpDoAr.svg";
 import downyellow from "../../assets/downyellow.svg";
 import NewBT from "../newButton/newButton";
 import TList from "../TokenList/TList";
 import iconYellowDown from "../../assets/IconYllowDown.svg";
+import SelectCustom from "../SelectCustom/SelectCustom";
+import TokenUI from "../Token/TokenUI";
+import pig_icon from "../../assets/pig_logo.svg";
+import mew_icon from "../../assets/mew_logo.svg";
+import shit_icon from "../../assets/shit_logo.svg";
+import ps_icon from "../../assets/ps_logo.svg";
+import boot_icon from "../../assets/boot_logo.svg";
+
+const options = [
+  {
+    value: "boot",
+    label: (
+      <TokenUI
+        name="BOOT"
+        chainName="Bostrom"
+        balance="200,300,765"
+        icon={boot_icon}
+      />
+    ),
+  },
+  {
+    value: "pig",
+    label: (
+      <TokenUI name="PIG" chainName="PigNon" balance="2,901" icon={pig_icon} />
+    ),
+  },
+  {
+    value: "shit",
+    label: (
+      <TokenUI name="Shit" chainName="Shitcoin" balance="4" icon={shit_icon} />
+    ),
+  },
+  {
+    value: "mew",
+    label: (
+      <TokenUI
+        name="MEW"
+        chainName="Mew Mew Paw Paw Rrrrr"
+        balance="194,34"
+        icon={mew_icon}
+      />
+    ),
+  },
+  {
+    value: "ps",
+    label: <TokenUI name="Ps" chainName="Pussy" balance="0" icon={ps_icon} />,
+  },
+];
 
 const Swap = () => {
   return (
@@ -13,10 +60,9 @@ const Swap = () => {
       <div className={styles.swap}>
         <div className={styles.up}>
           <div className={styles.priceUp}>0</div>
-          <button className={styles.select}>
-            Select Token
-            <img className={styles.downArrow} src={downArrow} alt="" />
-          </button>
+          <div className={styles.selectWrapper}>
+            <SelectCustom options={options} placeholder="Select Token" />
+          </div>
         </div>
         <div className={styles.secondString}>
           <div className={styles.priceDown}>$0.00</div>
@@ -30,10 +76,9 @@ const Swap = () => {
         </div>
         <div className={styles.lower}>
           <div className={styles.lowerPrice}>0</div>
-          <button className={styles.lowerSelect}>
-            Select Token
-            <img className={styles.downArrow} src={downArrow} alt="" />
-          </button>
+          <div className={styles.selectWrapper}>
+            <SelectCustom options={options} placeholder="Select Token" />
+          </div>
         </div>
         <div className={styles.secondString}>
           <div className={styles.priceDown}>$0.00</div>
