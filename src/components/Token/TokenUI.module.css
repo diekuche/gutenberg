@@ -1,11 +1,12 @@
-.boot {
+.token {
     display: flex;
     color: white;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
   }
-  .circle {
+  .icon {
     width: 18px;
+    height: 18px;
     padding-right: 9px;
   }
 
@@ -15,6 +16,12 @@
     text-transform: uppercase;
     padding: 0;
     margin:0;
+    width: 100%;
+  }
+
+  .nameWrapper {
+    display: flex;
+    flex-direction: column;
   }
 
   .chainName {
@@ -24,6 +31,8 @@
     font-size: 11px;
     line-height: 13px;
     color: #43B25B;
+    max-width: 100px;
+    width: max-content;
   }
 
   .balance {
@@ -32,16 +41,15 @@
     text-align: right;
     text-transform: capitalize;
     margin:0;
-    
+    padding: 0;
   }
   
-  .wrapperBalance {
-    flex-direction: row;
-    margin-left: 50px;
+  .balanceWrapper {
+    flex-direction: column;
+    margin-left: auto;
     display: flex;
     align-items: flex-end;
-    justify-content: flex-end;
-    padding-bottom: 15px;
+    justify-content: flex-start;
     text-align: right;
     width: 100%;
   }

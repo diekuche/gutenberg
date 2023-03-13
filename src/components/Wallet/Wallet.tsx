@@ -27,7 +27,7 @@ const Wallet: React.FC = () => {
   }, [address, fetchAddress]);
 
   const connectWallet = async () => {
-    initKeplr();
+    await initKeplr();
     fetchAddress();
   };
 
