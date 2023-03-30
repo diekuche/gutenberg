@@ -6,12 +6,8 @@
   background-size: 100% 100%;
   background-position: 30% 50%;
   box-sizing: border-box;
-  background: radial-gradient(
-    95.73% 182.36% at 95.73% 4.74%,
-    #185543 0%,
-    #204b51 32.81%,
-    #1f3644 100%
-  );
+  background: url("./assets/new-fon.svg");
+  background-size: cover;
 }
 
 .container {
