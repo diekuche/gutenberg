@@ -13,6 +13,7 @@
   align-self: center;
   cursor: pointer;
   margin-bottom: 10px;
+  font-family: "Bai Jamjuree", sans-serif;
 }
 
 .black {
@@ -24,6 +25,7 @@
   color: #e2fb5f;
   cursor: pointer;
   margin-top: 26px;
+  font-family: "Bai Jamjuree", sans-serif;
 }
 
 .white {
@@ -38,6 +40,7 @@
   align-self: center;
   text-align: center;
   cursor: pointer;
+  font-family: "Bai Jamjuree", sans-serif;
 }
 
 .lg {

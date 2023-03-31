@@ -3,7 +3,7 @@
   flex-direction: row;
   font-size: 35px;
   color: #e2fb5f;
-  font-family: "Roboto";
+
   font-weight: 800;
   justify-content: space-between;
   line-height: 41px;
@@ -32,13 +32,13 @@
   color: #e2fb5f;
   text-decoration: none;
   font-size: 35px;
-  font-family: "Roboto";
+  font-family: "Bai Jamjuree", sans-serif;
   font-weight: 700;
 }
 
 .middle {
   display: flex;
-  font-family: "Roboto";
+  font-family: "Bai Jamjuree", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -49,7 +49,7 @@
 }
 
 .btnClass {
-  font-family: "Roboto";
+  font-family: "Bai Jamjuree", sans-serif;
   border-radius: 100px;
   background: #e2fb5f;
   font-style: normal;
@@ -93,6 +93,7 @@
   color: #43b25b;
   margin-right: 21px;
   font-weight: 400;
+  font-family: "Bai Jamjuree", sans-serif;
 }
 .rightButton {
   display: flex;

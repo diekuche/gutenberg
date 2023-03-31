@@ -1,5 +1,5 @@
 .hugeSize {
-  padding: 20px 170px;
+  padding: 20px 174px;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   background-color: #e2fb5f;
@@ -7,6 +7,7 @@
   line-height: 26px;
   font-size: 22px;
   font-weight: 700;
+  font-family: "Bai Jamjuree", sans-serif;
 }
 
 .common {
