@@ -68,7 +68,7 @@
 }
 .namestrFS {
   display: flex;
-  font-family: Roboto;
+  font-family: "Bai Jamjuree", sans-serif;
   background: #162833;
   color: #e2fb5f;
   border-radius: 30px;
@@ -91,13 +91,13 @@
   line-height: 23px;
   width: fit-content;
   padding: 0px 20px;
-  font-family: Roboto;
+  font-family: "Bai Jamjuree", sans-serif;
   margin-right: 10px;
 }
 .icon {
   display: flex;
   background-color: rgba(67, 178, 91, 0);
-  font-family: Roboto;
+  font-family: "Bai Jamjuree", sans-serif;
   border-radius: 30px;
   font-size: 18px;
   border: 1px solid rgba(67, 178, 91, 0.5);
@@ -128,7 +128,7 @@
   width: fit-content;
   padding: 0px 20px;
   align-items: center;
-  font-family: Roboto;
+  font-family: "Bai Jamjuree", sans-serif;
   margin-right: 10px;
   margin-left: 10px;
 }
