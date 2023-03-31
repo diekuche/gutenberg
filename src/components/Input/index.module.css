@@ -11,6 +11,7 @@
   border: 0px;
   outline: none;
   margin-left: 7px;
+  font-family: "Bai Jamjuree", sans-serif;
 }
 
 .label {
@@ -29,6 +30,7 @@ input::placeholder {
   padding: 11px 0px;
   opacity: 0.5;
   color: #162833;
+  font-family: "Bai Jamjuree", sans-serif;
 }
 
 .subtitle {

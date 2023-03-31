@@ -6,8 +6,11 @@
   background-size: 100% 100%;
   background-position: 30% 50%;
   box-sizing: border-box;
-  background: url("./assets/new-fon.svg");
-  background-size: cover;
+  background: url("https://uploads-ssl.webflow.com/642687cb101d42093bbbcb40/64268dc5f501d0ee9e03761e_BG_new.jpg")
+    no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .container {
