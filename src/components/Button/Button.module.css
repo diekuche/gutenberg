@@ -29,18 +29,22 @@
 }
 
 .white {
-  align-items: center;
-  background: #e2fb5f;
-  border-radius: 27.5px;
-  padding: 12px;
-  color: #162833;
-  font-size: 16px;
-  font-weight: 600;
-  border-style: none;
-  align-self: center;
-  text-align: center;
+  display: block;
+  margin-top: 11px;
+  padding: 8px 18px;
+  float: right;
+  clear: none;
+  border-radius: 8px;
+  background-color: #e2fb5f;
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 14px;
+  color: #060f19;
+  font-weight: 500;
+  text-align: right;
+  border: 0;
+  line-height: inherit;
+  text-decoration: none;
   cursor: pointer;
-  font-family: "Bai Jamjuree", sans-serif;
 }
 
 .lg {
@@ -77,8 +81,8 @@
   background: #8e8e8e;
 }
 
-.white:active {
-  box-shadow: inset 0px 4px 4px rgba(104, 102, 47, 0.6);
+.white:hover {
+  color: #EDFF8E;
 }
 
 .white:disabled {
