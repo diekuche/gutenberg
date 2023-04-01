@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import circle from "../../assets/circle.svg";
-import downSwapArrow from "../../assets/downSwapArrow.svg";
 import { NavLink } from "react-router-dom";
 import Wallet from "../Wallet/Wallet";
+import SelectCustom from "../SelectCustom/SelectCustom";
+import ChainUX from "../Chain/ChainUX";
+
+const options = [
+  {
+    value: "boot",
+    label: <ChainUX chainName="Bostrom" icon={circle} />,
+  },
+  {
+    value: "juno",
+    label: <ChainUX chainName="Juno" icon={circle} />,
+  },
+];
 
 function Header2() {
   const [header, setHeader] = useState(styles.header);
@@ -62,12 +74,12 @@ function Header2() {
           </div>
         </div>
         <div className={styles.rightButton}>
-          <button className={styles.bostrom}>
-            <img src={circle} className={styles.circle} alt="" />
-            Bostorm
-            <img src={downSwapArrow} className={styles.downSwapArrow} alt="" />
-          </button>
-
+          <SelectCustom
+            options={options}
+            height={45}
+            placeholder="select chain"
+            fontSize={16}
+          />
           <Wallet />
         </div>
       </div>

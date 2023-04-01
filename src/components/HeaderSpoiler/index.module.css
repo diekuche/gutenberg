@@ -97,6 +97,8 @@
 }
 .rightButton {
   display: flex;
+  align-items: center;
+  gap: 30px;
 }
 .circle {
   width: 18px;

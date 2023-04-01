@@ -4,8 +4,20 @@ import AsyncSelect from "react-select";
 import { Props } from "react-select";
 import classNames from "classnames";
 
-const SelectCustom = (props: Props) => {
-  const { options, placeholder, className, ...rest } = props;
+interface SelectCustomProps extends Props {
+  height?: number;
+  fontSize?: number;
+}
+
+const SelectCustom = (props: SelectCustomProps) => {
+  const {
+    options,
+    placeholder,
+    className,
+    height = 50,
+    fontSize = 18,
+    ...rest
+  } = props;
 
   return (
     <AsyncSelect
@@ -14,22 +26,29 @@ const SelectCustom = (props: Props) => {
         control: (baseStyles, state) => ({
           ...baseStyles,
           border: "none",
-          height: "50px",
+          height: `${height}px`,
           borderColor: state.isFocused ? "green" : "transparent",
           borderRadius: state.menuIsOpen ? "28px 28px 0px 0px" : "28px",
           background: "rgba(22, 40, 51);",
           color: "#43b25b",
           fontSize: "18px",
+          alignItems: "center",
           zIndex: 14,
           width: "198px",
           maxWidth: "198px",
           boxShadow: "none",
-          padding: "0px 0px 0px 24px",
+          paddingLeft: "8px",
           transition: "border-radius 0.3s",
         }),
         placeholder: (baseStyles, state) => ({
           ...baseStyles,
           color: "#43b25b",
+          fontSize: `${fontSize}px`,
+        }),
+        input: (baseStyles, state) => ({
+          ...baseStyles,
+          margin: "0px",
+          padding: "0px",
         }),
         dropdownIndicator: (baseStyles) => ({
           ...baseStyles,
@@ -56,6 +75,7 @@ const SelectCustom = (props: Props) => {
           border: "none",
           boxShadow: "none",
           padding: "5px",
+          alignItems: "center",
         }),
         option: (provided, state) => ({
           ...provided,

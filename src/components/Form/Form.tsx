@@ -7,8 +7,7 @@ import { initContract } from "../../contracts/base/contract";
 import { v4 as uuidv4 } from "uuid";
 import { initKeplr, getAddress, getContractAddress } from "../../utils/wallet";
 import { toast } from "react-toastify";
-import { AppStateContext } from "../../context/AppStateContext";
-import { useContext } from "react";
+import { useAccount } from "graz";
 
 const initialBalance = {
   id: uuidv4(),
@@ -26,7 +25,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
     initialBalance,
   ]);
   const [description, setDescription] = useState("");
-  const { address } = useContext(AppStateContext);
+  const { isConnected } = useAccount();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -212,7 +211,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           isTextArea
         />
       </Collapsible>
-      {!address ? (
+      {!isConnected ? (
         <Button
           color="black"
           size="sm"
