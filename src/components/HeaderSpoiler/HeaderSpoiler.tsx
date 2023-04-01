@@ -29,7 +29,7 @@ function Header2() {
           </NavLink>
         </div>
         <div className={styles.middle}>
-          <div>
+          <div className={styles.name}>
             <NavLink
               to="/swap"
               className={(link) =>
@@ -39,9 +39,9 @@ function Header2() {
               Swap
             </NavLink>
           </div>
-          <div>
+          <div className={styles.name}>
             <NavLink
-              to="/swap"
+              to="/pools"
               className={(link) =>
                 link.isActive ? styles.active : styles.link
               }
