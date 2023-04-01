@@ -15,7 +15,7 @@ import Wallet from "../Wallet/Wallet";
         </div>
         
         <div className={styles.middle}>
-          <div className={styles.name}>
+          <div vclassName={styles.name}>
             <NavLink
               to="/swap"
               className={(link) =>
@@ -68,7 +68,3 @@ import Wallet from "../Wallet/Wallet";
         </div>
       </div>
     </header>
-  );
-}
-
-export default Header2;
