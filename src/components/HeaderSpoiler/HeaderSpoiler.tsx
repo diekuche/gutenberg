@@ -9,11 +9,11 @@ import ChainUX from "../Chain/ChainUX";
 const options = [
   {
     value: "boot",
-    label: <ChainUX chainName="Bostrom" icon={circle} />,
+    label: <ChainUX chainName="bostrom" icon={circle} />,
   },
   {
     value: "juno",
-    label: <ChainUX chainName="Juno" icon={circle} />,
+    label: <ChainUX chainName="juno" icon={circle} />,
   },
 ];
 

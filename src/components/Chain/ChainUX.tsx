@@ -1,14 +1,36 @@
 import React from "react";
 import styles from "./ChainUX.module.css";
+import { useSuggestChainAndConnect } from "graz";
+import { bostrom, juno } from "graz/chains";
+import Button from "../Button/Button";
 
 interface ChainProps {
-  chainName: string;
+  chainName: "bostrom" | "juno";
   icon: string;
 }
 
-const TokenUI: React.FC<ChainProps> = ({ chainName, icon }) => {
+const ChainUX: React.FC<ChainProps> = ({ chainName, icon }) => {
+  const { suggestAndConnect } = useSuggestChainAndConnect();
+
+  const getSelectedChain = () => {
+    if (chainName === "bostrom") {
+      return bostrom;
+    } else if (chainName === "juno") {
+      return juno;
+    } else {
+      throw new Error(`Invalid chainName: ${chainName}`);
+    }
+  };
+
   return (
-    <div className={styles.token}>
+    <div
+      className={styles.token}
+      onClick={() =>
+        suggestAndConnect({
+          chainInfo: getSelectedChain(),
+        })
+      }
+    >
       <img className={styles.icon} src={icon} alt={`${chainName} logo`} />
       <div className={styles.nameWrapper}>
         <div className={styles.name}>{chainName}</div>
@@ -17,4 +39,4 @@ const TokenUI: React.FC<ChainProps> = ({ chainName, icon }) => {
   );
 };
 
-export default TokenUI;
+export default ChainUX;
