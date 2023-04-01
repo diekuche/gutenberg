@@ -5,7 +5,8 @@ import downSwapArrow from "../../assets/downSwapArrow.svg";
 import { NavLink } from "react-router-dom";
 import Wallet from "../Wallet/Wallet";
 
-
+const Header = () => {
+  return (
     <header className={header}>
       <div className={styles.nav}>
         <div>
@@ -68,3 +69,6 @@ import Wallet from "../Wallet/Wallet";
         </div>
       </div>
     </header>
+   );
+};
+export default Header;
