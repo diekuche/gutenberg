@@ -4,7 +4,7 @@
   width: 100%;
   height: 100%;
   background-size: 100% 100%;
-  background-position: 30% 50%;
+  background-position: 50% 50%;
   box-sizing: border-box;
 }
 
@@ -12,10 +12,7 @@
   flex-direction: column;
   display: flex;
   min-height: 100vh;
-  background: url("https://uploads-ssl.webflow.com/642687cb101d42093bbbcb40/64268dc5f501d0ee9e03761e_BG_new.jpg")
-    no-repeat;
-
-  background-position: center;
+  background: url("./assets/fon_new.jpg") no-repeat;
   background-attachment: fixed;
 }
 
