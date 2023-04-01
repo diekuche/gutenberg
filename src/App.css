@@ -6,14 +6,15 @@
   background-size: 100% 100%;
   background-position: 50% 50%;
   box-sizing: border-box;
+  background: url("./assets/fon_new.jpg") no-repeat;
+  background-attachment: fixed;
+  overflow-x: hidden;
 }
 
 .container {
   flex-direction: column;
   display: flex;
   min-height: 100vh;
-  background: url("./assets/fon_new.jpg") no-repeat;
-  background-attachment: fixed;
 }
 
 .font-link {
