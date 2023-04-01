@@ -7,7 +7,7 @@ import Wallet from "../Wallet/Wallet";
 
 const Header = () => {
   return (
-    <header className={header}>
+    <header className={styles.header}>
       <div className={styles.nav}>
         <div>
           <NavLink to="/" className={styles.linkHead}>
@@ -16,7 +16,7 @@ const Header = () => {
         </div>
         
         <div className={styles.middle}>
-          <div vclassName={styles.name}>
+          <div className={styles.name}>
             <NavLink
               to="/swap"
               className={(link) =>
@@ -69,6 +69,7 @@ const Header = () => {
         </div>
       </div>
     </header>
+    
    );
 };
 export default Header;
