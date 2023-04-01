@@ -39,6 +39,16 @@ function Header2() {
               Swap
             </NavLink>
           </div>
+          <div>
+            <NavLink
+              to="/swap"
+              className={(link) =>
+                link.isActive ? styles.active : styles.link
+              }
+            >
+              Pools
+            </NavLink>
+          </div>
           <div className={styles.name}>
             <NavLink
               to="/create"
@@ -64,10 +74,8 @@ function Header2() {
         <div className={styles.rightButton}>
           <button className={styles.bostrom}>
             <img src={circle} className={styles.circle} alt="" />
-            Bostorm
             <img src={downSwapArrow} className={styles.downSwapArrow} alt="" />
           </button>
-
           <Wallet />
         </div>
       </div>
