@@ -7,31 +7,41 @@
 }
 
 .link {
-  color: #43b25b;
+  color: #f6f8fe;
   width: fit-content;
   font-weight: 400;
   font-size: 16px;
   margin-right: 29px;
-  line-height: 19px;
+  line-height: 20px;
 }
-
+.link:hover {
+  color: #edff8e;
+}
+.active {
+  color: #e2fb5f;
+  width: fit-content;
+  font-weight: 400;
+  font-size: 16px;
+  margin-right: 29px;
+  line-height: 20px;
+}
 .linkCreate {
   margin-right: auto;
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
-  color: #43b25b;
-  line-height: 19px;
+  font-size: 16px;
+  color: #e2fb5f;
+  line-height: 20px;
 }
 
 .create {
   margin-left: auto;
 
-  color: #43b25b;
+  color: #e2fb5f;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 19px;
+  line-height: 20px;
   padding-right: 19px;
 }
 .git {

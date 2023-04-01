@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../Footer/Footer.module.css";
 import { Link } from "react-router-dom";
 import git from "../../assets/github.svg";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -13,15 +14,24 @@ const Footer = () => {
       >
         <img className={styles.git} src={git} alt=""></img>
       </a>
-      <a className={styles.link} href="/About">
+      <NavLink
+        to="/About"
+        className={(link) => (link.isActive ? styles.active : styles.link)}
+      >
         About
-      </a>
-      <Link className={styles.link} to="/legalinfo">
+      </NavLink>
+      <NavLink
+        className={(link) => (link.isActive ? styles.active : styles.link)}
+        to="/legalinfo"
+      >
         Legal Information
-      </Link>
-      <a className={styles.link} href="URL">
+      </NavLink>
+      <NavLink
+        className={(link) => (link.isActive ? styles.active : styles.link)}
+        to="URL"
+      >
         Licence
-      </a>
+      </NavLink>
       <div className={styles.create}>
         🟢 Powered by{" "}
         <a

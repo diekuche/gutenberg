@@ -5,6 +5,7 @@
   color: #e2fb5f;
   font-weight: 800;
   line-height: 41px;
+  margin-top: 7px;
 }
 .header {
   position: fixed;
@@ -19,11 +20,13 @@
   width: 100%;
   height: 60px;
   background-color: gba(6, 15, 25, 0.85);
+
   backdrop-filter: blur(7.5px);
   z-index: 10;
 }
 
 .linkHead {
+  display: flex;
   color: #e2fb5f;
   text-decoration: none;
   font-size: 32px;
@@ -31,7 +34,6 @@
   font-weight: 700;
   line-height: 40px;
   margin-left: 20px;
-  align-items: center;
 }
 .linkHead:hover {
   color: #edff8e;
@@ -48,12 +50,7 @@
   align-items: center;
   padding-left: 30px;
 }
-/*.middle:hover {
-  color: #edff8e;
-}
-.middle:active {
-  color: #e2fb5f;
-}*/
+
 .btnClass {
   font-family: "Bai Jamjuree", sans-serif;
   border-radius: 100px;
@@ -95,10 +92,11 @@
   background-color: transparent;
   border-radius: 8px;
   height: 32px;
+  width: fit-content;
   font-size: 16px;
   border: 0;
   color: #43b25b;
-  margin-right: 21px;
+  margin-right: 20px;
   font-weight: 400;
   font-family: "Bai Jamjuree", sans-serif;
 }
@@ -114,8 +112,8 @@
 .circle {
   width: 18px;
   height: 18xp;
-  padding: 9px 28px 9px 10px;
+  padding: 0px 10px 0px 10px;
 }
 .downSwapArrow {
-  padding: 16px 15px 13px 0px;
+  padding: 0px 5px 0px 5px;
 }

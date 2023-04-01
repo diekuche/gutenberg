@@ -29,18 +29,20 @@
 }
 
 .white {
+  display: flex;
   align-items: center;
   background: #e2fb5f;
-  border-radius: 27.5px;
-  padding: 12px;
-  color: #162833;
-  font-size: 16px;
-  font-weight: 600;
+  border-radius: 8px;
+  color: #060f19;
+  font-size: 14px;
+  font-weight: 500;
   border-style: none;
-  align-self: center;
+  width: fit-content;
   text-align: center;
   cursor: pointer;
   font-family: "Bai Jamjuree", sans-serif;
+  font-style: normal;
+  height: 32px;
 }
 
 .lg {
@@ -64,7 +66,6 @@
 
 .green:hover {
   border: 1px solid #e2fb5f;
-
   color: #e2fb5f;
 }
 
@@ -78,9 +79,16 @@
 }
 
 .white:active {
-  box-shadow: inset 0px 4px 4px rgba(104, 102, 47, 0.6);
+  /*box-shadow: inset 0px 4px 4px;*/
+  background-color: rgba(67, 151, 178, 0.1);
+  color: #e2fb5f;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
 }
-
+.white:hover {
+  background-color: #edff8e;
+}
 .white:disabled {
   background: #195443;
 }

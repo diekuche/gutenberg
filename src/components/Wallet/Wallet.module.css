@@ -3,5 +3,10 @@
 }
 
 .wallet {
-  padding: 13px 40px;
+  padding: 20px;
+  background-color: rgba(67, 151, 178, 0.1);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  color: #e2fb5f;
 }
