@@ -17,14 +17,7 @@
 .link:hover {
   color: #edff8e;
 }
-.active {
-  color: #e2fb5f;
-  width: fit-content;
-  font-weight: 400;
-  font-size: 16px;
-  margin-right: 29px;
-  line-height: 20px;
-}
+
 .linkCreate {
   margin-right: auto;
   font-style: normal;

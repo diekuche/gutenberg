@@ -14,24 +14,15 @@ const Footer = () => {
       >
         <img className={styles.git} src={git} alt=""></img>
       </a>
-      <NavLink
-        to="/About"
-        className={(link) => (link.isActive ? styles.active : styles.link)}
-      >
+      <a href="/About" className={styles.link}>
         About
-      </NavLink>
-      <NavLink
-        className={(link) => (link.isActive ? styles.active : styles.link)}
-        to="/legalinfo"
-      >
+      </a>
+      <a className={styles.link} href="/legalinfo">
         Legal Information
-      </NavLink>
-      <NavLink
-        className={(link) => (link.isActive ? styles.active : styles.link)}
-        to="URL"
-      >
+      </a>
+      <a className={styles.link} href="URL">
         Licence
-      </NavLink>
+      </a>
       <div className={styles.create}>
         🟢 Powered by{" "}
         <a
