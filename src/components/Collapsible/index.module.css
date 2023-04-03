@@ -4,8 +4,6 @@
 
   width: 100%;
   margin-top: 13px;
-
-
 }
 
 .title {
@@ -16,6 +14,7 @@
   background-color: #e2fb5f;
   border: none;
   cursor: pointer;
+  font-family: "Bai Jamjuree", sans-serif;
 }
 
 .icon {
