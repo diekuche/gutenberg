@@ -9,6 +9,8 @@ import { initKeplr, getAddress, getContractAddress } from "../../utils/wallet";
 import { toast } from "react-toastify";
 import { AppStateContext } from "../../context/AppStateContext";
 import { useContext } from "react";
+import plusYellow from "../../assets/plusYellow.svg";
+import minusYellow from "../../assets/minusYellow.svg";
 
 const initialBalance = {
   id: uuidv4(),
@@ -192,7 +194,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
                     index === 0 ? handleAddNewBalance : removeBalance(id)
                   }
                 >
-                  {index === 0 ? "+" : "-"}
+                  {index === 0 ? { plusYellow } : { minusYellow }}
                 </button>
               </div>
             );
