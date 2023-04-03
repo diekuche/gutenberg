@@ -22,6 +22,7 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+  font-family: "Bai Jamjuree", sans-serif;
 }
 
 .x {
@@ -75,6 +76,7 @@
   border: 1px solid rgba(67, 178, 91, 0.35);
   outline: none;
   margin-bottom: 12px;
+  font-family: "Bai Jamjuree", sans-serif;
 }
 
 .info {
