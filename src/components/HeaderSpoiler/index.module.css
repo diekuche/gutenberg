@@ -94,20 +94,15 @@
 
 .circle {
   width: 18px;
-  height: 18xp;
+  height: 18px;
   max-width: none;
   vertical-align: middle;
-  display: inline-block;
-  box-sizing: border-box;
 }
 
 .downSwapArrow {
-  max-width: none;
   margin-left: 10px;
   margin-top: 3px;
   vertical-align: middle;
-  display: inline-block;
-  box-sizing: border-box;
   width: 1em;
   height: 1em;
 }
