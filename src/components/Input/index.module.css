@@ -1,21 +1,7 @@
-/*.input {
-  width: 100%;
-  padding: 9px;
-  gap: 10px;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 28px;
-  color: rgba(22, 40, 51, 0.5);
-  background: rgba(32, 75, 81, 0.2);
-  border-radius: 10px;
-  border: 0px;
-  outline: none;
-  margin-left: 7px;
-}*/
 .input {
   height: 50px;
   width: 100%;
-  /*padding: 10px 16px;*/
+
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -30,15 +16,6 @@
   border: 1px solid rgba(246, 248, 254, 0.2);
 }
 
-/*.label {
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding-bottom: 5px;
-  padding-left: 9px;
-  font-size: 14px;
-  font-weight: 400;
-}*/
 .label {
   height: 28px;
   font-style: normal;
@@ -103,6 +80,9 @@ input::placeholder {
 
 .image {
   margin-left: 3px;
+}
+.image:hover {
+  background: rgba(115, 237, 201, 0.3);
 }
 
 .input:focus::-webkit-input-placeholder {

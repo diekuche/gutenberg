@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./index.module.css";
 import classNames from "classnames";
-import info from '../../assets/info.svg';
+import info from "../../assets/infoIcon.svg";
 
 export interface InputProps
   extends React.DetailedHTMLProps<
@@ -39,9 +39,18 @@ export const Input = (props: InputComponentProps) => {
       <div className={styles.label}>
         {props.label}
         {props.required && <span className={styles.star}>*</span>}
-        {props.subtitle && <img src={info} alt="" className={styles.image} onMouseEnter={() => setShowSubtitle(true)} onMouseLeave={() => setShowSubtitle(false)} />}
-        {showSubtitle && <div className={styles.subtitle}>{props.subtitle}</div>}
-  
+        {props.subtitle && (
+          <img
+            src={info}
+            alt=""
+            className={styles.image}
+            onMouseEnter={() => setShowSubtitle(true)}
+            onMouseLeave={() => setShowSubtitle(false)}
+          />
+        )}
+        {showSubtitle && (
+          <div className={styles.subtitle}>{props.subtitle}</div>
+        )}
       </div>
 
       <InputComponent
@@ -53,8 +62,6 @@ export const Input = (props: InputComponentProps) => {
         type={type}
         {...rest}
       />
-
-
     </label>
   );
 };

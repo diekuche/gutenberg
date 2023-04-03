@@ -33,20 +33,6 @@
   flex-direction: column;
 }
 
-/*.dot {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 43px;
-  height: 43px;
-  background-color: #162833;
-  color: #e2fb5f;
-  border-radius: 50%;
-  font-size: 22px;
-  font-weight: bold;
-  margin-top: 25px;
-  border: 0px;
-}*/
 .dot {
   background: none;
   border: none;
@@ -56,6 +42,11 @@
   margin-top: 5px;
   margin-bottom: 12px;
   padding-left: 5px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(246, 248, 254, 0.4);
 }
 
 .connectButton {

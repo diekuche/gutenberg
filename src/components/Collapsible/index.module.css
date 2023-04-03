@@ -9,8 +9,8 @@
   display: flex;
   font-size: 18px;
   font-weight: 100;
-  text-decoration: underline;
-  background-color: rgba(124, 196, 219, 0.05);
+
+  background: none;
   line-height: 22px;
   color: rgba(246, 248, 254, 0.8);
   border: none;
