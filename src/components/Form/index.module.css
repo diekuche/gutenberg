@@ -4,9 +4,11 @@
   box-sizing: border-box;
   width: 100%;
   padding: 31px 62px 34px 33px;
-  background: #e2fb5f;
-  border: 1px solid #e2fb5f;
-  border-radius: 0px 16px 16px 16px;
+  background: rgba(124, 196, 219, 0.05);
+  border: solid rgba(115, 237, 201, 0.2);
+  border-radius: 0px 16px 0px 0px;
+  border-width: 1px 1px 0px 1px;
+  backdrop-filter: blur(10px);
 }
 
 .formheader {

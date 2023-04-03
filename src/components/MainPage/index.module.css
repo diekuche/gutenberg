@@ -23,10 +23,7 @@
 .tabPageContent {
   display: flex;
   width: 596px;
-  height: 665px;
-  align-items: flex-start;
-  justify-content: center;
-  justify-items: center;
+  height: 100%;
 }
 .createtext {
   position: absolute;

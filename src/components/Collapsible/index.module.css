@@ -1,26 +1,26 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-
   width: 100%;
   margin-top: 13px;
-
-
 }
 
 .title {
   display: flex;
-  font-size: 14px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 100;
   text-decoration: underline;
-  background-color: #e2fb5f;
+  background-color: rgba(124, 196, 219, 0.05);
+  line-height: 22px;
+  color: rgba(246, 248, 254, 0.8);
   border: none;
   cursor: pointer;
+  font-family: "Bai Jamjuree";
 }
 
 .icon {
   align-self: center;
-  padding-right: 5px;
+  padding-left: 10px;
 }
 
 .children {

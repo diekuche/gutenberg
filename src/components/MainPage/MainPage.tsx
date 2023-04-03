@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./index.module.css";
+import styles from "../MainPage/index.module.css";
 import ManageTokens from "../ManageTokens/ManageTokens";
 import NFT from "../NFT/NFT";
 import NTT from "../NTT/NTT";

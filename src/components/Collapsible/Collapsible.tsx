@@ -1,7 +1,7 @@
 import styles from "./index.module.css";
 import React, { useState } from "react";
-import plus from "../../assets/plus.svg";
-import minus from "../../assets/minus.svg";
+import upYellowArrow from "../../assets/upYellowArrow.svg";
+import downyellow from "../../assets/downyellow.svg";
 
 export interface CollapsibleProps
   extends React.DetailedHTMLProps<
@@ -30,8 +30,14 @@ export const Collapsible: React.FC<CollapsibleProps> = (
         onClick={collapse}
         {...rest}
       >
-        {<img alt="icons" className={styles.icon} src={open ? minus : plus} />}
         {title}
+        {
+          <img
+            alt="icons"
+            className={styles.icon}
+            src={open ? downyellow : upYellowArrow}
+          />
+        }
       </button>
       {open && <div className={styles.children}>{children}</div>}
     </div>
