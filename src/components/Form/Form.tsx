@@ -194,7 +194,11 @@ export const Form = ({ setInitial, initial }: FormProps) => {
                     index === 0 ? handleAddNewBalance : removeBalance(id)
                   }
                 >
-                  {index === 0 ? { plusYellow } : { minusYellow }}
+                  {index === 0 ? (
+                    <img src={plusYellow}></img>
+                  ) : (
+                    <img src={minusYellow}></img>
+                  )}
                 </button>
               </div>
             );

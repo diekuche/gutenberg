@@ -33,7 +33,7 @@
   flex-direction: column;
 }
 
-.dot {
+/*.dot {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,8 +46,12 @@
   font-weight: bold;
   margin-top: 25px;
   border: 0px;
+}*/
+.dot {
+  background: none;
+  border: none;
+  margin-top: 25px;
 }
-
 .article {
   margin-top: 5px;
   margin-bottom: 12px;
