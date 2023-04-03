@@ -3,7 +3,7 @@
   flex-direction: column;
   box-sizing: border-box;
   width: 100%;
-  padding: 31px 62px 34px 33px;
+  padding: 20px 54px 20px 40px;
   background: rgba(124, 196, 219, 0.05);
   border: solid rgba(115, 237, 201, 0.2);
   border-radius: 0px 16px 0px 0px;
@@ -33,6 +33,20 @@
   flex-direction: column;
 }
 
+/*.dot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 43px;
+  height: 43px;
+  background-color: #162833;
+  color: #e2fb5f;
+  border-radius: 50%;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 25px;
+  border: 0px;
+}*/
 .dot {
   background: none;
   border: none;
