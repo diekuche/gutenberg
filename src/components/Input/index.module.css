@@ -29,8 +29,10 @@ input::placeholder {
   font-style: normal;
   font-weight: 300;
   font-size: 16px;
-  line-height: 20px;
-  color: rgba(246, 248, 254, 0.2);
+  padding: 11px 0px;
+  opacity: 0.5;
+  color: #162833;
+  font-family: "Bai Jamjuree", sans-serif;
 }
 
 .subtitle {

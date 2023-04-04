@@ -15,7 +15,7 @@
   color: rgba(246, 248, 254, 0.8);
   border: none;
   cursor: pointer;
-  font-family: "Bai Jamjuree";
+  font-family: "Bai Jamjuree", sans-serif;
 }
 
 .icon {
