@@ -13,9 +13,10 @@ import Main from "./components/Main/Main";
 import NewButton from "./components/newButton/newButton";
 import Swap from "./components/Swap/Swap";
 import ManageAssets from "./components/ManageAssets/ManageAssets";
+import Licence from "./components/LicencePage/LicencePage";
 
 declare global {
-  interface Window extends KeplrWindow {}
+  interface Window extends KeplrWindow { }
 }
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Main />}></Route>
               <Route path="/legalinfo" element={<LegalPage />}></Route>
+              <Route path="/Licence" element={<Licence />}></Route>
               <Route path="/create" element={<MainPage />}></Route>
               <Route path="/newBT" element={<NewButton />}></Route>
               <Route path="/swap" element={<Swap />}></Route>
