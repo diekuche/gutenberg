@@ -1,8 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import styles from "../BasicWindow/BasicWindow.module.css";
 
 const BasicWindow = () => {
-  const navigate = useNavigate();
   return (
     <div className={styles.mainPageWelcomeBlock}>
       <div className={styles.mainPageWelcomeBlockinerInner}>
