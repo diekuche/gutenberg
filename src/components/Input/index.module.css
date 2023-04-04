@@ -1,28 +1,27 @@
 .input {
   height: 50px;
   width: 100%;
-
+  background: rgba(29, 57, 66, 0.6);
+  border-radius: 10px;
+  border-style: none;
+  font-family: "Bai Jamjuree";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 28px;
-  background: rgba(29, 57, 66, 0.6);
-  border-radius: 10px;
+  line-height: 18px;
   color: #f6f8fe;
-  font-family: "Bai Jamjuree";
-  border: 1px solid rgba(29, 57, 66, 0.6);
-}
-.input:hover {
-  border: 1px solid rgba(246, 248, 254, 0.2);
+  padding-left: 14px;
 }
 
 .label {
-  height: 28px;
-  font-style: normal;
+  display: flex;
+  align-items: center;
+  position: relative;
   font-weight: 400;
   font-size: 14px;
-  line-height: 28px;
+  line-height: 18px;
   color: rgba(246, 248, 254, 0.8);
+  padding-bottom: 5px;
 }
 
 input::placeholder {
@@ -32,38 +31,35 @@ input::placeholder {
   font-size: 16px;
   line-height: 20px;
   color: rgba(246, 248, 254, 0.2);
-  padding: 11px 0px;
 }
 
 .subtitle {
   position: absolute;
-  flex-grow: 1;
-  box-sizing: border-box;
-  z-index: 1;
-  min-width: 298px;
-  width: 100%;
+  margin-left: 5px;
+  min-width: 280px;
   left: 100%;
   bottom: 30%;
-  background: rgba(22, 40, 51, 0.9);
+
   padding: 15px 20px;
-  color: #e2fb5f;
+
   border-radius: 10px;
-  text-align: left;
-  font-size: 14px;
+  font-family: "Bai Jamjuree";
+  font-style: normal;
   font-weight: 300;
-  white-space: pre-line;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: left;
+  background: rgba(6, 15, 25, 0.9);
+  color: rgba(246, 248, 254, 0.6);
 }
 
 .inputComp {
-  padding-top: 11px;
-  padding-bottom: 11px;
   display: flex;
   box-sizing: border-box;
   width: 100%;
   align-items: flex-start;
   flex-direction: column;
   justify-content: flex-start;
-  color: #162833;
 }
 
 .inputDescription {
@@ -72,25 +68,27 @@ input::placeholder {
   align-items: start;
   resize: none;
   box-sizing: border-box;
-  padding-bottom: 75px;
+  padding-bottom: 22px;
+  padding-top: 14px;
 }
+
 .star {
   color: red;
 }
 
 .image {
-  margin-left: 3px;
-}
-.image:hover {
-  background: rgba(115, 237, 201, 0.3);
+  margin-left: 2px;
 }
 
-.input:focus::-webkit-input-placeholder {
-  color: transparent;
+textarea:focus,
+input:focus {
+  outline: none;
 }
 
-input:-webkit-autofill {
-  -webkit-box-shadow: inset 0 0 0 50px #162833;
-  box-shadow: inset 0 0 0 50px #162833;
-  -webkit-text-fill-color: #d3ff54;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
+  -webkit-transition-delay: 9999s;
 }

@@ -3,13 +3,17 @@
   flex-direction: column;
   box-sizing: border-box;
   width: 100%;
-  height: 100%;
-  background: #e2fb5f;
+  height: 665px;
+  background: rgba(124, 196, 219, 0.05);
   border: 1px solid #e2fb5f;
   border-radius: 0px 16px 16px 16px;
   padding: 45px;
 }
-
+.soon {
+  background: linear-gradient(306.95deg, #e2fb5f 10.17%, #0fefd4 101.39%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .cs {
   display: flex;
   flex-direction: column;
@@ -17,11 +21,11 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: rgba(32, 75, 81, 0.2);
+  background-color: rgba(67, 151, 178, 0.1);
   border-radius: 16px;
   font-weight: 800;
   font-size: 38px;
-  color: #162833;
+  /*color: #162833;*/
 }
 
 .icon {
