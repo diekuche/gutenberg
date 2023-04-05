@@ -21,12 +21,15 @@
   height: 66px;
   border-radius: 0 0 16px 16px;
   background-color: #e2fb5f;
+  width: 594px;
   cursor: pointer;
   color: #060F19;
   font-family: "Bai Jamjuree", sans-serif;
   font-weight: 700;
   font-size: 32px;
   border-style: none;
+  padding: 0px;
+  margin-top: 40px;
 }
 
 .white {

@@ -23,7 +23,6 @@
 .tabPageContent {
   display: flex;
   width: 596px;
-  height: 665px;
   justify-content: center;
   justify-items: center;
 }
