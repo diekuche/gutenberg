@@ -1,4 +1,4 @@
-import { defineChains, connect } from "graz";
+import { defineChains } from "graz";
 
 const CYBER = {
     CYBER_CONGRESS_ADDRESS: 'cyber1latzme6xf6s8tsrymuu6laf2ks2humqvdq39v8',

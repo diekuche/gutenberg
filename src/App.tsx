@@ -15,7 +15,7 @@ import Swap from "./components/Swap/Swap";
 import ManageAssets from "./components/ManageAssets/ManageAssets";
 import License from "./components/LicensePage/LicensePage";
 import { GrazProvider } from "graz";
-import { mainnetChains } from "graz/chains";
+import { CustomChains } from "../src/utils/config";
 
 declare global {
   interface Window extends KeplrWindow {}
@@ -26,7 +26,7 @@ function App() {
   return (
     <GrazProvider
       grazOptions={{
-        defaultChain: mainnetChains.bostrom,
+        defaultChain: CustomChains.bostrom,
       }}
     >
       <div className="App">
