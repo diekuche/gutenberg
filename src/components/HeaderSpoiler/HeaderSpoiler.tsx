@@ -1,22 +1,41 @@
 import styles from "./index.module.css";
+import { useState } from "react";
 import circle from "../../assets/circle.svg";
 import { NavLink } from "react-router-dom";
 import Wallet from "../Wallet/Wallet";
 import SelectCustom from "../SelectCustom/SelectCustom";
 import ChainUX from "../Chain/ChainUX";
 
-const options = [
-  {
-    value: "boot",
-    label: <ChainUX chainName="bostrom" icon={circle} />,
-  },
-  {
-    value: "juno",
-    label: <ChainUX chainName="juno" icon={circle} />,
-  },
-];
-
 const HeaderSpoiler = () => {
+  const [selectedChain, setSelectedChain] = useState<"bostrom" | "juno">(
+    "bostrom"
+  );
+
+  const renderChainOption = (chain: "bostrom" | "juno") => {
+    const handleClick = () => {
+      setSelectedChain(chain);
+    };
+
+    return (
+      <div onClick={handleClick}>
+        <ChainUX chainName={chain} icon={circle} />
+      </div>
+    );
+  };
+
+  const options = [
+    {
+      value: "bostrom",
+      label: renderChainOption("bostrom"),
+    },
+    {
+      value: "juno",
+      label: renderChainOption("juno"),
+    },
+  ];
+
+  const defaultValue = options[0];
+
   return (
     <header>
       <div className={styles.nav}>
@@ -74,10 +93,7 @@ const HeaderSpoiler = () => {
             height={45}
             placeholder="select chain"
             fontSize={16}
-            defaultValue={{
-              value: "boot",
-              label: <ChainUX chainName="bostrom" icon={circle} />,
-            }}
+            defaultValue={defaultValue}
           />
           <Wallet />
         </div>

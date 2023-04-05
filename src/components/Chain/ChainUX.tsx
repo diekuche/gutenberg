@@ -4,22 +4,27 @@ import { useSuggestChainAndConnect } from "graz";
 import { CustomChains } from "../../utils/config";
 import { mainnetChains } from "graz";
 
-interface ChainProps {
+export interface ChainProps {
   chainName: "bostrom" | "juno";
   icon: string;
 }
+
+const chainMap = {
+  bostrom: CustomChains.bostrom,
+  juno: mainnetChains.juno,
+};
 
 const ChainUX: React.FC<ChainProps> = ({ chainName, icon }) => {
   const { suggestAndConnect } = useSuggestChainAndConnect();
 
   const getSelectedChain = () => {
-    if (chainName === "bostrom") {
-      return CustomChains.bostrom;
-    } else if (chainName === "juno") {
-      return mainnetChains.juno;
-    } else {
+    const chain = chainMap[chainName];
+
+    if (!chain) {
       throw new Error(`Invalid chainName: ${chainName}`);
     }
+
+    return chain;
   };
 
   return (
