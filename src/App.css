@@ -18,16 +18,18 @@
 }
 
 .font-link {
-  font-family: "Roboto", bold;
+  font-family: "Bai Jamjuree", bold;
 }
 
 @keyframes change {
   0% {
     background-position: 0 50%;
   }
+
   50% {
     background-position: 50 100%;
   }
+
   100% {
     background-position: 100 50%;
   }

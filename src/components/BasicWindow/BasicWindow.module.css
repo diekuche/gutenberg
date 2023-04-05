@@ -1,68 +1,43 @@
-.middleStringSecond {
+.mainPageWelcomeBlock {
+  margin: 0 auto;
+  height: 100vh;
   display: flex;
-  color: rgba(67, 178, 91, 0.15);
-  font-weight: 700;
-  font-size: 180px;
-  line-height: 128px;
   align-items: center;
+  justify-content: center;
 }
 
-.goCreate {
-  background: #162833;
-  padding: 12px 40px;
-  border-radius: 34px;
-  border: 0px;
-  color: #e2fb5f;
-  font-weight: 700;
-  font-size: 30px;
-  line-height: 35px;
-  margin-top: 20px;
-  margin-left: 43px;
-  font-family: "Bai Jamjuree", sans-serif;
-  height: 59px;
-  min-width: 215px;
+.mainPageWelcomeBlockinerInner {
+  display: block;
 }
 
-.goCreate:hover {
-  background: rgba(22, 40, 51, 0.6);
+.WelcomeBlockFirst {
+  align-content: center;
+  font-weight: 500;
+  font-size: 21px;
+  line-height: 26px;
+  color: rgba(115, 237, 201, 0.7);
 }
 
-.middle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-right: 210px;
-  margin-top: 110px;
-  margin-bottom: 70px;
-}
-.info {
-  margin-left: 780px;
-  width: 444px;
-  height: 93px;
-  font-weight: 300;
-  font-size: 22px;
-  line-height: 32px;
-  color: #43b25b;
+.WelcomeBlockSecond {
+  align-content: center;
+  background: linear-gradient(306.95deg, #E2FB5F 10.17%, #0FEFD4 101.39%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding-bottom: 30px;
+
+  font-size: 135px;
+  line-height: 94px;
+  font-weight: 700;
+  text-transform: lowercase;
 }
 
-.value {
-  color: #e2fb5f;
-}
-.middleStringFirst {
-  display: flex;
-  color: rgba(67, 178, 91, 0.15);
+.WelcomeBlockThird {
   font-weight: 700;
-  font-size: 180px;
-  line-height: 128px;
-  align-items: center;
-  margin-right: 132px;
-}
-.middleStringThird {
-  display: flex;
-  color: rgba(67, 178, 91, 0.15);
-  font-weight: 700;
-  font-size: 180px;
-  line-height: 128px;
-  align-items: center;
-  margin-left: 35px;
+  font-size: 48px;
+  line-height: 41px;
+  text-transform: lowercase;
+  margin-top: -75px;
+  margin-left: 390px;
+  color: rgba(115, 237, 201, 0.7);
 }

@@ -13,14 +13,14 @@ const Footer = () => {
       >
         <img className={styles.git} src={git} alt=""></img>
       </a>
-      <a className={styles.link} href="/About">
+      <a className={styles.link} href="https://en.wikipedia.org/wiki/Johannes_Gutenberg">
         About
       </a>
       <Link className={styles.link} to="/legalinfo">
-        Legal Information
+        Terms of Use
       </Link>
-      <a className={styles.link} href="URL">
-        Licence
+      <a className={styles.link} href="/license">
+        License
       </a>
       <div className={styles.create}>
         🟢 Powered by{" "}
@@ -30,7 +30,7 @@ const Footer = () => {
           target="_blank"
           rel="noreferrer"
         >
-          Bostrom
+          Bostrom AI
         </a>
       </div>
     </div>
