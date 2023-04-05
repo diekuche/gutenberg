@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   margin: 150px auto;
+
 }
 
 .swap {
@@ -73,6 +74,7 @@
   margin: 16px 84px 0px 0px;
   padding: 20px 33px 0px 34px;
 }
+
 .priceDown {
   font-size: 14px;
   color: #43b25b;
@@ -84,6 +86,7 @@
   display: flex;
   justify-content: space-between;
 }
+
 .circle {
   margin: auto;
   border: 1px solid;
@@ -94,6 +97,7 @@
   color: #e2fb5f;
   margin-top: -15px;
 }
+
 .line {
   border: 1px solid #e2fb5f;
   margin-top: 1px;
@@ -110,15 +114,18 @@
   justify-content: space-between;
   padding: 16px 31px 17px 34px;
 }
+
 .downArrowYellow {
   padding-left: 10px;
 }
+
 .middleString {
   color: #e2fb5f;
   font-size: 16px;
   font-weight: 200;
   margin-top: 76px;
 }
+
 .iconYellowDown {
   margin-top: 28px;
   margin-left: 12px;

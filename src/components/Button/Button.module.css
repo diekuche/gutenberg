@@ -17,28 +17,33 @@
 }
 
 .black {
-  align-self: center;
-  height: 46px;
-  background: #162833;
-  border-radius: 27.5px;
-  padding: auto;
-  color: #e2fb5f;
+  width: 100%;
+  height: 66px;
+  border-radius: 0 0 16px 16px;
+  background-color: #e2fb5f;
+  width: 594px;
   cursor: pointer;
-  margin-top: 26px;
+  color: #060F19;
   font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  border-style: none;
+  padding: 0px;
+  margin-top: 40px;
 }
 
 .white {
-  align-items: center;
+  position: relative;
+  vertical-align: top;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 11px 20px;
   background: #e2fb5f;
-  border-radius: 27.5px;
-  padding: 12px;
-  color: #162833;
-  font-size: 16px;
-  font-weight: 600;
+  border-radius: 8px;
+  color: #060f19;
+  font-size: 14px;
+  font-weight: 500;
   border-style: none;
-  align-self: center;
-  text-align: center;
   cursor: pointer;
   font-family: "Bai Jamjuree", sans-serif;
 }
@@ -77,10 +82,6 @@
   background: #8e8e8e;
 }
 
-.white:active {
-  box-shadow: inset 0px 4px 4px rgba(104, 102, 47, 0.6);
-}
-
-.white:disabled {
-  background: #195443;
+.white:hover {
+  background: #EDFF8E;
 }

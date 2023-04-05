@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import styles from "./index.module.css";
 import circle from "../../assets/circle.svg";
 import { NavLink } from "react-router-dom";
@@ -17,23 +16,9 @@ const options = [
   },
 ];
 
-function Header2() {
-  const [header, setHeader] = useState(styles.header);
-
-  useEffect(() => {
-    const listenScrollEvent = () => {
-      if (window.scrollY < 50) {
-        return setHeader(styles.header);
-      } else if (window.scrollY > 52) {
-        return setHeader(styles.header2);
-      }
-    };
-    window.addEventListener("scroll", listenScrollEvent);
-    return () => window.removeEventListener("scroll", listenScrollEvent);
-  }, []);
-
+const HeaderSpoiler = () => {
   return (
-    <header className={header}>
+    <header>
       <div className={styles.nav}>
         <div>
           <NavLink to="/" className={styles.linkHead}>
@@ -53,12 +38,22 @@ function Header2() {
           </div>
           <div className={styles.name}>
             <NavLink
+              to="/pools"
+              className={(link) =>
+                link.isActive ? styles.active : styles.link
+              }
+            >
+              Pools
+            </NavLink>
+          </div>
+          <div className={styles.name}>
+            <NavLink
               to="/create"
               className={(link) =>
                 link.isActive ? styles.active : styles.link
               }
             >
-              Create
+              Create token
             </NavLink>
           </div>
 
@@ -85,6 +80,6 @@ function Header2() {
       </div>
     </header>
   );
-}
+};
 
-export default Header2;
+export default HeaderSpoiler;

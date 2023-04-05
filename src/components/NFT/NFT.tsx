@@ -6,7 +6,6 @@ const NFT = () => {
   return (
     <div className={styles.nft}>
       <div className={styles.cs}>
-        <div>coming soon...</div>
         <img src={hammer} className={styles.icon} alt="NFTpreview"></img>
       </div>
     </div>

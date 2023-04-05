@@ -30,8 +30,8 @@ export const Collapsible: React.FC<CollapsibleProps> = (
         onClick={collapse}
         {...rest}
       >
-        {<img alt="icons" className={styles.icon} src={open ? minus : plus} />}
         {title}
+        {<img alt="icons" className={styles.icon} src={open ? minus : plus} />}
       </button>
       {open && <div className={styles.children}>{children}</div>}
     </div>
