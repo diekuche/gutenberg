@@ -1,6 +1,5 @@
 .tabs {
   display: flex;
-  justify-content: flex-start;
   align-items: end;
   margin-bottom: -1px;
   z-index: 1;

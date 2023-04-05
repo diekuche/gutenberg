@@ -17,17 +17,16 @@
 .tools {
   display: flex;
   flex-direction: row;
-  align-self: flex-start;
 }
 
 .tabPageContent {
   display: flex;
   width: 596px;
   height: 665px;
-  align-items: flex-start;
   justify-content: center;
   justify-items: center;
 }
+
 .createtext {
   position: absolute;
   top: 575px;
