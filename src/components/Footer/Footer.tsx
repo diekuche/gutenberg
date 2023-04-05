@@ -19,8 +19,8 @@ const Footer = () => {
       <Link className={styles.link} to="/legalinfo">
         Terms of Use
       </Link>
-      <a className={styles.link} href="/licence">
-        Licence
+      <a className={styles.link} href="/license">
+        License
       </a>
       <div className={styles.create}>
         🟢 Powered by{" "}

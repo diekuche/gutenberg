@@ -10,7 +10,7 @@ const Legal = () => {
           Last update 04/04/2023
         </div>
         <div className={styles.content}>
-          <p>The following terms and conditions govern your use of the Gutenberg.tech website and associated application (the “App”). By accessing or using the App, you agree to be bound by these terms and conditions. If you do not agree to these terms and conditions, you may not access or use the App.</p>
+          The following terms and conditions govern your use of the Gutenberg.tech website and associated application (the “App”). By accessing or using the App, you agree to be bound by these terms and conditions. If you do not agree to these terms and conditions, you may not access or use the App.
 
           <ol>
             <li>The App is an interface to third-party blockchains, and the authors of the App are not responsible for the accuracy, reliability, or legality of any information or transactions made through the App.</li>

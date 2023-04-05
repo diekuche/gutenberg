@@ -1,12 +1,11 @@
 .headLegal {
   display: flex;
   flex-direction: column;
-  margin-top: 90px;
-  margin-right: auto;
-  margin-left: auto;
-  margin-bottom: 150px;
+  margin: 90px 25% 120px;
   align-items: left;
+  position: relative;
 }
+
 
 .legalInformation {
   display: flex;
@@ -26,20 +25,31 @@
   border: 1px solid rgba(115, 237, 201, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 16px;
-  padding: 0px 40px 30px 40px;
+  padding: 0px 35px 40px 40px;
+}
+
+.contentBlock a {
+  color: rgba(246, 248, 254, 0.7);
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-family: "Bai Jamjuree", sans-serif;
-  font-style: normal;
+  display: inline-block;
   font-size: 16px;
   line-height: 26px;
-  width: 540px;
+  padding-right: 5px;
   color: rgba(246, 248, 254, 0.7);
-  padding: 0;
+  overflow-y: scroll;
+  max-height: 420px;
+}
+
+.content::-webkit-scrollbar {
+  background-color: transparent;
+  width: 8px;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background-color: rgba(115, 237, 201, 0.1);
+  border-radius: 10px;
 }
 
 .content li {
@@ -55,4 +65,5 @@
   font-size: 14px;
   color: rgba(246, 248, 254, 0.2);
   padding-top: 30px;
+  padding-bottom: 15px;
 }
