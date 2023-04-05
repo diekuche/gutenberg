@@ -1,3 +1,5 @@
+import { defineChains, connect } from "graz";
+
 const CYBER = {
     CYBER_CONGRESS_ADDRESS: 'cyber1latzme6xf6s8tsrymuu6laf2ks2humqvdq39v8',
     DIVISOR_CYBER_G: 10 ** 9,
@@ -30,6 +32,26 @@ const CYBER = {
     BECH32_PREFIX_ACC_ADDR_CYBERVALOPER: 'bostromvaloper',
     MEMO_KEPLR: '[bostrom] cyb.ai, using keplr',
   };
+
+
+
+export const CustomChains = defineChains({
+  bostrom: {
+    chainId: CYBER.CHAIN_ID,
+    currencies: [
+      {
+        coinDenom: CYBER.DENOM_CYBER,
+        coinMinimalDenom: CYBER.DENOM_CYBER,
+        coinDecimals: 6,
+        coinGeckoId: CYBER.CHAIN_ID,
+        coinImageUrl: "https://raw.githubusercontent.com/cosmos/chain-registry/master/bostrom/images/boot.png",
+      },
+    ],
+    rpc: CYBER.CYBER_NODE_URL_API,
+    rest: CYBER.CYBER_NODE_URL_LCD,
+  },
+});
+
   
   const configKeplr = (prefix: string) => {
     return {

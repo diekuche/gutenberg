@@ -14,5 +14,4 @@ jobs:
       - name: Build react app
         uses: actions/setup-node@v3
       - run: yarn
-      - run: yarn generate-info
       - run: npm run build
