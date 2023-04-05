@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./ChainUX.module.css";
 import { useSuggestChainAndConnect } from "graz";
 import { bostrom, juno } from "graz/chains";
-import Button from "../Button/Button";
 
 interface ChainProps {
   chainName: "bostrom" | "juno";
