@@ -2,7 +2,6 @@
   display: flex;
   position: relative;
   flex-direction: column;
-  justify-content: flex-start;
   margin: auto;
   padding-top: 30px;
 }
@@ -17,6 +16,8 @@
 .tools {
   display: flex;
   flex-direction: row;
+  z-index: 1;
+
 }
 
 .tabPageContent {

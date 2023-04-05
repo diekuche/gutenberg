@@ -39,6 +39,7 @@ input::placeholder {
   min-width: 280px;
   left: 100%;
   bottom: 30%;
+  z-index: 10;
   background: rgba(6, 15, 25, 0.9);
   padding: 15px 20px;
   color: rgba(246, 248, 254, 0.6);
@@ -54,8 +55,8 @@ input::placeholder {
 .inputComp {
   padding-bottom: 10px;
   display: flex;
-  box-sizing: border-box;
   width: 100%;
+  align-items: flex-start;
   flex-direction: column;
 }
 
