@@ -74,6 +74,10 @@ const HeaderSpoiler = () => {
             height={45}
             placeholder="select chain"
             fontSize={16}
+            defaultValue={{
+              value: "boot",
+              label: <ChainUX chainName="bostrom" icon={circle} />,
+            }}
           />
           <Wallet />
         </div>
