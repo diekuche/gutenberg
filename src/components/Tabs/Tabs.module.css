@@ -1,13 +1,13 @@
 .tabs {
   display: flex;
   justify-content: flex-start;
-  align-items: end;
+  align-items: flex-end;
   margin-bottom: -1px;
   z-index: 2;
 }
 
 .tabLabel {
-  width: 144px;
+  min-width: 144px;
   padding: 7px 0px;
   background-color: #1a2d36;
   border-style: solid solid none;
