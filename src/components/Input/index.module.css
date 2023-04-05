@@ -1,67 +1,63 @@
 .input {
+  height: 44px;
   width: 100%;
-  padding: 9px;
-  gap: 10px;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 28px;
-  color: rgba(22, 40, 51, 0.5);
-  background: rgba(32, 75, 81, 0.2);
+  background: rgba(29, 57, 66, 0.6);
   border-radius: 10px;
-  border: 0px;
-  outline: none;
-  margin-left: 7px;
-  font-family: "Bai Jamjuree", sans-serif;
+  border-style: none;
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  color: #F6F8FE;
+  padding-left: 14px;
 }
 
 .label {
   display: flex;
   align-items: center;
   position: relative;
-  padding-bottom: 5px;
-  padding-left: 9px;
-  font-size: 14px;
   font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(246, 248, 254, 0.8);
+  padding-bottom: 5px;
 }
 
 input::placeholder {
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
   font-weight: 300;
   font-size: 16px;
-  padding: 11px 0px;
-  opacity: 0.5;
-  color: #162833;
-  font-family: "Bai Jamjuree", sans-serif;
+  line-height: 20px;
+  color: rgba(246, 248, 254, 0.2);
 }
 
 .subtitle {
   position: absolute;
-  flex-grow: 1;
-  box-sizing: border-box;
-  z-index: 1;
-  min-width: 298px;
-  width: 100%;
+  margin-left: 5px;
+  min-width: 280px;
   left: 100%;
   bottom: 30%;
-  background: rgba(22, 40, 51, 0.9);
+  z-index: 10;
+  background: rgba(6, 15, 25, 0.9);
   padding: 15px 20px;
-  color: #e2fb5f;
+  color: rgba(246, 248, 254, 0.6);
   border-radius: 10px;
-  text-align: left;
-  font-size: 14px;
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
   font-weight: 300;
-  white-space: pre-line;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: left;
 }
 
 .inputComp {
-  padding-top: 11px;
-  padding-bottom: 11px;
+  padding-bottom: 10px;
   display: flex;
-  box-sizing: border-box;
   width: 100%;
   align-items: flex-start;
   flex-direction: column;
-  justify-content: flex-start;
-  color: #162833;
 }
 
 .inputDescription {
@@ -70,22 +66,28 @@ input::placeholder {
   align-items: start;
   resize: none;
   box-sizing: border-box;
-  padding-bottom: 75px;
+  padding-bottom: 22px;
+  padding-top: 14px;
 }
+
 .star {
   color: red;
 }
 
 .image {
-  margin-left: 3px;
+  margin-left: 2px;
+  width: 16px;
 }
 
-.input:focus::-webkit-input-placeholder {
-  color: transparent;
+textarea:focus,
+input:focus {
+  outline: none;
 }
 
-input:-webkit-autofill {
-  -webkit-box-shadow: inset 0 0 0 50px #162833;
-  box-shadow: inset 0 0 0 50px #162833;
-  -webkit-text-fill-color: #d3ff54;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
+  -webkit-transition-delay: 9999s;
 }
