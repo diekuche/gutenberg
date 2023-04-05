@@ -56,9 +56,7 @@ input::placeholder {
   display: flex;
   box-sizing: border-box;
   width: 100%;
-  align-items: flex-start;
   flex-direction: column;
-  justify-content: flex-start;
 }
 
 .inputDescription {
