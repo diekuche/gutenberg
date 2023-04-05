@@ -1,29 +1,38 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-
   width: 100%;
-  margin-top: 13px;
+  margin-top: 14px;
+
 }
 
 .title {
   display: flex;
-  font-size: 14px;
-  font-weight: 800;
-  text-decoration: underline;
-  background-color: #e2fb5f;
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: rgba(246, 248, 254, 0.8);
+  background-color: transparent;
   border: none;
   cursor: pointer;
-  font-family: "Bai Jamjuree", sans-serif;
+  padding-left: 0px;
 }
 
 .icon {
   align-self: center;
-  padding-right: 5px;
+  padding-left: 5px;
+  padding-top: 4px;
+  width: 10px;
 }
 
 .children {
-  display: flex;
+  display: block;
   flex-direction: row;
   white-space: pre-line;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(246, 248, 254, 0.4);
 }

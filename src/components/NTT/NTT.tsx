@@ -6,7 +6,6 @@ const NTT = () => {
   return (
     <div className={styles.ntt}>
       <div className={styles.cs}>
-        <div>coming soon...</div>
         <img src={imprint} className={styles.icon} alt="NTTpreview"></img>
       </div>
     </div>

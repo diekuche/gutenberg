@@ -97,20 +97,20 @@ export const Form = ({ setInitial, initial }: FormProps) => {
 
   const handleChangeInitialBalance =
     (id: string, name: string) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setBalances(
-        balances.map((balance) => {
-          if (balance.id === id) {
-            return {
-              ...balance,
-              [name]: event.target.value,
-            };
-          } else {
-            return balance;
-          }
-        })
-      );
-    };
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        setBalances(
+          balances.map((balance) => {
+            if (balance.id === id) {
+              return {
+                ...balance,
+                [name]: event.target.value,
+              };
+            } else {
+              return balance;
+            }
+          })
+        );
+      };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -200,17 +200,20 @@ export const Form = ({ setInitial, initial }: FormProps) => {
         </div>
       </Collapsible>
       <Collapsible title="Token details">
+        <div className={styles.article}>
+          This information will be displayed in the description of the created token
+          <br />(max 160 symbols):
+        </div>
         <Input
           value={description}
           name="description"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setDescription(e.target.value)
           }
-          label={
-            "This information will be displayed in the description of the created token \n (max 160 symbols):"
-          }
+          label={`.`}
           isTextArea
         />
+
       </Collapsible>
       {!address ? (
         <Button
@@ -222,8 +225,8 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           Connect Wallet
         </Button>
       ) : (
-        <Button type="submit" color="black" size="sm">
-          create
+        <Button type="submit" color="black">
+          create!
         </Button>
       )}
     </form>

@@ -2,11 +2,13 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  position: relative;
   width: 100%;
-  padding: 31px 62px 34px 33px;
-  background: #e2fb5f;
-  border: 1px solid #e2fb5f;
-  border-radius: 0px 16px 16px 16px;
+  padding: 35px 54px 20px 40px;
+  background: rgba(124, 196, 219, 0.05);
+  border: solid 1px rgba(115, 237, 201, 0.2);
+  border-radius: 0px 16px 16px;
+  backdrop-filter: blur(10px);
 }
 
 .formheader {
@@ -49,7 +51,6 @@
 .article {
   margin-top: 5px;
   margin-bottom: 12px;
-  padding-left: 5px;
 }
 
 .connectButton {
