@@ -13,7 +13,6 @@ import Main from "./components/Main/Main";
 import NewButton from "./components/newButton/newButton";
 import Swap from "./components/Swap/Swap";
 import ManageAssets from "./components/ManageAssets/ManageAssets";
-import Licence from "./components/LicensePage/LicensePage";
 import License from "./components/LicensePage/LicensePage";
 
 declare global {
