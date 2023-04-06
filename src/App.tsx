@@ -2,14 +2,14 @@ import "./App.css";
 import { useState } from "react";
 import { AppStateContext } from "././context/AppStateContext";
 import { Window as KeplrWindow } from "@keplr-wallet/types";
-import MainPage from "./components/MainPage/MainPage";
+import CreatePage from "./components/CreatePage/CreateMainPage";
 import Footer from "./components/Footer/Footer";
 import LegalPage from "./components/LegalPage/LegalPage";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderSpoiler from "./components/HeaderSpoiler/HeaderSpoiler";
-import Main from "./components/Main/Main";
+import WelcomPage from "./components/WelcomPage/WelcomPage";
 import NewButton from "./components/newButton/newButton";
 import Swap from "./components/Swap/Swap";
 import ManageAssets from "./components/ManageAssets/ManageAssets";
@@ -28,10 +28,10 @@ function App() {
           <Router>
             <HeaderSpoiler />
             <Routes>
-              <Route path="/" element={<Main />}></Route>
+              <Route path="/" element={<WelcomPage />}></Route>
               <Route path="/legalinfo" element={<LegalPage />}></Route>
               <Route path="/License" element={<License />}></Route>
-              <Route path="/create" element={<MainPage />}></Route>
+              <Route path="/create" element={<CreatePage />}></Route>
               <Route path="/newBT" element={<NewButton />}></Route>
               <Route path="/swap" element={<Swap />}></Route>
               <Route path="/manage-assets" element={<ManageAssets />}></Route>

@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "./BootSender.module.css";
-import Button from "../Button/Button";
+import styles from "./BootSender.module.css"
+import Button from "../../Button/Button";
 import { useState, useEffect } from "react";
-import { getAddress, getBalance, sendBoot } from "../../utils/wallet";
+import { getAddress, getBalance, sendBoot } from "../../../utils/wallet";
 import { Coin } from "@cosmjs/stargate";
-import collapse_arrow from "../../assets/collapse_arrow.svg";
+import collapse_arrow from "../../../assets/collapse_arrow.svg";
 
 const sendBalance = {
   recepient: "",
@@ -86,7 +86,7 @@ function BootSender() {
             onChange={handleSendChange("amount")}
           />
           <Button
-            color="white"
+            color="sendButton"
             type="button"
             className={styles.tokenButton}
             onClick={(e: any) => getBootSent(balance.recepient, balance.amount)}

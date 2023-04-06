@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../NTT/NTT.module.css";
-import imprint from "../../assets/Imprint.svg";
+import imprint from "../../../assets/Imprint.svg";
 
 const NTT = () => {
   return (

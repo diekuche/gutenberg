@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import styles from "./index.module.css";
-import ManageTokens from "../ManageTokens/ManageTokens";
-import NFT from "../NFT/NFT";
-import NTT from "../NTT/NTT";
-import { Tabs } from "../Tabs/Tabs";
-import { Tab } from "../Tabs/Tabs";
-import { Form } from "../Form/Form";
+import styles from "./CreateMainPage.module.css";
+import ManageTokens from "./ManageTokens/ManageTokens";
+import NFT from "./NFT/NFT";
+import NTT from "./NTT/NTT";
+import { Tabs } from "./Tabs/Tabs";
+import { Tab } from "./Tabs/Tabs";
+import { Form } from "./Form/Form";
 
-export const MainPage: React.FC = () => {
+export const CreateMainPage: React.FC = () => {
   const [initial, setInitial] = useState<string[]>(() => {
     const saved = localStorage.getItem("contract") as string;
     if (saved) {
@@ -56,4 +56,4 @@ export const MainPage: React.FC = () => {
   );
 };
 
-export default MainPage;
+export default CreateMainPage;

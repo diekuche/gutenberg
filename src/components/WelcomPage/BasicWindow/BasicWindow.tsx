@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../BasicWindow/BasicWindow.module.css";
+import styles from "../../WelcomPage/BasicWindow/BasicWindow.module.css";
 
 const BasicWindow = () => {
   return (

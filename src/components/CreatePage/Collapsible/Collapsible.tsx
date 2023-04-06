@@ -1,7 +1,7 @@
-import styles from "./index.module.css";
+import styles from "./Collapsible.module.css";
 import React, { useState } from "react";
-import plus from "../../assets/plus.svg";
-import minus from "../../assets/minus.svg";
+import plus from "../../../assets/plus.svg";
+import minus from "../../../assets/minus.svg";
 
 export interface CollapsibleProps
   extends React.DetailedHTMLProps<

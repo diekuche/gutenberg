@@ -19,9 +19,9 @@ const Footer = () => {
       <Link className={styles.link} to="/legalinfo">
         Terms of Use
       </Link>
-      <a className={styles.link} href="/license">
+      <Link className={styles.link} to="/license">
         License
-      </a>
+      </Link>
       <div className={styles.create}>
         🟢 Powered by{" "}
         <a
@@ -33,7 +33,7 @@ const Footer = () => {
           Bostrom AI
         </a>
       </div>
-    </div>
+    </div >
   );
 };
 

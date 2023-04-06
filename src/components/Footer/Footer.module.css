@@ -15,14 +15,23 @@
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
-  line-height: 20px;
   margin-right: 20px;
-  line-height: 19px;
   text-decoration: none;
 }
 
 .link:hover {
   color: #EDFF8E;
+}
+
+.active {
+  color: #E2FB5F;
+  width: fit-content;
+  text-decoration: none;
+  font-family: "Bai Jamjuree", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  margin-right: 20px;
 }
 
 .linkCreate {
@@ -53,5 +62,4 @@
 .git {
   margin-right: 20px;
   height: 24px;
-  background-image: red;
 }

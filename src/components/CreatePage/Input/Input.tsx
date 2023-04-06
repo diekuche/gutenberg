@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import styles from "./index.module.css";
+import styles from "./Input.module.css";
 import classNames from "classnames";
-import info from '../../assets/info.svg';
+import info from '../../../assets/info.svg';
 
 export interface InputProps
   extends React.DetailedHTMLProps<
