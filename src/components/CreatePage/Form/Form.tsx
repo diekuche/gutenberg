@@ -1,13 +1,13 @@
-import styles from "./Form.module.css";
+import styles from "./index.module.css";
 import React, { FormEvent, useState } from "react";
-import Button from "../../Button/Button";
-import Collapsible from "../../CreatePage/Collapsible/Collapsible";
-import Input from "../../CreatePage/Input/Input";
-import { initContract } from "../../../contracts/base/contract";
+import Button from "../Button/Button";
+import Collapsible from "../Collapsible/Collapsible";
+import Input from "../Input/Input";
+import { initContract } from "../../contracts/base/contract";
 import { v4 as uuidv4 } from "uuid";
-import { initKeplr, getAddress, getContractAddress } from "../../../utils/wallet";
+import { initKeplr, getAddress, getContractAddress } from "../../utils/wallet";
 import { toast } from "react-toastify";
-import { AppStateContext } from "../../../context/AppStateContext";
+import { AppStateContext } from "../../context/AppStateContext";
 import { useContext } from "react";
 
 const initialBalance = {
@@ -129,7 +129,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           htmlFor="symbol"
           label={`Symbol:`}
           name="symbol"
-          subtitle={`How your token will be displayed in user's wallets (min 3, max 5 symbols)`}
+          subtitle={`How your token will be displayed in users'wallets (min 3, max 5 symbols)`}
           pattern={`[A-Za-z-0-9]{2,5}`}
           placeholder={`JUSD`}
           required
@@ -220,7 +220,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
       </div>
       {!address ? (
         <Button
-          color="yellow"
+          color="black"
           size="sm"
           className={styles.connectButton}
           onClick={initKeplr}
@@ -228,7 +228,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           Connect Wallet
         </Button>
       ) : (
-        <Button type="submit" color="yellow">
+        <Button type="submit" color="black">
           create!
         </Button>
       )}

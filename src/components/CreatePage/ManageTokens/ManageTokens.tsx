@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "../ManageTokens/ManageTok.module.css";
-import Button from "../../Button/Button";
-import Token from "../../Token/Token";
+import styles from "./ManageTok.module.css";
+import Button from "../Button/Button";
+import Token from "../Token/Token";
 import { useState } from "react";
 import BootSender from "../BootSender/BootSender";
-import { AppStateContext } from "../../../context/AppStateContext";
+import { AppStateContext } from "../../context/AppStateContext";
 import { useContext } from "react";
 
 interface TokenProps {
@@ -65,29 +65,30 @@ function ManageTokens(props: TokenProps) {
               />
             ))}
           </div>
-
-          {isShown && (
-            <div className={styles.inputs}>
-              <div className={styles.info}>
-                To add a token, specify its address:</div>
+          <div className={styles.inputs}>
+            <div className={styles.info}>
+              To add a token, specify its address:
+            </div>
+            {isShown && (
               <input
                 type="text"
                 className={styles.addContract}
                 value={contract}
                 onChange={handleChangeContractAddress}
               />
-            </div>
+            )}
+            <Button
+              color="green"
+              type="button"
+              size="lg"
+              onClick={addContract}
+              className={styles.addTokenButton}
+            >
+              Add Token
+            </Button>
 
-          )}
-          <Button
-            color="green"
-            type="button"
-            onClick={addContract}
-            className={styles.addTokenButton}
-          >
-            Add Token
-          </Button>
-          {isVisible && <div className={styles.error}>Token not found</div>}
+            {isVisible && <div className={styles.error}>Token not found</div>}
+          </div>
         </div>
       ) : (
         <div className={styles.info2}>

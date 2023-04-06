@@ -14,6 +14,8 @@ import NewButton from "./components/newButton/newButton";
 import Swap from "./components/Swap/Swap";
 import ManageAssets from "./components/ManageAssets/ManageAssets";
 import License from "./components/LicensePage/LicensePage";
+import { GrazProvider } from "graz";
+import { CustomChains } from "../src/utils/config";
 
 declare global {
   interface Window extends KeplrWindow { }
@@ -28,10 +30,10 @@ function App() {
           <Router>
             <HeaderSpoiler />
             <Routes>
-              <Route path="/" element={<WelcomPage />}></Route>
+              <Route path="/" element={<Main />}></Route>
               <Route path="/legalinfo" element={<LegalPage />}></Route>
               <Route path="/License" element={<License />}></Route>
-              <Route path="/create" element={<CreatePage />}></Route>
+              <Route path="/create" element={<MainPage />}></Route>
               <Route path="/newBT" element={<NewButton />}></Route>
               <Route path="/swap" element={<Swap />}></Route>
               <Route path="/manage-assets" element={<ManageAssets />}></Route>
@@ -43,6 +45,7 @@ function App() {
         </AppStateContext.Provider>
       </div>
     </div>
+    </GrazProvider >
   );
 }
 
