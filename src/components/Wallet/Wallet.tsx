@@ -1,44 +1,31 @@
-import { useEffect, useCallback } from "react";
-import { initKeplr, getAddress } from "../../utils/wallet";
 import Button from "../Button/Button";
 import styles from "./Wallet.module.css";
-import { AppStateContext } from "../../context/AppStateContext";
-import { useContext } from "react";
+import { useAccount, useConnect, useDisconnect } from "graz";
 
 const Wallet: React.FC = () => {
-  const { address, setAddress } = useContext(AppStateContext);
+  const { connect } = useConnect();
+  const { data: account, isConnected } = useAccount();
+  const { disconnect } = useDisconnect();
 
-  const fetchAddress = useCallback(async () => {
-    let response = await getAddress();
-    if (response) {
-      setAddress(response);
-    }
-  }, [setAddress]);
-
-  useEffect(() => {
-    fetchAddress();
-    let timer = setTimeout(() => {
-      if (address) {
-        fetchAddress();
-      }
-    }, 30000);
-
-    return () => clearTimeout(timer);
-  }, [address, fetchAddress]);
-
-  const connectWallet = async () => {
-    await initKeplr();
-    fetchAddress();
+  const connectWallet = () => {
+    isConnected ? disconnect() : connect();
   };
 
   return (
-    <div>
-      <Button color="white" className={styles.wallet} onClick={connectWallet}>
-        {address
-          ? `${address.slice(0, 10)}...${address.slice(-10, -5)}`
+    <Button
+      color="white"
+      className={`${styles.wallet} ${account ? styles.connected : ""}`}
+      onClick={connectWallet}
+    >
+      <div className={styles.address}>
+        {account
+          ? `${account.bech32Address.slice(
+              0,
+              10
+            )}...${account.bech32Address.slice(-10, -5)}`
           : "Connect Wallet"}
-      </Button>
-    </div>
+      </div>
+    </Button>
   );
 };
 export default Wallet;
