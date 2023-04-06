@@ -32,6 +32,14 @@
   margin-top: 40px;
 }
 
+.black:hover {
+  background-color: #edff8e;
+  border: 0px 1px 1px 1px;
+  border-style: solid;
+  border-color: #e2fb5f;
+  color: rgba(6, 15, 25, 0.9);
+}
+
 .white {
   position: relative;
   vertical-align: top;
