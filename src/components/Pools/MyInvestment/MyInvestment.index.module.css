@@ -1,0 +1,39 @@
+.nameHead {
+  color: #e2fb5f;
+  font-style: bold;
+  font-size: 43px;
+  line-height: 54px;
+}
+.myActive {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 20px;
+  background: rgba(124, 196, 219, 0.05);
+  backdrop-filter: blur(9px);
+}
+.nameColumn {
+  font-size: 14px;
+  line-height: 18px;
+}
+.total {
+  color: #f6f8fe;
+  padding: 42px 102px 41px 41px;
+}
+.rewards {
+  color: rgba(246, 248, 254, 0.4);
+  padding-right: 286px;
+}
+.buttonClaim {
+  background: rgba(126, 126, 126, 0.4);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #5f5e5e;
+  margin-right: 25px;
+  padding: 13px 81px;
+}
+.cash {
+  font-style: 200;
+  font-size: 36px;
+  line-height: 45px;
+}

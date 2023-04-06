@@ -1,4 +1,4 @@
-.list {
+.main {
   display: flex;
   flex-direction: column;
   padding-top: 30px;
@@ -23,16 +23,17 @@
   font-family: "Bai Jamjuree", sans-serif;
 }
 .buttonCreate:hover {
-  background-color: #e2fb5f;
+  box-shadow: none;
   color: #060f19;
+  background-color: #e2fb5f;
 }
-.tllist {
+.tokenList {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
 }
-.tableTL {
+.tableToken {
   background-color: rgba(22, 40, 51, 0.9);
   border-radius: 16px;
   border-collapse: collapse;
@@ -44,34 +45,37 @@ td {
   padding-bottom: 19px;
 }
 .network,
-.pool,
-.tl,
-.bon,
-.ar {
+.pair,
+.totalLiquiity,
+.volume,
+.arpHead {
   font-size: 14px;
   line-height: 18px;
   font-weight: 200;
   color: rgba(246, 248, 254, 0.4);
 }
 
-.poolarp {
+.pairArp {
   display: flex;
   color: rgba(246, 248, 254, 0.7);
-  padding-right: 103px;
+  padding-right: 130px;
   font-size: 18px;
   line-height: 23px;
 }
-.tlb {
+.cash {
   color: rgba(246, 248, 254, 0.7);
   padding-right: 50px;
   padding-left: 50px;
   font-size: 18px;
   line-height: 23px;
 }
-.trcolor {
+.stringTokens {
   background-color: rgba(67, 151, 178, 0.1);
 }
-.pool {
+.stringTokens:hover {
+  background-color: rgba(115, 237, 201, 0.2);
+}
+.pair {
   text-align: start;
   padding: 9px 18px;
 }
@@ -103,16 +107,6 @@ td {
   -webkit-text-fill-color: transparent;
 }
 
-.searchfil {
-  display: flex;
-  color: #43b25b;
-  font-size: 18px;
-  font-weight: 200;
-  margin-left: 11px;
-}
-.iconfilter {
-  padding-left: 25px;
-}
 .page {
   display: flex;
   color: rgba(246, 248, 254, 0.4);
@@ -129,11 +123,8 @@ td {
 .downarrow {
   margin-left: 6px;
 }
-.usd,
-.dk {
-  padding-right: 8px;
-}
-.inp::placeholder {
+
+.filterTokens::placeholder {
   color: #43b25b;
   font-size: 18px;
   padding-left: 40px;
@@ -142,8 +133,8 @@ td {
   background-position: 5px;
   font-family: "Bai Jamjuree", sans-serif;
 }
-.inp {
-  padding: 19px 413px 15px 15px;
+.filterTokens {
+  padding: 19px 0px 15px 15px;
   background-color: rgba(22, 40, 51, 0.9);
   border-radius: 16px;
   border: none;
@@ -151,10 +142,9 @@ td {
   color: #e2fb5f;
   font-size: 16px;
   font-family: "Bai Jamjuree", sans-serif;
+  width: 615px;
 }
-.test {
-  padding-left: 10px;
-}
+
 .secondString {
   display: flex;
 
