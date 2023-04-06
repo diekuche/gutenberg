@@ -7,7 +7,7 @@ import SelectCustom from "../SelectCustom/SelectCustom";
 import ChainUX from "../Chain/ChainUX";
 
 const HeaderSpoiler = () => {
-  const [selectedChain, setSelectedChain] = useState<"bostrom" | "juno">(
+  const [, /*selectedChain*/ setSelectedChain] = useState<"bostrom" | "juno">(
     "bostrom"
   );
 
