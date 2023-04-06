@@ -1,0 +1,28 @@
+.token {
+  display: flex;
+  color: white;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  padding-right: 10px;
+}
+
+.name {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  margin:0;
+  width: 150px;
+  color: white;
+}
+
+.nameWrapper {
+  display: flex;
+  flex-direction: column;
+}
+

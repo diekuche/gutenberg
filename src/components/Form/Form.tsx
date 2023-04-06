@@ -7,8 +7,7 @@ import { initContract } from "../../contracts/base/contract";
 import { v4 as uuidv4 } from "uuid";
 import { initKeplr, getAddress, getContractAddress } from "../../utils/wallet";
 import { toast } from "react-toastify";
-import { AppStateContext } from "../../context/AppStateContext";
-import { useContext } from "react";
+import { useAccount } from "graz";
 
 const initialBalance = {
   id: uuidv4(),
@@ -26,7 +25,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
     initialBalance,
   ]);
   const [description, setDescription] = useState("");
-  const { address } = useContext(AppStateContext);
+  const { isConnected } = useAccount();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -97,20 +96,20 @@ export const Form = ({ setInitial, initial }: FormProps) => {
 
   const handleChangeInitialBalance =
     (id: string, name: string) =>
-      (event: React.ChangeEvent<HTMLInputElement>) => {
-        setBalances(
-          balances.map((balance) => {
-            if (balance.id === id) {
-              return {
-                ...balance,
-                [name]: event.target.value,
-              };
-            } else {
-              return balance;
-            }
-          })
-        );
-      };
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setBalances(
+        balances.map((balance) => {
+          if (balance.id === id) {
+            return {
+              ...balance,
+              [name]: event.target.value,
+            };
+          } else {
+            return balance;
+          }
+        })
+      );
+    };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -202,8 +201,10 @@ export const Form = ({ setInitial, initial }: FormProps) => {
         </Collapsible>
         <Collapsible title="Token details">
           <div className={styles.article}>
-            This information will be displayed in the description of the created token
-            <br />(max 160 symbols):
+            This information will be displayed in the description of the created
+            token
+            <br />
+            (max 160 symbols):
           </div>
           <Input
             value={description}
@@ -213,12 +214,9 @@ export const Form = ({ setInitial, initial }: FormProps) => {
             }
             isTextArea
           />
-
         </Collapsible>
-
-
       </div>
-      {!address ? (
+      {!isConnected ? (
         <Button
           color="black"
           size="sm"
