@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Wallet from "../Wallet/Wallet";
 import SelectCustom from "../SelectCustom/SelectCustom";
 import { CustomChains } from "../../utils/config";
-import { mainnetChains, useSuggestChainAndConnect } from "graz";
+import { mainnetChains, useSuggestChainAndConnect, useActiveChain } from "graz";
 import ChainUX from "../Chain/ChainUX";
 
 const options = [
@@ -17,10 +17,14 @@ const options = [
   },
 ];
 
-const defaultValue = options[0];
+console.log("options", options);
 
 const HeaderSpoiler = () => {
   const { suggestAndConnect } = useSuggestChainAndConnect();
+  const activeChain = useActiveChain();
+  const defaultValue =
+    options.find((option) => option.value.chainId === activeChain?.chainId) ||
+    options[0];
 
   const handleSelect = ({ value }: any) => {
     suggestAndConnect({ chainInfo: value });

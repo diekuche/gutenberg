@@ -1,7 +1,6 @@
 import { Coin, StargateClient } from "@cosmjs/stargate";
 import { configKeplr, CYBER } from "./config";
-import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
-import { SigningCyberClient, CyberClient } from "@cybercongress/cyber-js";
+import { SigningCyberClient } from "@cybercongress/cyber-js";
 import { GasPrice } from "@cosmjs/launchpad";
 import { calculateFee } from "@cosmjs/stargate";
 
@@ -41,35 +40,6 @@ export const getDisconnected = async () => {
       const result = await client.disconnect();
       return console.log("disconnected", result);
     }
-  }
-};
-
-export const getContractInfo = async (
-  contractAddress: string,
-  address: string
-) => {
-  const tendermintClient = await Tendermint34Client.connect(
-    CYBER.CYBER_NODE_URL_API
-  );
-  // @ts-ignore next-line
-  const queryClient = new CyberClient(tendermintClient);
-  const result = await Promise.all([
-    queryClient.queryContractSmart(contractAddress, {
-      balance: { address },
-    }),
-    queryClient.queryContractSmart(contractAddress, {
-      token_info: {},
-    }),
-    queryClient.queryContractSmart(contractAddress, {
-      marketing_info: {},
-    }),
-  ]);
-  if (result && result.length === 3) {
-    return {
-      ...result[0],
-      ...result[1],
-      ...result[2],
-    };
   }
 };
 
