@@ -19,7 +19,9 @@ td {
   padding-top: 19px;
   padding-bottom: 19px;
 }
-
+.arpHead {
+  padding-left: 15px;
+}
 .pair,
 .totalLiquiity,
 .volume,
@@ -68,7 +70,7 @@ td {
 .arp {
   color: #f6f8fe;
   padding-left: 20px;
-  padding-right: 20px;
+
   font-weight: bold;
   font-size: 18px;
   line-height: 23px;
