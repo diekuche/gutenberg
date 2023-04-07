@@ -8,7 +8,7 @@ export interface InputProps
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
   > {
-  label: string;
+  label?: string;
   htmlFor?: string;
   subtitle?: string | undefined;
   isTextArea?: boolean;
@@ -41,7 +41,7 @@ export const Input = (props: InputComponentProps) => {
         {props.required && <span className={styles.star}>*</span>}
         {props.subtitle && <img src={info} alt="" className={styles.image} onMouseEnter={() => setShowSubtitle(true)} onMouseLeave={() => setShowSubtitle(false)} />}
         {showSubtitle && <div className={styles.subtitle}>{props.subtitle}</div>}
-  
+
       </div>
 
       <InputComponent

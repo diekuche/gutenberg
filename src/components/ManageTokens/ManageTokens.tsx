@@ -3,20 +3,25 @@ import styles from "./ManageTok.module.css";
 import Button from "../Button/Button";
 import Token from "../Token/Token";
 import { useState } from "react";
-import BootSender from "../BootSender/BootSender";
-import { AppStateContext } from "../../context/AppStateContext";
-import { useContext } from "react";
+import TokenSender from "../TokenSender/TokenSender";
+import { useAccount, validateAddress } from "graz";
 
 interface TokenProps {
-  initial: string[];
-  setInitial: (st: string[]) => void;
+  userTokens: any;
+  addUserToken: (contractAddress: string) => void;
+  removeUserToken: (contractAddress: string) => void;
 }
 
-function ManageTokens(props: TokenProps) {
+function ManageTokens({
+  userTokens,
+  addUserToken,
+  removeUserToken,
+}: TokenProps) {
   const [contract, setContract] = useState("");
   const [isVisible, setVisible] = useState(false);
-  const [isShown, setIsShown] = useState(false);
-  const { address } = useContext(AppStateContext);
+  const { data: account, isConnected } = useAccount();
+  const currentTokens = userTokens[account?.bech32Address!] || [];
+  const chainPrefix: any = account?.bech32Address?.slice(0, 4);
 
   function handleChangeContractAddress(event: any) {
     const response = event.target.value;
@@ -26,24 +31,15 @@ function ManageTokens(props: TokenProps) {
   }
 
   function addContract() {
-    if (contract.includes("bostrom")) {
-      props.setInitial([...props.initial, contract]);
+    if (validateAddress(contract, chainPrefix)) {
+      addUserToken(contract);
+      setContract("");
     } else {
+      alert("Invalid contract address");
       setVisible(true);
       setTimeout(() => {
         setVisible(false);
       }, 2000);
-    }
-    setContract("");
-    setIsShown(true);
-  }
-
-  function removeContract(contract: string) {
-    if (contract) {
-      const newInitial = props.initial.filter(
-        (_contract) => _contract !== contract
-      );
-      props.setInitial(newInitial);
     }
   }
 
@@ -53,14 +49,14 @@ function ManageTokens(props: TokenProps) {
         <div className={styles.name}>Assets</div>
       </div>
 
-      {address ? (
+      {isConnected ? (
         <div className={styles.tokens}>
-          <BootSender></BootSender>
+          <TokenSender />
           <div className={styles.tokenList}>
-            {props.initial.map((contract) => (
+            {currentTokens.map((contractAddress: any) => (
               <Token
-                contractAddress={contract}
-                removeContract={removeContract}
+                contractAddress={contractAddress}
+                removeContract={removeUserToken}
                 key={contract}
               />
             ))}
@@ -69,14 +65,12 @@ function ManageTokens(props: TokenProps) {
             <div className={styles.info}>
               To add a token, specify its address:
             </div>
-            {isShown && (
-              <input
-                type="text"
-                className={styles.addContract}
-                value={contract}
-                onChange={handleChangeContractAddress}
-              />
-            )}
+            <input
+              type="text"
+              className={styles.addContract}
+              value={contract}
+              onChange={handleChangeContractAddress}
+            />
             <Button
               color="green"
               type="button"

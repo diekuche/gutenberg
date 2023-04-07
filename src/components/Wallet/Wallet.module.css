@@ -1,3 +1,22 @@
 .disconnect:hover {
-    background-color: rgba(126, 126, 126, 0.4)
+  background-color: red;
 }
+
+.wallet {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  height: 45px;
+}
+
+.address {
+  height: 20px;
+  width: 150px;
+}
+
+.connected {
+  background-color: rgba(67, 151, 178, 0.1) !important;
+  color: #43B25B !important;
+}
+

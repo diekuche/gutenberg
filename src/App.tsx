@@ -14,6 +14,8 @@ import NewButton from "./components/newButton/newButton";
 import Swap from "./components/Swap/Swap";
 import ManageAssets from "./components/ManageAssets/ManageAssets";
 import License from "./components/LicensePage/LicensePage";
+import { GrazProvider } from "graz";
+import { CustomChains } from "../src/utils/config";
 import Pools from "./components/Pools/Pools";
 
 declare global {
@@ -23,28 +25,33 @@ declare global {
 function App() {
   const [address, setAddress] = useState("");
   return (
-    <div className="App">
-      <div className="container">
-        <AppStateContext.Provider value={{ address, setAddress }}>
-          <Router>
-            <HeaderSpoiler />
-            <Routes>
-              <Route path="/" element={<Main />}></Route>
-              <Route path="/legalinfo" element={<LegalPage />}></Route>
-              <Route path="/License" element={<License />}></Route>
-              <Route path="/create" element={<MainPage />}></Route>
-              <Route path="/newBT" element={<NewButton />}></Route>
-              <Route path="/swap" element={<Swap />}></Route>
-              <Route path="/manage-assets" element={<ManageAssets />}></Route>
-              <Route path="/pools" element={<Pools />}></Route>
-            </Routes>
-            <Footer />
-          </Router>
+    <GrazProvider
+      grazOptions={{
+        defaultChain: CustomChains.bostrom,
+      }}
+    >
+      <div className="App">
+        <div className="container">
+          <AppStateContext.Provider value={{ address, setAddress }}>
+            <Router>
+              <HeaderSpoiler />
+              <Routes>
+                <Route path="/" element={<Main />}></Route>
+                <Route path="/legalinfo" element={<LegalPage />}></Route>
+                <Route path="/License" element={<License />}></Route>
+                <Route path="/create" element={<MainPage />}></Route>
+                <Route path="/newBT" element={<NewButton />}></Route>
+                <Route path="/swap" element={<Swap />}></Route>
+                <Route path="/manage-assets" element={<ManageAssets />}></Route>
+              </Routes>
+              <Footer />
+            </Router>
 
-          <ToastContainer autoClose={false} />
-        </AppStateContext.Provider>
+            <ToastContainer autoClose={false} />
+          </AppStateContext.Provider>
+        </div>
       </div>
-    </div>
+    </GrazProvider>
   );
 }
 
