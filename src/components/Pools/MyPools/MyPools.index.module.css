@@ -9,24 +9,7 @@
   display: flex;
   justify-content: space-between;
 }
-.buttonCreate {
-  display: flex;
-  margin-top: 13px;
-  border-radius: 8px;
-  height: 50px;
-  font-size: 32px;
-  line-height: 40px;
-  align-self: center;
-  background-color: rgba(28, 28, 28, 0);
-  border: 1px solid;
-  color: #e2fb5f;
-  font-family: "Bai Jamjuree", sans-serif;
-}
-.buttonCreate:hover {
-  box-shadow: none;
-  color: #060f19;
-  background-color: #e2fb5f;
-}
+
 .tokenList {
   display: flex;
   justify-content: center;
@@ -37,6 +20,7 @@
   background-color: rgba(22, 40, 51, 0.9);
   border-radius: 16px;
   border-collapse: collapse;
+  width: 818px;
 }
 
 td {
@@ -44,7 +28,7 @@ td {
   padding-top: 19px;
   padding-bottom: 19px;
 }
-.network,
+
 .pair,
 .totalLiquiity,
 .volume,
@@ -53,18 +37,28 @@ td {
   line-height: 18px;
   font-weight: 200;
   color: rgba(246, 248, 254, 0.4);
+  width: 150px;
 }
-
+.volume,
+.bondedCash {
+  text-align: right;
+  padding-right: 25px;
+}
+.bondedCash {
+  color: rgba(246, 248, 254, 0.7);
+  font-size: 18px;
+  line-height: 23px;
+}
 .pairArp {
   display: flex;
   color: rgba(246, 248, 254, 0.7);
-  padding-right: 130px;
+  padding-right: 40px;
   font-size: 18px;
   line-height: 23px;
 }
 .cash {
   color: rgba(246, 248, 254, 0.7);
-  padding-right: 50px;
+  padding-right: 56px;
   padding-left: 50px;
   font-size: 18px;
   line-height: 23px;
@@ -99,51 +93,23 @@ td {
 }
 .name {
   display: flex;
-  color: rgba(67, 178, 91, 0.15);
-  font-weight: 700;
-  font-size: 120px;
-  line-height: 150px;
-  background: linear-gradient(306.95deg, #e2fb5f 10.17%, #0fefd4 101.39%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: rgba(115, 237, 201, 0.7);
+  font-size: 24px;
+  line-height: 30px;
+  font-style: medium;
+  margin: 5px 0px;
 }
 
 .page {
   display: flex;
   color: rgba(246, 248, 254, 0.4);
-  font-style: Light;
+  font-weight: 100;
   font-size: 14px;
   margin: 10px 0px 10px -38px;
 }
-.leftarrow {
-  margin-right: 10px;
-}
-.rightarrow {
-  margin-left: 10px;
-}
+
 .downarrow {
   margin-left: 6px;
-}
-
-.filterTokens::placeholder {
-  color: #43b25b;
-  font-size: 18px;
-  padding-left: 40px;
-  background-image: url("../../assets/filter.svg");
-  background-repeat: no-repeat;
-  background-position: 5px;
-  font-family: "Bai Jamjuree", sans-serif;
-}
-.filterTokens {
-  padding: 19px 0px 15px 15px;
-  background-color: rgba(22, 40, 51, 0.9);
-  border-radius: 16px;
-  border: none;
-  outline: none;
-  color: #e2fb5f;
-  font-size: 16px;
-  font-family: "Bai Jamjuree", sans-serif;
-  width: 615px;
 }
 
 .secondString {
@@ -160,14 +126,8 @@ td {
 .group {
   padding-left: 18px;
 }
-.leftButton {
+.buttonDown {
   background: rgba(22, 40, 51, 0.9);
+  padding: 10px 0px;
   border: none;
-}
-.rightButton {
-  background: rgba(22, 40, 51, 0.9);
-  border: none;
-}
-.pages {
-  padding-top: 2px;
 }

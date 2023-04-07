@@ -6,6 +6,8 @@ import leftarrow from "../../assets/greyArrowLeft.svg";
 import rightarrow from "../../assets/greyArrowRight.svg";
 import greyArrowDown from "../../assets/greyArrowDown.svg";
 import MyInvestment from "../Pools/MyInvestment/MyInvestment";
+import MyPools from "./MyPools/MyPools";
+import { Duplex } from "stream";
 
 const Pools = () => {
   return (
@@ -15,6 +17,7 @@ const Pools = () => {
         <button className={styles.buttonCreate}>create new pools!</button>
       </div>
       <MyInvestment />
+      <MyPools />
       <div className={styles.secondString}>
         <div className={styles.string}>all pools</div>
         <input
@@ -95,13 +98,22 @@ const Pools = () => {
               <th></th>
               <th></th>
               <div className={styles.page}>
-                <img className={styles.leftarrow} src={leftarrow} alt=""></img>
-                Page 1 of 2
-                <img
-                  className={styles.rightarrow}
-                  src={rightarrow}
-                  alt=""
-                ></img>
+                <button className={styles.leftButton}>
+                  <img
+                    className={styles.leftarrow}
+                    src={leftarrow}
+                    alt=""
+                  ></img>
+                </button>
+                <div className={styles.pages}>Page 1 of 2</div>
+
+                <button className={styles.rightButton}>
+                  <img
+                    className={styles.rightarrow}
+                    src={rightarrow}
+                    alt=""
+                  ></img>
+                </button>
               </div>
             </tr>
           </tbody>

@@ -3,6 +3,7 @@
   font-style: bold;
   font-size: 43px;
   line-height: 54px;
+  margin-bottom: 9px;
 }
 .myActive {
   display: flex;
