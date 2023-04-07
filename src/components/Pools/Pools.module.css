@@ -88,14 +88,16 @@ td {
   font-size: 18px;
   line-height: 23px;
 }
+
+.atom,
 .circle {
+  position: relative;
   width: 18px;
-  padding-right: 8px;
 }
 .atom {
-  left: 15px;
-  margin-left: 10px;
-  width: 18px;
+  left: 3px;
+  z-index: 10;
+  padding-left: 10px;
 }
 .name {
   display: flex;

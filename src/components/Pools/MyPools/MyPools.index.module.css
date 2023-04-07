@@ -1,21 +1,12 @@
-.main {
+.name {
   display: flex;
-  flex-direction: column;
-  padding-top: 30px;
-  justify-content: flex-start;
-  margin: auto;
-}
-.firstString {
-  display: flex;
-  justify-content: space-between;
+  color: rgba(115, 237, 201, 0.7);
+  font-size: 24px;
+  line-height: 30px;
+  font-style: medium;
+  margin: 5px 0px;
 }
 
-.tokenList {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
 .tableToken {
   background-color: rgba(22, 40, 51, 0.9);
   border-radius: 16px;
@@ -82,24 +73,17 @@ td {
   font-size: 18px;
   line-height: 23px;
 }
+
+.atom,
 .circle {
+  position: relative;
   width: 18px;
-  padding-right: 8px;
 }
 .atom {
-  left: 15px;
-  margin-left: 10px;
-  width: 18px;
+  left: 3px;
+  z-index: 10;
+  padding-left: 10px;
 }
-.name {
-  display: flex;
-  color: rgba(115, 237, 201, 0.7);
-  font-size: 24px;
-  line-height: 30px;
-  font-style: medium;
-  margin: 5px 0px;
-}
-
 .page {
   display: flex;
   color: rgba(246, 248, 254, 0.4);
@@ -112,20 +96,6 @@ td {
   margin-left: 6px;
 }
 
-.secondString {
-  display: flex;
-
-  margin-top: 10px;
-}
-.string {
-  color: yellow;
-  font-size: 43px;
-  line-height: 54px;
-  margin-right: 20px;
-}
-.group {
-  padding-left: 18px;
-}
 .buttonDown {
   background: rgba(22, 40, 51, 0.9);
   padding: 10px 0px;

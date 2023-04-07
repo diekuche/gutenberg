@@ -10,7 +10,7 @@ const MyPools = () => {
     <div>
       <div className={styles.name}>my pools</div>
       <table className={styles.tableToken}>
-        <thead className={styles.tableHead}>
+        <thead>
           <tr>
             <th className={styles.pair}>Pair</th>
             <th className={styles.arpHead}>ARP</th>
