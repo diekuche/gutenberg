@@ -43,6 +43,7 @@ function App() {
                 <Route path="/newBT" element={<NewButton />}></Route>
                 <Route path="/swap" element={<Swap />}></Route>
                 <Route path="/manage-assets" element={<ManageAssets />}></Route>
+                <Route path="/pools" element={<Pools />}></Route>
               </Routes>
               <Footer />
             </Router>

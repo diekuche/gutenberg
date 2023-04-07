@@ -7,7 +7,6 @@ import rightarrow from "../../assets/greyArrowRight.svg";
 import greyArrowDown from "../../assets/greyArrowDown.svg";
 import MyInvestment from "../Pools/MyInvestment/MyInvestment";
 import MyPools from "./MyPools/MyPools";
-import { Duplex } from "stream";
 
 const Pools = () => {
   return (
