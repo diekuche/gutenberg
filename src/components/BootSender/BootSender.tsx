@@ -86,7 +86,7 @@ function BootSender() {
             onChange={handleSendChange("amount")}
           />
           <Button
-            color="white"
+            color="sendButton"
             type="button"
             className={styles.tokenButton}
             onClick={(e: any) => getBootSent(balance.recepient, balance.amount)}

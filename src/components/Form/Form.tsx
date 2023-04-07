@@ -96,20 +96,20 @@ export const Form = ({ setInitial, initial }: FormProps) => {
 
   const handleChangeInitialBalance =
     (id: string, name: string) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setBalances(
-        balances.map((balance) => {
-          if (balance.id === id) {
-            return {
-              ...balance,
-              [name]: event.target.value,
-            };
-          } else {
-            return balance;
-          }
-        })
-      );
-    };
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        setBalances(
+          balances.map((balance) => {
+            if (balance.id === id) {
+              return {
+                ...balance,
+                [name]: event.target.value,
+              };
+            } else {
+              return balance;
+            }
+          })
+        );
+      };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -218,7 +218,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
       </div>
       {!isConnected ? (
         <Button
-          color="black"
+          color="yellow"
           size="sm"
           className={styles.connectButton}
           onClick={initKeplr}
@@ -226,7 +226,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           Connect Wallet
         </Button>
       ) : (
-        <Button type="submit" color="black">
+        <Button type="submit" color="yellow">
           create!
         </Button>
       )}

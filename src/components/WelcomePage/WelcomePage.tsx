@@ -1,6 +1,6 @@
 import React from "react";
-import BasicWindow from "../BasicWindow/BasicWindow";
-import ManageTok from "../ManageTok/ManageTok";
+import BasicWindow from "./BasicWindow/BasicWindow";
+import ManageTok from "./Roadmap/Roadmap";
 
 const Main = () => {
   return (
