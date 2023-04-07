@@ -1,21 +1,26 @@
 import React from "react";
-import styles from "./BootSender.module.css";
+import styles from "./TokenSender.module.css";
 import Button from "../Button/Button";
 import { useState, useEffect } from "react";
-import { getAddress, getBalance, sendBoot } from "../../utils/wallet";
-import { Coin } from "@cosmjs/stargate";
+import { getBalance, sendBoot } from "../../utils/wallet";
+import { coins } from "@cosmjs/stargate";
 import collapse_arrow from "../../assets/collapse_arrow.svg";
+import { useBalances, useAccount } from "graz";
 
 const sendBalance = {
   recepient: "",
   amount: "",
 };
 
-function BootSender() {
+function TokenSender() {
   const [bootBalance, setBootBalance] = useState("");
   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
   const [isSent, setSent] = useState(false);
   const [open, setOpen] = useState(false);
+  const { data: balances = [], refetch } = useBalances();
+  const { data: account } = useAccount();
+
+  const currentBalance = balances[0];
 
   const collapse = () => {
     setOpen(!open);
@@ -43,27 +48,37 @@ function BootSender() {
     };
   }, [setSent]);
 
-  async function getBootSent(recepientAddress: string, amount: string) {
-    let coin: readonly Coin[];
-    coin = [{ denom: "boot", amount: amount }];
-    const senderAddress = await getAddress();
-    if (senderAddress && recepientAddress !== "" && amount !== "") {
-      const response = await sendBoot(senderAddress, recepientAddress, coin);
+  async function getBootSent(recipientAddress: string, amount: string) {
+    if (recipientAddress !== "" && amount !== "") {
+      const response = await sendBoot(
+        account?.bech32Address!,
+        recipientAddress,
+        coins(amount, currentBalance.denom)
+      );
       if (response) {
         setSent(true);
 
         setTimeout(() => {
           setSent(false);
         }, 2000);
+
+        setTimeout(() => {
+          refetch();
+        }, 10000);
+
+        setBalance({ recepient: "", amount: "" });
       }
-      setBalance({ recepient: "", amount: "" });
     }
+  }
+
+  if (!currentBalance) {
+    return null;
   }
 
   return (
     <div className={styles.contractData}>
       <button className={styles.cashName} onClick={collapse}>
-        <div className={styles.token}>🟢 BOOT</div>
+        <div className={styles.token}>🟢 {currentBalance.denom}</div>
         <img src={collapse_arrow} alt="" className={styles.image} />
         <div className={styles.balance}>
           {Number(bootBalance).toLocaleString()}
@@ -101,4 +116,4 @@ function BootSender() {
   );
 }
 
-export default BootSender;
+export default TokenSender;

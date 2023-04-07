@@ -1,21 +1,17 @@
 import React from "react";
 import styles from "./Token.module.css";
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import Button from "../Button/Button";
-import { getContractInfo, getAddress, sendTokens } from "../../utils/wallet";
 import deleteButton from "../../assets/Button_Delite.svg";
 import collapse_arrow from "../../assets/collapse_arrow.svg";
+import { useQuerySmart, useAccount, useExecuteContract } from "graz";
+import { GasPrice } from "@cosmjs/launchpad";
+
+const gasPrice = GasPrice.fromString("0.001boot") as any;
 
 interface ContractDataProps {
   contractAddress: string;
   removeContract: (contract: string) => void;
-}
-
-interface ContractData {
-  token: string;
-  balance: number;
-  logo: string;
-  marketingAddress: string;
 }
 
 const sendBalance = {
@@ -24,10 +20,28 @@ const sendBalance = {
 };
 
 export function Token({ contractAddress, removeContract }: ContractDataProps) {
-  const [contractData, setContractData] = useState<ContractData>();
   const [open, setOpen] = useState(false);
   const [isSent, setSent] = useState(false);
   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
+  const { data: account } = useAccount();
+  const { data: tokenBalance } = useQuerySmart<any, any>(contractAddress, {
+    balance: { address: account?.bech32Address },
+  });
+  const { data: tokenInfo } = useQuerySmart<any, any>(contractAddress, {
+    token_info: {},
+  });
+  const { data: marketingInfo } = useQuerySmart<any, any>(contractAddress, {
+    marketing_info: {},
+  });
+  const { executeContract } = useExecuteContract<any>({
+    contractAddress,
+    onError: (error) => {
+      console.log("error", error);
+    },
+    onSuccess: (success) => {
+      console.log("success", success);
+    },
+  });
 
   const collapse = () => {
     setOpen(!open);
@@ -46,47 +60,33 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
     recepient: string,
     amount: string
   ) {
-    const response = await sendTokens(contractAddress, recepient, amount);
-    if (response && contractData) {
-      setSent(true);
-      setContractData({
-        ...contractData,
-        balance: +contractData.balance - +balance.amount,
-      });
-
-      setTimeout(() => {
-        setSent(false);
-      }, 2000);
-    }
-    setBalance({ recepient: "", amount: "" });
+    setSent(true);
+    executeContract({
+      msg: {
+        transfer: {
+          amount,
+          recepient,
+        },
+      },
+      fee: gasPrice,
+    });
+    // const response = await sendTokens(contractAddress, recepient, amount);
+    // if (response && contractData) {
+    //   setSent(true);
+    //   setContractData({
+    //     ...contractData,
+    //     balance: +contractData.balance - +balance.amount,
+    //   });
+    //   setTimeout(() => {
+    //     setSent(false);
+    //   }, 2000);
+    // }
+    // setBalance({ recepient: "", amount: "" });
   }
-
-  const fetchContracts = useCallback(async () => {
-    const address = await getAddress();
-    if (address) {
-      const response = await getContractInfo(contractAddress, address);
-      if (response !== undefined) {
-        setContractData({
-          token: response.symbol,
-          balance: response.balance,
-          logo: response.logo.url,
-          marketingAddress: response.marketing,
-        });
-      }
-    }
-  }, [contractAddress]);
-
-  useEffect(() => {
-    fetchContracts();
-    const interval = setInterval(() => fetchContracts(), 30000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [fetchContracts]);
 
   return (
     <>
-      {contractData ? (
+      {tokenBalance && tokenInfo && marketingInfo ? (
         <div className={styles.contractData}>
           <div className={styles.tokenTitle}>
             <button
@@ -94,19 +94,17 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
               onClick={collapse}
               className={styles.cashName}
             >
-              {contractData.logo && contractData.logo.length > 10 ? (
+              {marketingInfo.logo?.url && (
                 <img
-                  src={contractData.logo}
+                  src={marketingInfo.logo?.url}
                   alt=""
                   className={styles.logo}
                 ></img>
-              ) : (
-                <div className={styles.logo}>{contractData.logo}</div>
               )}
-              <div className={styles.token}>{contractData.token}</div>
+              <div className={styles.token}>{tokenInfo.name}</div>
               <img src={collapse_arrow} alt="" className={styles.image} />
               <div className={styles.balance}>
-                {Number(contractData.balance).toLocaleString()}
+                {Number(tokenBalance.balance).toLocaleString()}
               </div>
             </button>
             <button
