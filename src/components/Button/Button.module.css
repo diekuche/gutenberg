@@ -4,13 +4,13 @@
   color: #060F19;
   background-color: #e2fb5f;
   border-radius: 8px;
-  background-color: transparent;
   font-family: "Bai Jamjuree", sans-serif;
   font-size: 15px;
   font-weight: 400;
   text-transform: lowercase;
   align-self: center;
   cursor: pointer;
+  border-style: none
 }
 
 .sendButton:hover {

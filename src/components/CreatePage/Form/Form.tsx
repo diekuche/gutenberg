@@ -1,14 +1,13 @@
-import styles from "./index.module.css";
+import styles from "./Form.module.css";
 import React, { FormEvent, useState } from "react";
-import Button from "../Button/Button";
+import Button from "../../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
-import { initContract } from "../../contracts/base/contract";
+import { initContract } from "../../../contracts/base/contract";
 import { v4 as uuidv4 } from "uuid";
-import { initKeplr, getAddress, getContractAddress } from "../../utils/wallet";
+import { initKeplr, getAddress, getContractAddress } from "../../../utils/wallet";
 import { toast } from "react-toastify";
-import { AppStateContext } from "../../context/AppStateContext";
-import { useContext } from "react";
+import { useAccount } from "graz";
 
 const initialBalance = {
   id: uuidv4(),
@@ -26,7 +25,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
     initialBalance,
   ]);
   const [description, setDescription] = useState("");
-  const { address } = useContext(AppStateContext);
+  const { isConnected } = useAccount();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -202,8 +201,10 @@ export const Form = ({ setInitial, initial }: FormProps) => {
         </Collapsible>
         <Collapsible title="Token details">
           <div className={styles.article}>
-            This information will be displayed in the description of the created token
-            <br />(max 160 symbols):
+            This information will be displayed in the description of the created
+            token
+            <br />
+            (max 160 symbols):
           </div>
           <Input
             value={description}
@@ -218,9 +219,9 @@ export const Form = ({ setInitial, initial }: FormProps) => {
 
 
       </div>
-      {!address ? (
+      {!isConnected ? (
         <Button
-          color="black"
+          color="yellow"
           size="sm"
           className={styles.connectButton}
           onClick={initKeplr}
@@ -228,7 +229,7 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           Connect Wallet
         </Button>
       ) : (
-        <Button type="submit" color="black">
+        <Button type="submit" color="yellow">
           create!
         </Button>
       )}

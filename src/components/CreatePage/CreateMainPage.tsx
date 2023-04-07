@@ -7,7 +7,7 @@ import { Tabs } from "./Tabs/Tabs";
 import { Tab } from "./Tabs/Tabs";
 import { Form } from "./Form/Form";
 
-export const CreateMainPage: React.FC = () => {
+export const CreatPage: React.FC = () => {
   const [initial, setInitial] = useState<string[]>(() => {
     const saved = localStorage.getItem("contract") as string;
     if (saved) {
@@ -56,4 +56,4 @@ export const CreateMainPage: React.FC = () => {
   );
 };
 
-export default CreateMainPage;
+export default CreatPage;

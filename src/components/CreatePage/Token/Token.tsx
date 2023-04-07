@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./Token.module.css";
 import { useState, useEffect, useCallback } from "react";
-import Button from "../Button/Button";
-import { getContractInfo, getAddress, sendTokens } from "../../utils/wallet";
-import deleteButton from "../../assets/Button_Delite.svg";
-import collapse_arrow from "../../assets/collapse_arrow.svg";
+import Button from "../../Button/Button";
+import { getContractInfo, getAddress, sendTokens } from "../../../utils/wallet";
+import deleteButton from "../../../assets/Button_Delite.svg";
+import collapse_arrow from "../../../assets/collapse_arrow.svg";
 
 interface ContractDataProps {
   contractAddress: string;

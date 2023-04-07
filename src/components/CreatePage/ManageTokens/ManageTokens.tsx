@@ -1,11 +1,10 @@
 import React from "react";
 import styles from "./ManageTok.module.css";
-import Button from "../Button/Button";
-import Token from "../Token/Token";
+import Button from "../../Button/Button";
+import Token from "./../Token/Token";
 import { useState } from "react";
 import BootSender from "../BootSender/BootSender";
-import { AppStateContext } from "../../context/AppStateContext";
-import { useContext } from "react";
+import { useAccount } from "graz";
 
 interface TokenProps {
   initial: string[];
@@ -16,7 +15,7 @@ function ManageTokens(props: TokenProps) {
   const [contract, setContract] = useState("");
   const [isVisible, setVisible] = useState(false);
   const [isShown, setIsShown] = useState(false);
-  const { address } = useContext(AppStateContext);
+  const { isConnected } = useAccount();
 
   function handleChangeContractAddress(event: any) {
     const response = event.target.value;
@@ -53,7 +52,7 @@ function ManageTokens(props: TokenProps) {
         <div className={styles.name}>Assets</div>
       </div>
 
-      {address ? (
+      {isConnected ? (
         <div className={styles.tokens}>
           <BootSender></BootSender>
           <div className={styles.tokenList}>
