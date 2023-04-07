@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import { AppStateContext } from "././context/AppStateContext";
-import { Window as KeplrWindow } from "@keplr-wallet/types";
+import { Window as KeplrWindow } from "graz/dist/keplr";
 import MainPage from "./components/MainPage/MainPage";
 import Footer from "./components/Footer/Footer";
 import LegalPage from "./components/LegalPage/LegalPage";
