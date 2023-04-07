@@ -3,7 +3,11 @@ import styles from "./Wallet.module.css";
 import { useAccount, useConnect, useDisconnect } from "graz";
 
 const Wallet: React.FC = () => {
-  const { connect } = useConnect();
+  const { connect } = useConnect({
+    onError: (error) => {
+      console.log("error", error);
+    },
+  });
   const { data: account, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
 
