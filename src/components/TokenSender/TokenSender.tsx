@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./TokenSender.module.css";
 import Button from "../Button/Button";
-import { useState, useEffect } from "react";
-import { getBalance, sendBoot } from "../../utils/wallet";
+import { useState } from "react";
+import { sendBoot } from "../../utils/wallet";
 import { coins } from "@cosmjs/stargate";
 import collapse_arrow from "../../assets/collapse_arrow.svg";
 import { useBalances, useAccount } from "graz";
@@ -13,7 +13,6 @@ const sendBalance = {
 };
 
 function TokenSender() {
-  const [bootBalance, setBootBalance] = useState("");
   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
   const [isSent, setSent] = useState(false);
   const [open, setOpen] = useState(false);
@@ -33,20 +32,6 @@ function TokenSender() {
         [name]: event.target.value,
       });
     };
-
-  async function fetchBalance() {
-    let response = await getBalance();
-    if (response !== undefined) setBootBalance(response);
-    else setBootBalance("0");
-  }
-
-  useEffect(() => {
-    fetchBalance();
-    const interval = setInterval(() => fetchBalance(), 30000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [setSent]);
 
   async function getBootSent(recipientAddress: string, amount: string) {
     if (recipientAddress !== "" && amount !== "") {
@@ -81,7 +66,7 @@ function TokenSender() {
         <div className={styles.token}>🟢 {currentBalance.denom}</div>
         <img src={collapse_arrow} alt="" className={styles.image} />
         <div className={styles.balance}>
-          {Number(bootBalance).toLocaleString()}
+          {Number(currentBalance.amount).toLocaleString()}
         </div>
       </button>
       {open && (
