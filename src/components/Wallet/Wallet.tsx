@@ -14,15 +14,15 @@ const Wallet: React.FC = () => {
   return (
     <Button
       color="white"
-      className={`${styles.wallet} ${account ? styles.connected : ""}`}
+      className={`${styles.wallet} ${isConnected ? styles.connected : ""}`}
       onClick={connectWallet}
     >
       <div className={styles.address}>
-        {account
-          ? `${account.bech32Address.slice(
+        {isConnected
+          ? `${account?.bech32Address.slice(
               0,
               10
-            )}...${account.bech32Address.slice(-10, -5)}`
+            )}...${account?.bech32Address.slice(-10, -5)}`
           : "Connect Wallet"}
       </div>
     </Button>
