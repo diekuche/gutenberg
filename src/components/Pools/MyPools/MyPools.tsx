@@ -61,7 +61,7 @@ const MyPools = () => {
             <th></th>
             <div className={styles.downList}>
               <button className={styles.buttonDown}>
-                <img src={downArrowPools}></img>
+                <img src={downArrowPools} alt=""></img>
               </button>
             </div>
           </tr>
