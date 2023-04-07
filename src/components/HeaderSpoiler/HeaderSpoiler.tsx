@@ -17,8 +17,6 @@ const options = [
   },
 ];
 
-console.log("options", options);
-
 const HeaderSpoiler = () => {
   const { suggestAndConnect } = useSuggestChainAndConnect();
   const activeChain = useActiveChain();

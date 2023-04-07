@@ -8,6 +8,7 @@ const Wallet: React.FC = () => {
   const { disconnect } = useDisconnect();
 
   const connectWallet = () => {
+    console.log("connect");
     try {
       isConnected ? disconnect() : connect();
     } catch (err) {

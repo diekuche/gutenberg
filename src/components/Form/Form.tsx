@@ -4,8 +4,7 @@ import Button from "../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
 import { v4 as uuidv4 } from "uuid";
-import { initKeplr } from "../../utils/wallet";
-import { useAccount, useInstantiateContract } from "graz";
+import { useAccount, useConnect, useInstantiateContract } from "graz";
 import { GasPrice } from "@cosmjs/launchpad";
 import { calculateFee } from "@cosmjs/stargate";
 
@@ -25,6 +24,7 @@ export const Form = ({ addUserToken, userTokens }: FormProps) => {
     defaultBalance,
   ]);
   const [description, setDescription] = useState("");
+  const { connect } = useConnect();
   const { data: account, isConnected } = useAccount();
   const { instantiateContract } = useInstantiateContract({
     codeId: 1,
@@ -230,7 +230,10 @@ export const Form = ({ addUserToken, userTokens }: FormProps) => {
           color="black"
           size="sm"
           className={styles.connectButton}
-          onClick={initKeplr}
+          onClick={() => {
+            console.log("connect");
+            connect();
+          }}
         >
           Connect Wallet
         </Button>
