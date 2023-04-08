@@ -3,88 +3,70 @@
   flex-direction: column;
   align-items: center;
   margin: 150px auto;
-
 }
 
 .swap {
   display: flex;
-  width: 505px;
+  width: 470px;
   flex-direction: column;
-  border: 1px solid #e2fb5f;
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
+  background: rgba(124, 196, 219, 0.05);
+  border-color: rgba(115, 237, 201, 0.5);
+  border-width: 1px 1px 0px 1px;
+  border-style: solid;
+  border-radius: 16px 16px 0px 0px;
+  backdrop-filter: blur(10px);
 }
 
-.select {
+.InputBlock {
   display: flex;
-  border-radius: 28px;
-  color: #43b25b;
-  margin: 0px 35px;
-  padding: 36px 0px 0px;
-  align-items: center;
-  justify-content: center;
-  max-height: 45px;
-  font-size: 18px;
+  justify-content: space-between;
+}
+
+.OutputBlock {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -18px;
+}
+
+.currencyInput {
+  font-weight: 300;
+  font-size: 36px;
+  color: #F6F8FE;
+  padding: 42px 0px 0px 50px;
+}
+
+.currencyOutput {
+  font-weight: 300;
+  font-size: 36px;
+  color: #F6F8FE;
+  padding: 42px 0px 0px 50px;
+}
+
+.balanceBlock {
+  display: flex;
+  justify-content: space-between;
+}
+
+.balance {
+  font-weight: 300;
+  font-size: 14px;
+  color: rgba(246, 248, 254, 0.4);
+  padding: 0px 0px 24px 50px;
 }
 
 .selectWrapper {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding-right: 15px;
+  margin-right: 30px;
+  margin-top: 44px;
+  padding: 0px 12px 6px 6px;
+  border-radius: 8px;
 }
 
-.lowerSelect {
-  display: flex;
-  border-radius: 28px;
-  color: #43b25b;
-  margin: 36px 29px 0px 123px;
-  padding: 0px 0px 0px 20px;
-  align-items: center;
-  justify-content: center;
-  max-height: 45px;
-  font-size: 18px;
-}
-
-.lowerPrice {
-  font-size: 39px;
-  color: #e2fb5f;
-  margin: 15px 110px 0px 0px;
-  padding: 5px 33px 0px 34px;
-}
-
-.lowerSelect {
-  margin: 15px 28px 0px 0px;
-  padding: 0px 0px 0px 20px;
-}
-
-.downArrow {
-  padding: 0px 15px 0px 30px;
-}
-
-.up,
-.lower {
-  display: flex;
-  justify-content: space-between;
-}
-
-.priceUp {
-  font-size: 39px;
-  color: #e2fb5f;
-  margin: 16px 84px 0px 0px;
-  padding: 20px 33px 0px 34px;
-}
-
-.priceDown {
-  font-size: 14px;
-  color: #43b25b;
-  margin: 10px 31px 0px 0px;
-  padding: 0px 0px 7px 37px;
-}
-
-.secondString {
-  display: flex;
-  justify-content: space-between;
+.selectWrapper:hover {
+  background-color: #e2fb5f;
+  background: rgba(67, 151, 178, 0.1);
 }
 
 .circle {
@@ -94,39 +76,52 @@
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  color: #e2fb5f;
   margin-top: -15px;
 }
 
+.circle:hover {
+  background-color: #EDFF8E;
+}
+
 .line {
-  border: 1px solid #e2fb5f;
-  margin-top: 1px;
+  border-top: 1px solid rgba(115, 237, 201, 0.5);
 }
 
 .iconSwap {
   padding: 9px 7px;
 }
 
-.stringSlipPage {
+.stringSwapFee {
   display: flex;
-  background-color: rgba(22, 40, 51, 0.9);
+  background-color: #060F19;
   color: #e2fb5f;
-  justify-content: space-between;
-  padding: 16px 31px 17px 34px;
-}
-
-.downArrowYellow {
-  padding-left: 10px;
-}
-
-.middleString {
-  color: #e2fb5f;
+  font-weight: 500;
   font-size: 16px;
-  font-weight: 200;
+  text-transform: lowercase;
+  justify-content: space-between;
+  padding: 12px 50px 12px 50px;
+}
+
+.textToPools {
+  color: #F6F8FE;
+  font-size: 16px;
+  font-weight: 400;
   margin-top: 76px;
 }
 
-.iconYellowDown {
-  margin-top: 28px;
-  margin-left: 12px;
+.textToPools a {
+  color: #e2fb5f;
+}
+
+.select {
+  display: flex;
+  border-radius: 28px;
+  color: #43b25b;
+  margin: 0px 35px;
+  height: 100%;
+  padding: 36px 0px 0px;
+  align-items: center;
+  justify-content: center;
+  max-height: 45px;
+  font-size: 18px;
 }

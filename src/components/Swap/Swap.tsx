@@ -1,12 +1,9 @@
 import React from "react";
 import styles from "./Swap.module.css";
 import UpDoAr from "../../assets/UpDoAr.svg";
-import downyellow from "../../assets/downyellow.svg";
 import NewBT from "../newButton/newButton";
-import TList from "../TokenList/TList";
-import iconYellowDown from "../../assets/IconYllowDown.svg";
-import SelectCustom from "../SelectCustom/SelectCustom";
-import TokenUI from "../Token/TokenUI";
+import SelectCustom from "../SelectCustomToken/SelectCustomToken";
+import TokenUI from "../SelectCustomToken/TokenUI/TokenUI";
 import pig_icon from "../../assets/pig_logo.svg";
 import mew_icon from "../../assets/mew_logo.svg";
 import shit_icon from "../../assets/shit_logo.svg";
@@ -58,15 +55,14 @@ const Swap = () => {
   return (
     <div className={styles.common}>
       <div className={styles.swap}>
-        <div className={styles.up}>
-          <div className={styles.priceUp}>0</div>
+        <div className={styles.InputBlock}>
+          <div className={styles.currencyInput}>0</div>
           <div className={styles.selectWrapper}>
             <SelectCustom options={options} placeholder="Select Token" />
           </div>
         </div>
-        <div className={styles.secondString}>
-          <div className={styles.priceDown}>$0.00</div>
-          <div className={styles.priceDown}>Balance:0</div>
+        <div className={styles.balanceBlock}>
+          <div className={styles.balance}>Balance:0</div>
         </div>
         <div className={styles.center}>
           <div className={styles.line}></div>
@@ -74,31 +70,25 @@ const Swap = () => {
             <img className={styles.iconSwap} src={UpDoAr} alt="" />
           </div>
         </div>
-        <div className={styles.lower}>
-          <div className={styles.lowerPrice}>0</div>
+        <div className={styles.OutputBlock}>
+          <div className={styles.currencyOutput}>0</div>
           <div className={styles.selectWrapper}>
             <SelectCustom options={options} placeholder="Select Token" />
           </div>
         </div>
-        <div className={styles.secondString}>
-          <div className={styles.priceDown}>$0.00</div>
-          <div className={styles.priceDown}>Balance:0</div>
+        <div className={styles.balanceBlock}>
+          <div className={styles.balance}>Balance:0</div>
         </div>
-        <div className={styles.stringSlipPage}>
-          <div className={styles.slipPage}>
-            Slippage 1%
-            <img className={styles.downArrowYellow} src={downyellow} alt="" />
-          </div>
-          <div className={styles.fee}>Swap fee (0.3%)</div>
+        <div className={styles.stringSwapFee}>
+          <div> Swap fee </div>
+          <div> 0.00%</div>
         </div>
         <div></div>
       </div>
       <NewBT size="hg">Connect Wallet!</NewBT>
-      <div className={styles.middleString}>
-        Provide liquidity to he market and receive swap fees each trade.
+      <div className={styles.textToPools}>
+        <a href="/pools">Provide liquidity</a> to he market and receive swap fees each trade.
       </div>
-      <img className={styles.iconYellowDown} src={iconYellowDown} alt="" />
-      <TList />
     </div>
   );
 };

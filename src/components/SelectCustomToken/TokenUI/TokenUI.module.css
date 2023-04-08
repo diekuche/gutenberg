@@ -1,0 +1,53 @@
+.token {
+  display: flex;
+  color: white;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.icon {
+  width: 34px;
+  height: 34px;
+  padding-right: 15px;
+}
+
+.name {
+  font-size: 18px;
+  text-transform: uppercase;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.nameWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.chainName {
+  padding: 0;
+  margin: 0;
+  font-weight: 400;
+  font-size: 13px;
+  color: rgba(246, 248, 254, 0.4);
+  max-width: 170px;
+  width: max-content;
+}
+
+.balance {
+  font-size: 20px;
+  text-align: right;
+  text-transform: capitalize;
+  margin: 0;
+  padding: 0;
+}
+
+.balanceWrapper {
+  flex-direction: column;
+  margin-left: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  text-align: right;
+  width: 100%;
+}
