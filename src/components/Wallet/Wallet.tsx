@@ -3,26 +3,35 @@ import styles from "./Wallet.module.css";
 import { useAccount, useConnect, useDisconnect } from "graz";
 
 const Wallet: React.FC = () => {
-  const { connect } = useConnect();
+  const { connect } = useConnect({
+    onError: (error) => {
+      console.log("error", error);
+    },
+  });
   const { data: account, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
 
   const connectWallet = () => {
-    isConnected ? disconnect() : connect();
+    console.log("connect");
+    try {
+      isConnected ? disconnect() : connect();
+    } catch (err) {
+      console.log("err", err);
+    }
   };
 
   return (
     <Button
       color="white"
-      className={`${styles.wallet} ${account ? styles.connected : ""}`}
+      className={`${styles.wallet} ${isConnected ? styles.connected : ""}`}
       onClick={connectWallet}
     >
       <div className={styles.address}>
-        {account
-          ? `${account.bech32Address.slice(
+        {isConnected
+          ? `${account?.bech32Address.slice(
               0,
               10
-            )}...${account.bech32Address.slice(-10, -5)}`
+            )}...${account?.bech32Address.slice(-10, -5)}`
           : "Connect Wallet"}
       </div>
     </Button>

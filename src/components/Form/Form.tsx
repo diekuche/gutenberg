@@ -3,32 +3,47 @@ import React, { FormEvent, useState } from "react";
 import Button from "../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
-import { initContract } from "../../contracts/base/contract";
 import { v4 as uuidv4 } from "uuid";
-import { initKeplr, getAddress, getContractAddress } from "../../utils/wallet";
-import { toast } from "react-toastify";
-import { useAccount } from "graz";
+import { useAccount, useConnect, useInstantiateContract } from "graz";
+import { GasPrice } from "@cosmjs/launchpad";
+import { calculateFee } from "@cosmjs/stargate";
 
-const initialBalance = {
+const defaultBalance = {
   id: uuidv4(),
   address: "",
   amount: "",
 };
 
 interface FormProps {
-  initial: string[];
-  setInitial: (st: string[]) => void;
+  userTokens: any;
+  addUserToken: (contractAddress: string) => void;
 }
 
-export const Form = ({ setInitial, initial }: FormProps) => {
-  const [balances, setBalances] = useState<Array<typeof initialBalance>>([
-    initialBalance,
+export const Form = ({ addUserToken, userTokens }: FormProps) => {
+  const [balances, setBalances] = useState<Array<typeof defaultBalance>>([
+    defaultBalance,
   ]);
   const [description, setDescription] = useState("");
-  const { isConnected } = useAccount();
+  const { connect } = useConnect();
+  const { data: account, isConnected } = useAccount();
+  const { instantiateContract } = useInstantiateContract({
+    codeId: 1,
+    onError: (error) => {
+      console.log("error", error);
+      alert(`Error: ${error}`);
+    },
+    onSuccess: (data) => {
+      console.log("data", data);
+      addUserToken(data.contractAddress);
+      alert(`Success! Contract address: ${data.contractAddress}`);
+    },
+  });
+  const gasPrice = GasPrice.fromString("0.001boot") as any;
+  const address = account?.bech32Address;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const initialBalance = { ...balances[0] };
 
     const { token, symbol, quantity, decimals, logo } =
       event.target as typeof event.target & {
@@ -43,40 +58,36 @@ export const Form = ({ setInitial, initial }: FormProps) => {
       decimals.value = "0";
     }
 
-    if (!initialBalance.amount) {
-      let initialAddress = await getAddress();
-      if (initialAddress) {
-        initialBalance.address = initialAddress;
-        initialBalance.amount = quantity.value;
-      }
+    if (!initialBalance?.amount) {
+      initialBalance.address = address!;
+      initialBalance.amount = quantity.value;
     }
 
-    const txHash = await initContract({
+    const msg = {
       name: token.value,
       symbol: symbol.value,
-      quantity: quantity.value,
-      decimals: decimals.value,
-      logo: logo.value,
-      initialBalance: balances,
-      description,
-    });
+      decimals: parseInt(decimals.value, 10),
+      initial_balances: [initialBalance, ...balances.slice(1)],
+      mint: {
+        minter: address,
+        cap: quantity.value,
+      },
+      marketing: {
+        project: "",
+        description: description,
+        marketing: address,
+        logo: {
+          url: logo.value,
+        },
+      },
+    };
 
-    if (txHash) {
-      console.log(txHash);
-      const response = await getContractAddress(txHash);
-      if (response) {
-        setInitial([...initial, response]);
-      }
-      toast(
-        <a
-          href={"https://cyb.ai/network/bostrom/tx/" + txHash}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Click to show tx
-        </a>
-      );
-    }
+    instantiateContract({
+      msg,
+      label: token.value,
+      fee: calculateFee(600000, gasPrice),
+      // fee: "auto",
+    });
   };
 
   const handleAddNewBalance = () => {
@@ -175,8 +186,6 @@ export const Form = ({ setInitial, initial }: FormProps) => {
                     label="Wallet"
                     value={address}
                     onChange={handleChangeInitialBalance(id, "address")}
-                    title="add bostrom wallet"
-                    pattern="^bostrom.+"
                   />
                   <Input
                     id="amount"
@@ -221,7 +230,10 @@ export const Form = ({ setInitial, initial }: FormProps) => {
           color="black"
           size="sm"
           className={styles.connectButton}
-          onClick={initKeplr}
+          onClick={() => {
+            console.log("connect");
+            connect();
+          }}
         >
           Connect Wallet
         </Button>
