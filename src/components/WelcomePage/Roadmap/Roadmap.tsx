@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "../ManageTok/ManageTok.module.css";
-import hammer from "../../assets/Roadmap.svg";
+import styles from "../Roadmap/Roadmap.module.css";
+import hammer from "../../../assets/Roadmap.svg";
 
 const RoadMap = () => {
   return (

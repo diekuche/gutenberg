@@ -25,6 +25,17 @@
   color: #EDFF8E;
 }
 
+.active {
+  color: #E2FB5F;
+  width: fit-content;
+  text-decoration: none;
+  font-family: "Bai Jamjuree", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  margin-right: 20px;
+}
+
 .linkCreate {
   margin-right: auto;
   font-family: 'Bai Jamjuree';

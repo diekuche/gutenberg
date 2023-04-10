@@ -1,5 +1,6 @@
 .input {
-  height: 44px;
+  box-sizing: border-box;
+  height: 42px;
   width: 100%;
   background: rgba(29, 57, 66, 0.6);
   border-radius: 10px;
@@ -35,11 +36,10 @@ input::placeholder {
 
 .subtitle {
   position: absolute;
+  align-items: center;
   margin-left: 5px;
-  min-width: 280px;
+  width: 285px;
   left: 100%;
-  bottom: 30%;
-  z-index: 10;
   background: rgba(6, 15, 25, 0.9);
   padding: 15px 20px;
   color: rgba(246, 248, 254, 0.6);

@@ -9,7 +9,7 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import HeaderSpoiler from "./components/HeaderSpoiler/HeaderSpoiler";
-import Main from "./components/Main/Main";
+import WelcomePage from "./components/WelcomePage/WelcomePage";
 import NewButton from "./components/newButton/newButton";
 import Swap from "./components/Swap/Swap";
 import ManageAssets from "./components/ManageAssets/ManageAssets";
@@ -18,7 +18,7 @@ import { GrazProvider } from "graz";
 import { CustomChains } from "../src/utils/config";
 
 declare global {
-  interface Window extends KeplrWindow {}
+  interface Window extends KeplrWindow { }
 }
 
 function App() {
@@ -35,7 +35,7 @@ function App() {
             <Router>
               <HeaderSpoiler />
               <Routes>
-                <Route path="/" element={<Main />}></Route>
+                <Route path="/" element={<WelcomePage />}></Route>
                 <Route path="/legalinfo" element={<LegalPage />}></Route>
                 <Route path="/License" element={<License />}></Route>
                 <Route path="/create" element={<MainPage />}></Route>
