@@ -5,8 +5,7 @@ import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
 import { v4 as uuidv4 } from "uuid";
 import { useAccount, useConnect, useInstantiateContract } from "graz";
-import { GasPrice } from "@cosmjs/launchpad";
-import { calculateFee } from "@cosmjs/stargate";
+import { calculateFee, GasPrice } from "@cosmjs/stargate";
 
 const defaultBalance = {
   id: uuidv4(),
@@ -38,7 +37,8 @@ export const Form = ({ addUserToken, userTokens }: FormProps) => {
       alert(`Success! Contract address: ${data.contractAddress}`);
     },
   });
-  const gasPrice = GasPrice.fromString("0.001boot") as any;
+  const gasPrice = GasPrice.fromString("0.001boot");
+
   const address = account?.bech32Address;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -86,7 +86,6 @@ export const Form = ({ addUserToken, userTokens }: FormProps) => {
       msg,
       label: token.value,
       fee: calculateFee(600000, gasPrice),
-      // fee: "auto",
     });
   };
 

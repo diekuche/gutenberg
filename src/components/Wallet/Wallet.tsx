@@ -4,18 +4,17 @@ import { useAccount, useConnect, useDisconnect } from "graz";
 
 const Wallet: React.FC = () => {
   const { data: account, isConnected } = useAccount();
-  const { connect } = useConnect({
+  const { connectAsync } = useConnect({
     onError: (error) => {
       console.log("error", error);
     },
   });
   const { disconnect } = useDisconnect();
-
   const connectWallet = () => {
     if (isConnected) {
       disconnect();
     } else {
-      connect();
+      connectAsync();
     }
   };
 
