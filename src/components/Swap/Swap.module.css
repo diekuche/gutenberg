@@ -58,7 +58,6 @@
 .selectWrapper {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   margin-right: 30px;
   margin-top: 36px;
   padding: 4px 4px 4px 16px;
