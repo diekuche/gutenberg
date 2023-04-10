@@ -9,6 +9,7 @@ import mew_icon from "../../assets/mew_logo.svg";
 import shit_icon from "../../assets/shit_logo.svg";
 import ps_icon from "../../assets/ps_logo.svg";
 import boot_icon from "../../assets/boot_logo.svg";
+import { Link } from "react-router-dom";
 
 const options = [
   {
@@ -107,7 +108,7 @@ const Swap = () => {
       </div>
       <NewBT size="hg">Connect Wallet!</NewBT>
       <div className={styles.textToPools}>
-        <a href="/pools">Provide liquidity</a> to he market and receive swap fees each trade.
+        <Link to="/pools">Provide liquidity</Link> to he market and receive swap fees each trade.
       </div>
     </div>
   );
