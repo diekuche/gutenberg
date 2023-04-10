@@ -71,27 +71,25 @@
   text-align: left;
 }
 
-.bostrom {
+.chainButton {
   position: relative;
-  vertical-align: top;
+  align-items: right;
   margin-top: 9px;
   margin-bottom: 9px;
   margin-right: 20px;
   padding-left: 14px;
   padding-right: 14px;
-  border: 0px none #000;
+  border-style: none;
   border-radius: 8px;
   background-color: transparent;
 }
 
-.bostrom:hover {
+.cainButton:hover {
   background-color: rgba(67, 151, 178, 0.1);
 }
 
 .rightButton {
   display: flex;
-  align-items: center;
-  gap: 30px;
 }
 
 .circle {

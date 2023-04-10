@@ -8,7 +8,7 @@ import LegalPage from "./components/LegalPage/LegalPage";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import HeaderSpoiler from "./components/HeaderSpoiler/HeaderSpoiler";
+import Header from "./components/Header/Header";
 import WelcomePage from "./components/WelcomePage/WelcomePage";
 import NewButton from "./components/newButton/newButton";
 import Swap from "./components/Swap/Swap";
@@ -33,7 +33,7 @@ function App() {
         <div className="container">
           <AppStateContext.Provider value={{ address, setAddress }}>
             <Router>
-              <HeaderSpoiler />
+              <Header />
               <Routes>
                 <Route path="/" element={<WelcomePage />}></Route>
                 <Route path="/legalinfo" element={<LegalPage />}></Route>
