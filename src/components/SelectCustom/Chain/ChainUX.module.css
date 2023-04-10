@@ -1,8 +1,6 @@
-.token {
+.chain {
   display: flex;
   color: white;
-  align-items: flex-start;
-  justify-content: flex-start;
   width: 100%;
 }
 
@@ -13,16 +11,15 @@
 }
 
 .name {
+  font-family: "Bai Jamjuree", sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  margin:0;
-  width: 150px;
+  font-size: 15px;
+  margin: 0;
   color: white;
+  text-align: left;
 }
 
 .nameWrapper {
   display: flex;
   flex-direction: column;
 }
-

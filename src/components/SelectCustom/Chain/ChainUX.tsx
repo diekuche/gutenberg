@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ChainUX.module.css";
-import circle from "../../assets/circle.svg";
+import circle from "../../../assets/circle.svg";
 
 export interface ChainProps {
   chainName: string;
@@ -9,7 +9,7 @@ export interface ChainProps {
 
 const ChainUX: React.FC<ChainProps> = ({ chainName, icon = circle }) => {
   return (
-    <div className={styles.token}>
+    <div className={styles.chain}>
       <img className={styles.icon} src={icon} alt={`${chainName} logo`} />
       <div className={styles.nameWrapper}>
         <div className={styles.name}>{chainName}</div>
