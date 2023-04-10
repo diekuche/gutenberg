@@ -1,22 +1,19 @@
+import { initKeplr } from "../../utils/wallet";
 import Button from "../Button/Button";
 import styles from "./Wallet.module.css";
 import { useAccount, useConnect, useDisconnect } from "graz";
 
 const Wallet: React.FC = () => {
-  const { connect } = useConnect({
-    onError: (error) => {
-      console.log("error", error);
-    },
-  });
   const { data: account, isConnected } = useAccount();
+  const { connect } = useConnect();
   const { disconnect } = useDisconnect();
 
   const connectWallet = () => {
-    console.log("connect");
-    try {
-      isConnected ? disconnect() : connect();
-    } catch (err) {
-      console.log("err", err);
+    if (isConnected) {
+      disconnect();
+    } else {
+      initKeplr();
+      connect();
     }
   };
 

@@ -17,7 +17,7 @@ const options = [
   },
 ];
 
-const HeaderSpoiler = () => {
+const Header = () => {
   const { suggestAndConnect } = useSuggestChainAndConnect();
   const activeChain = useActiveChain();
   const defaultValue =
@@ -101,4 +101,4 @@ const HeaderSpoiler = () => {
   );
 };
 
-export default HeaderSpoiler;
+export default Header;

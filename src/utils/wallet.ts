@@ -1,5 +1,5 @@
 import { Coin } from "@cosmjs/stargate";
-import { CYBER } from "./config";
+import { CYBER, configKeplr } from "./config";
 import { SigningCyberClient } from "@cybercongress/cyber-js";
 import { GasPrice } from "@cosmjs/launchpad";
 import { calculateFee } from "@cosmjs/stargate";
@@ -27,3 +27,10 @@ export const sendBoot = async (
     );
   }
 };
+
+export const initKeplr = async () => {
+  if (window.keplr) {
+    await window.keplr.experimentalSuggestChain(configKeplr("bostrom"));
+    await window.keplr.enable(CYBER.CHAIN_ID);
+  }
+}
