@@ -7,7 +7,7 @@ export interface StartButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  color?: "white" | "green" | "black";
+  color?: "white" | "green" | "yellow" | "yellowTransp" | "sendButton";
   size?: "sm" | "lg";
 }
 
@@ -17,7 +17,9 @@ const Button: React.FC<StartButtonProps> = (props: StartButtonProps) => {
   const btnClass = classNames(className, {
     [styles.white]: color === "white",
     [styles.green]: color === "green",
-    [styles.black]: color === "black",
+    [styles.yellow]: color === "yellow",
+    [styles.sendButton]: color === "sendButton",
+    [styles.yellowTransp]: color === "yellowTransp",
     [styles.sm]: size === "sm",
     [styles.lg]: size === "lg",
   });
