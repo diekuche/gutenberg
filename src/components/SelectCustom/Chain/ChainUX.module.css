@@ -1,8 +1,6 @@
 .chain {
   display: flex;
   color: white;
-  align-items: flex-start;
-  justify-content: flex-start;
   width: 100%;
 }
 

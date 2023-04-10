@@ -1,8 +1,6 @@
 .token {
   display: flex;
   color: white;
-  align-items: flex-start;
-  justify-content: flex-start;
 }
 
 .icon {
@@ -46,7 +44,6 @@
   flex-direction: column;
   margin-left: auto;
   display: flex;
-  justify-content: flex-start;
   text-align: right;
   width: 100%;
 }
