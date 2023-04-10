@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./Swap.module.css";
 import UpDoAr from "../../assets/UpDoAr.svg";
 import NewBT from "../newButton/newButton";
-import SelectCustom from "./SelectCustom/SelectCustom";
-import TokenUI from "./Token/TokenUI";
+import SelectCustom from "../SelectCustom/SelectCustom";
+import TokenUI from "../SelectCustom/TokenUI/TokenUI";
 import pig_icon from "../../assets/pig_logo.svg";
 import mew_icon from "../../assets/mew_logo.svg";
 import shit_icon from "../../assets/shit_logo.svg";
@@ -71,7 +71,9 @@ const Swap = () => {
         <div className={styles.InputBlock}>
           <div className={styles.currencyInput}>0</div>
           <div className={styles.selectWrapper}>
-            <SelectCustom options={options} placeholder="Select Token" />
+            <SelectCustom
+              options={options}
+              placeholder="Select Token" />
           </div>
         </div>
         <div className={styles.balanceBlock}>
@@ -86,14 +88,17 @@ const Swap = () => {
         <div className={styles.OutputBlock}>
           <div className={styles.currencyOutput}>0</div>
           <div className={styles.selectWrapper}>
-            <SelectCustom options={options} placeholder="Select Token" />
+            <SelectCustom
+              options={options}
+              placeholder="Select Token"
+            />
           </div>
         </div>
         <div className={styles.balanceBlock}>
           <div className={styles.balance}>Balance: 0</div>
         </div>
         <div className={styles.stringSwapFee}>
-          <div className={styles.slipPage}>
+          <div className={styles.fee}>
             Swap fee
           </div>
           <div className={styles.fee}>0.00%</div>
@@ -104,7 +109,6 @@ const Swap = () => {
       <div className={styles.textToPools}>
         <a href="/pools">Provide liquidity</a> to he market and receive swap fees each trade.
       </div>
-
     </div>
   );
 };

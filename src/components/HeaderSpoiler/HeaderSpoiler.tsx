@@ -1,10 +1,10 @@
-import styles from "./index.module.css";
+import styles from "./HeaderSpoiler.module.css";
 import { NavLink } from "react-router-dom";
 import Wallet from "../Wallet/Wallet";
 import SelectCustom from "../SelectCustom/SelectCustom";
 import { CustomChains } from "../../utils/config";
 import { mainnetChains, useSuggestChainAndConnect, useActiveChain } from "graz";
-import ChainUX from "../Chain/ChainUX";
+import ChainUX from "../SelectCustom/Chain/ChainUX";
 
 const options = [
   {
@@ -80,14 +80,20 @@ const HeaderSpoiler = () => {
           </div>
         </div>
         <div className={styles.rightButton}>
-          <SelectCustom
-            options={options}
-            height={45}
-            placeholder="select chain"
-            fontSize={16}
-            defaultValue={defaultValue}
-            onChange={handleSelect}
-          />
+          <button className={styles.cainButton}>
+            <SelectCustom
+              options={options}
+              heightControl={32}
+              fontSizePlaceholder={16}
+              minWidthMenu={170}
+              paddingMenu={0}
+              topMenu={36}
+              rightMenu={-19}
+              defaultValue={defaultValue}
+              onChange={handleSelect}
+            />
+          </button>
+
           <Wallet />
         </div>
       </div>

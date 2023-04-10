@@ -1,14 +1,14 @@
 .select_container {
   display: flex;
   width: 100%;
+  height: 100%;
   border-radius: 8px;
-  color: #43b25b;
   border: 0;
   align-items: right;
   justify-content: right;
-  font-size: 18px;
 }
 
 .SelectCustom_select_container {
-  background-color: #43b25b;
+  width: 100%;
+  height: 100%;
 }
