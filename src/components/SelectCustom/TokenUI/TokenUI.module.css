@@ -46,7 +46,6 @@
   flex-direction: column;
   margin-left: auto;
   display: flex;
-  align-items: flex-end;
   justify-content: flex-start;
   text-align: right;
   width: 100%;

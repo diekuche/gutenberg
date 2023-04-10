@@ -65,7 +65,7 @@ const SelectCustom = (props: SelectCustomProps) => {
           zIndex: 16,
           top: `${topMenu}px`,
           right: `${rightMenu}px`,
-          borderRadius: "12px",
+          borderRadius: "16px",
           backgroundColor: "rgba(6, 15, 25)",
           maxHeight: "380px",
           minWidth: `${minWidthMenu}px`,
