@@ -1,4 +1,3 @@
-import { initKeplr } from "../../utils/wallet";
 import Button from "../Button/Button";
 import styles from "./Wallet.module.css";
 import { useAccount, useConnect, useDisconnect } from "graz";
@@ -16,7 +15,6 @@ const Wallet: React.FC = () => {
     if (isConnected) {
       disconnect();
     } else {
-      initKeplr();
       connect();
     }
   };
