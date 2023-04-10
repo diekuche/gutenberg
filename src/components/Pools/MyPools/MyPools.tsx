@@ -25,7 +25,7 @@ const MyPools = () => {
             <th className={styles.volume}>Bonded</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className={styles.mainTable}>
           <tr className={styles.stringTokens}>
             <td className={styles.pairArp}>
               <img className={styles.atom} src={atom} alt=""></img>
@@ -58,7 +58,7 @@ const MyPools = () => {
           </tr>
           <tr>
             <th></th>
-            <th></th>
+
             <div className={styles.downList}>
               <button className={styles.buttonDown}>
                 <img src={downArrowPools} alt=""></img>

@@ -21,6 +21,9 @@
   border: 1px solid;
   color: #e2fb5f;
   font-family: "Bai Jamjuree", sans-serif;
+  padding: 10px 28px 16px 28px;
+  align-items: center;
+  justify-content: center;
 }
 .buttonCreate:hover {
   box-shadow: none;
@@ -36,7 +39,8 @@
 .tableToken {
   background-color: rgba(22, 40, 51, 0.9);
   border-radius: 16px;
-  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid rgba(115, 237, 201, 0.2);
 }
 
 td {
@@ -53,6 +57,8 @@ td {
   line-height: 18px;
   font-weight: 200;
   color: rgba(246, 248, 254, 0.4);
+  text-align: right;
+  padding-right: 40px;
 }
 
 .pairArp {
@@ -62,22 +68,25 @@ td {
   font-size: 18px;
   line-height: 23px;
 }
-.cash {
+.cash,
+.cashVolume {
   color: rgba(246, 248, 254, 0.7);
   padding-right: 50px;
-  padding-left: 50px;
+  padding-left: 55px;
   font-size: 18px;
   line-height: 23px;
+  text-align: center;
 }
 .stringTokens {
   background-color: rgba(67, 151, 178, 0.1);
+  border: 1px solid rgba(115, 237, 201, 0.05);
 }
 .stringTokens:hover {
-  background-color: rgba(115, 237, 201, 0.2);
+  background-color: rgba(67, 151, 178, 0.05);
 }
 .pair {
   text-align: start;
-  padding: 9px 18px;
+  padding: 9px 40px;
 }
 
 .arp {
@@ -97,7 +106,7 @@ td {
 .atom {
   left: 3px;
   z-index: 10;
-  padding-left: 10px;
+  padding-left: 40px;
 }
 .name {
   display: flex;
@@ -115,7 +124,7 @@ td {
   color: rgba(246, 248, 254, 0.4);
   font-style: Light;
   font-size: 14px;
-  margin: 10px 0px 10px -60px;
+  margin: 5px 0px 5px -80px;
 }
 .leftarrow {
   margin-right: 10px;
@@ -138,14 +147,15 @@ td {
 }
 .filterTokens {
   padding: 19px 0px 15px 15px;
-  background-color: rgba(22, 40, 51, 0.9);
-  border-radius: 16px;
-  border: none;
+  background-color: rgba(21, 34, 38, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(115, 237, 201, 0.2);
   outline: none;
   color: #e2fb5f;
   font-size: 16px;
   font-family: "Bai Jamjuree", sans-serif;
-  width: 615px;
+  width: 631px;
 }
 
 .secondString {
@@ -154,10 +164,11 @@ td {
   margin-top: 10px;
 }
 .string {
-  color: yellow;
+  color: #e2fb5f;
   font-size: 43px;
   line-height: 54px;
   margin-right: 20px;
+  font-weight: 700;
 }
 .group {
   padding-left: 18px;
@@ -172,4 +183,8 @@ td {
 }
 .pages {
   padding-top: 2px;
+}
+.cashVolume {
+  text-align: right;
+  padding-right: 40px;
 }

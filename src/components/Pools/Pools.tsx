@@ -51,7 +51,7 @@ const Pools = () => {
               </td>
               <td className={styles.arp}>54.51%</td>
               <td className={styles.cash}>$283,478,297</td>
-              <td className={styles.cash}>$283,478,297</td>
+              <td className={styles.cashVolume}>$283,478,297</td>
             </tr>
             <tr className={styles.stringTokens}>
               <td className={styles.pairArp}>
@@ -61,7 +61,7 @@ const Pools = () => {
               </td>
               <td className={styles.arp}>0.13%</td>
               <td className={styles.cash}>$283,478,297</td>
-              <td className={styles.cash}>$283,478,297</td>
+              <td className={styles.cashVolume}>$283,478,297</td>
             </tr>
             <tr className={styles.stringTokens}>
               <td className={styles.pairArp}>
@@ -71,7 +71,7 @@ const Pools = () => {
               </td>
               <td className={styles.arp}>4.11%</td>
               <td className={styles.cash}>$283,478,297</td>
-              <td className={styles.cash}>$283,478,297</td>
+              <td className={styles.cashVolume}>$283,478,297</td>
             </tr>
             <tr className={styles.stringTokens}>
               <td className={styles.pairArp}>
@@ -81,7 +81,7 @@ const Pools = () => {
               </td>
               <td className={styles.arp}>143.32%</td>
               <td className={styles.cash}>$283,478,297</td>
-              <td className={styles.cash}>$283,478,297</td>
+              <td className={styles.cashVolume}>$283,478,297</td>
             </tr>
             <tr className={styles.stringTokens}>
               <td className={styles.pairArp}>
@@ -91,7 +91,7 @@ const Pools = () => {
               </td>
               <td className={styles.arp}>54.51%</td>
               <td className={styles.cash}>$283,478,297</td>
-              <td className={styles.cash}>$283,478,297</td>
+              <td className={styles.cashVolume}>$283,478,297</td>
             </tr>
             <tr>
               <th></th>

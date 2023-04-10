@@ -1,9 +1,10 @@
 .nameHead {
   color: #e2fb5f;
-  font-style: bold;
+
   font-size: 43px;
   line-height: 54px;
   margin-bottom: 9px;
+  font-weight: 700;
 }
 .myActive {
   display: flex;
@@ -12,6 +13,7 @@
   border-radius: 20px;
   background: rgba(124, 196, 219, 0.05);
   backdrop-filter: blur(9px);
+  border: 1px solid rgba(115, 237, 201, 0.2);
 }
 .nameColumn {
   font-size: 14px;
