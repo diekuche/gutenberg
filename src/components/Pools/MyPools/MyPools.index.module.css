@@ -1,0 +1,99 @@
+.name {
+  display: flex;
+  color: rgba(115, 237, 201, 0.7);
+  font-size: 24px;
+  line-height: 30px;
+  font-style: medium;
+  margin: 5px 0px;
+}
+
+.tableToken {
+  background-color: rgba(124, 196, 219, 0.05);
+  border: 1px solid rgba(115, 237, 201, 0.2);
+  border-radius: 16px;
+  border-spacing: 0;
+  width: 844px;
+  backdrop-filter: blur(10px);
+}
+
+td {
+  text-align: center;
+  padding-top: 19px;
+  padding-bottom: 19px;
+}
+.arpHead {
+  padding-left: 15px;
+}
+.pair,
+.totalLiquiity,
+.volume,
+.arpHead {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 200;
+  color: rgba(246, 248, 254, 0.4);
+  width: 150px;
+}
+.volume,
+.bondedCash {
+  text-align: right;
+  padding-right: 40px;
+}
+.bondedCash {
+  color: rgba(246, 248, 254, 0.7);
+  font-size: 18px;
+  line-height: 23px;
+}
+.pairArp {
+  display: flex;
+  color: rgba(246, 248, 254, 0.7);
+  padding-right: 40px;
+  font-size: 18px;
+  line-height: 23px;
+}
+.cash {
+  color: rgba(246, 248, 254, 0.7);
+  padding-right: 56px;
+  padding-left: 50px;
+  font-size: 18px;
+  line-height: 23px;
+}
+
+.stringTokens:hover {
+  background-color: rgba(115, 237, 201, 0.2);
+}
+.pair {
+  text-align: start;
+  padding: 9px 45px;
+}
+
+.arp {
+  color: #f6f8fe;
+  padding-left: 20px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 23px;
+}
+
+.atom,
+.circle {
+  position: relative;
+  width: 18px;
+}
+.atom {
+  left: 3px;
+  z-index: 10;
+  padding-left: 40px;
+}
+
+.downarrow {
+  margin-left: 6px;
+}
+
+.buttonDown {
+  background: rgba(124, 196, 219, 0);
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-left: 156px;
+  border: none;
+}

@@ -1,0 +1,190 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  padding-top: 30px;
+  justify-content: flex-start;
+  margin: auto;
+}
+.firstString {
+  display: flex;
+  justify-content: space-between;
+}
+.buttonCreate {
+  display: flex;
+  margin-top: 13px;
+  border-radius: 8px;
+  height: 50px;
+  font-size: 32px;
+  line-height: 40px;
+  align-self: center;
+  background-color: rgba(28, 28, 28, 0);
+  border: 1px solid;
+  color: #e2fb5f;
+  font-family: "Bai Jamjuree", sans-serif;
+  padding: 10px 28px 16px 28px;
+  align-items: center;
+  justify-content: center;
+}
+.buttonCreate:hover {
+  box-shadow: none;
+  color: #060f19;
+  background-color: #e2fb5f;
+}
+.tokenList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.tableToken {
+  background-color: rgba(22, 40, 51, 0.9);
+  border-radius: 16px;
+  border-spacing: 0;
+  border: 1px solid rgba(115, 237, 201, 0.2);
+}
+
+td {
+  text-align: center;
+  padding-top: 19px;
+  padding-bottom: 19px;
+}
+.network,
+.pair,
+.totalLiquiity,
+.volume,
+.arpHead {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 200;
+  color: rgba(246, 248, 254, 0.4);
+  text-align: right;
+  padding-right: 40px;
+}
+
+.pairArp {
+  display: flex;
+  color: rgba(246, 248, 254, 0.7);
+  padding-right: 130px;
+  font-size: 18px;
+  line-height: 23px;
+}
+.cash,
+.cashVolume {
+  color: rgba(246, 248, 254, 0.7);
+  padding-right: 50px;
+  padding-left: 55px;
+  font-size: 18px;
+  line-height: 23px;
+  text-align: center;
+}
+.stringTokens {
+  background-color: rgba(67, 151, 178, 0.1);
+  border: 1px solid rgba(115, 237, 201, 0.05);
+}
+.stringTokens:hover {
+  background-color: rgba(67, 151, 178, 0.05);
+}
+.pair {
+  text-align: start;
+  padding: 9px 45px;
+}
+
+.arp {
+  color: #f6f8fe;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 23px;
+}
+
+.atom,
+.circle {
+  position: relative;
+  width: 18px;
+}
+.atom {
+  left: 3px;
+  z-index: 10;
+  padding-left: 40px;
+}
+.name {
+  display: flex;
+  color: rgba(67, 178, 91, 0.15);
+  font-weight: 700;
+  font-size: 120px;
+  line-height: 150px;
+  background: linear-gradient(306.95deg, #e2fb5f 10.17%, #0fefd4 101.39%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.page {
+  display: flex;
+  color: rgba(246, 248, 254, 0.4);
+  font-style: Light;
+  font-size: 14px;
+  margin: 5px 0px 5px -80px;
+}
+.leftarrow {
+  margin-right: 10px;
+}
+.rightarrow {
+  margin-left: 10px;
+}
+.downarrow {
+  margin-left: 6px;
+}
+
+.filterTokens::placeholder {
+  color: #43b25b;
+  font-size: 18px;
+  padding-left: 40px;
+  background-image: url("../../assets/filter.svg");
+  background-repeat: no-repeat;
+  background-position: 5px;
+  font-family: "Bai Jamjuree", sans-serif;
+}
+.filterTokens {
+  padding: 19px 0px 15px 15px;
+  background-color: rgba(21, 34, 38, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(115, 237, 201, 0.2);
+  outline: none;
+  color: #e2fb5f;
+  font-size: 16px;
+  font-family: "Bai Jamjuree", sans-serif;
+  width: 631px;
+}
+
+.secondString {
+  display: flex;
+
+  margin-top: 10px;
+}
+.string {
+  color: #e2fb5f;
+  font-size: 43px;
+  line-height: 54px;
+  margin-right: 20px;
+  font-weight: 700;
+}
+.group {
+  padding-left: 18px;
+}
+.leftButton {
+  background: rgba(22, 40, 51, 0.9);
+  border: none;
+}
+.rightButton {
+  background: rgba(22, 40, 51, 0.9);
+  border: none;
+}
+.pages {
+  padding-top: 2px;
+}
+.cashVolume {
+  text-align: right;
+  padding-right: 40px;
+}
