@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 import Token from "./Token/Token";
 import { useState } from "react";
 import TokenSender from "./TokenSender/TokenSender";
-import { useAccount, validateAddress } from "graz";
+import { useAccount, useActiveChain, validateAddress } from "graz";
 
 interface TokenProps {
   userTokens: any;
@@ -20,8 +20,8 @@ function ManageTokens({
   const [contract, setContract] = useState("");
   const [isVisible, setVisible] = useState(false);
   const { data: account, isConnected } = useAccount();
+  const activeChain = useActiveChain();
   const currentTokens = userTokens[account?.bech32Address!] || [];
-  const chainPrefix: any = account?.bech32Address?.slice(0, 4);
 
   function handleChangeContractAddress(event: any) {
     const response = event.target.value;
@@ -31,7 +31,7 @@ function ManageTokens({
   }
 
   function addContract() {
-    if (validateAddress(contract, chainPrefix)) {
+    if (validateAddress(contract, activeChain!.chainId)) {
       addUserToken(contract);
       setContract("");
     } else {
