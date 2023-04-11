@@ -5,9 +5,7 @@ import Button from "../Button/Button";
 import deleteButton from "../../assets/Button_Delite.svg";
 import collapse_arrow from "../../assets/collapse_arrow.svg";
 import { useQuerySmart, useAccount, useExecuteContract } from "graz";
-import { GasPrice } from "@cosmjs/launchpad";
-
-const gasPrice = GasPrice.fromString("0.001boot") as any;
+import { useFee } from "../../utils/useFee";
 
 interface ContractDataProps {
   contractAddress: string;
@@ -24,22 +22,29 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
   const [isSent, setSent] = useState(false);
   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
   const { data: account } = useAccount();
-  const { data: tokenBalance } = useQuerySmart<any, any>(contractAddress, {
-    balance: { address: account?.bech32Address },
-  });
+  const { data: tokenBalance, refetch } = useQuerySmart<any, any>(
+    contractAddress,
+    {
+      balance: { address: account?.bech32Address },
+    }
+  );
   const { data: tokenInfo } = useQuerySmart<any, any>(contractAddress, {
     token_info: {},
   });
   const { data: marketingInfo } = useQuerySmart<any, any>(contractAddress, {
     marketing_info: {},
   });
+  const fee = useFee();
   const { executeContract } = useExecuteContract<any>({
     contractAddress,
     onError: (error) => {
       console.log("error", error);
+      alert(error);
     },
     onSuccess: (success) => {
       console.log("success", success);
+      alert("Success!");
+      refetch();
     },
   });
 
@@ -55,33 +60,17 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
       });
     };
 
-  async function getTokensSent(
-    contractAddress: string,
-    recepient: string,
-    amount: string
-  ) {
+  async function getTokensSent(recipient: string, amount: string) {
     setSent(true);
     executeContract({
       msg: {
         transfer: {
           amount,
-          recepient,
+          recipient,
         },
       },
-      fee: gasPrice,
+      fee,
     });
-    // const response = await sendTokens(contractAddress, recepient, amount);
-    // if (response && contractData) {
-    //   setSent(true);
-    //   setContractData({
-    //     ...contractData,
-    //     balance: +contractData.balance - +balance.amount,
-    //   });
-    //   setTimeout(() => {
-    //     setSent(false);
-    //   }, 2000);
-    // }
-    // setBalance({ recepient: "", amount: "" });
   }
 
   return (
@@ -135,11 +124,7 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
                 type="button"
                 className={styles.tokenButton}
                 onClick={(e: any) =>
-                  getTokensSent(
-                    contractAddress,
-                    balance.recepient,
-                    balance.amount
-                  )
+                  getTokensSent(balance.recepient, balance.amount)
                 }
               >
                 Send

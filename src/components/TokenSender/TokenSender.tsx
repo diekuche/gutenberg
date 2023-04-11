@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./TokenSender.module.css";
 import Button from "../Button/Button";
 import { useState } from "react";
-import { sendBoot } from "../../utils/wallet";
 import { coins } from "@cosmjs/stargate";
 import collapse_arrow from "../../assets/collapse_arrow.svg";
-import { useBalances, useAccount } from "graz";
+import { useBalances, useSendTokens } from "graz";
+import { useFee } from "../../utils/useFee";
 
 const sendBalance = {
   recepient: "",
@@ -17,7 +17,24 @@ function TokenSender() {
   const [isSent, setSent] = useState(false);
   const [open, setOpen] = useState(false);
   const { data: balances = [], refetch } = useBalances();
-  const { data: account } = useAccount();
+  const fee = useFee();
+  const { sendTokens } = useSendTokens({
+    onError: (error) => {
+      alert(error);
+      console.log("error", error);
+    },
+    onSuccess: (result) => {
+      console.log("success", result);
+      refetch();
+      setSent(true);
+
+      setTimeout(() => {
+        setSent(false);
+      }, 2000);
+
+      setBalance({ recepient: "", amount: "" });
+    },
+  });
 
   const currentBalance = balances[0];
 
@@ -35,24 +52,11 @@ function TokenSender() {
 
   async function getBootSent(recipientAddress: string, amount: string) {
     if (recipientAddress !== "" && amount !== "") {
-      const response = await sendBoot(
-        account?.bech32Address!,
+      sendTokens({
         recipientAddress,
-        coins(amount, currentBalance.denom)
-      );
-      if (response) {
-        setSent(true);
-
-        setTimeout(() => {
-          setSent(false);
-        }, 2000);
-
-        setTimeout(() => {
-          refetch();
-        }, 10000);
-
-        setBalance({ recepient: "", amount: "" });
-      }
+        amount: coins(amount, currentBalance.denom),
+        fee,
+      });
     }
   }
 
