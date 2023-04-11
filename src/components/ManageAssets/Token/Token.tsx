@@ -5,7 +5,7 @@ import Button from "../../Button/Button";
 import deleteButton from "../../../assets/Button_Delite.svg";
 import collapse_arrow from "../../../assets/plus.svg";
 import { useQuerySmart, useAccount, useExecuteContract } from "graz";
-import { useFee } from "../../utils/useFee";
+import { useFee } from "../../../utils/useFee";
 
 interface ContractDataProps {
   contractAddress: string;

@@ -3,9 +3,9 @@ import styles from "./TokenSender.module.css";
 import Button from "../../Button/Button";
 import { useState } from "react";
 import { coins } from "@cosmjs/stargate";
-import collapse_arrow from "../../assets/collapse_arrow.svg";
+import collapse_arrow from "../../../assets/collapse_arrow.svg";
 import { useBalances, useSendTokens } from "graz";
-import { useFee } from "../../utils/useFee";
+import { useFee } from "../../../utils/useFee";
 
 const sendBalance = {
   recepient: "",

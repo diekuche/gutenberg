@@ -5,7 +5,7 @@ import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
 import { v4 as uuidv4 } from "uuid";
 import { useAccount, useConnect, useInstantiateContract } from "graz";
-import { useFee } from "../../utils/useFee";
+import { useFee } from "../../../utils/useFee";
 
 const defaultBalance = {
   id: uuidv4(),
@@ -106,20 +106,20 @@ export const Form = ({ addUserToken, userTokens }: FormProps) => {
 
   const handleChangeInitialBalance =
     (id: string, name: string) =>
-      (event: React.ChangeEvent<HTMLInputElement>) => {
-        setBalances(
-          balances.map((balance) => {
-            if (balance.id === id) {
-              return {
-                ...balance,
-                [name]: event.target.value,
-              };
-            } else {
-              return balance;
-            }
-          })
-        );
-      };
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setBalances(
+        balances.map((balance) => {
+          if (balance.id === id) {
+            return {
+              ...balance,
+              [name]: event.target.value,
+            };
+          } else {
+            return balance;
+          }
+        })
+      );
+    };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
