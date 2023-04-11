@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import styles from "./index.module.css";
-import ManageTokens from "../ManageTokens/ManageTokens";
-import NFT from "../NFT/NFT";
-import NTT from "../NTT/NTT";
-import { Tabs } from "../Tabs/Tabs";
-import { Tab } from "../Tabs/Tabs";
-import { Form } from "../Form/Form";
+import styles from "./CreatePage.module.css";
+import ManageTokens from "../ManageAssets/ManageAssets";
+import NFT from "./NFT/NFT";
+import NTT from "./NTT/NTT";
+import { Tabs } from "./Tabs/Tabs";
+import { Tab } from "./Tabs/Tabs";
+import { Form } from "./Form/Form";
 import { useAccount } from "graz";
 
 const TokensStorageKey = "userTokens";

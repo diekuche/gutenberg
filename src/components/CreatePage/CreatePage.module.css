@@ -30,12 +30,12 @@
 
 .createtext {
   position: absolute;
-  top: 535px;
-  left: 471px;
+  top: 567px;
+  left: 481px;
   font-family: "Bai Jamjuree", sans-serif;
   font-style: normal;
   font-weight: 700;
-  font-size: 100px;
+  font-size: 95px;
   color: rgba(115, 237, 201, 0.07);
   transform: rotate(-90deg);
 }

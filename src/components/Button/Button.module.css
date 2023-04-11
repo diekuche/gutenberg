@@ -1,28 +1,8 @@
-.tokenButton {
-  height: 44px;
-  width: 100%;
-  color: #060F19;
-  background-color: #e2fb5f;
-  border-radius: 8px;
-  font-family: "Bai Jamjuree", sans-serif;
-  font-size: 15px;
-  font-weight: 400;
-  text-transform: lowercase;
-  align-self: center;
-  cursor: pointer;
-  border-style: none
-}
-
-.tokenButton:hover {
-  color: #060F19;
-  background-color: #EDFF8E;
-}
-
 .green {
   height: 44px;
   width: 100%;
-  color: rgba(115, 237, 201, 0.3);
-  border: 1px solid rgba(115, 237, 201, 0.3);
+  color: rgba(115, 237, 201, 0.5);
+  border: 1px solid rgba(115, 237, 201, 0.5);
   border-radius: 8px;
   background-color: transparent;
   font-family: "Bai Jamjuree", sans-serif;
@@ -42,17 +22,17 @@
 .yellow {
   width: 100%;
   height: 66px;
-  border-radius: 0 0 16px 16px;
+  border-radius: 0 0 15px 15px;
   background-color: #e2fb5f;
-  width: 594px;
   cursor: pointer;
   color: #060F19;
   font-family: "Bai Jamjuree", sans-serif;
   font-weight: 700;
   font-size: 32px;
+  text-transform: lowercase;
   border-style: none;
   padding: 0px;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 .yellow:disabled {
@@ -66,13 +46,13 @@
 .yellowTransp {
   width: 100%;
   height: 66px;
-  border-radius: 0 0 16px 16px;
-  width: 594px;
+  border-radius: 0 0 15px 15px;
   cursor: pointer;
   color: #060F19;
   font-family: "Bai Jamjuree", sans-serif;
   font-weight: 700;
   font-size: 32px;
+  text-transform: lowercase;
   border-style: none;
   padding: 0px;
   margin-top: 30px;
@@ -86,9 +66,8 @@
 .white {
   position: relative;
   vertical-align: top;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  padding: 11px 20px;
+  margin: auto;
+  padding: 12px 20px;
   background: #e2fb5f;
   border-radius: 8px;
   color: #060f19;
@@ -101,6 +80,25 @@
 
 .white:hover {
   background: #EDFF8E;
+}
+
+.sendButton {
+  height: 44px;
+  width: 100%;
+  color: #060F19;
+  background-color: #e2fb5f;
+  border-style: none;
+  border-radius: 8px;
+  font-family: "Bai Jamjuree", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  text-transform: lowercase;
+  align-self: center;
+  cursor: pointer;
+}
+
+.sendButton:hover {
+  background-color: #EDFF8E;
 }
 
 .lg {

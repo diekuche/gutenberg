@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../NFT/NFT.module.css";
-import hammer from "../../assets/Icon2.svg";
+import hammer from "../../../assets/Icon2.svg";
 
 const NFT = () => {
   return (

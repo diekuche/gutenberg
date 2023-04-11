@@ -35,6 +35,7 @@ const SelectCustom = (props: SelectCustomProps) => {
         control: (baseStyles, state) => ({
           ...baseStyles,
           border: "none",
+          minHeight: "20px",
           height: `${heightControl}px`,
           borderColor: state.isFocused ? "green" : "transparent",
           borderRadius: "8px",

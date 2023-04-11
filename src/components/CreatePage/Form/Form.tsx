@@ -1,6 +1,6 @@
-import styles from "./index.module.css";
+import styles from "./Form.module.css";
 import React, { FormEvent, useState } from "react";
-import Button from "../Button/Button";
+import Button from "../../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
 import { v4 as uuidv4 } from "uuid";
@@ -106,20 +106,20 @@ export const Form = ({ addUserToken, userTokens }: FormProps) => {
 
   const handleChangeInitialBalance =
     (id: string, name: string) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setBalances(
-        balances.map((balance) => {
-          if (balance.id === id) {
-            return {
-              ...balance,
-              [name]: event.target.value,
-            };
-          } else {
-            return balance;
-          }
-        })
-      );
-    };
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        setBalances(
+          balances.map((balance) => {
+            if (balance.id === id) {
+              return {
+                ...balance,
+                [name]: event.target.value,
+              };
+            } else {
+              return balance;
+            }
+          })
+        );
+      };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -226,8 +226,7 @@ export const Form = ({ addUserToken, userTokens }: FormProps) => {
       </div>
       {!isConnected ? (
         <Button
-          color="yellow"
-          size="sm"
+          color="yellowTransp"
           className={styles.connectButton}
           onClick={() => {
             console.log("connect");

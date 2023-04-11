@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Token.module.css";
 import { useState } from "react";
-import Button from "../Button/Button";
-import deleteButton from "../../assets/Button_Delite.svg";
-import collapse_arrow from "../../assets/collapse_arrow.svg";
+import Button from "../../Button/Button";
+import deleteButton from "../../../assets/Button_Delite.svg";
+import collapse_arrow from "../../../assets/plus.svg";
 import { useQuerySmart, useAccount, useExecuteContract } from "graz";
 import { GasPrice } from "@cosmjs/launchpad";
 
@@ -131,7 +131,7 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
                 onChange={handleSendChange("amount")}
               />
               <Button
-                color="white"
+                color="sendButton"
                 type="button"
                 className={styles.tokenButton}
                 onClick={(e: any) =>
