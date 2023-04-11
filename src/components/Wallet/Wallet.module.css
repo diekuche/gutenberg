@@ -8,11 +8,12 @@
 }
 
 .address {
-  height: 20px;
-  width: 150px;
+  height: auto;
+  width: auto;
 }
 
 .connected {
   background-color: rgba(67, 151, 178, 0.1) !important;
-  color: #43B25B !important;
+  color: rgba(115, 237, 201, 0.5) !important;
+  font-weight: 400;
 }

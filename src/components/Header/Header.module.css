@@ -14,10 +14,10 @@
   z-index: 1000;
 }
 
-.linkHead {
+.logo {
   position: relative;
   display: inline-block;
-  padding-bottom: 5px;
+  padding-bottom: 7px;
   padding-right: 15px;
   color: #e2fb5f;
   text-decoration: none;
@@ -26,27 +26,26 @@
   font-weight: 700;
 }
 
-.linkHead:hover {
+.logo:hover {
   color: #EDFF8E
 }
 
-.middle {
+.menu {
   display: flex;
   margin-right: auto;
+  align-items: center;
+  margin-bottom: 2px;
 }
 
 .link {
   display: inline-block;
   text-decoration: none;
-  padding: 20px 15px;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 0px 15px;
   font-family: "Bai Jamjuree", sans-serif;
   text-decoration: none;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 20px;
   text-align: left;
   color: #F6F8FE;
 }
@@ -59,50 +58,59 @@
   color: #E2FB5F;
   display: inline-block;
   text-decoration: none;
-  margin-right: 36px;
-  padding: 20px 15px;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 0px 15px;
   font-family: "Bai Jamjuree", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 20px;
   text-align: left;
 }
 
-.chainButton {
-  position: relative;
-  align-items: right;
-  margin-top: 9px;
-  margin-bottom: 9px;
-  margin-right: 20px;
-  padding-left: 14px;
-  padding-right: 14px;
-  border-style: none;
+.myWallet {
+  display: flex;
+  padding: 12px 16px;
   border-radius: 8px;
-  background-color: transparent;
 }
 
-.cainButton:hover {
-  background-color: rgba(67, 151, 178, 0.1);
+.myWallet:hover {
+  background: rgba(67, 151, 178, 0.1);
+}
+
+.myWalletText {
+  text-decoration: none;
+  padding-left: 10px;
+  font-family: "Bai Jamjuree", sans-serif;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: left;
+  color: #E2FB5F;
+}
+
+.activemyWalletText {
+  color: #E2FB5F;
+  text-decoration: none;
+  padding: 0px 10px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: left;
 }
 
 .rightButton {
   display: flex;
 }
 
-.circle {
-  width: 18px;
-  height: 18px;
-  max-width: none;
-  vertical-align: middle;
+.chainButton {
+  position: relative;
+  vertical-align: top;
+  padding-left: 12px;
+  margin: auto 15px auto 5px;
+  border-style: none;
+  border-radius: 8px;
 }
 
-.downSwapArrow {
-  margin-left: 10px;
-  margin-top: 3px;
-  vertical-align: middle;
-  width: 1em;
-  height: 1em;
+.chainButton:hover {
+  background: rgba(67, 151, 178, 0.1);
 }

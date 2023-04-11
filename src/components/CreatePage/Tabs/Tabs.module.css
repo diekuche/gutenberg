@@ -1,0 +1,46 @@
+.tabs {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-bottom: -1px;
+  z-index: 2;
+}
+
+.tabLabel {
+  min-width: 144px;
+  padding: 7px 0px;
+  background-color: #12262d;
+  border-style: solid solid none;
+  border-width: 1px;
+  border-color: rgba(115, 237, 201, 0.5);
+  border-radius: 12px 12px 0px 0px;
+  color: #E2FB5F;
+  font-weight: 600;
+  transition: all 0.15s;
+  cursor: pointer;
+  font-size: 24px;
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
+  text-transform: lowercase;
+}
+
+.tabLabel__selected {
+  padding: 9px 0px;
+  background-color: rgba(20, 35, 42, 0.85);
+  border-color: rgba(115, 237, 201, 0.4);
+  border-style: solid;
+  border-width: 1px;
+  font-weight: 400;
+  font-size: 20px;
+  color: rgba(226, 251, 95, 0.35);
+  backdrop-filter: blur(5px);
+}
+
+.tabLabel__selected:hover {
+  background-color: rgb(25, 44, 52);
+  font-weight: 500;
+  color: #E2FB5F;
+  backdrop-filter: blur(5px);
+}

@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-left: 15%;
 }
 
 .mainPageWelcomeBlockinerInner {
@@ -13,7 +14,7 @@
 .WelcomeBlockFirst {
   align-content: center;
   font-weight: 500;
-  font-size: 21px;
+  font-size: calc(0.55rem + 1.1vw);
   line-height: 26px;
   color: rgba(115, 237, 201, 0.7);
 }
@@ -26,18 +27,19 @@
   background-clip: text;
   padding-bottom: 30px;
 
-  font-size: 135px;
-  line-height: 94px;
+  font-size: calc(3.5rem + 7vw);
+  line-height: 70%;
   font-weight: 700;
   text-transform: lowercase;
 }
 
 .WelcomeBlockThird {
+  display: block;
   font-weight: 700;
-  font-size: 48px;
-  line-height: 41px;
+  font-size: calc(1.25rem + 2.5vw);
+  line-height: 85%;
   text-transform: lowercase;
-  margin-top: -75px;
-  margin-left: 390px;
+  margin-top: 115%;
+  margin-left: -70%;
   color: rgba(115, 237, 201, 0.7);
 }

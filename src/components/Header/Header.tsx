@@ -1,6 +1,7 @@
 import styles from "./Header.module.css";
 import { NavLink } from "react-router-dom";
 import Wallet from "../Wallet/Wallet";
+import icon from "../../assets/icon_wallet.svg";
 import SelectCustom from "../SelectCustom/SelectCustom";
 import { CustomChains } from "../../utils/config";
 import { mainnetChains, useSuggestChainAndConnect, useActiveChain } from "graz";
@@ -32,11 +33,11 @@ const Header = () => {
     <header>
       <div className={styles.nav}>
         <div>
-          <NavLink to="/" className={styles.linkHead}>
+          <NavLink to="/" className={styles.logo}>
             gutenberg!
           </NavLink>
         </div>
-        <div className={styles.middle}>
+        <div className={styles.menu}>
           <div>
             <NavLink
               to="/swap"
@@ -47,7 +48,7 @@ const Header = () => {
               Swap
             </NavLink>
           </div>
-          <div className={styles.name}>
+          <div>
             <NavLink
               to="/pools"
               className={(link) =>
@@ -57,43 +58,42 @@ const Header = () => {
               Pools
             </NavLink>
           </div>
-          <div className={styles.name}>
+          <div>
             <NavLink
               to="/create"
               className={(link) =>
                 link.isActive ? styles.active : styles.link
               }
             >
-              Create token
+              Create Token
             </NavLink>
           </div>
-
-          <div className={styles.name}>
-            <NavLink
-              to="/manage-assets"
-              className={(link) =>
-                link.isActive ? styles.active : styles.link
-              }
-            >
-              Manage assets
-            </NavLink>
-          </div>
+        </div>
+        <div className={styles.myWallet}>
+          <img src={icon} alt=""></img>
+          <NavLink
+            to="/my-wallet"
+            className={(myWalletText) =>
+              myWalletText.isActive ? styles.activemyWalletText : styles.myWalletText
+            }
+          >
+            My Wallet
+          </NavLink>
         </div>
         <div className={styles.rightButton}>
           <div className={styles.chainButton}>
             <SelectCustom
               options={options}
-              heightControl={32}
+              heightControl={42}
               fontSizePlaceholder={16}
               minWidthMenu={170}
               paddingMenu={0}
-              topMenu={36}
-              rightMenu={-19}
+              topMenu={32}
+              rightMenu={-6}
               defaultValue={defaultValue}
               onChange={handleSelect}
             />
           </div>
-
           <Wallet />
         </div>
       </div>

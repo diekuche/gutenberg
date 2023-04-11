@@ -1,0 +1,41 @@
+.mainpage {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  margin: auto;
+  padding-top: 30px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 120px;
+  margin-bottom: 120px;
+}
+
+.tools {
+  display: flex;
+  flex-direction: row;
+  z-index: 1;
+
+}
+
+.tabPageContent {
+  display: flex;
+  width: 596px;
+  justify-content: center;
+  justify-items: center;
+}
+
+.createtext {
+  position: absolute;
+  top: 567px;
+  left: 481px;
+  font-family: "Bai Jamjuree", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 95px;
+  color: rgba(115, 237, 201, 0.07);
+  transform: rotate(-90deg);
+}
