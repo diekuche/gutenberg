@@ -16,6 +16,7 @@ import ManageAssets from "./components/ManageAssets/ManageAssets";
 import License from "./components/LicensePage/LicensePage";
 import { GrazProvider } from "graz";
 import { CustomChains } from "../src/utils/config";
+import Pools from "./components/Pools/Pools";
 
 declare global {
   interface Window extends KeplrWindow { }
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/newBT" element={<NewButton />}></Route>
                 <Route path="/swap" element={<Swap />}></Route>
                 <Route path="/manage-assets" element={<ManageAssets />}></Route>
+                <Route path="/pools" element={<Pools />}></Route>
               </Routes>
               <Footer />
             </Router>
