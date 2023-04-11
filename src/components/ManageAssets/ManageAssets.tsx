@@ -1,86 +1,95 @@
 import React from "react";
 import styles from "./ManageAssets.module.css";
-import circle from "../../assets/circle.svg";
-import swapMA from "../../assets/swapMA.svg";
-import icon_send from "../../assets/icon_send.svg";
-import icon_mint from "../../assets/icon_mint.svg";
-import icon_burn from "../../assets/icon_burn.svg";
 import Button from "../Button/Button";
+import Token from "./Token/Token";
+import { useState } from "react";
+import TokenSender from "./TokenSender/TokenSender";
+import { useAccount, validateAddress } from "graz";
 
-const ManageAssets = () => {
+interface TokenProps {
+  userTokens: any;
+  addUserToken: (contractAddress: string) => void;
+  removeUserToken: (contractAddress: string) => void;
+}
+
+function ManageTokens({
+  userTokens,
+  addUserToken,
+  removeUserToken,
+}: TokenProps) {
+  const [contract, setContract] = useState("");
+  const [isVisible, setVisible] = useState(false);
+  const { data: account, isConnected } = useAccount();
+  const currentTokens = userTokens[account?.bech32Address!] || [];
+  const chainPrefix: any = account?.bech32Address?.slice(0, 4);
+
+  function handleChangeContractAddress(event: any) {
+    const response = event.target.value;
+    if (response !== undefined) {
+      setContract(response);
+    }
+  }
+
+  function addContract() {
+    if (validateAddress(contract, chainPrefix)) {
+      addUserToken(contract);
+      setContract("");
+    } else {
+      alert("Invalid contract address");
+      setVisible(true);
+      setTimeout(() => {
+        setVisible(false);
+      }, 2000);
+    }
+  }
+
   return (
-    <div className={styles.nav}>
-      <div className={styles.name}>manage assets</div>
-      <div className={styles.border}>
-        <div className={styles.test}>
-          <table className={styles.tableMA}>
-            <thead className={styles.thead}>
-              <tr>
-                <th className={styles.tokens}>Tokens</th>
-                <th className={styles.balance}>Balance</th>
-                <th className={styles.other}>Send</th>
-                <th className={styles.other}>Swap</th>
-                <th className={styles.other}>Mint</th>
-                <th className={styles.other}>Burn</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className={styles.menu}>
-                <td className={styles.nameToken}>
-                  <img src={circle} className={styles.circle} alt="" />
-                  <div>
-                    <div className={styles.boot}>BOOT</div>
-                    <div className={styles.bostorm}>Bostorm</div>
-                  </div>
-                </td>
-                <td className={styles.price}>937,453,452.00</td>
-                <td>
-                  <img src={icon_send} alt="" />
-                </td>
-                <td>
-                  <img src={swapMA} alt="" />
-                </td>
-                <td>
-                  <img src={icon_mint} alt="" />
-                </td>
-                <td>
-                  <img src={icon_burn} alt="" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div className={styles.exchange}>
-          <div className={styles.exchangeField}>
-            Recepient:
-            <input className={styles.field} type="text" />
-          </div>
-          <div className={styles.exchangeField}>
-            Amount:
-            <input className={styles.field} type="text" />
-          </div>
-          <Button
-            color="white"
-            type="button"
-            size="lg"
-            className={styles.tokenSend + " " + styles.lg}
-          >
-            Send
-          </Button>
-        </div>
-        <div className={styles.add}>
-          <Button
-            color="green"
-            type="button"
-            size="lg"
-            className={styles.addToken + " " + styles.lg}
-          >
-            Add Token
-          </Button>
-        </div>
+    <div className={styles.manageTok}>
+      <div className={styles.highlighter}>
+        <div className={styles.name}>Assets</div>
       </div>
+
+      {isConnected ? (
+        <div className={styles.tokens}>
+          <TokenSender />
+          <div className={styles.tokenList}>
+            {currentTokens.map((contractAddress: any) => (
+              <Token
+                contractAddress={contractAddress}
+                removeContract={removeUserToken}
+                key={contract}
+              />
+            ))}
+          </div>
+          <div className={styles.inputs}>
+            <div className={styles.info}>
+              To add a token, specify its address:
+            </div>
+            <input
+              type="text"
+              className={styles.addContract}
+              value={contract}
+              onChange={handleChangeContractAddress}
+            />
+            <Button
+              color="green"
+              type="button"
+              onClick={addContract}
+              className={styles.addTokenButton}
+            >
+              Add Token
+            </Button>
+
+            {isVisible && <div className={styles.error}>Token not found</div>}
+          </div>
+        </div>
+      ) : (
+        <div className={styles.info2}>
+          Please connect your wallet <br></br> to view your active positions.
+        </div>
+      )}
     </div>
   );
-};
+}
 
-export default ManageAssets;
+export default ManageTokens;
