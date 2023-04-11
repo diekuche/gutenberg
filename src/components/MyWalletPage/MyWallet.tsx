@@ -6,6 +6,7 @@ import icon_send from "../../assets/icon_send.svg";
 import icon_mint from "../../assets/icon_mint.svg";
 import icon_burn from "../../assets/icon_burn.svg";
 import Button from "../Button/Button";
+import MyInvestment from "../Pools/MyInvestment/MyInvestment";
 
 const ManageAssets = () => {
   return (
@@ -79,6 +80,7 @@ const ManageAssets = () => {
           </Button>
         </div>
       </div>
+      <MyInvestment />
     </div>
   );
 };

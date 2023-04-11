@@ -72,7 +72,7 @@ const Header = () => {
         <div className={styles.myWallet}>
           <img src={icon} alt=""></img>
           <NavLink
-            to="/manage-assets"
+            to="/my-wallet"
             className={(myWalletText) =>
               myWalletText.isActive ? styles.activemyWalletText : styles.myWalletText
             }
