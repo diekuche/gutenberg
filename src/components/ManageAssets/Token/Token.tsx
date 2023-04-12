@@ -90,7 +90,7 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
                   className={styles.logo}
                 ></img>
               )}
-              <div className={styles.token}>{tokenInfo.name}</div>
+              <div className={styles.token}>{tokenInfo.symbol}</div>
               <img src={collapse_arrow} alt="" className={styles.image} />
               <div className={styles.balance}>
                 {Number(tokenBalance.balance).toLocaleString()}

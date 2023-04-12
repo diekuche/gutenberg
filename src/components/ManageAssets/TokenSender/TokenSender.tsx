@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import styles from "./TokenSender.module.css";
 import Button from "../../Button/Button";
 import { useState } from "react";
-import { coins } from "@cosmjs/stargate";
+import { Coin, coins } from "@cosmjs/stargate";
 import collapse_arrow from "../../../assets/collapse_arrow.svg";
-import { useBalances, useSendTokens } from "graz";
+import { useSendTokens, useClients, useAccount } from "graz";
 import { useFee } from "../../../utils/useFee";
 
 const sendBalance = {
@@ -14,10 +14,14 @@ const sendBalance = {
 
 function TokenSender() {
   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
+  const [currentBalance, setCurrentBalance] = useState<Coin | null>(null);
   const [isSent, setSent] = useState(false);
   const [open, setOpen] = useState(false);
-  const { data: balances = [], refetch } = useBalances();
+  const { data: account } = useAccount();
+  const { data } = useClients();
+  const client = data?.stargate;
   const fee = useFee();
+
   const { sendTokens } = useSendTokens({
     onError: (error) => {
       alert(error);
@@ -25,7 +29,7 @@ function TokenSender() {
     },
     onSuccess: (result) => {
       console.log("success", result);
-      refetch();
+      fetchBalance();
       setSent(true);
 
       setTimeout(() => {
@@ -36,7 +40,18 @@ function TokenSender() {
     },
   });
 
-  const currentBalance = balances[0];
+  const fetchBalance = useCallback(async () => {
+    if (account?.bech32Address) {
+      const balances = await client?.getAllBalances(account.bech32Address);
+      if (balances?.[0]) {
+        setCurrentBalance(balances[0]);
+      }
+    }
+  }, [client, account]);
+
+  useEffect(() => {
+    fetchBalance();
+  }, [fetchBalance]);
 
   const collapse = () => {
     setOpen(!open);
@@ -54,7 +69,7 @@ function TokenSender() {
     if (recipientAddress !== "" && amount !== "") {
       sendTokens({
         recipientAddress,
-        amount: coins(amount, currentBalance.denom),
+        amount: coins(amount, currentBalance!.denom),
         fee,
       });
     }
