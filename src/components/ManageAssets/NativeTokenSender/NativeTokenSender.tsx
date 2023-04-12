@@ -3,10 +3,9 @@ import styles from "./NativeTokenSender.module.css";
 import Button from "../../Button/Button";
 import { useState } from "react";
 import { coins } from "@cosmjs/stargate";
-import plus from "../../../assets/plus.svg";
-import minus from "../../../assets/minus.svg";
+import collapse_arrow from "../../assets/collapse_arrow.svg";
 import { useBalances, useSendTokens } from "graz";
-import { useFee } from "../../../utils/useFee";
+import { useFee } from "../../utils/useFee";
 
 const sendBalance = {
   recepient: "",
@@ -69,7 +68,7 @@ function TokenSender() {
     <div className={styles.contractData}>
       <button className={styles.cashName} onClick={collapse}>
         <div className={styles.token}>🟢 {currentBalance.denom}</div>
-        {<img alt="icons" className={styles.icon} src={open ? minus : plus} />}
+        <img src={collapse_arrow} alt="" className={styles.image} />
         <div className={styles.balance}>
           {Number(currentBalance.amount).toLocaleString()}
         </div>
