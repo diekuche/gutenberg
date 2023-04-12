@@ -91,8 +91,14 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
                   className={styles.logo}
                 ></img>
               )}
-              <div className={styles.token}>{tokenInfo.name}</div>
-              {<img alt="icons" className={styles.icon} src={open ? minus : plus} />}
+              <div className={styles.token}>{tokenInfo.symbol}</div>
+              {
+                <img
+                  alt="icons"
+                  className={styles.icon}
+                  src={open ? minus : plus}
+                />
+              }
               <div className={styles.balance}>
                 {Number(tokenBalance.balance).toLocaleString()}
               </div>
@@ -103,7 +109,6 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
                 <img src={deleteButton} alt=""></img>
               </button>
             </button>
-
           </div>
           {open && (
             <div className={styles.children}>
