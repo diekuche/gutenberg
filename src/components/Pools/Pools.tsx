@@ -18,20 +18,20 @@ const Pools = () => {
       <MyInvestment />
       <MyPools />
       <div className={styles.secondString}>
-        <div className={styles.string}>all pools</div>
+        <div className={styles.allpools}>all pools</div>
         <input
           className={styles.filterTokens}
           type="text"
           placeholder="Filter tokens"
         />
       </div>
-      <div className={styles.tokenList}>
-        <table className={styles.tableToken}>
-          <thead className={styles.tableHead}>
-            <tr>
+      <div className={styles.tablePools}>
+        <table>
+          <thead>
+            <tr className={styles.theadPools}>
               <th className={styles.pair}>Pair</th>
-              <th className={styles.arpHead}>ARP</th>
-              <th className={styles.totalLiquiity}>
+              <th>ARP</th>
+              <th>
                 Total Liquidity
                 <img
                   className={styles.downarrow}
@@ -42,81 +42,138 @@ const Pools = () => {
               <th className={styles.volume}>Volume (24h)</th>
             </tr>
           </thead>
-          <tbody>
-            <tr className={styles.stringTokens}>
-              <td className={styles.pairArp}>
-                <img className={styles.atom} src={atom} alt=""></img>
-                <img className={styles.circle} src={circle} alt=""></img>
-                <div className={styles.cent}>ATOM/BOOT</div>
+          <tbody className={styles.mainTable}>
+            <tr>
+              <td className={styles.pairwidth}>
+                <div className={styles.pairPool}>
+                  <img className={styles.imgToken_1} src={atom} alt=""></img>
+                  <img className={styles.imgToken_2} src={circle} alt=""></img>
+                  <div className={styles.pair}>ATOM/BOOT</div>
+                </div>
               </td>
-              <td className={styles.arp}>54.51%</td>
-              <td className={styles.cash}>$283,478,297</td>
-              <td className={styles.cashVolume}>$283,478,297</td>
-            </tr>
-            <tr className={styles.stringTokens}>
-              <td className={styles.pairArp}>
-                <img className={styles.atom} src={atom} alt=""></img>
-                <img className={styles.circle} src={circle} alt=""></img>
-                ATOM/BOOT
-              </td>
-              <td className={styles.arp}>0.13%</td>
-              <td className={styles.cash}>$283,478,297</td>
-              <td className={styles.cashVolume}>$283,478,297</td>
-            </tr>
-            <tr className={styles.stringTokens}>
-              <td className={styles.pairArp}>
-                <img className={styles.atom} src={atom} alt=""></img>
-                <img className={styles.circle} src={circle} alt=""></img>
-                ATOM/BOOT
-              </td>
-              <td className={styles.arp}>4.11%</td>
-              <td className={styles.cash}>$283,478,297</td>
-              <td className={styles.cashVolume}>$283,478,297</td>
-            </tr>
-            <tr className={styles.stringTokens}>
-              <td className={styles.pairArp}>
-                <img className={styles.atom} src={atom} alt=""></img>
-                <img className={styles.circle} src={circle} alt=""></img>
-                ATOM/BOOT
-              </td>
-              <td className={styles.arp}>143.32%</td>
-              <td className={styles.cash}>$283,478,297</td>
-              <td className={styles.cashVolume}>$283,478,297</td>
-            </tr>
-            <tr className={styles.stringTokens}>
-              <td className={styles.pairArp}>
-                <img className={styles.atom} src={atom} alt=""></img>
-                <img className={styles.circle} src={circle} alt=""></img>
-                ATOM/BOOT
-              </td>
-              <td className={styles.arp}>54.51%</td>
-              <td className={styles.cash}>$283,478,297</td>
-              <td className={styles.cashVolume}>$283,478,297</td>
+              <td className={styles.ARP}>54.51%</td>
+              <td>$283,478,297</td>
+              <td className={styles.volume}>$283,478,297</td>
             </tr>
             <tr>
-              <th></th>
-              <th></th>
-              <div className={styles.page}>
-                <button className={styles.leftButton}>
-                  <img
-                    className={styles.leftarrow}
-                    src={leftarrow}
-                    alt=""
-                  ></img>
-                </button>
-                <div className={styles.pages}>Page 1 of 2</div>
-
-                <button className={styles.rightButton}>
-                  <img
-                    className={styles.rightarrow}
-                    src={rightarrow}
-                    alt=""
-                  ></img>
-                </button>
-              </div>
+              <td>
+                <div className={styles.pairPool}>
+                  <img className={styles.imgToken_1} src={atom} alt=""></img>
+                  <img className={styles.imgToken_2} src={circle} alt=""></img>
+                  <div className={styles.pair}>ATOM/BOOT</div>
+                </div>
+              </td>
+              <td className={styles.ARP}>54.51%</td>
+              <td>$283,478,297</td>
+              <td className={styles.volume}>$283,478,297</td>
+            </tr>
+            <tr>
+              <td>
+                <div className={styles.pairPool}>
+                  <img className={styles.imgToken_1} src={atom} alt=""></img>
+                  <img className={styles.imgToken_2} src={circle} alt=""></img>
+                  <div className={styles.pair}>ATOM/BOOT</div>
+                </div>
+              </td>
+              <td className={styles.ARP}>54.51%</td>
+              <td>$283,478,297</td>
+              <td className={styles.volume}>$283,478,297</td>
+            </tr>
+            <tr>
+              <td>
+                <div className={styles.pairPool}>
+                  <img className={styles.imgToken_1} src={atom} alt=""></img>
+                  <img className={styles.imgToken_2} src={circle} alt=""></img>
+                  <div className={styles.pair}>ATOM/BOOT</div>
+                </div>
+              </td>
+              <td className={styles.ARP}>54.51%</td>
+              <td>$283,478,297</td>
+              <td className={styles.volume}>$283,478,297</td>
+            </tr>
+            <tr>
+              <td>
+                <div className={styles.pairPool}>
+                  <img className={styles.imgToken_1} src={atom} alt=""></img>
+                  <img className={styles.imgToken_2} src={circle} alt=""></img>
+                  <div className={styles.pair}>ATOM/BOOT</div>
+                </div>
+              </td>
+              <td className={styles.ARP}>54.51%</td>
+              <td>$283,478,297</td>
+              <td className={styles.volume}>$283,478,297</td>
+            </tr>
+            <tr>
+              <td>
+                <div className={styles.pairPool}>
+                  <img className={styles.imgToken_1} src={atom} alt=""></img>
+                  <img className={styles.imgToken_2} src={circle} alt=""></img>
+                  <div className={styles.pair}>ATOM/BOOT</div>
+                </div>
+              </td>
+              <td className={styles.ARP}>54.51%</td>
+              <td>$283,478,297</td>
+              <td className={styles.volume}>$283,478,297</td>
+            </tr>
+            <tr>
+              <td>
+                <div className={styles.pairPool}>
+                  <img className={styles.imgToken_1} src={atom} alt=""></img>
+                  <img className={styles.imgToken_2} src={circle} alt=""></img>
+                  <div className={styles.pair}>ATOM/BOOT</div>
+                </div>
+              </td>
+              <td className={styles.ARP}>54.51%</td>
+              <td>$283,478,297</td>
+              <td className={styles.volume}>$283,478,297</td>
+            </tr>
+            <tr>
+              <td>
+                <div className={styles.pairPool}>
+                  <img className={styles.imgToken_1} src={atom} alt=""></img>
+                  <img className={styles.imgToken_2} src={circle} alt=""></img>
+                  <div className={styles.pair}>ATOM/BOOT</div>
+                </div>
+              </td>
+              <td className={styles.ARP}>54.51%</td>
+              <td>$283,478,297</td>
+              <td className={styles.volume}>$283,478,297</td>
+            </tr>
+            <tr>
+              <td>
+                <div className={styles.pairPool}>
+                  <img className={styles.imgToken_1} src={atom} alt=""></img>
+                  <img className={styles.imgToken_2} src={circle} alt=""></img>
+                  <div className={styles.pair}>ATOM/BOOT</div>
+                </div>
+              </td>
+              <td className={styles.ARP}>54.51%</td>
+              <td>$283,478,297</td>
+              <td className={styles.volume}>$283,478,297</td>
+            </tr>
+            <tr>
+              <td>
+                <div className={styles.pairPool}>
+                  <img className={styles.imgToken_1} src={atom} alt=""></img>
+                  <img className={styles.imgToken_2} src={circle} alt=""></img>
+                  <div className={styles.pair}>ATOM/BOOT</div>
+                </div>
+              </td>
+              <td className={styles.ARP}>54.51%</td>
+              <td>$283,478,297</td>
+              <td className={styles.volume}>$283,478,297</td>
             </tr>
           </tbody>
         </table>
+        <div className={styles.page}>
+          <button className={styles.leftButton}>
+            <img src={leftarrow} alt=""></img>
+          </button>
+          <div>Page 1 of 2</div>
+          <button className={styles.rightButton}>
+            <img src={rightarrow} alt=""></img>
+          </button>
+        </div>
       </div>
     </div>
   );

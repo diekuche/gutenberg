@@ -1,11 +1,12 @@
 import React from "react";
-import styles from "./Token.module.css";
+import styles from "./OtherTokenSender.module.css";
 import { useState } from "react";
 import Button from "../../Button/Button";
 import deleteButton from "../../../assets/Button_Delite.svg";
-import collapse_arrow from "../../../assets/plus.svg";
+import plus from "../../../assets/plus.svg";
+import minus from "../../../assets/minus.svg";
 import { useQuerySmart, useAccount, useExecuteContract } from "graz";
-import { useFee } from "../../utils/useFee";
+import { useFee } from "../../../utils/useFee";
 
 interface ContractDataProps {
   contractAddress: string;
@@ -81,7 +82,7 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
             <button
               type="button"
               onClick={collapse}
-              className={styles.cashName}
+              className={styles.tokenName}
             >
               {marketingInfo.logo?.url && (
                 <img
@@ -91,17 +92,18 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
                 ></img>
               )}
               <div className={styles.token}>{tokenInfo.name}</div>
-              <img src={collapse_arrow} alt="" className={styles.image} />
+              {<img alt="icons" className={styles.icon} src={open ? minus : plus} />}
               <div className={styles.balance}>
                 {Number(tokenBalance.balance).toLocaleString()}
               </div>
+              <button
+                className={styles.x}
+                onClick={(e) => removeContract(contractAddress)}
+              >
+                <img src={deleteButton} alt=""></img>
+              </button>
             </button>
-            <button
-              className={styles.x}
-              onClick={(e) => removeContract(contractAddress)}
-            >
-              <img src={deleteButton} alt=""></img>
-            </button>
+
           </div>
           {open && (
             <div className={styles.children}>

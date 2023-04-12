@@ -5,7 +5,7 @@ import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
 import { v4 as uuidv4 } from "uuid";
 import { useAccount, useConnect, useInstantiateContract } from "graz";
-import { useFee } from "../../utils/useFee";
+import { useFee } from "../../../utils/useFee";
 
 const defaultBalance = {
   id: uuidv4(),

@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./ManageAssets.module.css";
 import Button from "../Button/Button";
-import Token from "./Token/Token";
+import Token from "./OtherTokenSender/OtherTokenSender";
 import { useState } from "react";
-import TokenSender from "./TokenSender/TokenSender";
+import TokenSender from "./NativeTokenSender/NativeTokenSender";
 import { useAccount, useActiveChain, validateAddress } from "graz";
 
 interface TokenProps {

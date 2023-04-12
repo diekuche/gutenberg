@@ -12,7 +12,7 @@
   background-color: #12262d;
   border-style: solid solid none;
   border-width: 1px;
-  border-color: rgba(115, 237, 201, 0.5);
+  border-color: rgba(115, 237, 201, 0.1);
   border-radius: 12px 12px 0px 0px;
   color: #E2FB5F;
   font-weight: 600;
@@ -29,7 +29,7 @@
 .tabLabel__selected {
   padding: 9px 0px;
   background-color: rgba(20, 35, 42, 0.85);
-  border-color: rgba(115, 237, 201, 0.4);
+  border-color: rgba(115, 237, 201, 0.1);
   border-style: solid;
   border-width: 1px;
   font-weight: 400;
