@@ -106,20 +106,20 @@ export const Form = ({ addUserToken, userTokens }: FormProps) => {
 
   const handleChangeInitialBalance =
     (id: string, name: string) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setBalances(
-        balances.map((balance) => {
-          if (balance.id === id) {
-            return {
-              ...balance,
-              [name]: event.target.value,
-            };
-          } else {
-            return balance;
-          }
-        })
-      );
-    };
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        setBalances(
+          balances.map((balance) => {
+            if (balance.id === id) {
+              return {
+                ...balance,
+                [name]: event.target.value,
+              };
+            } else {
+              return balance;
+            }
+          })
+        );
+      };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>

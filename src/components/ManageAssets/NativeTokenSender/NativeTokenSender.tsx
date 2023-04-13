@@ -1,5 +1,5 @@
+import styles from "./NativeTokenSender.module.css";
 import React, { useEffect, useCallback } from "react";
-import styles from "./TokenSender.module.css";
 import Button from "../../Button/Button";
 import { useState } from "react";
 import { Coin, coins } from "@cosmjs/stargate";

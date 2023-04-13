@@ -3,14 +3,13 @@
   position: relative;
   flex-direction: column;
   margin: auto;
-  padding-top: 30px;
 }
 
 .group {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 120px;
+  margin-top: 150px;
   margin-bottom: 120px;
 }
 
@@ -26,6 +25,7 @@
   width: 596px;
   justify-content: center;
   justify-items: center;
+  margin-bottom: auto;
 }
 
 .createtext {

@@ -7,80 +7,81 @@ import icon_mint from "../../assets/icon_mint.svg";
 import icon_burn from "../../assets/icon_burn.svg";
 import Button from "../Button/Button";
 import MyInvestment from "../Pools/MyInvestment/MyInvestment";
+import MyPools from "../Pools/MyPools/MyPools";
 
 const ManageAssets = () => {
   return (
-    <div className={styles.nav}>
-      <div className={styles.name}>manage assets</div>
-      <div className={styles.border}>
-        <div className={styles.test}>
-          <table className={styles.tableMA}>
-            <thead className={styles.thead}>
-              <tr>
-                <th className={styles.tokens}>Tokens</th>
-                <th className={styles.balance}>Balance</th>
-                <th className={styles.other}>Send</th>
-                <th className={styles.other}>Swap</th>
-                <th className={styles.other}>Mint</th>
-                <th className={styles.other}>Burn</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className={styles.menu}>
-                <td className={styles.nameToken}>
-                  <img src={circle} className={styles.circle} alt="" />
-                  <div>
-                    <div className={styles.boot}>BOOT</div>
-                    <div className={styles.bostorm}>Bostorm</div>
-                  </div>
-                </td>
-                <td className={styles.price}>937,453,452.00</td>
-                <td>
-                  <img src={icon_send} alt="" />
-                </td>
-                <td>
-                  <img src={swapMA} alt="" />
-                </td>
-                <td>
-                  <img src={icon_mint} alt="" />
-                </td>
-                <td>
-                  <img src={icon_burn} alt="" />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div className={styles.exchange}>
-          <div className={styles.exchangeField}>
-            Recepient:
-            <input className={styles.field} type="text" />
-          </div>
-          <div className={styles.exchangeField}>
-            Amount:
-            <input className={styles.field} type="text" />
+    <div className={styles.main}>
+      <div className={styles.title}>manage assets</div>
+      <div className={styles.tableMA}>
+        <table>
+          <thead>
+            <tr className={styles.theadMA}>
+              <th className={styles.thLeft}>Tokens</th>
+              <th>Balance</th>
+              <th className={styles.thwidth}>Send</th>
+              <th className={styles.thwidth}>Swap</th>
+              <th className={styles.thwidth}>Mint</th>
+              <th className={styles.thwidth}>Burn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div className={styles.nameToken}>
+                  <img src={circle} className={styles.iconToken} alt="" />
+                  BOOT</div>
+              </td>
+              <td className={styles.balance}>937,453,452.00</td>
+              <td className={styles.thwidth}>
+                <img src={icon_send} alt="" />
+              </td>
+              <td className={styles.thwidth}>
+                <img src={swapMA} alt="" />
+              </td>
+              <td className={styles.thwidth}>
+                <img src={icon_mint} alt="" />
+              </td>
+              <td className={styles.thwidth}>
+                <img src={icon_burn} alt="" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div className={styles.tokenSend}>
+          <div className={styles.sendformblock}>
+            <div className={styles.label}>Recepient:
+              <input
+                type="text"
+                className={styles.sendform}
+              />
+            </div>
+            <div className={styles.label}>Amount:
+              <input
+                type="text"
+                className={styles.sendform}
+              />
+            </div>
           </div>
           <Button
-            color="white"
+            color="sendButton"
             type="button"
-            size="lg"
-            className={styles.tokenSend + " " + styles.lg}
+            className={styles.sendButton}
           >
             Send
           </Button>
         </div>
-        <div className={styles.add}>
+        <div className={styles.addToken}>
           <Button
             color="green"
             type="button"
-            size="lg"
-            className={styles.addToken + " " + styles.lg}
           >
             Add Token
           </Button>
         </div>
       </div>
       <MyInvestment />
+      <MyPools />
     </div>
   );
 };

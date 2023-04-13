@@ -4,7 +4,7 @@ import styles from "./MyInvestment.index.module.css";
 const MyInvestment = () => {
   return (
     <div>
-      <div className={styles.nameHead}>my investment</div>
+      <div className={styles.title}>My investment</div>
       <div className={styles.myActive}>
         <div className={styles.total}>
           <div className={styles.nameColumn}>Total</div>
