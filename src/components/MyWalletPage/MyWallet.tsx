@@ -72,12 +72,22 @@ const ManageAssets = () => {
           </Button>
         </div>
         <div className={styles.addToken}>
-          <Button
-            color="green"
-            type="button"
-          >
-            Add Token
-          </Button>
+          <div className={styles.addTokenBlok}>
+            <div className={styles.label}>
+              To add a token, specify its address:
+              <input
+                type="text"
+                className={styles.addContract}
+              />
+            </div>
+            <Button
+              color="green"
+              type="button"
+              className={styles.addTokenButton}
+            >
+              Add Token
+            </Button>
+          </div>
         </div>
       </div>
       <MyInvestment />

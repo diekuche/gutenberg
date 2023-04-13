@@ -61,17 +61,9 @@
 .tokenSend {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 30px;
-  margin: 0px 40px;
-}
-
-.tokenSend {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
   gap: 10px;
-  margin: 0px 40px;
+  margin: 14px 40px;
 }
 
 .sendformblock {
@@ -105,5 +97,46 @@
 }
 
 .addToken {
-  margin: 30px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 20px 40px 40px 40px;
+}
+
+.addTokenBlok {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.addContract {
+  box-sizing: border-box;
+  height: 40px;
+  width: 530px;
+  background: rgba(29, 57, 66, 0.6);
+  border-radius: 8px;
+  border-style: none;
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #F6F8FE;
+  padding-left: 14px;
+}
+
+.addTokenButton {
+  margin-top: auto;
+}
+
+.error {
+  display: flex;
+  align-content: center;
+  color: rgba(246, 248, 254, 0.6);
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  padding-top: 7px;
 }

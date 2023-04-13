@@ -3,7 +3,8 @@ import React, { useEffect, useCallback } from "react";
 import Button from "../../Button/Button";
 import { useState } from "react";
 import { Coin, coins } from "@cosmjs/stargate";
-import collapse_arrow from "../../../assets/collapse_arrow.svg";
+import plus from "../../../assets/plus.svg";
+import minus from "../../../assets/minus.svg";
 import { useSendTokens, useClients, useAccount } from "graz";
 import { useFee } from "../../../utils/useFee";
 
@@ -83,7 +84,11 @@ function TokenSender() {
     <div className={styles.contractData}>
       <button className={styles.cashName} onClick={collapse}>
         <div className={styles.token}>🟢 {currentBalance.denom}</div>
-        <img src={collapse_arrow} alt="" className={styles.image} />
+        <img
+          alt="icons"
+          className={styles.icon}
+          src={open ? minus : plus}
+        />
         <div className={styles.balance}>
           {Number(currentBalance.amount).toLocaleString()}
         </div>
