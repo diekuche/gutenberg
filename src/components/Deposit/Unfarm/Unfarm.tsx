@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Unfarm.module.css";
 import NewBT from "../../newButton/newButton";
-import cross from "../../../assets/cross.svg";
+
 import line from "../../../assets/Line_green.svg";
 
 const Unfarm = () => {
