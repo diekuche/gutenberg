@@ -74,7 +74,9 @@ const Header = () => {
           <NavLink
             to="/my-wallet"
             className={(myWalletText) =>
-              myWalletText.isActive ? styles.activemyWalletText : styles.myWalletText
+              myWalletText.isActive
+                ? styles.activemyWalletText
+                : styles.myWalletText
             }
           >
             My Wallet

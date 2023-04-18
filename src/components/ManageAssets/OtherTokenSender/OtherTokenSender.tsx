@@ -7,6 +7,7 @@ import plus from "../../../assets/plus.svg";
 import minus from "../../../assets/minus.svg";
 import { useQuerySmart, useAccount, useExecuteContract } from "graz";
 import { useFee } from "../../../utils/useFee";
+import { toast } from "react-toastify";
 
 interface ContractDataProps {
   contractAddress: string;
@@ -38,13 +39,19 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
   const fee = useFee();
   const { executeContract } = useExecuteContract<any>({
     contractAddress,
-    onError: (error) => {
+    onError: (error: any) => {
       console.log("error", error);
-      alert(error);
+      toast(error, {
+        type: "error",
+        autoClose: 2000,
+      });
     },
     onSuccess: (success) => {
       console.log("success", success);
-      alert("Success!");
+      toast("Success!", {
+        type: "success",
+        autoClose: 2000,
+      });
       refetch();
     },
   });

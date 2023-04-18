@@ -6,6 +6,7 @@ import Input from "../Input/Input";
 import { v4 as uuidv4 } from "uuid";
 import { useAccount, useConnect, useInstantiateContract } from "graz";
 import { useFee } from "../../../utils/useFee";
+import { toast } from "react-toastify";
 
 const defaultBalance = {
   id: uuidv4(),
@@ -27,14 +28,18 @@ export const Form = ({ addUserToken, userTokens }: FormProps) => {
   const { data: account, isConnected } = useAccount();
   const { instantiateContract } = useInstantiateContract({
     codeId: 1,
-    onError: (error) => {
+    onError: (error: any) => {
       console.log("error", error);
-      alert(`Error: ${error}`);
+      toast(error, {
+        type: "error",
+      });
     },
     onSuccess: (data) => {
       console.log("data", data);
+      toast(`Success! Contract address: ${data.contractAddress}`, {
+        type: "success",
+      });
       addUserToken(data.contractAddress);
-      alert(`Success! Contract address: ${data.contractAddress}`);
     },
   });
   const fee = useFee();
@@ -106,20 +111,20 @@ export const Form = ({ addUserToken, userTokens }: FormProps) => {
 
   const handleChangeInitialBalance =
     (id: string, name: string) =>
-      (event: React.ChangeEvent<HTMLInputElement>) => {
-        setBalances(
-          balances.map((balance) => {
-            if (balance.id === id) {
-              return {
-                ...balance,
-                [name]: event.target.value,
-              };
-            } else {
-              return balance;
-            }
-          })
-        );
-      };
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setBalances(
+        balances.map((balance) => {
+          if (balance.id === id) {
+            return {
+              ...balance,
+              [name]: event.target.value,
+            };
+          } else {
+            return balance;
+          }
+        })
+      );
+    };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>

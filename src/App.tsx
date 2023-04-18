@@ -48,7 +48,12 @@ function App() {
               <Footer />
             </Router>
 
-            <ToastContainer autoClose={false} />
+            <ToastContainer
+              bodyClassName="font-link"
+              style={{ marginTop: 50 }}
+              theme="dark"
+              autoClose={false}
+            />
           </AppStateContext.Provider>
         </div>
       </div>

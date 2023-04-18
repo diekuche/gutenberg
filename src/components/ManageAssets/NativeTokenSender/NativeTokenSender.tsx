@@ -7,6 +7,7 @@ import plus from "../../../assets/plus.svg";
 import minus from "../../../assets/minus.svg";
 import { useSendTokens, useClients, useAccount } from "graz";
 import { useFee } from "../../../utils/useFee";
+import { toast } from "react-toastify";
 
 const sendBalance = {
   recepient: "",
@@ -24,11 +25,17 @@ function TokenSender() {
   const fee = useFee();
 
   const { sendTokens } = useSendTokens({
-    onError: (error) => {
-      alert(error);
+    onError: (error: any) => {
+      toast(error, {
+        type: "error",
+      });
       console.log("error", error);
     },
     onSuccess: (result) => {
+      toast("Success", {
+        type: "success",
+        autoClose: 2000,
+      });
       console.log("success", result);
       fetchBalance();
       setSent(true);
@@ -84,11 +91,7 @@ function TokenSender() {
     <div className={styles.contractData}>
       <button className={styles.cashName} onClick={collapse}>
         <div className={styles.token}>🟢 {currentBalance.denom}</div>
-        <img
-          alt="icons"
-          className={styles.icon}
-          src={open ? minus : plus}
-        />
+        <img alt="icons" className={styles.icon} src={open ? minus : plus} />
         <div className={styles.balance}>
           {Number(currentBalance.amount).toLocaleString()}
         </div>
