@@ -36,6 +36,8 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
   const { data: marketingInfo } = useQuerySmart<any, any>(contractAddress, {
     marketing_info: {},
   });
+  const logoId = marketingInfo?.logo?.url?.match(/d\/(.+)\//)?.[1];
+  const logoUrl = logoId && `https://drive.google.com/uc?id=${logoId}`;
   const fee = useFee();
   const { executeContract } = useExecuteContract<any>({
     contractAddress,
@@ -91,12 +93,8 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
               onClick={collapse}
               className={styles.tokenName}
             >
-              {marketingInfo.logo?.url && (
-                <img
-                  src={marketingInfo.logo?.url}
-                  alt=""
-                  className={styles.logo}
-                ></img>
+              {logoUrl && (
+                <img src={logoUrl} alt="" className={styles.logo}></img>
               )}
               <div className={styles.token}>{tokenInfo.symbol}</div>
               {
