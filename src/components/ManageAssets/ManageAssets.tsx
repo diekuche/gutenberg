@@ -43,6 +43,14 @@ function ManageTokens({
   }
 
   function addContract() {
+    if (currentTokens.includes(contract)) {
+      setContract("");
+      return toast("Token already exist", {
+        type: "error",
+        autoClose: 2000,
+      });
+    }
+
     if (validateAddress(contract, getPrefix(activeChain!.chainId))) {
       addUserToken(contract);
       setContract("");
