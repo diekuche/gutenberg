@@ -1,11 +1,13 @@
 import React from "react";
-import styles from "./Token.module.css";
+import styles from "./OtherTokenSender.module.css";
 import { useState } from "react";
 import Button from "../../Button/Button";
 import deleteButton from "../../../assets/Button_Delite.svg";
-import collapse_arrow from "../../../assets/plus.svg";
+import plus from "../../../assets/plus.svg";
+import minus from "../../../assets/minus.svg";
 import { useQuerySmart, useAccount, useExecuteContract } from "graz";
 import { useFee } from "../../../utils/useFee";
+import { toast } from "react-toastify";
 
 interface ContractDataProps {
   contractAddress: string;
@@ -34,16 +36,24 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
   const { data: marketingInfo } = useQuerySmart<any, any>(contractAddress, {
     marketing_info: {},
   });
+  const logoId = marketingInfo?.logo?.url?.match(/d\/(.+)\//)?.[1];
+  const logoUrl = logoId && `https://drive.google.com/uc?id=${logoId}`;
   const fee = useFee();
   const { executeContract } = useExecuteContract<any>({
     contractAddress,
-    onError: (error) => {
+    onError: (error: any) => {
       console.log("error", error);
-      alert(error);
+      toast(error, {
+        type: "error",
+        autoClose: 2000,
+      });
     },
     onSuccess: (success) => {
       console.log("success", success);
-      alert("Success!");
+      toast("Success!", {
+        type: "success",
+        autoClose: 2000,
+      });
       refetch();
     },
   });
@@ -81,26 +91,28 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
             <button
               type="button"
               onClick={collapse}
-              className={styles.cashName}
+              className={styles.tokenName}
             >
-              {marketingInfo.logo?.url && (
-                <img
-                  src={marketingInfo.logo?.url}
-                  alt=""
-                  className={styles.logo}
-                ></img>
+              {logoUrl && (
+                <img src={logoUrl} alt="" className={styles.logo}></img>
               )}
               <div className={styles.token}>{tokenInfo.symbol}</div>
-              <img src={collapse_arrow} alt="" className={styles.image} />
+              {
+                <img
+                  alt="icons"
+                  className={styles.icon}
+                  src={open ? minus : plus}
+                />
+              }
               <div className={styles.balance}>
                 {Number(tokenBalance.balance).toLocaleString()}
               </div>
-            </button>
-            <button
-              className={styles.x}
-              onClick={(e) => removeContract(contractAddress)}
-            >
-              <img src={deleteButton} alt=""></img>
+              <button
+                className={styles.x}
+                onClick={(e) => removeContract(contractAddress)}
+              >
+                <img src={deleteButton} alt=""></img>
+              </button>
             </button>
           </div>
           {open && (

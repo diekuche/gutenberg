@@ -8,65 +8,66 @@ import downArrowPools from "../../../assets/downArrowPools.svg";
 const MyPools = () => {
   return (
     <div>
-      <div className={styles.name}>my pools</div>
-      <table className={styles.tableToken}>
-        <thead>
-          <tr>
-            <th className={styles.pair}>Pair</th>
-            <th className={styles.arpHead}>ARP</th>
-            <th className={styles.totalLiquiity}>
-              Total Liquidity
-              <img
-                className={styles.downarrow}
-                src={greyArrowDown}
-                alt=""
-              ></img>
-            </th>
-            <th className={styles.volume}>Bonded</th>
-          </tr>
-        </thead>
-        <tbody className={styles.mainTable}>
-          <tr className={styles.stringTokens}>
-            <td className={styles.pairArp}>
-              <img className={styles.atom} src={atom} alt=""></img>
-              <img className={styles.circle} src={circle} alt=""></img>
-              <div className={styles.cent}>ATOM/BOOT</div>
-            </td>
-            <td className={styles.arp}>54.51%</td>
-            <td className={styles.cash}>$34</td>
-            <td className={styles.bondedCash}>$787</td>
-          </tr>
-          <tr className={styles.stringTokens}>
-            <td className={styles.pairArp}>
-              <img className={styles.atom} src={atom} alt=""></img>
-              <img className={styles.circle} src={circle} alt=""></img>
-              ATOM/BOOT
-            </td>
-            <td className={styles.arp}>54.3%</td>
-            <td className={styles.cash}>$2</td>
-            <td className={styles.bondedCash}>$0</td>
-          </tr>
-          <tr className={styles.stringTokens}>
-            <td className={styles.pairArp}>
-              <img className={styles.atom} src={atom} alt=""></img>
-              <img className={styles.circle} src={circle} alt=""></img>
-              ATOM/BOOT
-            </td>
-            <td className={styles.arp}>54.3%</td>
-            <td className={styles.cash}>$0</td>
-            <td className={styles.bondedCash}>$0</td>
-          </tr>
-          <tr>
-            <th></th>
-
-            <div className={styles.downList}>
-              <button className={styles.buttonDown}>
-                <img src={downArrowPools} alt=""></img>
-              </button>
-            </div>
-          </tr>
-        </tbody>
-      </table>
+      <div className={styles.title}>My pools</div>
+      <div className={styles.tablePools}>
+        <table>
+          <thead>
+            <tr>
+              <th className={styles.pair}>Pair</th>
+              <th>ARP</th>
+              <th>
+                Total Liquidity
+                <img
+                  className={styles.downarrow}
+                  src={greyArrowDown}
+                  alt=""
+                ></img></th>
+              <th>Bonded</th>
+            </tr>
+          </thead>
+          <tbody className={styles.mainTable}>
+            <tr>
+              <td>
+                <div className={styles.pairPool}>
+                  <img className={styles.imgToken_1} src={atom} alt=""></img>
+                  <img className={styles.imgToken_2} src={circle} alt=""></img>
+                  <div className={styles.pair}>ATOM/BOOT</div>
+                </div>
+              </td>
+              <td>54.51%</td>
+              <td>$34</td>
+              <td className={styles.bonded}>$787</td>
+            </tr>
+            <tr>
+              <td>
+                <div className={styles.pairPool}>
+                  <img className={styles.imgToken_1} src={atom} alt=""></img>
+                  <img className={styles.imgToken_2} src={circle} alt=""></img>
+                  <div className={styles.pair}>ATOM/BOOT</div>
+                </div>
+              </td>
+              <td>54.51%</td>
+              <td>$34</td>
+              <td className={styles.bonded}>$787</td>
+            </tr>
+            <tr>
+              <td>
+                <div className={styles.pairPool}>
+                  <img className={styles.imgToken_1} src={atom} alt=""></img>
+                  <img className={styles.imgToken_2} src={circle} alt=""></img>
+                  <div className={styles.pair}>ATOM/BOOT</div>
+                </div>
+              </td>
+              <td>54.51%</td>
+              <td>$34</td>
+              <td className={styles.bonded}>$787</td>
+            </tr>
+          </tbody>
+        </table>
+        <button className={styles.buttonDown}>
+          <img src={downArrowPools} alt=""></img>
+        </button>
+      </div>
     </div>
   );
 };

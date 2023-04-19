@@ -1,42 +1,47 @@
-.nameHead {
-  color: #e2fb5f;
-
-  font-size: 43px;
-  line-height: 54px;
-  margin-bottom: 9px;
-  font-weight: 700;
+.title {
+  color: rgba(246, 248, 254, 0.6);
+  font-size: 18px;
+  margin-bottom: 8px;
+  font-weight: 500;
 }
+
 .myActive {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
-  border-radius: 20px;
+  border-radius: 16px;
   background: rgba(124, 196, 219, 0.05);
   backdrop-filter: blur(9px);
-  border: 1px solid rgba(115, 237, 201, 0.2);
+  border: 1px solid rgba(115, 237, 201, 0.1);
+  margin-bottom: 24px;
 }
+
 .nameColumn {
   font-size: 14px;
   line-height: 18px;
 }
+
 .total {
   color: #f6f8fe;
-  padding: 42px 102px 41px 41px;
+  padding: 42px 10% 41px 40px;
 }
+
 .rewards {
   color: rgba(246, 248, 254, 0.4);
-  padding-right: 286px;
+  align-content: l;
 }
+
 .buttonClaim {
   background: rgba(126, 126, 126, 0.4);
   border: 1px solid transparent;
   border-radius: 8px;
   color: #5f5e5e;
-  margin-right: 25px;
+  margin-left: auto;
+  margin-right: 40px;
   padding: 13px 81px;
 }
+
 .cash {
   font-style: 200;
   font-size: 36px;
-  line-height: 45px;
 }

@@ -1,126 +1,142 @@
-.nav {
+.main {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 10px auto auto auto;
-}
-.name {
-  position: absolute;
-  color: rgba(67, 178, 91, 0.15);
-  font-size: 167px;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 50px;
-}
-.border {
-  z-index: 5;
-  display: block;
-  margin-top: 170px;
-  border-radius: 10px !important;
-  overflow: hidden !important;
-}
-.test {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.tableMA {
-  border-radius: 10px;
-  border-collapse: collapse;
+  justify-content: flex-start;
+  margin: 80px 17% 120px 17%;
 }
 
-.thead {
-  background-color: rgba(22, 40, 51, 0.9);
+.title {
+  display: flex;
+  color: rgba(67, 178, 91, 0.15);
+  font-weight: 700;
+  font-size: 60px;
+  background: linear-gradient(306.95deg, #e2fb5f 10.17%, #0fefd4 101.39%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 24px;
 }
-.thead th {
-  color: #43b25b;
-  font-size: 14px;
-  font-weight: 200;
-  padding-top: 9px;
-  padding-bottom: 11px;
+
+.tableMA {
+  height: auto;
+  overflow: auto;
+  background: rgba(124, 196, 219, 0.05);
+  border: 1px solid rgba(115, 237, 201, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  margin-bottom: 24px;
 }
-.tokens {
-  padding-left: 76px;
-  padding-right: 62px;
+
+.theadMA {
+  background: rgba(6, 15, 25, 0.5);
 }
-.balance {
-  padding-right: 188px;
+
+.thLeft {
+  text-align: left;
 }
-.other {
-  padding-right: 17px;
-  padding-left: 17px;
+
+.thwidth {
+  width: 60px;
+  padding: 0px 10px;
 }
+
+.iconToken {
+  width: 24px;
+  margin-right: 10px;
+}
+
 .nameToken {
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.boot {
-  color: white;
+  font-weight: 400;
   font-size: 20px;
-}
-.bostorm {
-  color: #43b25b;
-  font-size: 12px;
-  padding-right: 5px;
+  gap: 5px;
 }
 
-.circle {
-  width: 32px;
-  margin-right: 13px;
-}
-.price {
-  color: white;
-  font-size: 24px;
+.balance {
+  font-weight: 400;
+  font-size: 20px;
   text-align: start;
 }
-.menu {
-  background-color: rgba(22, 40, 51, 0.5);
-  backdrop-filter: blur(15px);
-}
-.exchangeField {
-  display: flex;
-  flex-direction: column;
-  color: #e2fb5f;
-  font-size: 12px;
-  font-weight: 200;
-}
 
-.buttonY {
-  margin-left: 50px;
-}
-.exchange {
-  display: flex;
-  background-color: rgba(22, 40, 51, 0.5);
-  padding: 10px 0px 10px 15px;
-}
-.field {
-  border: 1px solid rgba(67, 178, 91, 0.35);
-  border-radius: 10px;
-  background-color: rgba(22, 40, 51, 0.1);
-  padding: 13px 33px 13px 10px;
-  outline: none;
-  margin: 5px 14px 5px 0px;
-  color: #e2fb5f;
-  font-family: "Bai Jamjuree", sans-serif;
-}
-
-.add {
-  display: flex;
-  justify-content: center;
-  background-color: rgba(22, 40, 51, 0.5);
-  padding-top: 21px;
-  padding-bottom: 21px;
-}
 .tokenSend {
-  margin-top: 10px;
-  margin-left: 15px;
-  padding: 10px 55px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 14px 40px;
 }
+
+.sendformblock {
+  display: flex;
+  gap: 10px;
+}
+
+.sendform {
+  box-sizing: border-box;
+  height: 40px;
+  width: 260px;
+  background: rgba(29, 57, 66, 0.6);
+  border-radius: 8px;
+  border-style: none;
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #F6F8FE;
+  padding-left: 14px;
+}
+
+.label {
+  font-weight: 400;
+  font-size: 12px;
+  color: rgba(246, 248, 254, 0.6);
+}
+
+.sendButton {
+  margin-top: auto;
+}
+
 .addToken {
-  margin-left: 0px;
-  padding: 10px 45px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 20px 40px 40px 40px;
 }
-.lg {
-  font-weight: 100;
+
+.addTokenBlok {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.addContract {
+  box-sizing: border-box;
+  height: 40px;
+  width: 530px;
+  background: rgba(29, 57, 66, 0.6);
+  border-radius: 8px;
+  border-style: none;
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #F6F8FE;
+  padding-left: 14px;
+}
+
+.addTokenButton {
+  margin-top: auto;
+}
+
+.error {
+  display: flex;
+  align-content: center;
+  color: rgba(246, 248, 254, 0.6);
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  padding-top: 7px;
 }

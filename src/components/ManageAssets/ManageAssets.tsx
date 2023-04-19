@@ -1,16 +1,28 @@
 import React from "react";
 import styles from "./ManageAssets.module.css";
 import Button from "../Button/Button";
-import Token from "./Token/Token";
+import Token from "./OtherTokenSender/OtherTokenSender";
 import { useState } from "react";
-import TokenSender from "./TokenSender/TokenSender";
+import TokenSender from "./NativeTokenSender/NativeTokenSender";
 import { useAccount, useActiveChain, validateAddress } from "graz";
+import { toast } from "react-toastify";
 
 interface TokenProps {
   userTokens: any;
   addUserToken: (contractAddress: string) => void;
   removeUserToken: (contractAddress: string) => void;
 }
+
+const getPrefix = (chainId: string) => {
+  switch (chainId) {
+    case "juno-1": {
+      return "juno";
+    }
+    default: {
+      return chainId;
+    }
+  }
+};
 
 function ManageTokens({
   userTokens,
@@ -32,11 +44,22 @@ function ManageTokens({
   }
 
   function addContract() {
-    if (validateAddress(contract, activeChain!.chainId)) {
+    if (currentTokens.includes(contract)) {
+      setContract("");
+      return toast("Token already exist", {
+        type: "error",
+        autoClose: 2000,
+      });
+    }
+
+    if (validateAddress(contract, getPrefix(activeChain!.chainId))) {
       addUserToken(contract);
       setContract("");
     } else {
-      alert("Invalid contract address");
+      toast("Invalid contract address", {
+        type: "error",
+        autoClose: 2000,
+      });
       setVisible(true);
       setTimeout(() => {
         setVisible(false);
@@ -58,7 +81,7 @@ function ManageTokens({
               <Token
                 contractAddress={contractAddress}
                 removeContract={removeUserToken}
-                key={contract}
+                key={contractAddress}
               />
             ))}
           </div>

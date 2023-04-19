@@ -1,12 +1,13 @@
-import React, { useEffect, useCallback, useRef } from "react";
-import styles from "./TokenSender.module.css";
+import styles from "./NativeTokenSender.module.css";
+import React, { useEffect, useCallback } from "react";
 import Button from "../../Button/Button";
 import { useState } from "react";
 import { Coin, coins } from "@cosmjs/stargate";
-import collapse_arrow from "../../../assets/collapse_arrow.svg";
+import plus from "../../../assets/plus.svg";
+import minus from "../../../assets/minus.svg";
 import { useSendTokens, useClients, useAccount } from "graz";
 import { useFee } from "../../../utils/useFee";
-/* import useClickOutside from "./useClickOutside"; */
+import { toast } from "react-toastify";
 
 const sendBalance = {
   recepient: "",
@@ -22,15 +23,19 @@ function TokenSender() {
   const { data } = useClients();
   const client = data?.stargate;
   const fee = useFee();
-  const ref = useRef<any>();
-  /* useClickOutside(ref, () => setOpen(false)); */
 
   const { sendTokens } = useSendTokens({
-    onError: (error) => {
-      alert(error);
+    onError: (error: any) => {
+      toast(error, {
+        type: "error",
+      });
       console.log("error", error);
     },
     onSuccess: (result) => {
+      toast("Success", {
+        type: "success",
+        autoClose: 2000,
+      });
       console.log("success", result);
       fetchBalance();
       setSent(true);
@@ -60,20 +65,6 @@ function TokenSender() {
     setOpen(!open);
   };
 
-  /* const ref = useRef(null);*/
-  useEffect(() => {
-    const checkIfClickedOutside = (e: any) => {
-      if (open && ref.current && !ref.current.contains(e.target)) {
-        setOpen(false);
-        console.log(ref.current);
-      }
-    };
-    document.addEventListener("click", checkIfClickedOutside);
-    return () => {
-      document.removeEventListener("click", checkIfClickedOutside);
-    };
-  }, [open]);
-
   const handleSendChange =
     (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
       setBalance({
@@ -97,10 +88,10 @@ function TokenSender() {
   }
 
   return (
-    <div className={styles.contractData} ref={ref}>
-      <button className={styles.cashName} onClick={() => setOpen(!open)}>
+    <div className={styles.contractData}>
+      <button className={styles.cashName} onClick={collapse}>
         <div className={styles.token}>🟢 {currentBalance.denom}</div>
-        <img src={collapse_arrow} alt="" className={styles.image} />
+        <img alt="icons" className={styles.icon} src={open ? minus : plus} />
         <div className={styles.balance}>
           {Number(currentBalance.amount).toLocaleString()}
         </div>

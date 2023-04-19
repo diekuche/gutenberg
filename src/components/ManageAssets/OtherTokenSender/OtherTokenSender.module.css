@@ -1,51 +1,56 @@
 .contractData {
   font-size: 14px;
   width: 100%;
-  margin-top: 12px;
+  margin-bottom: 8px;
 }
-
 
 .tokenTitle {
   display: flex;
   flex-direction: row;
-  margin-bottom: 12px;
   align-items: center;
   justify-content: flex-start;
 }
 
-.cashName {
+.tokenName {
   display: flex;
   width: 100%;
   align-items: center;
-  font-weight: 300;
-  font-size: 18px;
-  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  color: rgba(246, 248, 254, 0.8);
   background-color: transparent;
   border: none;
   cursor: pointer;
   font-family: "Bai Jamjuree", sans-serif;
-  padding: 12px 10px;
+  padding: 4px 4px 4px 8px;
   border-radius: 8px;
+  margin-right: 6px;
 }
 
-.cashName:hover {
+.tokenName:hover {
   background: rgba(67, 151, 178, 0.1);
 }
 
 .x {
+  align-items: center;
+  justify-content: center;
   background: transparent;
   border: none;
-  color: #43b25b;
-  padding: 0px;
+  padding: 4px 6px 3px 6px;
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: 6px;
+  margin-left: 10px;
+}
+
+.x:hover {
+  background: rgba(67, 151, 178, 0.2);
 }
 
 .label {
   font-weight: 400;
   font-size: 12px;
   color: rgba(246, 248, 254, 0.6);
-  margin: 8px 0px 5px 0px;
+  margin: 5px 0px 3px 0px;
 }
 
 .children {
@@ -63,7 +68,7 @@
   margin-left: 3px;
 }
 
-.image {
+.icon {
   margin-left: 5px;
   width: 10px;
 }
@@ -76,14 +81,14 @@
 
 .addContract {
   box-sizing: border-box;
-  height: 42px;
+  height: 38px;
   width: 100%;
   font-family: "Bai Jamjuree", sans-serif;
   font-weight: 400;
-  font-size: 16px;
-  color: #F6F8FE;
-  background: transparent;
-  border: 1px solid rgba(115, 237, 201, 0.5);
+  font-size: 14px;
+  color: rgba(246, 248, 254, 0.8);
+  background: rgba(29, 57, 66, 0.6);
+  border-style: none;
   border-radius: 8px;
   padding-left: 10px;
 }
@@ -95,5 +100,5 @@
 }
 
 .tokenButton {
-  padding: 12px 90px;
+  margin-top: 12px;
 }
