@@ -5,7 +5,7 @@ import filter from "../../../assets/filter.svg";
 const Search = () => {
   return (
     <div className={styles.search}>
-      <img src={filter}></img>
+      <img src={filter} alt=""></img>
       <div className={styles.text}>Search</div>
     </div>
   );
