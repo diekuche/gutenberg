@@ -34,6 +34,7 @@ function ManageTokens({
   const { data: account, isConnected } = useAccount();
   const activeChain = useActiveChain();
   const currentTokens = userTokens[account?.bech32Address!] || [];
+  const [open, setOpen] = useState(false);
 
   function handleChangeContractAddress(event: any) {
     const response = event.target.value;
@@ -85,24 +86,30 @@ function ManageTokens({
             ))}
           </div>
           <div className={styles.inputs}>
-            <div className={styles.info}>
-              To add a token, specify its address:
+            <div className={styles.test} onClick={() => setOpen(!open)}>
+              {open ? "" : "add token"}
             </div>
-            <input
-              type="text"
-              className={styles.addContract}
-              value={contract}
-              onChange={handleChangeContractAddress}
-            />
-            <Button
-              color="green"
-              type="button"
-              onClick={addContract}
-              className={styles.addTokenButton}
-            >
-              Add Token
-            </Button>
-
+            {open && (
+              <div>
+                <div className={styles.info}>
+                  To add a token, specify its address:
+                </div>
+                <input
+                  type="text"
+                  className={styles.addContract}
+                  value={contract}
+                  onChange={handleChangeContractAddress}
+                />
+                <Button
+                  color="green"
+                  type="button"
+                  onClick={addContract}
+                  className={styles.addTokenButton}
+                >
+                  Add Token
+                </Button>
+              </div>
+            )}
             {isVisible && <div className={styles.error}>Token not found</div>}
           </div>
         </div>

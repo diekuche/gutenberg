@@ -1,11 +1,11 @@
 .manageTok {
   display: flex;
   flex-direction: column;
-  background: rgb(25, 44, 52, 0.50);
+  background: rgb(25, 44, 52, 0.5);
   backdrop-filter: blur(10px);
   border-radius: 16px;
-  min-width: 280px;
-  min-height: 280px;
+  width: 262px;
+  min-height: 262px;
   height: 100%;
   margin-left: 15px;
   z-index: 200;
@@ -18,8 +18,8 @@
 }
 
 .name {
-  color: #060F19;
-  font-family: 'Bai Jamjuree';
+  color: #060f19;
+  font-family: "Bai Jamjuree";
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -81,10 +81,10 @@
   width: 100%;
   font-family: "Bai Jamjuree", sans-serif;
   font-weight: 400;
-  font-size: 14px;
-  color: rgba(246, 248, 254, 0.8);
-  background: rgba(29, 57, 66, 0.6);
-  border-style: none;
+  font-size: 16px;
+  color: #f6f8fe;
+  background: transparent;
+  border: 1px solid rgba(115, 237, 201, 0.5);
   border-radius: 8px;
   padding-left: 10px;
 }
@@ -97,7 +97,7 @@
   display: flex;
   align-content: center;
   color: rgba(246, 248, 254, 0.6);
-  font-family: 'Bai Jamjuree';
+  font-family: "Bai Jamjuree";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -126,4 +126,10 @@
     stroke-dasharray: 90, 150;
     stroke-dashoffset: -124;
   }
+}
+.test {
+  display: flex;
+  align-self: center;
+  color: rgba(115, 237, 201, 0.5);
+  text-decoration: underline;
 }

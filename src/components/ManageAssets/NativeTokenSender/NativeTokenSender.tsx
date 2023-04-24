@@ -1,5 +1,5 @@
 import styles from "./NativeTokenSender.module.css";
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import Button from "../../Button/Button";
 import { useState } from "react";
 import { Coin, coins } from "@cosmjs/stargate";
@@ -23,6 +23,7 @@ function TokenSender() {
   const { data } = useClients();
   const client = data?.stargate;
   const fee = useFee();
+  const ref = useRef<any>();
 
   const { sendTokens } = useSendTokens({
     onError: (error: any) => {
@@ -61,9 +62,18 @@ function TokenSender() {
     fetchBalance();
   }, [fetchBalance]);
 
-  const collapse = () => {
-    setOpen(!open);
-  };
+  useEffect(() => {
+    const checkIfClickedOutside = (e: any) => {
+      if (open && ref.current && !ref.current.contains(e.target)) {
+        setOpen(false);
+        console.log(ref.current);
+      }
+    };
+    document.addEventListener("click", checkIfClickedOutside);
+    return () => {
+      document.removeEventListener("click", checkIfClickedOutside);
+    };
+  }, [open]);
 
   const handleSendChange =
     (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,8 +98,8 @@ function TokenSender() {
   }
 
   return (
-    <div className={styles.contractData}>
-      <button className={styles.cashName} onClick={collapse}>
+    <div className={styles.contractData} ref={ref}>
+      <button className={styles.cashName} onClick={() => setOpen(!open)}>
         <div className={styles.token}>🟢 {currentBalance.denom}</div>
         <img alt="icons" className={styles.icon} src={open ? minus : plus} />
         <div className={styles.balance}>
