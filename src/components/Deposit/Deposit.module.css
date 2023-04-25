@@ -81,3 +81,8 @@
   padding-top: 18px;
   padding-right: 22px;
 }
+.test {
+  display: flex;
+
+  margin-top: 100px;
+}

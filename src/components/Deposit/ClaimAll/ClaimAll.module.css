@@ -1,0 +1,120 @@
+.popUp {
+  background: rgba(6, 15, 25, 0.95);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 16px;
+}
+.scroll {
+  height: 350px;
+  overflow-y: scroll;
+}
+.totalString {
+  display: flex;
+  flex-direction: column;
+  color: #f6f8fe;
+}
+.total {
+  font-size: 14px;
+  font-weight: 200;
+  line-height: 18px;
+}
+.amount {
+  font-size: 42px;
+  font-weight: 200;
+  line-height: 53px;
+}
+.poolOneString,
+.poolTwoString {
+  display: flex;
+  flex-direction: column;
+}
+.nameToken {
+  color: rgba(246, 248, 254, 0.7);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  padding-left: 5px;
+}
+.firstString {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+.cash {
+  display: flex;
+  background: rgba(67, 151, 178, 0.1);
+  border-radius: 8px;
+  align-items: center;
+  margin-top: 5px;
+  padding: 10px;
+  width: 400px;
+  justify-content: space-between;
+  margin-right: 13px;
+}
+.firstCash {
+  color: #f6f8fe;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 23px;
+  padding-right: 10px;
+}
+.tokenName {
+  color: rgba(246, 248, 254, 0.4);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 23px;
+  padding-right: 10px;
+}
+.cashToken {
+  color: rgba(246, 248, 254, 0.4);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  padding-right: auto;
+}
+.popUp {
+  margin-right: 350px;
+}
+.circleImg,
+.pigImg,
+.bootImg {
+  width: 36px;
+  padding-right: 10px;
+}
+.pig,
+.boot {
+  width: 20px;
+  position: relative;
+  left: -5px;
+}
+.cashString {
+  display: flex;
+  align-items: center;
+}
+.circle {
+  position: relative;
+  width: 20px;
+  left: -5px;
+}
+.atom,
+.brandmark {
+  width: 20px;
+  position: relative;
+  z-index: 10;
+}
+.circleSecond {
+  width: 20px;
+  position: relative;
+  z-index: 10;
+}
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(115, 237, 201, 0.1);
+  border-radius: 8px;
+}
+.cross {
+  display: flex;
+  margin-left: auto;
+}

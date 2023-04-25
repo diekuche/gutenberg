@@ -7,6 +7,7 @@ import Withdraw from "./Withdraw/Withdraw";
 import Farm from "./Farm/Farm";
 import Dep from "./Dep/Dep";
 import Unfarm from "./Unfarm/Unfarm";
+import ClaimAll from "./ClaimAll/ClaimAll";
 
 const Deposit = () => {
   const tabs: Tab[] = [
@@ -18,18 +19,25 @@ const Deposit = () => {
   const [selectedTabId, setSelectedTabId] = useState(tabs[0].id);
 
   return (
-    <div className={styles.depositWindow}>
-      <img className={styles.cross} src={cross} alt=""></img>
-      <div className={styles.nameField}>Boot/Pig</div>
-      <Tabs selectedId={selectedTabId} tabs={tabs} onClick={setSelectedTabId} />
-      <div>
+    <div className={styles.test}>
+      <div className={styles.depositWindow}>
+        <img className={styles.cross} src={cross} alt=""></img>
+        <div className={styles.nameField}>Boot/Pig</div>
+        <Tabs
+          selectedId={selectedTabId}
+          tabs={tabs}
+          onClick={setSelectedTabId}
+        />
         <div>
-          {selectedTabId === tabs[0].id && <Dep />}
-          {selectedTabId === tabs[1].id && <Withdraw />}
-          {selectedTabId === tabs[2].id && <Farm />}
-          {selectedTabId === tabs[3].id && <Unfarm />}
+          <div>
+            {selectedTabId === tabs[0].id && <Dep />}
+            {selectedTabId === tabs[1].id && <Withdraw />}
+            {selectedTabId === tabs[2].id && <Farm />}
+            {selectedTabId === tabs[3].id && <Unfarm />}
+          </div>
         </div>
       </div>
+      <ClaimAll />
     </div>
   );
 };
