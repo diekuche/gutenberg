@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Withdraw.module.css";
 import NewBT from "../../newButton/newButton";
 import line from "../../../assets/Line_green.svg";
+import MySlider from "../Slider/Slider";
 
 const Withdraw = () => {
   return (
@@ -14,7 +15,7 @@ const Withdraw = () => {
         </div>
         <div className={styles.cash}>($0.0459031)</div>
         <div className={styles.scale}>
-          <img src={line} alt=""></img>
+          <MySlider />
         </div>
       </div>
       <div className={styles.secondField}>

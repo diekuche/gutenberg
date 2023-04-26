@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "./Farm.module.css";
 import NewBT from "../../newButton/newButton";
-
-import line from "../../../assets/Line_green.svg";
+import MySlider from "../Slider/Slider";
 
 const Farm = () => {
   return (
@@ -15,7 +14,7 @@ const Farm = () => {
         </div>
         <div className={styles.cash}>($0.0459031)</div>
         <div className={styles.scale}>
-          <img src={line} alt=""></img>
+          <MySlider />
         </div>
       </div>
       <div className={styles.secondField}>
