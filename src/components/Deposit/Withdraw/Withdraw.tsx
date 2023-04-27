@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Withdraw.module.css";
 import NewBT from "../../newButton/newButton";
-import line from "../../../assets/Line_green.svg";
+
 import MySlider from "../Slider/Slider";
 
 const Withdraw = () => {
