@@ -8,6 +8,7 @@ import Farm from "./Farm/Farm";
 import Dep from "./Dep/Dep";
 import Unfarm from "./Unfarm/Unfarm";
 import ClaimAll from "./ClaimAll/ClaimAll";
+import Confirm from "../Swap/ConfirmSupply/CofirmSuplly";
 
 const Deposit = () => {
   const tabs: Tab[] = [
@@ -38,6 +39,7 @@ const Deposit = () => {
         </div>
       </div>
       <ClaimAll />
+      <Confirm />
     </div>
   );
 };
