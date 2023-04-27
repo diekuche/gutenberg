@@ -26,7 +26,6 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.2",
     "react-select": "^5.7.0",
-    "react-slider-simple": "^4.0.5",
     "react-toastify": "^9.1.1",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
