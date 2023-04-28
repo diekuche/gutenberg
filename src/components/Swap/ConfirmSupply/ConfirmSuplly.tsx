@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./CofirmSuplly.module.css";
+import styles from "./ConfirmSuplly.module.css";
 import cross from "../../../assets/cross.svg";
 import NewBT from "../../newButton/newButton";
 const Confirm = () => {
@@ -35,7 +35,7 @@ const Confirm = () => {
           </div>
         </div>
       </div>
-      <NewBT size="hg">order deposit</NewBT>
+      {/* <NewBT size="hg">order deposit</NewBT> */}
     </div>
   );
 };

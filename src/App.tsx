@@ -17,6 +17,7 @@ import { GrazProvider } from "graz";
 import { CustomChains } from "../src/utils/config";
 import Pools from "./components/Pools/Pools";
 import Deposit from "./components/Deposit/Deposit";
+import CreatePool from "./components/CreatePool/CreatePool/CreatePool";
 
 declare global {
   interface Window extends KeplrWindow {}
@@ -44,6 +45,7 @@ function App() {
                 <Route path="/my-wallet" element={<MyWallet />}></Route>
                 <Route path="/pools" element={<Pools />}></Route>
                 <Route path="/deposit" element={<Deposit />}></Route>
+                <Route path="/createPool" element={<CreatePool />}></Route>
               </Routes>
               <Footer />
             </Router>

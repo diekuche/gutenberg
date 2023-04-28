@@ -1,7 +1,6 @@
-import React from "react";
-import styles from "./Swap.module.css";
+import React, { useState } from "react";
+import styles from "./SwapNew.module.css";
 import UpDoAr from "../../assets/UpDoAr.svg";
-import NewBT from "../newButton/newButton";
 import SelectCustom from "../SelectCustom/SelectCustom";
 import TokenUI from "../SelectCustom/TokenUI/TokenUI";
 import pig_icon from "../../assets/pig_logo.svg";
@@ -9,7 +8,6 @@ import mew_icon from "../../assets/mew_logo.svg";
 import shit_icon from "../../assets/shit_logo.svg";
 import ps_icon from "../../assets/ps_logo.svg";
 import boot_icon from "../../assets/boot_logo.svg";
-import { Link } from "react-router-dom";
 import Search from "../SelectCustom/Search/Search";
 
 const options = [
@@ -85,16 +83,15 @@ const Swap = () => {
         <div className={styles.balanceBlock}>
           <div className={styles.balance}>Balance: 0</div>
         </div>
-        <div className={styles.stringSwapFee}>
-          <div className={styles.fee}>Swap fee</div>
-          <div className={styles.fee}>0.00%</div>
+        <div className={styles.stringSelect}>
+          <div className={styles.fee}>Select Liquidity Provider Fee:</div>
+          <div className={styles.percent}>
+            <button className={styles.percent_1}>0.05%</button>
+            <button className={styles.percent_2}>0.5%</button>
+            <button className={styles.percent_1}>1%</button>
+          </div>
         </div>
         <div></div>
-      </div>
-      <NewBT size="hg">swap!</NewBT>
-      <div className={styles.textToPools}>
-        <Link to="/pools">Provide liquidity</Link> to he market and receive swap
-        fees each trade.
       </div>
     </div>
   );
