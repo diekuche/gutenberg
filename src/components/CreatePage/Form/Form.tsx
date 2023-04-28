@@ -4,7 +4,12 @@ import Button from "../../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
 import { v4 as uuidv4 } from "uuid";
-import { useAccount, useConnect, useInstantiateContract } from "graz";
+import {
+  useAccount,
+  useConnect,
+  useInstantiateContract,
+  useActiveChain,
+} from "graz";
 import { useFee } from "../../../utils/useFee";
 import { toast } from "react-toastify";
 
@@ -12,6 +17,12 @@ const defaultBalance = {
   id: uuidv4(),
   address: "",
   amount: "",
+};
+
+const codeIdsByChain: { [chainId: string]: number } = {
+  "juno-1": 1,
+  bostrom: 1,
+  "pion-1": 193,
 };
 
 interface FormProps {
@@ -26,8 +37,9 @@ export const Form = ({ addUserToken, userTokens }: FormProps) => {
   const [description, setDescription] = useState("");
   const { connect } = useConnect();
   const { data: account, isConnected } = useAccount();
+  const activeChain = useActiveChain();
   const { instantiateContract } = useInstantiateContract({
-    codeId: 1,
+    codeId: codeIdsByChain[activeChain?.chainId || "juno-1"],
     onError: (error: any) => {
       console.log("error", error);
       toast(error, {
@@ -42,13 +54,13 @@ export const Form = ({ addUserToken, userTokens }: FormProps) => {
       addUserToken(data.contractAddress);
     },
   });
-  const fee = useFee();
+  const fee = useFee(activeChain);
 
   const address = account?.bech32Address;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const initialBalance = { ...balances[0] };
+    const { id, ...initialBalance } = { ...balances[0] };
 
     const { token, symbol, quantity, decimals, logo } =
       event.target as typeof event.target & {

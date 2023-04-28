@@ -16,6 +16,10 @@ const options = [
     value: mainnetChains.juno,
     label: <ChainUX chainName="Juno" />,
   },
+  {
+    value: CustomChains.neutron,
+    label: <ChainUX chainName="Neutron" />,
+  },
 ];
 
 const Header = () => {

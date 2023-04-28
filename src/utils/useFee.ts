@@ -1,28 +1,39 @@
 import { GasPrice, calculateFee } from "@cosmjs/stargate";
 import { useAccount, useClients } from "graz";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 
-export const useFee = (amount = 60000) => {
-    const { data: account } = useAccount();
-    const [denom, setDenom] = useState("");
-    const { data } = useClients();
-    const client = data?.stargate;
+type Chain = {
+  gas?: {
+    denom: string;
+  };
+};
 
-    const fetchBalance = async () => {
-        if (account?.bech32Address) {
-          const balances = await client?.getAllBalances(account.bech32Address);
-          if (balances?.[0]) {
-            setDenom(balances[0].denom);
+export const useFee = (chain: Chain | null) => {
+  const { data: account } = useAccount();
+  const { data } = useClients();
+  const client = data?.stargate;
+
+  const denom = chain?.gas?.denom;
+
+  useEffect(() => {
+    if (account?.bech32Address && denom) {
+      const fetchBalance = async () => {
+        const balances = await client?.getAllBalances(account.bech32Address);
+        if (balances?.[0]) {
+          if (balances[0].denom !== denom) {
+            console.error(`Denom mismatch: expected ${denom}, got ${balances[0].denom}`);
           }
         }
-    };
+      };
 
-    fetchBalance();
+      fetchBalance();
+    }
+  }, [client, account, denom]);
 
-    useEffect(() => {
+  if (!denom) {
+    return "auto";
+  }
 
-    }, [client, account])
-    
-    const gasPrice = GasPrice.fromString(`0.001${denom || 'boot'}`);
-    return calculateFee(600000, gasPrice)
-}
+  const gasPrice = GasPrice.fromString(`0.001${denom}`);
+  return calculateFee(600000, gasPrice);
+};

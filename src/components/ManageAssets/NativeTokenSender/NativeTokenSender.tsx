@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Coin, coins } from "@cosmjs/stargate";
 import plus from "../../../assets/plus.svg";
 import minus from "../../../assets/minus.svg";
-import { useSendTokens, useClients, useAccount } from "graz";
+import { useSendTokens, useClients, useAccount, useActiveChain } from "graz";
 import { useFee } from "../../../utils/useFee";
 import { toast } from "react-toastify";
 
@@ -20,9 +20,10 @@ function TokenSender() {
   const [isSent, setSent] = useState(false);
   const [open, setOpen] = useState(false);
   const { data: account } = useAccount();
+  const activeChain = useActiveChain();
   const { data } = useClients();
   const client = data?.stargate;
-  const fee = useFee();
+  const fee = useFee(activeChain);
   const ref = useRef<any>();
 
   const { sendTokens } = useSendTokens({
@@ -49,14 +50,33 @@ function TokenSender() {
     },
   });
 
+  const tokenDenomsByChain: { [chainId: string]: string } = {
+    bostrom: "boot",
+    "juno-1": "ujuno",
+    "pion-1": "untrn",
+  };
+
   const fetchBalance = useCallback(async () => {
-    if (account?.bech32Address) {
+    if (account?.bech32Address && activeChain?.chainId) {
       const balances = await client?.getAllBalances(account.bech32Address);
-      if (balances?.[0]) {
-        setCurrentBalance(balances[0]);
+      if (balances) {
+        // Получить деноминацию токена для активной цепочки
+        const activeChainDenom = tokenDenomsByChain[activeChain.chainId];
+
+        // Если для активной цепочки определена деноминация, найти соответствующий баланс
+        if (activeChainDenom) {
+          const targetBalance = balances.find(
+            (balance) => balance.denom === activeChainDenom
+          );
+
+          // Если баланс найден, установить его, иначе установить null
+          setCurrentBalance(targetBalance ? targetBalance : null);
+        } else {
+          setCurrentBalance(null);
+        }
       }
     }
-  }, [client, account]);
+  }, [client, account, activeChain]);
 
   useEffect(() => {
     fetchBalance();

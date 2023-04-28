@@ -5,7 +5,12 @@ import Button from "../../Button/Button";
 import deleteButton from "../../../assets/Button_Delite.svg";
 import plus from "../../../assets/plus.svg";
 import minus from "../../../assets/minus.svg";
-import { useQuerySmart, useAccount, useExecuteContract } from "graz";
+import {
+  useQuerySmart,
+  useAccount,
+  useExecuteContract,
+  useActiveChain,
+} from "graz";
 import { useFee } from "../../../utils/useFee";
 import { toast } from "react-toastify";
 
@@ -24,6 +29,7 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
   const [isSent, setSent] = useState(false);
   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
   const { data: account } = useAccount();
+  const activeChain = useActiveChain();
   const { data: tokenBalance, refetch } = useQuerySmart<any, any>(
     contractAddress,
     {
@@ -38,7 +44,7 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
   });
   const logoId = marketingInfo?.logo?.url?.match(/d\/(.+)\//)?.[1];
   const logoUrl = logoId && `https://drive.google.com/uc?id=${logoId}`;
-  const fee = useFee();
+  const fee = useFee(activeChain);
   const { executeContract } = useExecuteContract<any>({
     contractAddress,
     onError: (error: any) => {

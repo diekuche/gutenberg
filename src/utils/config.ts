@@ -1,4 +1,5 @@
 import { defineChains } from "graz";
+import { bech32 } from "bech32";
 
 const CYBER = {
     CYBER_CONGRESS_ADDRESS: 'cyber1latzme6xf6s8tsrymuu6laf2ks2humqvdq39v8',
@@ -34,6 +35,19 @@ const CYBER = {
   };
 
 
+  const NEUTRON = {
+    NEUTRON_ADDRESS: 'neutron1suhgf5svhu4usrurvxzlgn54ksxmn8gljarjtxqnapv8kjnp4nrstdxvff',
+    DIVISOR_NTRN: 10 ** 9,
+    DENOM_NEUTRON: 'untrn',
+  
+    CHAIN_ID: 'pion-1',
+    NEUTRON_NODE_URL_API: 'https://rpc-palvus.pion-1.ntrn.tech:443',
+    NEUTRON_NODE_URL_REST: 'https://rest-palvus.pion-1.ntrn.tech:443',
+  
+    BECH32_PREFIX_ACC_ADDR_NEUTRON: 'neutron',
+    MEMO_KEPLR: '[neutron], using keplr',
+  };
+
 
 export const CustomChains = defineChains({
   bostrom: {
@@ -50,6 +64,20 @@ export const CustomChains = defineChains({
     rpc: CYBER.CYBER_NODE_URL_API,
     rest: CYBER.CYBER_NODE_URL_LCD,
   },
+  neutron: {
+    chainId: NEUTRON.CHAIN_ID,
+    currencies: [
+      {
+        coinDenom: NEUTRON.DENOM_NEUTRON,
+        coinMinimalDenom: NEUTRON.DENOM_NEUTRON,
+        coinDecimals: 6,
+        coinGeckoId: NEUTRON.CHAIN_ID,
+        coinImageUrl: "https://raw.githubusercontent.com/cosmos/chain-registry/master/bostrom/images/boot.png",
+      },
+    ],
+    rpc: NEUTRON.NEUTRON_NODE_URL_API,
+    rest: NEUTRON.NEUTRON_NODE_URL_REST,
+  }
 });
 
   
@@ -124,4 +152,15 @@ export const CustomChains = defineChains({
   };
   
   export { CYBER, configKeplr };
+
+
+
+export const validateAddress = (address: string, prefix: string) => {
+  if (!address) return false;
+  try {
+    return bech32.decode(address).prefix === prefix;
+  } catch (error) {
+    return false;
+  }
+};
   

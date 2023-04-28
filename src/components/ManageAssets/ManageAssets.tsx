@@ -4,8 +4,9 @@ import Button from "../Button/Button";
 import Token from "./OtherTokenSender/OtherTokenSender";
 import { useState } from "react";
 import TokenSender from "./NativeTokenSender/NativeTokenSender";
-import { useAccount, useActiveChain, validateAddress } from "graz";
+import { useAccount, useActiveChain } from "graz";
 import { toast } from "react-toastify";
+import { validateAddress } from "../../utils/config";
 
 interface TokenProps {
   userTokens: any;
@@ -17,6 +18,9 @@ const getPrefix = (chainId: string) => {
   switch (chainId) {
     case "juno-1": {
       return "juno";
+    }
+    case "pion-1": {
+      return "neutron";
     }
     default: {
       return chainId;
