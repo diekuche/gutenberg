@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ConfirmSuplly.module.css";
 import cross from "../../../assets/cross.svg";
-import NewBT from "../../newButton/newButton";
+
 const Confirm = () => {
   return (
     <div className={styles.confirm}>

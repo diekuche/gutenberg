@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./SwapNew.module.css";
 import UpDoAr from "../../assets/UpDoAr.svg";
 import SelectCustom from "../SelectCustom/SelectCustom";
