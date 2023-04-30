@@ -30,10 +30,6 @@ export const useFee = (chain: Chain | null) => {
     }
   }, [client, account, denom]);
 
-  if (!denom) {
-    return "auto";
-  }
-
   const gasPrice = GasPrice.fromString(`0.001${denom}`);
   return calculateFee(600000, gasPrice);
 };

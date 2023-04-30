@@ -60,16 +60,13 @@ function TokenSender() {
     if (account?.bech32Address && activeChain?.chainId) {
       const balances = await client?.getAllBalances(account.bech32Address);
       if (balances) {
-        // Получить деноминацию токена для активной цепочки
         const activeChainDenom = tokenDenomsByChain[activeChain.chainId];
 
-        // Если для активной цепочки определена деноминация, найти соответствующий баланс
         if (activeChainDenom) {
           const targetBalance = balances.find(
             (balance) => balance.denom === activeChainDenom
           );
 
-          // Если баланс найден, установить его, иначе установить null
           setCurrentBalance(targetBalance ? targetBalance : null);
         } else {
           setCurrentBalance(null);
