@@ -93,32 +93,26 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
     <>
       {tokenBalance && tokenInfo && marketingInfo ? (
         <div className={styles.contractData}>
-          <div className={styles.tokenTitle}>
+          <div className={`${styles.tokenTitle}`} onClick={collapse}>
+            {logoUrl && (
+              <img src={logoUrl} alt="" className={styles.logo}></img>
+            )}
+            <div className={styles.token}>{tokenInfo.symbol}</div>
+            {
+              <img
+                alt="icons"
+                className={styles.icon}
+                src={open ? minus : plus}
+              />
+            }
+            <div className={styles.balance}>
+              {Number(tokenBalance.balance).toLocaleString()}
+            </div>
             <button
-              type="button"
-              onClick={collapse}
-              className={styles.tokenName}
+              className={styles.x}
+              onClick={(e) => removeContract(contractAddress)}
             >
-              {logoUrl && (
-                <img src={logoUrl} alt="" className={styles.logo}></img>
-              )}
-              <div className={styles.token}>{tokenInfo.symbol}</div>
-              {
-                <img
-                  alt="icons"
-                  className={styles.icon}
-                  src={open ? minus : plus}
-                />
-              }
-              <div className={styles.balance}>
-                {Number(tokenBalance.balance).toLocaleString()}
-              </div>
-              <button
-                className={styles.x}
-                onClick={(e) => removeContract(contractAddress)}
-              >
-                <img src={deleteButton} alt=""></img>
-              </button>
+              <img src={deleteButton} alt=""></img>
             </button>
           </div>
           {open && (

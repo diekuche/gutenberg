@@ -9,26 +9,19 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-}
-
-.tokenName {
-  display: flex;
-  width: 100%;
-  align-items: center;
+  color: rgba(246, 248, 254, 0.8);
   font-weight: 500;
   font-size: 14px;
-  color: rgba(246, 248, 254, 0.8);
-  background-color: transparent;
-  border: none;
   cursor: pointer;
-  font-family: "Bai Jamjuree", sans-serif;
-  padding: 4px 4px 4px 8px;
-  border-radius: 8px;
   margin-right: 6px;
+  padding: 4px 4px 4px 8px;
+  font-family: "Bai Jamjuree", sans-serif;
 }
 
-.tokenName:hover {
+
+.tokenTitle:hover {
   background: rgba(67, 151, 178, 0.1);
+  border-radius: 8px;
 }
 
 .x {
