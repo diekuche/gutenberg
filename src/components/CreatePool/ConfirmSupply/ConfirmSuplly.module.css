@@ -1,0 +1,73 @@
+.cross {
+  display: flex;
+  margin-left: auto;
+  padding-top: 18px;
+  padding-right: 22px;
+}
+
+.confirm {
+  background: rgba(6, 15, 25, 0.95);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  width: 470px;
+  margin-top: 149px;
+}
+.name {
+  color: #e2fb5f;
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: bold;
+  padding-left: 20px;
+}
+.text {
+  color: #f6f8fe;
+  font-weight: 400;
+  line-height: 24px;
+  padding-top: 20px;
+  padding-left: 20px;
+  font-size: 16px;
+}
+.change {
+  margin: auto;
+  background: rgba(67, 151, 178, 0.1);
+  border-radius: 8px;
+  width: 375px;
+  margin-top: 28px;
+  margin-bottom: 37px;
+  padding: 0px 10px 10px 10px;
+}
+.firstString,
+.secondString,
+.thirdString {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+.nameString {
+  color: white;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  padding-left: 15px;
+}
+.nameToken {
+  color: #e2fb5f;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  padding-right: 25px;
+}
+.priceToken,
+.priceSummary {
+  color: #f6f8fe;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+.test {
+  display: flex;
+  padding-right: 15px;
+}
+.priceSummary {
+  padding-right: 14px;
+}
