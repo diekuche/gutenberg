@@ -156,3 +156,10 @@
 .colspan {
   padding: 0px !important;
 }
+.buttonToken {
+  width: 208px;
+}
+.fix {
+  text-align: right !important;
+  padding-right: 23px;
+}

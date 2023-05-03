@@ -70,7 +70,7 @@ const ManageAssets = () => {
             </tr>
             {open && (
               <tr>
-                <th colSpan={6} className={styles.colspan}>
+                <th colSpan={7} className={styles.colspan}>
                   <div className={styles.tokenSend}>
                     <div className={styles.sendformblock}>
                       <div className={styles.label}>
@@ -134,7 +134,7 @@ const ManageAssets = () => {
             </tr>
             {openSend && (
               <tr>
-                <th colSpan={6} className={styles.colspan}>
+                <th colSpan={7} className={styles.colspan}>
                   <div className={styles.tokenSend}>
                     <div className={styles.sendformblock}>
                       <div className={styles.label}>
@@ -159,7 +159,7 @@ const ManageAssets = () => {
             )}
             {mint && (
               <tr>
-                <th className={styles.colspan} colSpan={6}>
+                <th className={styles.colspan} colSpan={7}>
                   <div className={styles.tokenSend}>
                     <div className={styles.sendformblock}>
                       <div className={styles.label}>
@@ -180,7 +180,7 @@ const ManageAssets = () => {
             )}
             {burnSend && (
               <tr>
-                <th className={styles.colspan} colSpan={6}>
+                <th className={styles.colspan} colSpan={7}>
                   <div className={styles.tokenSend}>
                     <div className={styles.sendformblock}>
                       <div className={styles.label}>
@@ -235,7 +235,7 @@ const ManageAssets = () => {
             </tr>
             {openSendThird && (
               <tr>
-                <th colSpan={6} className={styles.colspan}>
+                <th colSpan={7} className={styles.colspan}>
                   <div className={styles.tokenSend}>
                     <div className={styles.sendformblock}>
                       <div className={styles.label}>
@@ -260,7 +260,7 @@ const ManageAssets = () => {
             )}
             {burn && (
               <tr>
-                <th className={styles.colspan} colSpan={6}>
+                <th className={styles.colspan} colSpan={7}>
                   <div className={styles.tokenSend}>
                     <div className={styles.sendformblock}>
                       <div className={styles.label}>
@@ -279,6 +279,17 @@ const ManageAssets = () => {
                 </th>
               </tr>
             )}
+            <tr>
+              <td colSpan={7} className={styles.fix}>
+                <Button
+                  color="green"
+                  type="button"
+                  className={styles.buttonToken}
+                >
+                  Add Token
+                </Button>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
