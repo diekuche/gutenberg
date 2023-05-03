@@ -4,6 +4,19 @@
   justify-content: flex-start;
   margin: 80px 17% 120px 17%;
 }
+.test {
+  color: rgba(246, 248, 254, 0.4);
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  margin-top: -5px;
+  text-align: initial;
+}
+.send {
+  border: none;
+
+  cursor: pointer;
+}
 
 .title {
   display: flex;
@@ -41,7 +54,7 @@
 }
 
 .iconToken {
-  width: 24px;
+  width: 34px;
   margin-right: 10px;
 }
 
@@ -78,11 +91,11 @@
   background: rgba(29, 57, 66, 0.6);
   border-radius: 8px;
   border-style: none;
-  font-family: 'Bai Jamjuree';
+  font-family: "Bai Jamjuree";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  color: #F6F8FE;
+  color: #f6f8fe;
   padding-left: 14px;
 }
 
@@ -117,11 +130,11 @@
   background: rgba(29, 57, 66, 0.6);
   border-radius: 8px;
   border-style: none;
-  font-family: 'Bai Jamjuree';
+  font-family: "Bai Jamjuree";
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  color: #F6F8FE;
+  color: #f6f8fe;
   padding-left: 14px;
 }
 
@@ -133,10 +146,13 @@
   display: flex;
   align-content: center;
   color: rgba(246, 248, 254, 0.6);
-  font-family: 'Bai Jamjuree';
+  font-family: "Bai Jamjuree";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   text-align: center;
   padding-top: 7px;
+}
+.colspan {
+  padding: 0px !important;
 }
