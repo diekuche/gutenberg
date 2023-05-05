@@ -163,8 +163,8 @@ const ManageAssets = () => {
                   <div className={styles.tokenSend}>
                     <div className={styles.sendformblock}>
                       <div className={styles.label}>
-                        Recepient:
-                        <input type="text" className={styles.sendform} />
+                        Amount:
+                        <input type="text" className={styles.sendformAmount} />
                       </div>
                       <Button
                         color="sendButton"
@@ -264,8 +264,8 @@ const ManageAssets = () => {
                   <div className={styles.tokenSend}>
                     <div className={styles.sendformblock}>
                       <div className={styles.label}>
-                        Recepient:
-                        <input type="text" className={styles.sendform} />
+                        Amount:
+                        <input type="text" className={styles.sendformAmount} />
                       </div>
                       <Button
                         color="sendButton"
