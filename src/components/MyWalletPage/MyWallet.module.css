@@ -39,7 +39,6 @@
   border-radius: 16px;
   margin-bottom: 24px;
   width: 100%;
-  max-width: 750px;
 }
 
 .theadMA {
@@ -76,7 +75,7 @@
 .tokenSend {
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   gap: 10px;
   /* margin: 14px 40px; */
   margin: 14px 24px 14px 40px;
@@ -85,13 +84,14 @@
 .sendformblock {
   display: flex;
   gap: 10px;
+  flex: 1;
 }
 
 .sendform,
 .sendformAmount {
   box-sizing: border-box;
   height: 40px;
-  width: 229px;
+
   background: rgba(29, 57, 66, 0.6);
   border-radius: 8px;
   border-style: none;
@@ -110,10 +110,9 @@
   font-size: 12px;
   color: rgba(246, 248, 254, 0.6);
   text-align: initial;
+  flex: 1;
 }
-.sendformAmount {
-  width: 471px;
-}
+
 .sendButton {
   margin-top: auto;
 }
@@ -166,7 +165,7 @@
   padding: 0px !important;
 }
 .buttonToken {
-  width: 208px;
+  max-width: 250px;
 }
 .fix {
   text-align: right !important;

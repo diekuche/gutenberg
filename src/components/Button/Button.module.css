@@ -85,8 +85,9 @@
 
 .sendButton {
   height: 40px;
+
+  max-width: 250px;
   width: 100%;
-  max-width: 207px;
   color: #060f19;
   background-color: #e2fb5f;
   border-style: none;
