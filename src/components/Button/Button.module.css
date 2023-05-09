@@ -16,7 +16,7 @@
 .green:hover {
   font-weight: 500;
   border: 1px solid #e2fb5f;
-  color: #060F19;
+  color: #060f19;
   background-color: #e2fb5f;
 }
 
@@ -26,7 +26,7 @@
   border-radius: 0 0 15px 15px;
   background-color: #e2fb5f;
   cursor: pointer;
-  color: #060F19;
+  color: #060f19;
   font-family: "Bai Jamjuree", sans-serif;
   font-weight: 700;
   font-size: 32px;
@@ -41,7 +41,7 @@
 }
 
 .yellow:hover {
-  background-color: #EDFF8E;
+  background-color: #edff8e;
 }
 
 .yellowTransp {
@@ -49,7 +49,7 @@
   height: 66px;
   border-radius: 0 0 15px 15px;
   cursor: pointer;
-  color: #060F19;
+  color: #060f19;
   font-family: "Bai Jamjuree", sans-serif;
   font-weight: 700;
   font-size: 32px;
@@ -57,7 +57,7 @@
   border-style: none;
   padding: 0px;
   margin-top: 30px;
-  background-color: rgba(226, 251, 95, 0.4)
+  background-color: rgba(226, 251, 95, 0.4);
 }
 
 .yellowTransp:hover {
@@ -80,13 +80,15 @@
 }
 
 .white:hover {
-  background: #EDFF8E;
+  background: #edff8e;
 }
 
 .sendButton {
   height: 40px;
+
+  max-width: 250px;
   width: 100%;
-  color: #060F19;
+  color: #060f19;
   background-color: #e2fb5f;
   border-style: none;
   border-radius: 8px;
@@ -96,10 +98,11 @@
   text-transform: lowercase;
   align-self: center;
   cursor: pointer;
+  padding: 0px 86px;
 }
 
 .sendButton:hover {
-  background-color: #EDFF8E;
+  background-color: #edff8e;
 }
 
 .lg {
