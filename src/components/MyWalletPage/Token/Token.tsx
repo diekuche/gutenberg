@@ -22,6 +22,8 @@ const sendBalance = {
 
 const Token = ({ contractAddress, removeContract }: Props) => {
   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
+  const [mintAmount, setMintAmount] = useState("");
+  const [burnAmount, setBurnAmount] = useState("");
   const [currentAction, setCurrentAction] = useState("");
   const { data: account } = useAccount();
   const { data: tokenBalance, refetch } = useQuerySmart<any, any>(
@@ -79,6 +81,29 @@ const Token = ({ contractAddress, removeContract }: Props) => {
     });
   };
 
+  const handleBurnToken = async () => {
+    executeContract({
+      msg: {
+        burn: {
+          amount: burnAmount,
+        },
+      },
+      fee,
+    });
+  };
+
+  const handleMintToken = async () => {
+    executeContract({
+      msg: {
+        mint: {
+          amount: mintAmount,
+          recipient: account?.bech32Address,
+        },
+      },
+      fee,
+    });
+  };
+
   return (
     <>
       <tr>
@@ -92,7 +117,11 @@ const Token = ({ contractAddress, removeContract }: Props) => {
           {Number(tokenBalance.balance).toLocaleString()}
         </td>
         <td>
-          <img src={basket} alt="" />
+          <img
+            src={basket}
+            alt=""
+            onClick={() => removeContract(contractAddress)}
+          />
         </td>
         <td className={styles.thwidth}>
           <div className={styles.send} onClick={() => setCurrentAction("send")}>
@@ -156,11 +185,17 @@ const Token = ({ contractAddress, removeContract }: Props) => {
               <div className={styles.sendformblock}>
                 <div className={styles.label}>
                   Amount:
-                  <input type="text" className={styles.sendformAmount} />
+                  <input
+                    type="text"
+                    value={mintAmount}
+                    onChange={(e) => setMintAmount(e.target.value)}
+                    className={styles.sendformAmount}
+                  />
                 </div>
                 <Button
                   color="sendButton"
                   type="button"
+                  onClick={handleMintToken}
                   className={styles.sendButton}
                 >
                   Mint
@@ -177,12 +212,18 @@ const Token = ({ contractAddress, removeContract }: Props) => {
               <div className={styles.sendformblock}>
                 <div className={styles.label}>
                   Recepient:
-                  <input type="text" className={styles.sendform} />
+                  <input
+                    type="text"
+                    value={burnAmount}
+                    onChange={(e) => setBurnAmount(e.target.value)}
+                    className={styles.sendform}
+                  />
                 </div>
                 <Button
                   color="sendButton"
                   type="button"
                   className={styles.sendButton}
+                  onClick={handleBurnToken}
                 >
                   Burn
                 </Button>
