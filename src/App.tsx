@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppStateContext } from "././context/AppStateContext";
 import { Window as KeplrWindow } from "@keplr-wallet/types";
 import CreatePage from "./components/CreatePage/CreatePage";
@@ -18,13 +18,50 @@ import { CustomChains } from "../src/utils/config";
 import Pools from "./components/Pools/Pools";
 import Deposit from "./components/Deposit/Deposit";
 import CreatePool from "./components/CreatePool/CreatePool/CreatePool";
+import { useAccount } from "graz";
 
+const TokensStorageKey = "userTokens";
 declare global {
   interface Window extends KeplrWindow {}
 }
 
 function App() {
   const [address, setAddress] = useState("");
+  const { data: account } = useAccount();
+  const [userTokens, setUserTokens] = useState<any>(() => {
+    const saved = localStorage.getItem(TokensStorageKey) as string;
+    if (saved) {
+      try {
+        const initialValue = JSON.parse(saved);
+        return initialValue || {};
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    return [];
+  });
+  const currentTokens = userTokens[account?.bech32Address!] || [];
+
+  useEffect(() => {
+    localStorage.setItem(TokensStorageKey, JSON.stringify(userTokens));
+  }, [userTokens]);
+
+  const addUserToken = (contractAddress: string) => {
+    setUserTokens({
+      ...userTokens,
+      [account?.bech32Address!]: [...currentTokens, contractAddress],
+    });
+  };
+
+  const removeUserToken = (contractAddress: string) => {
+    setUserTokens({
+      ...userTokens,
+      [account?.bech32Address!]: currentTokens.filter(
+        (address: any) => address !== contractAddress
+      ),
+    });
+  };
+
   return (
     <GrazProvider
       grazOptions={{
@@ -33,7 +70,15 @@ function App() {
     >
       <div className="App">
         <div className="container">
-          <AppStateContext.Provider value={{ address, setAddress }}>
+          <AppStateContext.Provider
+            value={{
+              userTokens: currentTokens,
+              addUserToken,
+              removeUserToken,
+              address,
+              setAddress,
+            }}
+          >
             <Router>
               <Header />
               <Routes>

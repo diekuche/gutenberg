@@ -1,0 +1,82 @@
+.nameToken {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 20px;
+  gap: 5px;
+}
+
+.iconToken {
+  width: 34px;
+  margin-right: 10px;
+}
+
+.balance {
+  font-weight: 400;
+  font-size: 20px;
+  text-align: start;
+}
+
+.thwidth {
+  width: 60px;
+  padding: 0px 10px;
+}
+
+.send {
+  border: none;
+  cursor: pointer;
+}
+
+.colspan {
+  padding: 0px !important;
+}
+
+.tokenSend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 14px 24px 14px 40px;
+}
+
+.sendformblock {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  font-size: 12px;
+  color: rgba(246, 248, 254, 0.6);
+  text-align: initial;
+  flex: 1;
+}
+
+.sendform,
+.sendformAmount {
+  box-sizing: border-box;
+  height: 40px;
+
+  background: rgba(29, 57, 66, 0.6);
+  border-radius: 8px;
+  border-style: none;
+  font-family: "Bai Jamjuree";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #f6f8fe;
+  padding-left: 14px;
+}
+
+.sendButton {
+  margin-top: auto;
+}
+
+.sendformblock {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}

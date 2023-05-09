@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { Coin, coins } from "@cosmjs/stargate";
 import styles from "./MyWallet.module.css";
 import circle from "../../assets/circle.svg";
 import swapMA from "../../assets/swapMA.svg";
@@ -8,20 +9,77 @@ import icon_burn from "../../assets/icon_burn.svg";
 import Button from "../Button/Button";
 import MyInvestment from "../Pools/MyInvestment/MyInvestment";
 import MyPools from "../Pools/MyPools/MyPools";
-import pig from "../../assets/pig_logo.svg";
-import swapMAYellow from "../../assets/SwapCircleYellow.svg";
-import other from "../../assets/OtherToken.svg";
-import icon_mint_yellow from "../../assets/icon_mint_yellow.svg";
-import icon_burn_yellow from "../../assets/icon_burn_yellow.svg";
-import basket from "../../assets/basket.svg";
+import { useAccount, useClients, useSendTokens } from "graz";
+import { AppStateContext } from "../../context/AppStateContext";
+import Token from "./Token/Token";
+import { toast } from "react-toastify";
+import { useFee } from "../../utils/useFee";
+
+const sendBalance = {
+  recepient: "",
+  amount: "",
+};
 
 const ManageAssets = () => {
   const [open, setOpen] = useState(false);
-  const [openSend, setOpenSend] = useState(false);
-  const [openSendThird, setSendThird] = useState(false);
-  const [mint, setMint] = useState(false);
-  const [burn, setBurn] = useState(false);
-  const [burnSend, setBurnSend] = useState(false);
+  const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
+  const { data: account } = useAccount();
+  const { data } = useClients();
+  const client = data?.stargate;
+  const [currentBalance, setCurrentBalance] = useState<Coin | null>(null);
+  const { userTokens, removeUserToken } = useContext(AppStateContext);
+  const fee = useFee();
+  const { sendTokens } = useSendTokens({
+    onError: (error: any) => {
+      toast(error, {
+        type: "error",
+      });
+      console.log("error", error);
+    },
+    onSuccess: (result) => {
+      toast("Success", {
+        type: "success",
+        autoClose: 2000,
+      });
+      console.log("success", result);
+      fetchBalance();
+
+      setBalance({ recepient: "", amount: "" });
+      setOpen(false);
+    },
+  });
+
+  const fetchBalance = useCallback(async () => {
+    if (account?.bech32Address) {
+      const balances = await client?.getAllBalances(account.bech32Address);
+      if (balances?.[0]) {
+        setCurrentBalance(balances[0]);
+      }
+    }
+  }, [client, account]);
+
+  const handleSendTokens = () => {
+    const { recepient, amount } = balance;
+    if (recepient !== "" && amount !== "") {
+      sendTokens({
+        recipientAddress: recepient,
+        amount: coins(amount, currentBalance!.denom),
+        fee,
+      });
+    }
+  };
+
+  const handleSendChange =
+    (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      setBalance({
+        ...balance,
+        [name]: event.target.value,
+      });
+    };
+
+  useEffect(() => {
+    fetchBalance();
+  }, [fetchBalance]);
 
   return (
     <div className={styles.main}>
@@ -44,13 +102,12 @@ const ManageAssets = () => {
               <td>
                 <div className={styles.nameToken}>
                   <img src={circle} className={styles.iconToken} alt="" />
-                  <div>
-                    BOOT
-                    <div className={styles.test}>bostrom</div>
-                  </div>
+                  <div>{currentBalance?.denom?.toUpperCase()}</div>
                 </div>
               </td>
-              <td className={styles.balance}>937,453,452.00</td>
+              <td className={styles.balance}>
+                {Number(currentBalance?.amount).toLocaleString()}
+              </td>
               <td></td>
               <td className={styles.thwidth}>
                 <div className={styles.send} onClick={() => setOpen(!open)}>
@@ -75,17 +132,28 @@ const ManageAssets = () => {
                     <div className={styles.sendformblock}>
                       <div className={styles.label}>
                         Recepient:
-                        <input type="text" className={styles.sendform} />
+                        <input
+                          type="text"
+                          value={balance.recepient}
+                          onChange={handleSendChange("recepient")}
+                          className={styles.sendform}
+                        />
                       </div>
                       <div className={styles.label}>
                         Amount:
-                        <input type="text" className={styles.sendform} />
+                        <input
+                          type="text"
+                          value={balance.amount}
+                          className={styles.sendform}
+                          onChange={handleSendChange("amount")}
+                        />
                       </div>
                     </div>
                     <Button
                       color="sendButton"
                       type="button"
                       className={styles.sendButton}
+                      onClick={handleSendTokens}
                     >
                       Send
                     </Button>
@@ -93,192 +161,13 @@ const ManageAssets = () => {
                 </th>
               </tr>
             )}
-            <tr>
-              <td>
-                <div className={styles.nameToken}>
-                  <img src={pig} className={styles.iconToken} alt="" />
-                  <div>
-                    MyTok
-                    <div className={styles.test}>PigNon</div>
-                  </div>
-                </div>
-              </td>
-              <td className={styles.balance}>123,456,789.00</td>
-              <td>
-                <img src={basket} alt="" />
-              </td>
-              <td className={styles.thwidth}>
-                <div
-                  className={styles.send}
-                  onClick={() => setOpenSend(!openSend)}
-                >
-                  <img src={icon_send} alt="" />
-                </div>
-              </td>
-              <td className={styles.thwidth}>
-                <img src={swapMAYellow} alt="" />
-              </td>
-              <td className={styles.thwidth}>
-                <div className={styles.send} onClick={() => setMint(!mint)}>
-                  <img src={icon_mint_yellow} alt="" />
-                </div>
-              </td>
-              <td className={styles.thwidth}>
-                <div
-                  className={styles.send}
-                  onClick={() => setBurnSend(!burnSend)}
-                >
-                  <img src={icon_burn_yellow} alt="" />
-                </div>
-              </td>
-            </tr>
-            {openSend && (
-              <tr>
-                <th colSpan={7} className={styles.colspan}>
-                  <div className={styles.tokenSend}>
-                    <div className={styles.sendformblock}>
-                      <div className={styles.label}>
-                        Recepient:
-                        <input type="text" className={styles.sendform} />
-                      </div>
-                      <div className={styles.label}>
-                        Amount:
-                        <input type="text" className={styles.sendform} />
-                      </div>
-                    </div>
-                    <Button
-                      color="sendButton"
-                      type="button"
-                      className={styles.sendButton}
-                    >
-                      Send
-                    </Button>
-                  </div>
-                </th>
-              </tr>
-            )}
-            {mint && (
-              <tr>
-                <th className={styles.colspan} colSpan={7}>
-                  <div className={styles.tokenSend}>
-                    <div className={styles.sendformblock}>
-                      <div className={styles.label}>
-                        Amount:
-                        <input type="text" className={styles.sendformAmount} />
-                      </div>
-                      <Button
-                        color="sendButton"
-                        type="button"
-                        className={styles.sendButton}
-                      >
-                        Mint
-                      </Button>
-                    </div>
-                  </div>
-                </th>
-              </tr>
-            )}
-            {burnSend && (
-              <tr>
-                <th className={styles.colspan} colSpan={7}>
-                  <div className={styles.tokenSend}>
-                    <div className={styles.sendformblock}>
-                      <div className={styles.label}>
-                        Recepient:
-                        <input type="text" className={styles.sendform} />
-                      </div>
-                      <Button
-                        color="sendButton"
-                        type="button"
-                        className={styles.sendButton}
-                      >
-                        Burn
-                      </Button>
-                    </div>
-                  </div>
-                </th>
-              </tr>
-            )}
-            <tr>
-              <td>
-                <div className={styles.nameToken}>
-                  <img src={other} className={styles.iconToken} alt="" />
-                  <div>
-                    Other
-                    <div className={styles.test}>Lighjhjna</div>
-                  </div>
-                </div>
-              </td>
-              <td className={styles.balance}>987,654,321,00</td>
-              <td>
-                <img src={basket} alt="" />
-              </td>
-              <td className={styles.thwidth}>
-                <div
-                  className={styles.send}
-                  onClick={() => setSendThird(!openSendThird)}
-                >
-                  <img src={icon_send} alt="" />
-                </div>
-              </td>
-              <td className={styles.thwidth}>
-                <img src={swapMAYellow} alt="" />
-              </td>
-              <td className={styles.thwidth}>
-                <img src={icon_mint} alt="" />
-              </td>
-              <td className={styles.thwidth}>
-                <div className={styles.send} onClick={() => setBurn(!burn)}>
-                  <img src={icon_burn_yellow} alt="" />
-                </div>
-              </td>
-            </tr>
-            {openSendThird && (
-              <tr>
-                <th colSpan={7} className={styles.colspan}>
-                  <div className={styles.tokenSend}>
-                    <div className={styles.sendformblock}>
-                      <div className={styles.label}>
-                        Recepient:
-                        <input type="text" className={styles.sendform} />
-                      </div>
-                      <div className={styles.label}>
-                        Amount:
-                        <input type="text" className={styles.sendform} />
-                      </div>
-                    </div>
-                    <Button
-                      color="sendButton"
-                      type="button"
-                      className={styles.sendButton}
-                    >
-                      Send
-                    </Button>
-                  </div>
-                </th>
-              </tr>
-            )}
-            {burn && (
-              <tr>
-                <th className={styles.colspan} colSpan={7}>
-                  <div className={styles.tokenSend}>
-                    <div className={styles.sendformblock}>
-                      <div className={styles.label}>
-                        Amount:
-                        <input type="text" className={styles.sendformAmount} />
-                      </div>
-                      <Button
-                        color="sendButton"
-                        type="button"
-                        className={styles.sendButton}
-                      >
-                        Burn
-                      </Button>
-                    </div>
-                  </div>
-                </th>
-              </tr>
-            )}
+            {userTokens.map((address) => (
+              <Token
+                key={address}
+                contractAddress={address}
+                removeContract={removeUserToken}
+              />
+            ))}
             <tr>
               <td colSpan={7} className={styles.fix}>
                 <Button

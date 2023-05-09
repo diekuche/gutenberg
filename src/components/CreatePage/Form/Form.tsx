@@ -1,5 +1,5 @@
 import styles from "./Form.module.css";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 import Button from "../../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useAccount, useConnect, useInstantiateContract } from "graz";
 import { useFee } from "../../../utils/useFee";
 import { toast } from "react-toastify";
+import { AppStateContext } from "../../../context/AppStateContext";
 
 const defaultBalance = {
   id: uuidv4(),
@@ -14,18 +15,14 @@ const defaultBalance = {
   amount: "",
 };
 
-interface FormProps {
-  userTokens: any;
-  addUserToken: (contractAddress: string) => void;
-}
-
-export const Form = ({ addUserToken, userTokens }: FormProps) => {
+export const Form = () => {
   const [balances, setBalances] = useState<Array<typeof defaultBalance>>([
     defaultBalance,
   ]);
   const [description, setDescription] = useState("");
   const { connect } = useConnect();
   const { data: account, isConnected } = useAccount();
+  const { addUserToken } = useContext(AppStateContext);
   const { instantiateContract } = useInstantiateContract({
     codeId: 1,
     onError: (error: any) => {

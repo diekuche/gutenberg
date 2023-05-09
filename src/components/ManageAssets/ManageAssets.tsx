@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./ManageAssets.module.css";
 import Button from "../Button/Button";
 import Token from "./OtherTokenSender/OtherTokenSender";
@@ -6,12 +6,7 @@ import { useState } from "react";
 import TokenSender from "./NativeTokenSender/NativeTokenSender";
 import { useAccount, useActiveChain, validateAddress } from "graz";
 import { toast } from "react-toastify";
-
-interface TokenProps {
-  userTokens: any;
-  addUserToken: (contractAddress: string) => void;
-  removeUserToken: (contractAddress: string) => void;
-}
+import { AppStateContext } from "../../context/AppStateContext";
 
 const getPrefix = (chainId: string) => {
   switch (chainId) {
@@ -24,17 +19,14 @@ const getPrefix = (chainId: string) => {
   }
 };
 
-function ManageTokens({
-  userTokens,
-  addUserToken,
-  removeUserToken,
-}: TokenProps) {
+function ManageTokens() {
   const [contract, setContract] = useState("");
   const [isVisible, setVisible] = useState(false);
-  const { data: account, isConnected } = useAccount();
+  const { isConnected } = useAccount();
   const activeChain = useActiveChain();
-  const currentTokens = userTokens[account?.bech32Address!] || [];
   const [open, setOpen] = useState(false);
+  const { addUserToken, userTokens, removeUserToken } =
+    useContext(AppStateContext);
 
   function handleChangeContractAddress(event: any) {
     const response = event.target.value;
@@ -44,7 +36,7 @@ function ManageTokens({
   }
 
   function addContract() {
-    if (currentTokens.includes(contract)) {
+    if (userTokens.includes(contract)) {
       setContract("");
       return toast("Token already exist", {
         type: "error",
@@ -77,7 +69,7 @@ function ManageTokens({
         <div className={styles.tokens}>
           <TokenSender />
           <div className={styles.tokenList}>
-            {currentTokens.map((contractAddress: any) => (
+            {userTokens.map((contractAddress) => (
               <Token
                 contractAddress={contractAddress}
                 removeContract={removeUserToken}
