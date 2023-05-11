@@ -77,7 +77,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  /* margin: 14px 40px; */
+
   margin: 14px 24px 14px 40px;
 }
 
@@ -88,10 +88,10 @@
 }
 
 .sendform,
-.sendformAmount {
+.sendformAmount,
+.inputToken {
   box-sizing: border-box;
   height: 40px;
-
   background: rgba(29, 57, 66, 0.6);
   border-radius: 8px;
   border-style: none;
@@ -117,39 +117,6 @@
   margin-top: auto;
 }
 
-.addToken {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  margin: 20px 40px 40px 40px;
-}
-
-.addTokenBlok {
-  width: 100%;
-  display: flex;
-  gap: 10px;
-}
-
-.addContract {
-  box-sizing: border-box;
-  height: 40px;
-  width: 530px;
-  background: rgba(29, 57, 66, 0.6);
-  border-radius: 8px;
-  border-style: none;
-  font-family: "Bai Jamjuree";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  color: #f6f8fe;
-  padding-left: 14px;
-}
-
-.addTokenButton {
-  margin-top: auto;
-}
-
 .error {
   display: flex;
   align-content: center;
@@ -164,10 +131,42 @@
 .colspan {
   padding: 0px !important;
 }
-.buttonToken {
+
+.addString {
+  display: flex;
+}
+.clickString {
+  display: flex;
+  width: 100%;
+}
+.buttonStyle {
+  margin-left: auto;
   max-width: 250px;
 }
-.fix {
-  text-align: right !important;
-  padding-right: 23px;
+.addTokenButton {
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+  background: rgba(29, 57, 66, 0.6);
+  border-radius: 8px;
+  border-style: none;
+  font-family: "Bai Jamjuree";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #f6f8fe;
+  padding-left: 14px;
+  margin-right: 10px;
+}
+.textToken {
+  width: 300px;
+  text-align: justify;
+  color: #e2fb5f;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  align-self: center;
+}
+.butonAddToken {
+  padding: 10px 23px 10px 35px !important;
 }

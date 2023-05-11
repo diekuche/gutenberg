@@ -22,6 +22,7 @@ const ManageAssets = () => {
   const [mint, setMint] = useState(false);
   const [burn, setBurn] = useState(false);
   const [burnSend, setBurnSend] = useState(false);
+  const [token, setToken] = useState(false);
 
   return (
     <div className={styles.main}>
@@ -279,17 +280,26 @@ const ManageAssets = () => {
                 </th>
               </tr>
             )}
-            <tr>
-              <td colSpan={7} className={styles.fix}>
+            <td colSpan={7} className={styles.butonAddToken}>
+              <div className={styles.addString}>
+                {token && (
+                  <div className={styles.clickString}>
+                    <div className={styles.textToken}>
+                      To add a token, specify its address:
+                    </div>
+                    <input type="text" className={styles.addTokenButton} />
+                  </div>
+                )}
                 <Button
                   color="green"
                   type="button"
-                  className={styles.buttonToken}
+                  className={styles.buttonStyle}
+                  onClick={() => setToken(!token)}
                 >
                   Add Token
                 </Button>
-              </td>
-            </tr>
+              </div>
+            </td>
           </tbody>
         </table>
       </div>
