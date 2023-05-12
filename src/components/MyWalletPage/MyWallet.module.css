@@ -165,8 +165,44 @@
 }
 .buttonToken {
   max-width: 250px;
+  margin-left: auto;
 }
 .fix {
-  text-align: right !important;
-  padding-right: 23px;
+  padding: 10px 23px 10px 35px !important;
+}
+.addString {
+  display: flex;
+}
+.clickString {
+  display: flex;
+  width: 100%;
+}
+.textToken {
+  width: 49%;
+  text-align: justify;
+  color: #e2fb5f;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  align-self: center;
+}
+.tokenAdd {
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+  background: rgba(29, 57, 66, 0.6);
+  border-radius: 8px;
+  border-style: none;
+  font-family: "Bai Jamjuree";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #f6f8fe;
+  padding-left: 14px;
+  margin-right: 10px;
+}
+.buttonStyle {
+  margin-left: auto;
+  max-width: 250px;
+  margin-right: 10px;
 }
