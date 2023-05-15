@@ -22,6 +22,7 @@ const sendBalance = {
 
 const ManageAssets = () => {
   const [open, setOpen] = useState(false);
+  const [token, setToken] = useState(false);
   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
   const { data: account } = useAccount();
   const { data } = useClients();
@@ -170,13 +171,32 @@ const ManageAssets = () => {
             ))}
             <tr>
               <td colSpan={7} className={styles.fix}>
-                <Button
-                  color="green"
-                  type="button"
-                  className={styles.buttonToken}
-                >
-                  Add Token
-                </Button>
+                <div className={styles.addString}>
+                  {token && (
+                    <div className={styles.clickString}>
+                      <div className={styles.textToken}>
+                        To add a token, specify its address:
+                      </div>
+                      <input type="text" className={styles.tokenAdd} />
+                      <Button
+                        color="green"
+                        type="button"
+                        className={styles.buttonStyle}
+                      >
+                        Token Add
+                      </Button>
+                    </div>
+                  )}
+
+                  <Button
+                    color="green"
+                    type="button"
+                    className={styles.buttonToken}
+                    onClick={() => setToken(!token)}
+                  >
+                    Add Token
+                  </Button>
+                </div>
               </td>
             </tr>
           </tbody>
