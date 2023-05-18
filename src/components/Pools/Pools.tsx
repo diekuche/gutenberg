@@ -5,8 +5,7 @@ import atom from "../../assets/atom.svg";
 import leftarrow from "../../assets/greyArrowLeft.svg";
 import rightarrow from "../../assets/greyArrowRight.svg";
 import greyArrowDown from "../../assets/greyArrowDown.svg";
-import MyInvestment from "../Pools/MyInvestment/MyInvestment";
-import MyPools from "./MyPools/MyPools";
+
 import Deposit from "../Deposit/Deposit";
 
 const Pools = () => {

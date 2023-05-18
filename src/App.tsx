@@ -16,7 +16,7 @@ import License from "./components/LicensePage/LicensePage";
 import { GrazProvider } from "graz";
 import { CustomChains } from "../src/utils/config";
 import Pools from "./components/Pools/Pools";
-import Deposit from "./components/Deposit/Deposit";
+
 import CreatePool from "./components/CreatePool/CreatePool/CreatePool";
 import { useAccount } from "graz";
 
