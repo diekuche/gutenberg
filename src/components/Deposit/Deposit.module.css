@@ -82,7 +82,7 @@
   padding-right: 22px;
 }
 .test {
-  display: flex;
-
-  margin-top: 100px;
+  position: absolute;
+  top: 40%;
+  left: 40%;
 }
