@@ -7,7 +7,6 @@ import Withdraw from "./Withdraw/Withdraw";
 import Farm from "./Farm/Farm";
 import Dep from "./Dep/Dep";
 import Unfarm from "./Unfarm/Unfarm";
-import ClaimAll from "./ClaimAll/ClaimAll";
 
 interface ClickProps {
   onClick: any;

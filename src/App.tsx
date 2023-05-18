@@ -89,7 +89,7 @@ function App() {
                 <Route path="/swap" element={<Swap />}></Route>
                 <Route path="/my-wallet" element={<MyWallet />}></Route>
                 <Route path="/pools" element={<Pools />}></Route>
-                {/*  <Route path="/deposit" element={<Deposit />}></Route> */}
+
                 <Route path="/createPool" element={<CreatePool />}></Route>
               </Routes>
               <Footer />

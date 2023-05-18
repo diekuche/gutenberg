@@ -30,8 +30,7 @@ const Pools = () => {
           <div className={styles.name}>pools!</div>
           <button className={styles.buttonCreate}>create new pools!</button>
         </div>
-        {/*        <MyInvestment />
-        <MyPools /> */}
+
         <div className={styles.secondString}>
           <div className={styles.allpools}>all pools</div>
           <input
