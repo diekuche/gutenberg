@@ -9,11 +9,18 @@ import icon_burn from "../../assets/icon_burn.svg";
 import Button from "../Button/Button";
 import MyInvestment from "../Pools/MyInvestment/MyInvestment";
 import MyPools from "../Pools/MyPools/MyPools";
-import { useAccount, useClients, useSendTokens } from "graz";
+import {
+  useAccount,
+  useActiveChain,
+  useClients,
+  useSendTokens,
+  validateAddress,
+} from "graz";
 import { AppStateContext } from "../../context/AppStateContext";
 import Token from "./Token/Token";
 import { toast } from "react-toastify";
 import { useFee } from "../../utils/useFee";
+import { getPrefix } from "../ManageAssets/ManageAssets";
 
 const sendBalance = {
   recepient: "",
@@ -21,14 +28,17 @@ const sendBalance = {
 };
 
 const ManageAssets = () => {
+  const [newTokenAddress, setNewTokenAddress] = useState("");
   const [open, setOpen] = useState(false);
   const [token, setToken] = useState(false);
   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
   const { data: account } = useAccount();
+  const activeChain = useActiveChain();
   const { data } = useClients();
   const client = data?.stargate;
   const [currentBalance, setCurrentBalance] = useState<Coin | null>(null);
-  const { userTokens, removeUserToken } = useContext(AppStateContext);
+  const { userTokens, removeUserToken, addUserToken } =
+    useContext(AppStateContext);
   const fee = useFee();
   const { sendTokens } = useSendTokens({
     onError: (error: any) => {
@@ -59,6 +69,10 @@ const ManageAssets = () => {
     }
   }, [client, account]);
 
+  useEffect(() => {
+    fetchBalance();
+  }, [fetchBalance]);
+
   const handleSendTokens = () => {
     const { recepient, amount } = balance;
     if (recepient !== "" && amount !== "") {
@@ -78,130 +92,155 @@ const ManageAssets = () => {
       });
     };
 
-  useEffect(() => {
-    fetchBalance();
-  }, [fetchBalance]);
+  function addContract() {
+    if (userTokens.includes(newTokenAddress)) {
+      setNewTokenAddress("");
+      return toast("Token already exist", {
+        type: "error",
+        autoClose: 2000,
+      });
+    }
+
+    if (validateAddress(newTokenAddress, getPrefix(activeChain!.chainId))) {
+      addUserToken(newTokenAddress);
+      setNewTokenAddress("");
+    } else {
+      toast("Invalid contract address", {
+        type: "error",
+        autoClose: 2000,
+      });
+    }
+  }
 
   return (
     <div className={styles.main}>
       <div className={styles.title}>manage assets</div>
-      <div className={styles.tableMA}>
-        <table>
-          <thead>
-            <tr className={styles.theadMA}>
-              <th className={styles.thLeft}>Tokens</th>
-              <th className={styles.thLeft}>Balance</th>
-              <th className={styles.thLeft}></th>
-              <th className={styles.thwidth}>Send</th>
-              <th className={styles.thwidth}>Swap</th>
-              <th className={styles.thwidth}>Mint</th>
-              <th className={styles.thwidth}>Burn</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div className={styles.nameToken}>
-                  <img src={circle} className={styles.iconToken} alt="" />
-                  <div>{currentBalance?.denom?.toUpperCase()}</div>
-                </div>
-              </td>
-              <td className={styles.balance}>
-                {Number(currentBalance?.amount).toLocaleString()}
-              </td>
-              <td></td>
-              <td className={styles.thwidth}>
-                <div className={styles.send} onClick={() => setOpen(!open)}>
-                  <img src={icon_send} alt="" />
-                </div>
-              </td>
 
-              <td className={styles.thwidth}>
-                <img src={swapMA} alt="" />
-              </td>
-              <td className={styles.thwidth}>
-                <img src={icon_mint} alt="" />
-              </td>
-              <td className={styles.thwidth}>
-                <img src={icon_burn} alt="" />
-              </td>
-            </tr>
-            {open && (
-              <tr>
-                <th colSpan={7} className={styles.colspan}>
-                  <div className={styles.tokenSend}>
-                    <div className={styles.sendformblock}>
-                      <div className={styles.label}>
-                        Recepient:
-                        <input
-                          type="text"
-                          value={balance.recepient}
-                          onChange={handleSendChange("recepient")}
-                          className={styles.sendform}
-                        />
-                      </div>
-                      <div className={styles.label}>
-                        Amount:
-                        <input
-                          type="text"
-                          value={balance.amount}
-                          className={styles.sendform}
-                          onChange={handleSendChange("amount")}
-                        />
-                      </div>
-                    </div>
-                    <Button
-                      color="sendButton"
-                      type="button"
-                      className={styles.sendButton}
-                      onClick={handleSendTokens}
-                    >
-                      Send
-                    </Button>
-                  </div>
-                </th>
+      {currentBalance && (
+        <div className={styles.tableMA}>
+          <table>
+            <thead>
+              <tr className={styles.theadMA}>
+                <th className={styles.thLeft}>Tokens</th>
+                <th className={styles.thLeft}>Balance</th>
+                <th className={styles.thLeft}></th>
+                <th className={styles.thwidth}>Send</th>
+                <th className={styles.thwidth}>Swap</th>
+                <th className={styles.thwidth}>Mint</th>
+                <th className={styles.thwidth}>Burn</th>
               </tr>
-            )}
-            {userTokens.map((address) => (
-              <Token
-                key={address}
-                contractAddress={address}
-                removeContract={removeUserToken}
-              />
-            ))}
-            <tr>
-              <td colSpan={7} className={styles.fix}>
-                <div className={styles.addString}>
-                  {token && (
-                    <div className={styles.clickString}>
-                      <div className={styles.textToken}>
-                        To add a token, specify its address:
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div className={styles.nameToken}>
+                    <img src={circle} className={styles.iconToken} alt="" />
+                    <div>{currentBalance?.denom?.toUpperCase()}</div>
+                  </div>
+                </td>
+                <td className={styles.balance}>
+                  {Number(currentBalance?.amount).toLocaleString()}
+                </td>
+                <td></td>
+                <td className={styles.thwidth}>
+                  <div className={styles.send} onClick={() => setOpen(!open)}>
+                    <img src={icon_send} alt="" />
+                  </div>
+                </td>
+
+                <td className={styles.thwidth}>
+                  <img src={swapMA} alt="" />
+                </td>
+                <td className={styles.thwidth}>
+                  <img src={icon_mint} alt="" />
+                </td>
+                <td className={styles.thwidth}>
+                  <img src={icon_burn} alt="" />
+                </td>
+              </tr>
+              {open && (
+                <tr>
+                  <th colSpan={7} className={styles.colspan}>
+                    <div className={styles.tokenSend}>
+                      <div className={styles.sendformblock}>
+                        <div className={styles.label}>
+                          Recepient:
+                          <input
+                            type="text"
+                            value={balance.recepient}
+                            onChange={handleSendChange("recepient")}
+                            className={styles.sendform}
+                          />
+                        </div>
+                        <div className={styles.label}>
+                          Amount:
+                          <input
+                            type="text"
+                            value={balance.amount}
+                            className={styles.sendform}
+                            onChange={handleSendChange("amount")}
+                          />
+                        </div>
                       </div>
-                      <input type="text" className={styles.tokenAdd} />
                       <Button
-                        color="green"
+                        color="sendButton"
                         type="button"
-                        className={styles.buttonStyle}
+                        className={styles.sendButton}
+                        onClick={handleSendTokens}
                       >
-                        Token Add
+                        Send
                       </Button>
                     </div>
-                  )}
+                  </th>
+                </tr>
+              )}
+              {userTokens.map((address) => (
+                <Token
+                  key={address}
+                  contractAddress={address}
+                  removeContract={removeUserToken}
+                />
+              ))}
+              <tr>
+                <td colSpan={7} className={styles.fix}>
+                  <div className={styles.addString}>
+                    {token && (
+                      <div className={styles.clickString}>
+                        <div className={styles.textToken}>
+                          To add a token, specify its address:
+                        </div>
+                        <input
+                          type="text"
+                          value={newTokenAddress}
+                          onChange={(e) => setNewTokenAddress(e.target.value)}
+                          className={styles.tokenAdd}
+                        />
+                        <Button
+                          color="green"
+                          type="button"
+                          onClick={addContract}
+                          className={styles.buttonStyle}
+                        >
+                          Add Token
+                        </Button>
+                      </div>
+                    )}
 
-                  <Button
-                    color="green"
-                    type="button"
-                    className={styles.buttonToken}
-                    onClick={() => setToken(!token)}
-                  >
-                    Add Token
-                  </Button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                    <Button
+                      color="green"
+                      type="button"
+                      className={styles.buttonToken}
+                      onClick={() => setToken(!token)}
+                    >
+                      Add Token
+                    </Button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
       <MyInvestment />
       <MyPools />
     </div>

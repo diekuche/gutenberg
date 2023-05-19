@@ -8,7 +8,7 @@ import { useAccount, useActiveChain, validateAddress } from "graz";
 import { toast } from "react-toastify";
 import { AppStateContext } from "../../context/AppStateContext";
 
-const getPrefix = (chainId: string) => {
+export const getPrefix = (chainId: string) => {
   switch (chainId) {
     case "juno-1": {
       return "juno";

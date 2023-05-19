@@ -104,7 +104,7 @@ const Token = ({ contractAddress, removeContract }: Props) => {
     });
   };
 
-  return (
+  return tokenBalance && tokenInfo && marketingInfo ? (
     <>
       <tr>
         <td>
@@ -233,7 +233,7 @@ const Token = ({ contractAddress, removeContract }: Props) => {
         </tr>
       )}
     </>
-  );
+  ) : null;
 };
 
 export default Token;
