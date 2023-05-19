@@ -7,9 +7,17 @@ import Withdraw from "./Withdraw/Withdraw";
 import Farm from "./Farm/Farm";
 import Dep from "./Dep/Dep";
 import Unfarm from "./Unfarm/Unfarm";
-import ClaimAll from "./ClaimAll/ClaimAll";
 
-const Deposit = () => {
+interface ClickProps {
+  onClick: any;
+  modal: any;
+}
+
+const Deposit: React.FC<ClickProps> = (props) => {
+  const handelClick = (modal: any) => {
+    props.onClick(!modal);
+  };
+
   const tabs: Tab[] = [
     { id: "1", label: "deposit" },
     { id: "2", label: "withdraw" },
@@ -21,7 +29,12 @@ const Deposit = () => {
   return (
     <div className={styles.test}>
       <div className={styles.depositWindow}>
-        <img className={styles.cross} src={cross} alt=""></img>
+        <img
+          className={styles.cross}
+          src={cross}
+          onClick={handelClick}
+          alt=""
+        ></img>
         <div className={styles.nameField}>Boot/Pig</div>
         <Tabs
           selectedId={selectedTabId}
@@ -37,7 +50,6 @@ const Deposit = () => {
           </div>
         </div>
       </div>
-      <ClaimAll />
     </div>
   );
 };
