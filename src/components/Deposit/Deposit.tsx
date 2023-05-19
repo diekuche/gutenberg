@@ -2,22 +2,12 @@ import React from "react";
 import { Tabs, Tab } from "./../Deposit/TabD/TabD";
 import { useState } from "react";
 import styles from "./Deposit.module.css";
-import cross from "../../assets/cross.svg";
 import Withdraw from "./Withdraw/Withdraw";
 import Farm from "./Farm/Farm";
 import Dep from "./Dep/Dep";
 import Unfarm from "./Unfarm/Unfarm";
 
-interface ClickProps {
-  onClick: any;
-  modal: any;
-}
-
-const Deposit: React.FC<ClickProps> = (props) => {
-  const handelClick = (modal: any) => {
-    props.onClick(!modal);
-  };
-
+const Deposit = () => {
   const tabs: Tab[] = [
     { id: "1", label: "deposit" },
     { id: "2", label: "withdraw" },
@@ -27,14 +17,8 @@ const Deposit: React.FC<ClickProps> = (props) => {
   const [selectedTabId, setSelectedTabId] = useState(tabs[0].id);
 
   return (
-    <div className={styles.test}>
+    <div>
       <div className={styles.depositWindow}>
-        <img
-          className={styles.cross}
-          src={cross}
-          onClick={handelClick}
-          alt=""
-        ></img>
         <div className={styles.nameField}>Boot/Pig</div>
         <Tabs
           selectedId={selectedTabId}

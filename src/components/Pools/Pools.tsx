@@ -7,27 +7,27 @@ import rightarrow from "../../assets/greyArrowRight.svg";
 import greyArrowDown from "../../assets/greyArrowDown.svg";
 
 import Deposit from "../Deposit/Deposit";
+import Modal from "../Modal/Modal";
 
 const Pools = () => {
   const [modal, setModal] = useState(false);
 
-  const toggleModal = (modal: any) => {
+  const toggleModal = () => {
     setModal(!modal);
   };
 
   return (
     <div>
-      {modal && (
-        <div>
-          <div className={styles.overlay}></div>
-          <Deposit onClick={toggleModal} modal={modal} />
-        </div>
-      )}
+      <Modal open={modal} onClose={toggleModal}>
+        <Deposit />
+      </Modal>
 
       <div className={styles.main}>
         <div className={styles.firstString}>
           <div className={styles.name}>pools!</div>
-          <button className={styles.buttonCreate}>create new pools!</button>
+          <button className={styles.buttonCreate} onClick={toggleModal}>
+            create new pools!
+          </button>
         </div>
 
         <div className={styles.secondString}>

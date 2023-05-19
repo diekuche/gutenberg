@@ -1,8 +1,4 @@
 .depositWindow {
-  border: 1px solid rgba(67, 151, 178, 0.1);
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
-  background: rgba(6, 15, 25, 0.95);
   width: 470px;
   height: 300px;
   margin: auto;
@@ -74,15 +70,4 @@
   font-size: 14px;
   line-height: 18px;
   font-weight: 100;
-}
-.cross {
-  display: flex;
-  margin-left: auto;
-  padding-top: 18px;
-  padding-right: 22px;
-}
-.test {
-  position: absolute;
-  top: 40%;
-  left: 40%;
 }
