@@ -4,6 +4,7 @@
 }
 .customSlider {
   width: 100%;
+  position: relative;
   height: 2px;
   background: rgba(115, 237, 201, 0.5);
   opacity: 0.8;
@@ -25,4 +26,23 @@
   display: flex;
   justify-content: space-between;
   color: rgba(246, 248, 254, 0.4);
+}
+.customSlider::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 25%;
+  width: 1px;
+  height: 12px;
+  background: rgba(246, 248, 254, 0.4);
+}
+
+.customSlider::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 1px;
+  height: 12px;
+  background: rgba(246, 248, 254, 0.4);
 }

@@ -84,7 +84,7 @@ function ManageTokens() {
             {open && (
               <div>
                 <div className={styles.info}>
-                  To add a token, specify its address:
+                  To add a token, specify it is address:
                 </div>
                 <input
                   type="text"
