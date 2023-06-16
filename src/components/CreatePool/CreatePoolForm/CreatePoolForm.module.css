@@ -9,13 +9,6 @@
   display: flex;
   width: 470px;
   flex-direction: column;
-  background: rgba(124, 196, 219, 0.05);
-  border-color: rgba(115, 237, 201, 0.1);
-  border-width: 1px 1px 0px 1px;
-  border-style: solid;
-  border-radius: 16px 16px 0px 0px;
-  backdrop-filter: blur(10px);
-  margin-top: 150px;
 }
 
 .InputBlock {

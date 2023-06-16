@@ -16,8 +16,6 @@ import License from "./components/LicensePage/LicensePage";
 import { GrazProvider } from "graz";
 import { CustomChains } from "../src/utils/config";
 import Pools from "./components/Pools/Pools";
-
-import CreatePool from "./components/CreatePool/CreatePool/CreatePool";
 import { useAccount } from "graz";
 
 const TokensStorageKey = "userTokens";
@@ -89,8 +87,6 @@ function App() {
                 <Route path="/swap" element={<Swap />}></Route>
                 <Route path="/my-wallet" element={<MyWallet />}></Route>
                 <Route path="/pools" element={<Pools />}></Route>
-
-                <Route path="/createPool" element={<CreatePool />}></Route>
               </Routes>
               <Footer />
             </Router>

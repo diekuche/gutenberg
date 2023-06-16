@@ -1,28 +1,42 @@
 import React, { useState } from "react";
-import styles from "./CreatePool.module.css";
-import NewBT from "../../newButton/newButton";
-import SwapNew from "../SwapNew";
-import Confirm from "../ConfirmSupply/ConfirmSuplly";
+// import styles from "./CreatePoolForm.module.css";
+import CreatePoolForm from "../CreatePoolForm/CreatePoolForm";
+import ConfirmSuplly from "../ConfirmSupply/ConfirmSuplly";
+import Modal from "../../Modal/Modal";
 
-function CreatePool() {
-  const [component, setComponent] = useState("Component1");
-  const [buttonText, setButton] = useState("create pool");
-  const handleButton = () => {
-    if (component === "Component1") {
-      setComponent("Component2");
-      setButton("order deposit");
-    } else {
-      setComponent("Component1");
-      setButton("create pool");
-    }
+type Props = {
+  open: boolean;
+  onClose: () => void;
+  onSubmit: (token: string, secondToken: string) => void;
+};
+
+function CreatePool({ open, onClose, onSubmit }: Props) {
+  const [token, setToken] = useState("");
+  const [secondToken, setSecondToken] = useState("");
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const handleFormSubmit = (value: string, secondValue: string) => {
+    setToken(value);
+    setSecondToken(secondValue);
+    setShowConfirm(true);
   };
+
+  const handleSubmitConfirm = () => {
+    onSubmit(token, secondToken);
+  };
+
   return (
-    <div className={styles.common}>
-      {component === "Component1" ? <SwapNew /> : <Confirm />}
-      <NewBT size="hg" onClick={handleButton}>
-        {buttonText}
-      </NewBT>
-    </div>
+    <Modal open={open} onClose={onClose}>
+      {showConfirm ? (
+        <ConfirmSuplly
+          token={token.slice(0, 10)}
+          secondToken={secondToken.slice(0, 10)}
+          onSubmit={handleSubmitConfirm}
+        />
+      ) : (
+        <CreatePoolForm onSubmit={handleFormSubmit} />
+      )}
+    </Modal>
   );
 }
 

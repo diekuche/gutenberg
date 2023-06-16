@@ -1,12 +1,18 @@
 import React from "react";
 import styles from "./ConfirmSuplly.module.css";
 import cross from "../../../assets/cross.svg";
+import NewButton from "../../newButton/newButton";
 
-const Confirm = () => {
+type Props = {
+  token: string;
+  secondToken: string;
+  onSubmit: () => void;
+};
+
+const ConfirmSuplly = ({ token, secondToken, onSubmit }: Props) => {
   return (
     <div className={styles.confirm}>
-      <div className={styles.test1}>
-        <img className={styles.cross} src={cross} alt=""></img>
+      <div>
         <div className={styles.name}>Confirm Supply</div>
         <div className={styles.text}>
           Creating TOKEN_NAME#2/TOKEN_NAME#2 liquidity pool You are providing
@@ -17,14 +23,14 @@ const Confirm = () => {
           <div className={styles.firstString}>
             <div className={styles.nameString}>deposited1</div>
             <div className={styles.test}>
-              <div className={styles.nameToken}>TOKEN_NAME#1</div>
+              <div className={styles.nameToken}>{token}</div>
               <div className={styles.priceToken}>0.00</div>
             </div>
           </div>
           <div className={styles.secondString}>
             <div className={styles.nameString}>deposited2</div>
             <div className={styles.test}>
-              <div className={styles.nameToken}>TOKEN_NAME#2</div>
+              <div className={styles.nameToken}>{secondToken}</div>
               <div className={styles.priceToken}>1.00</div>
             </div>
           </div>
@@ -35,8 +41,11 @@ const Confirm = () => {
           </div>
         </div>
       </div>
+      <NewButton onClick={onSubmit} size="hg">
+        order deposit
+      </NewButton>
     </div>
   );
 };
 
-export default Confirm;
+export default ConfirmSuplly;
