@@ -7,7 +7,6 @@ export const formatBalance = (num: number): string => {
   result += "";
   const x = result.split(".");
   x1 = x[0];
-  const x2 = x.length > 1 ? 2 + x[1] : "";
   if (true) {
     x3 = "";
     let factor = 3; let
@@ -25,10 +24,5 @@ export const formatBalance = (num: number): string => {
     }
     x1 = x3;
   }
-  // optional numeral substitution
-  // if (this.options.numerals && this.options.numerals.length) {
-  //   x1 = x1.replace(/[0-9]/g, (w) => this.options.numerals[+w]);
-  //   x2 = x2.replace(/[0-9]/g, (w) => this.options.numerals[+w]);
-  // }
-  return `${neg}${x1}${x2}`;
+  return `${neg}${x1}`;
 };

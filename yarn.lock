@@ -2528,22 +2528,7 @@
   "resolved" "https://registry.npmjs.org/@tanstack/query-core/-/query-core-4.29.17.tgz"
   "version" "4.29.17"
 
-"@tanstack/query-persist-client-core@4.29.17":
-  "integrity" "sha512-NYTNfCGhvrCBdOxN3Y+IpuTlskhrtWfQDdg2y3qfFpGg2mRmu2knl99a590zzrTuSKIOhT8y+eL77BUWHBEJLg=="
-  "resolved" "https://registry.npmjs.org/@tanstack/query-persist-client-core/-/query-persist-client-core-4.29.17.tgz"
-  "version" "4.29.17"
-  dependencies:
-    "@tanstack/query-core" "4.29.17"
-
-"@tanstack/react-query-persist-client@^4.29.17":
-  "integrity" "sha512-wy8QL1VWAhlACE0/nMuIRkDr8Ut+qd0Q+5u0jaIOOts6sLBL5xtP4cXWz80+MTGd2IQP2bvKvuXOWbw791ATIA=="
-  "resolved" "https://registry.npmjs.org/@tanstack/react-query-persist-client/-/react-query-persist-client-4.29.17.tgz"
-  "version" "4.29.17"
-  dependencies:
-    "@tanstack/query-persist-client-core" "4.29.17"
-    "client-only" "0.0.1"
-
-"@tanstack/react-query@^4", "@tanstack/react-query@^4.29.17", "@tanstack/react-query@4.29.17":
+"@tanstack/react-query@^4":
   "integrity" "sha512-udOy/jgqiBHBAP93YPAU3QoVYO+Rtx9HT/10xGDQzC8iQU/wIxcIaT/usX+1NSzoUFYU5hUcPaNErPWZnR7XgA=="
   "resolved" "https://registry.npmjs.org/@tanstack/react-query/-/react-query-4.29.17.tgz"
   "version" "4.29.17"

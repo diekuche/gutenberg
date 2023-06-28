@@ -4,8 +4,6 @@ import { Window as KeplrWindow } from "@keplr-wallet/types";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { GrazProvider, useAccount } from "graz";
-import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
-import { QueryClient } from "@tanstack/query-core";
 import { AppState, AppStateContext } from "./context/AppStateContext";
 import CreatePage from "./components/CreatePage/CreatePage";
 import Footer from "./components/Footer/Footer";
@@ -19,18 +17,8 @@ import License from "./components/LicensePage/LicensePage";
 import { CustomChains } from "./utils/config";
 import Pools from "./components/Pools/Pools";
 import { loadFromStorage } from "./utils/storage";
-import { createIDBPersister } from "./utils/cache";
-import { PersistQueryClientContext } from "./hooks/usePersistentQueryClient";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      cacheTime: 1000 * 60 * 60 * 24 * 366 * 10, // 10 years
-    },
-  },
-});
-
-const persister = createIDBPersister("gutenberg");
+import { QueryCacheContext } from "./hooks/useQueryCache";
+import { QueryCache } from "./utils/QueryCache";
 
 const TokensStorageKey = "userTokens";
 const PoolsStorageKey = "pools";
@@ -40,6 +28,7 @@ declare global {
 }
 
 type SavedTokens = Record<string, AppState["userTokens"]>;
+const queryCache = new QueryCache({});
 
 function App() {
   const [address, setAddress] = useState("");
@@ -103,11 +92,7 @@ function App() {
     removeUserToken]);
 
   return (
-    <PersistQueryClientProvider
-      client={queryClient}
-      persistOptions={{ persister }}
-      context={PersistQueryClientContext}
-    >
+    <QueryCacheContext.Provider value={queryCache}>
       <GrazProvider
         grazOptions={{
           defaultChain: CustomChains["uni-6"],
@@ -143,7 +128,7 @@ function App() {
           </div>
         </div>
       </GrazProvider>
-    </PersistQueryClientProvider>
+    </QueryCacheContext.Provider>
   );
 }
 

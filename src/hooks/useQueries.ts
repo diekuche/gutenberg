@@ -2,11 +2,12 @@ import { useMemo } from "react";
 import { useAccount } from "graz";
 import { useContracts } from "./useContracts";
 import { Denom } from "../ts/SwapPoolFactory.types";
-import { usePersistantQueryClient } from "./usePersistentQueryClient";
+import { useQueryCache } from "./useQueryCache";
+import { InfoResponse } from "../ts/SwapPool.types";
 
 export type TokenDetails = {
   denom: Denom;
-  type: "c20" | "tokenfactory" | "native";
+  type: "cw20" | "tokenfactory" | "native";
   address: string;
   decimals: number;
   name: string;
@@ -18,41 +19,40 @@ export type UserTokenDetails = TokenDetails & {
   balance: string;
 };
 
+export type PoolInfo = InfoResponse;
+
 export const useQueries = () => {
-  const queryClient = usePersistantQueryClient();
+  const cache = useQueryCache();
   const contracts = useContracts();
   const { data: account } = useAccount();
   return useMemo(() => {
-    if (!contracts || !queryClient) {
+    if (!contracts) {
       return undefined;
     }
     const CW20_TOKEN_INFO = (tokenAddr: string) => {
       const token = contracts.Cw20ContractFactory(tokenAddr).querier;
-      return queryClient.fetchQuery({
-        queryKey: [`/token/${tokenAddr}/info`],
-        queryFn: () => token.tokenInfo(),
-      });
+      return cache.getOrUpdate(
+        `/token/${tokenAddr}/info`,
+        () => token.tokenInfo(),
+      );
     };
     const CW20_TOKEN_MARKETING = (tokenAddr: string) => {
       const token = contracts.Cw20ContractFactory(tokenAddr).querier;
-      return queryClient.fetchQuery({
-        queryKey: [`/token/${tokenAddr}/marketing`],
-        queryFn: () => token.marketingInfo(),
-      });
+      return cache.getOrUpdate(
+        `/token/${tokenAddr}/marketing`,
+        () => token.marketingInfo(),
+      );
     };
     const CW20_TOKEN_LOGO = (tokenAddr: string) => {
       const token = contracts.Cw20ContractFactory(tokenAddr).querier;
-      return queryClient.fetchQuery({
-        queryKey: [`/token/${tokenAddr}/logo`],
-        queryFn: () => token.downloadLogo(),
-      });
+      return cache.getOrUpdate(`/token/${tokenAddr}/logo`, () => token.downloadLogo());
     };
     const CW20_TOKEN_DETAILS = async (tokenAddr: string): Promise<TokenDetails> => {
       const info = await CW20_TOKEN_INFO(tokenAddr);
       const marketing = await CW20_TOKEN_MARKETING(tokenAddr);
       const logo = marketing?.logo === "embedded" ? (await CW20_TOKEN_LOGO(tokenAddr)).data : marketing.logo?.url;
       return {
-        type: "c20",
+        type: "cw20",
         denom: {
           cw20: tokenAddr,
         },
@@ -63,23 +63,31 @@ export const useQueries = () => {
         logo,
       };
     };
-    const SWAP_POOL_INFO = async (poolAddress: string) => {
+    const SWAP_POOL_INFO = async (poolAddress: string): Promise<PoolInfo> => {
       const pool = contracts.PoolContractFactory(poolAddress).querier;
-      return queryClient.fetchQuery({
-        queryKey: [`/pool/${poolAddress}/info`],
-        queryFn: () => pool.info(),
-      });
+      return cache.getOrUpdate(`/pool/${poolAddress}/info`, () => pool.info());
     };
     const SWAP_POOL_LIST = async () => contracts.poolFactory.querier.getPools();
-    const CW20_USER_BALANCE = async (tokenAddr: string, userAddress?: string) => {
-      const userAddr = userAddress || account?.bech32Address;
-      if (!userAddr) {
+    const CW20_USER_BALANCE = async (
+      tokenAddr: string,
+      userAddress: string | undefined = account?.bech32Address,
+    ) => {
+      if (!userAddress) {
         throw new Error(
           `Not connected account when query CW20_USER_BALANCE for ${tokenAddr}`,
         );
       }
-      const token = contracts.Cw20ContractFactory(tokenAddr).querier;
-      return (await token.balance({ address: userAddr })).balance;
+      const queryKey = `/user/${userAddress}/token/${tokenAddr}/balance`;
+      return cache.getOrUpdate(
+        queryKey,
+        async () => {
+          const token = contracts.Cw20ContractFactory(tokenAddr).querier;
+          return (await token.balance({ address: userAddress })).balance;
+        },
+        {
+          cacheTime: 5 * 60 * 1000, // 5 minutes
+        },
+      );
     };
     const CW20_USER_TOKEN_DETAILS = async (
       tokenAddress: string,
@@ -93,6 +101,7 @@ export const useQueries = () => {
       }
       const details = await CW20_TOKEN_DETAILS(tokenAddress);
       const balance = await CW20_USER_BALANCE(tokenAddress);
+
       return {
         balance,
         ...details,
@@ -114,5 +123,5 @@ export const useQueries = () => {
       CW20_USER_TOKEN_DETAILS,
       USER_TOKEN_DETAILS,
     };
-  }, [contracts, queryClient]);
+  }, [contracts, cache]);
 };

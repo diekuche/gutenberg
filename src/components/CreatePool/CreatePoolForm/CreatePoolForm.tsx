@@ -1,118 +1,181 @@
-import React, {
-  useContext, useEffect, useMemo, useState,
+import {
+  ComponentType,
+  useMemo,
 } from "react";
+import { SingleValueProps } from "react-select";
+import { toast } from "react-toastify";
 import styles from "./CreatePoolForm.module.css";
 import UpDoAr from "../../../assets/UpDoAr.svg";
 import SelectCustom, { SelectCustomProps } from "../../SelectCustom/SelectCustom";
 import NewButton from "../../newButton/newButton";
-import { AppStateContext } from "../../../context/AppStateContext";
-import { UserTokenDetails, useQueries } from "../../../hooks/useQueries";
+import { UserTokenDetails } from "../../../hooks/useQueries";
 import { useChain } from "../../../hooks/useChain";
 import TokenUI from "../../SelectCustom/TokenUI/TokenUI";
 import { formatBalance } from "../../../utils/balance";
+import { compareDenoms } from "../../../utils/tokens";
 
-type Props = {
-  onSubmit: (token: string, secondToken: string) => void;
+type CreatePoolFormProps = {
+  onSubmit: () => void;
+  token1: UserTokenDetails | null;
+  token2: UserTokenDetails | null;
+  setToken1: (token: UserTokenDetails | null) => void;
+  setToken2: (token: UserTokenDetails | null) => void;
+  token1Amount: number;
+  token2Amount: number;
+  setToken1Amount: (value: number) => void;
+  setToken2Amount: (value: number) => void;
+  tokens: UserTokenDetails[];
+  lpFee: number;
+  setLpFee: (value: number) => void;
 };
 
-const CreatePoolForm = ({ onSubmit }: Props) => {
-  const [loading, setLoading] = useState(true);
-  const [token1, setToken1] = useState("");
-  const [secondToken, setSecondToken] = useState("");
-  const { userTokens } = useContext(AppStateContext);
-  const [tokens, setTokens] = useState<UserTokenDetails[]>([]);
+const LP_PERCENTS = [0.05, 0.5, 1];
 
-  const queries = useQueries();
+const SelectValue: ComponentType<SingleValueProps<{
+  label: unknown;
+  value: UserTokenDetails;
+}, false>> = (
+  { data: { value: { symbol } } },
+) => <div className={styles.selectValue}>{symbol}</div>;
+
+const CreatePoolForm = ({
+  onSubmit,
+  token1,
+  token2,
+  setToken1,
+  setToken2,
+  token1Amount,
+  token2Amount,
+  setToken1Amount,
+  setToken2Amount,
+  tokens,
+  lpFee,
+  setLpFee,
+}: CreatePoolFormProps) => {
   const chain = useChain();
-  console.log(`tokens`,tokens)
   const options = useMemo(() => tokens.map((token) => ({
-    value: token.address,
+    value: token,
     label: <TokenUI
       name={token.symbol}
       chainName={chain.chainId}
-      balance={formatBalance(+token.balance / (10 ** token.decimals))}
+      balance={formatBalance(Number(token.balance) / (10 ** token.decimals))}
       icon={token.logo || ""}
     />,
   })), [tokens]);
 
-  const handleSelectToken: SelectCustomProps["onChange"] = (option) => {
-    setToken1(option?.value || "");
+  const handleSelectToken: SelectCustomProps<UserTokenDetails>["onChange"] = (option) => {
+    setToken1(option?.value || null);
+    const balance = option?.value.balance;
+    setToken1Amount(balance ? Number(balance) : 0);
   };
 
-  const handleSelectSecond: SelectCustomProps["onChange"] = (option) => {
-    setSecondToken(option?.value || "");
+  const handleSelectSecond: SelectCustomProps<UserTokenDetails>["onChange"] = (option) => {
+    setToken2(option?.value || null);
+    const balance = option?.value.balance;
+    setToken2Amount(balance ? Number(balance) : 0);
   };
 
   const handleSubmit = () => {
-    onSubmit(token1, secondToken);
-  };
-
-  useEffect(() => {
-    if (!queries) {
+    if (!token1 || !token2) {
+      toast.warning("Please, select tokens");
       return;
     }
-    alert(1);
-    const fetch = async () => {
-      setTokens(
-        await Promise.all(
-          (userTokens || []).map((tokenAddr) => queries.USER_TOKEN_DETAILS({
-            cw20: tokenAddr,
-          })),
-        ),
-      );
-      setLoading(false);
-    };
-    fetch();
-  }, [queries]);
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+    onSubmit();
+  };
+  const swapTokens = () => {
+    if (!token1 || !token2) {
+      return;
+    }
+    setToken2(token1);
+    setToken1(token2);
+    setToken1Amount(token2Amount);
+    setToken2Amount(token1Amount);
+  };
 
   return (
     <div className={styles.common}>
       <div className={styles.swap}>
         <div className={styles.InputBlock}>
-          <div className={styles.currencyInput}>0</div>
+          <input
+            disabled={!token1}
+            type="number"
+            className={styles.currencyInput}
+            value={token1Amount.toString()}
+            onChange={(e) => setToken1Amount(Number(e.target.value))}
+          />
           <div className={styles.selectWrapper}>
-            <SelectCustom
+            <SelectCustom<UserTokenDetails>
               options={options}
               onChange={handleSelectToken}
               placeholder="Select Token"
+              components={{ SingleValue: SelectValue }}
+              value={token1
+                && options.find(
+                  ({ value }) => compareDenoms(value.denom, token1.denom),
+                )}
             />
           </div>
         </div>
         <div className={styles.balanceBlock}>
-          <div className={styles.balance}>Balance: 0</div>
+          <div className={styles.balance}>
+            Balance:
+            {" "}
+            {token1 ? token1.balance : 0}
+            {" "}
+          </div>
         </div>
-        <div className={styles.center}>
+        <div className={styles.center} style={{ zIndex: 1 }}>
           <div className={styles.line} />
-          <div className={styles.circle}>
+          <div className={styles.circle} onClick={() => swapTokens()}>
             <img className={styles.iconSwap} src={UpDoAr} alt="" />
           </div>
         </div>
         <div className={styles.OutputBlock}>
-          <div className={styles.currencyOutput}>0</div>
+          <input
+            disabled={!token2}
+            type="number"
+            className={styles.currencyInput}
+            value={token2Amount.toString()}
+            onChange={(e) => setToken2Amount(Number(e.target.value))}
+          />
           <div className={styles.selectWrapper}>
-            <SelectCustom
+            <SelectCustom<UserTokenDetails>
+              components={{ SingleValue: SelectValue }}
               options={options}
               onChange={handleSelectSecond}
               placeholder="Select Token"
+              value={token2
+                && options.find(
+                  ({ value }) => compareDenoms(value.denom, token2.denom),
+                )}
             />
           </div>
         </div>
         <div className={styles.balanceBlock}>
-          <div className={styles.balance}>Balance: 0</div>
+          <div className={styles.balance}>
+            Balance:
+            {" "}
+            {token2 ? token2.balance : 0}
+          </div>
         </div>
         <div className={styles.stringSelect}>
           <div className={styles.fee}>Select Liquidity Provider Fee:</div>
           <div className={styles.percent}>
-            <button type="button" className={styles.percent_1}>0.05%</button>
-            <button type="button" className={styles.percent_2}>0.5%</button>
-            <button type="button" className={styles.percent_1}>1%</button>
+            {LP_PERCENTS.map((percent) => (
+              <button
+                key={percent.toString()}
+                type="button"
+                onClick={() => setLpFee(percent)}
+                className={`${styles.percent_1} ${(percent === lpFee ? styles.percent_1__active : "")}`}
+              >
+                {percent}
+                %
+
+              </button>
+            ))}
           </div>
         </div>
-        <NewButton onClick={handleSubmit} size="hg">
+        <NewButton disabled={!token1 || !token2} onClick={handleSubmit} size="hg">
           create pool
         </NewButton>
       </div>
