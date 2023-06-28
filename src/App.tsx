@@ -4,6 +4,8 @@ import { Window as KeplrWindow } from "@keplr-wallet/types";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { GrazProvider, useAccount } from "graz";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
+import { QueryClient } from "@tanstack/query-core";
 import { AppState, AppStateContext } from "./context/AppStateContext";
 import CreatePage from "./components/CreatePage/CreatePage";
 import Footer from "./components/Footer/Footer";
@@ -17,6 +19,17 @@ import License from "./components/LicensePage/LicensePage";
 import { CustomChains } from "./utils/config";
 import Pools from "./components/Pools/Pools";
 import { loadFromStorage } from "./utils/storage";
+import { createIDBPersister } from "./utils/cache";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: 1000 * 60 * 60 * 24 * 366 * 10, // 10 years
+    },
+  },
+});
+
+const persister = createIDBPersister();
 
 const TokensStorageKey = "userTokens";
 const PoolsStorageKey = "pools";
@@ -89,40 +102,46 @@ function App() {
     removeUserToken]);
 
   return (
-    <GrazProvider
-      grazOptions={{
-        defaultChain: CustomChains["uni-6"],
-      }}
+    <PersistQueryClientProvider
+      client={queryClient}
+      persistOptions={{ persister }}
     >
-      <div className="App">
-        <div className="container">
-          <AppStateContext.Provider
-            value={appState}
-          >
-            <Router>
-              <Header />
-              <Routes>
-                <Route path="/" element={<WelcomePage />} />
-                <Route path="/legalinfo" element={<LegalPage />} />
-                <Route path="/license" element={<License />} />
-                <Route path="/create" element={<CreatePage />} />
-                <Route path="/swap" element={<Swap />} />
-                <Route path="/my-wallet" element={<MyWallet />} />
-                <Route path="/pools" element={<Pools />} />
-              </Routes>
-              <Footer />
-            </Router>
+      <GrazProvider
+        grazOptions={{
+          defaultChain: CustomChains["uni-6"],
+        }}
+      >
+        <div className="App">
+          <div className="container">
 
-            <ToastContainer
-              bodyClassName="font-link"
-              style={{ marginTop: 50 }}
-              theme="dark"
-              autoClose={false}
-            />
-          </AppStateContext.Provider>
+            <AppStateContext.Provider
+              value={appState}
+            >
+              <Router>
+                <Header />
+                <Routes>
+                  <Route path="/" element={<WelcomePage />} />
+                  <Route path="/legalinfo" element={<LegalPage />} />
+                  <Route path="/license" element={<License />} />
+                  <Route path="/create" element={<CreatePage />} />
+                  <Route path="/swap" element={<Swap />} />
+                  <Route path="/my-wallet" element={<MyWallet />} />
+                  <Route path="/pools" element={<Pools />} />
+                </Routes>
+                <Footer />
+              </Router>
+
+              <ToastContainer
+                bodyClassName="font-link"
+                style={{ marginTop: 50 }}
+                theme="dark"
+                autoClose={false}
+              />
+            </AppStateContext.Provider>
+          </div>
         </div>
-      </div>
-    </GrazProvider>
+      </GrazProvider>
+    </PersistQueryClientProvider>
   );
 }
 
