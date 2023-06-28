@@ -1,18 +1,20 @@
 import React from "react";
-import styles from "./Button.module.css";
 import classNames from "classnames";
+import styles from "./Button.module.css";
 
 export interface StartButtonProps
   extends React.DetailedHTMLProps<
-    React.ButtonHTMLAttributes<HTMLButtonElement>,
-    HTMLButtonElement
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
   > {
   color?: "white" | "green" | "yellow" | "yellowTransp" | "sendButton";
   size?: "sm" | "lg";
 }
 
 const Button: React.FC<StartButtonProps> = (props: StartButtonProps) => {
-  const { color, size, className, children, ...rest } = props;
+  const {
+    color, size, className, children, ...rest
+  } = props;
 
   const btnClass = classNames(className, {
     [styles.white]: color === "white",

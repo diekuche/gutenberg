@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import {
-  useSuggestChainAndConnect, useActiveChain, mainnetChains, GrazChain,
+  useSuggestChainAndConnect, GrazChain,
 } from "graz";
 import styles from "./Header.module.css";
 import Wallet from "../Wallet/Wallet";
@@ -8,6 +8,7 @@ import icon from "../../assets/icon_wallet.svg";
 import SelectCustom, { SelectCustomProps } from "../SelectCustom/SelectCustom";
 import { CustomChains } from "../../utils/config";
 import ChainUX from "../SelectCustom/Chain/ChainUX";
+import { useChain } from "../../hooks/useChain";
 
 const options = [
   {
@@ -22,17 +23,18 @@ const options = [
 
 const Header = () => {
   const { suggestAndConnect } = useSuggestChainAndConnect();
-  const activeChain = useActiveChain();
-  const defaultValue = options.find((option) => option.value.chainId === activeChain?.chainId)
+  const { chainId } = useChain();
+  const defaultValue = options.find((option) => option.value.chainId === chainId)
     || options[0];
 
   const handleSelect: SelectCustomProps<GrazChain>["onChange"] = (option) => {
-    const chainInfo = option?.value as any;
+    const chainInfo = option?.value;
     if (!chainInfo) {
       return;
     }
     suggestAndConnect({
-      chainInfo,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      chainInfo: chainInfo as any,
     });
   };
 

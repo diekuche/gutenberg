@@ -1,6 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useAccount } from "graz";
 import styles from "./Pools.module.css";
 
 import { useFee } from "../../utils/useFee";
@@ -9,9 +10,14 @@ import { useSwapPoolFactory } from "../../hooks/useSwapPoolFactory";
 import CreatePoolForm from "../CreatePool/CreatePoolForm/CreatePoolForm";
 import Modal from "../Modal/Modal";
 import { Denom } from "../../ts/SwapPoolFactory.types";
-import { compareDenoms } from "../../utils/tokens";
+import { compareDenoms, isCw20 } from "../../utils/tokens";
 import ConfirmSupply from "../CreatePool/ConfirmSupply/ConfirmSupply";
 import {
+  CW20_TOKEN_DETAILS,
+  Queries,
+  SWAP_POOL_INFO,
+  SWAP_POOL_LIST,
+  USER_TOKEN_DETAILS,
   UserTokenDetails, useQueries,
 } from "../../hooks/useQueries";
 import { AppStateContext, AppStatePool } from "../../context/AppStateContext";
@@ -20,7 +26,8 @@ import { useContractConfig } from "../../hooks/useContractConfig";
 
 const Pools = () => {
   const [isDepositOpen, setIsDepositOpen] = useState(false);
-  const { queries } = useQueries();
+  const queries = useQueries();
+  const { data: account } = useAccount();
   const { addLiquidity } = useAddLiquidity();
   const { userTokens, pools: savedPools, setPools: setSavedPools } = useContext(AppStateContext);
   const [tokens, setTokens] = useState<UserTokenDetails[]>([]);
@@ -28,71 +35,83 @@ const Pools = () => {
   const [loading, setLoading] = useState(true);
   const [token1, setToken1] = useState<UserTokenDetails | null>(null);
   const [token2, setToken2] = useState<UserTokenDetails | null>(null);
-  const [token1Amount, setToken1Amount] = useState(0);
-  const [token2Amount, setToken2Amount] = useState(0);
+  const [token1Amount, setToken1Amount] = useState("0");
+  const [token2Amount, setToken2Amount] = useState("0");
   const [isNewPoolOpen, setIsNewPoolOpen] = useState(false);
   const [lpFee, setLpFee] = useState(0.9);
+  const [processing, setProcessing] = useState(false);
   const contractConfig = useContractConfig();
   const factory = useSwapPoolFactory();
   const fee = useFee();
-  const fetchPools = async () => {
-    if (!queries) {
-      return;
+  const updateData = async (q: Queries, userAddress?: string) => {
+    try {
+      setLoading(true);
+      const { query } = q;
+      const { pools: poolList } = await query(SWAP_POOL_LIST());
+      const updatedPools = await Promise.all(
+        poolList.filter(
+          (p) => !savedPools.find((p2) => p2.address === p),
+        ).map(async (poolAddress, index) => {
+          const poolInfo = await query(SWAP_POOL_INFO(poolAddress));
+          const token1Denom = (poolInfo.token1_denom as unknown as Denom);
+          const token2Denom = (poolInfo.token2_denom as unknown as Denom);
+          if ("native" in token1Denom || "native" in token2Denom) {
+            throw new Error("Unsupported native token");
+          }
+
+          const token1Addr = token1Denom.cw20;
+          const token2Addr = token2Denom.cw20;
+          const token1Details = await query(CW20_TOKEN_DETAILS(token1Addr));
+          const token2Details = await query(CW20_TOKEN_DETAILS(token2Addr));
+
+          return {
+            address: poolAddress,
+            index,
+            denom1: token1Denom,
+            denom2: token2Denom,
+            symbol1: token1Details.symbol,
+            symbol2: token2Details.symbol,
+            logo1: token1Details.logo,
+            logo2: token2Details.logo,
+          };
+        }),
+      );
+      const newPools = [...savedPools, ...updatedPools];
+      if (userAddress) {
+        const poolTokens = newPools.reduce((result, pool) => {
+          if (isCw20(pool.denom1)) {
+            result.push(pool.denom1.cw20);
+          }
+          if (isCw20(pool.denom2)) {
+            result.push(pool.denom2.cw20);
+          }
+          return result;
+        }, [] as string[]);
+        const allTokens = (userTokens || []).concat(poolTokens);
+        setTokens(
+          await Promise.all(
+            allTokens.map((tokenAddr) => query(USER_TOKEN_DETAILS({
+              cw20: tokenAddr,
+            }, userAddress))),
+          ),
+        );
+      }
+      setSavedPools(newPools);
+      setPools(newPools);
+      setLoading(false);
+    } catch (e) {
+      console.log("Error when load info for page Pools");
+      console.log(e);
+      toast.error("Data fetching error, page will reload after 5 seconds");
+      setTimeout(() => window.location.reload(), 5000);
     }
-    const { pools: poolList } = await queries.SWAP_POOL_LIST();
-    const updatedPools = await Promise.all(
-      poolList.filter(
-        (p) => !savedPools.find((p2) => p2.address === p),
-      ).map(async (poolAddress, index) => {
-        const poolInfo = await queries.SWAP_POOL_INFO(poolAddress);
-        const token1Denom = (poolInfo.token1_denom as unknown as Denom);
-        const token2Denom = (poolInfo.token2_denom as unknown as Denom);
-        if ("native" in token1Denom || "native" in token2Denom) {
-          throw new Error("Unsupported native token");
-        }
-
-        const token1Addr = token1Denom.cw20;
-        const token2Addr = token2Denom.cw20;
-        const token1Details = await queries.CW20_TOKEN_DETAILS(token1Addr);
-        const token2Details = await queries.CW20_TOKEN_DETAILS(token2Addr);
-
-        return {
-          address: poolAddress,
-          index,
-          denom1: token1Denom,
-          denom2: token2Denom,
-          symbol1: token1Details.symbol,
-          symbol2: token2Details.symbol,
-          logo1: token1Details.logo,
-          logo2: token2Details.logo,
-        };
-      }),
-    );
-    const newPools = [...savedPools, ...updatedPools];
-    setSavedPools(newPools);
-    setPools(newPools);
   };
   useEffect(() => {
     if (!factory || !queries) {
       return;
     }
-    const fetchTokens = async () => {
-      setTokens(
-        await Promise.all(
-          (userTokens || []).map((tokenAddr) => queries.USER_TOKEN_DETAILS({
-            cw20: tokenAddr,
-          })),
-        ),
-      );
-    };
-
-    Promise.all([fetchPools(), fetchTokens()]).then(() => setLoading(false)).catch((e) => {
-      console.log("Error when load info for page Pools");
-      console.log(e);
-      toast.error("Data fetching error, page will reload after 5 seconds");
-      setTimeout(() => window.location.reload(), 5000);
-    });
-  }, [factory, queries]);
+    updateData(queries, account?.bech32Address);
+  }, [factory, queries, account]);
 
   if (loading || !factory || !queries || !addLiquidity) {
     return <p>Loading...</p>;
@@ -119,6 +138,7 @@ const Pools = () => {
       toast.error("Tokens are required");
       return;
     }
+    setProcessing(true);
     try {
       console.log("New pool attempt", {
         lpFeePercent: lpFee.toString(),
@@ -132,7 +152,7 @@ const Pools = () => {
       }, fee);
       console.log("CreatePoolResponse", CreatePoolResponse);
       toast.success("Pool created successfully, depositing...");
-      fetchPools();
+      updateData(queries);
       let poolContractAddress = "";
       for (const event of CreatePoolResponse.logs[0].events) {
         const attrIndex = event.attributes.findIndex(
@@ -149,16 +169,16 @@ const Pools = () => {
       await addLiquidity(
         poolContractAddress,
         token1,
-        token1Amount.toString(),
+        token1Amount,
         token2,
-        token2Amount.toString(),
+        token2Amount,
       );
       setIsDepositOpen(false);
       setIsNewPoolOpen(false);
       setToken1(null);
       setToken2(null);
-      setToken1Amount(0);
-      setToken2Amount(0);
+      setToken1Amount("0");
+      setToken2Amount("0");
     } catch (e) {
       console.log("Error when try to create pool");
       console.log(e);
@@ -169,6 +189,7 @@ const Pools = () => {
       toast.error(message);
     }
     setIsDepositOpen(false);
+    setProcessing(false);
   };
 
   return (
@@ -192,6 +213,8 @@ const Pools = () => {
       <Modal open={isDepositOpen} onClose={() => setIsDepositOpen(false)}>
         {isDepositOpen && token1 && token2 && (
         <ConfirmSupply
+          processing={processing}
+          fee={lpFee}
           token1={token1}
           token2={token2}
           token1Amount={token1Amount}
@@ -204,7 +227,12 @@ const Pools = () => {
       <div className={styles.main}>
         <div className={styles.firstString}>
           <div className={styles.name}>pools!</div>
-          <button type="button" className={styles.buttonCreate} onClick={() => setIsNewPoolOpen(true)}>
+          <button
+            disabled={processing}
+            type="button"
+            className={styles.buttonCreate}
+            onClick={() => setIsNewPoolOpen(true)}
+          >
             create new pool!
           </button>
         </div>

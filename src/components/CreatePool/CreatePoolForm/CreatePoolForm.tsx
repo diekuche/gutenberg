@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import {
   ComponentType,
   useMemo,
@@ -12,7 +13,8 @@ import { UserTokenDetails } from "../../../hooks/useQueries";
 import { useChain } from "../../../hooks/useChain";
 import TokenUI from "../../SelectCustom/TokenUI/TokenUI";
 import { formatBalance } from "../../../utils/balance";
-import { compareDenoms } from "../../../utils/tokens";
+import { compareDenoms, tokenAmountToFloat } from "../../../utils/tokens";
+import { InputTokenAmount } from "../../controls/InputTokenAmount";
 
 type CreatePoolFormProps = {
   onSubmit: () => void;
@@ -20,10 +22,10 @@ type CreatePoolFormProps = {
   token2: UserTokenDetails | null;
   setToken1: (token: UserTokenDetails | null) => void;
   setToken2: (token: UserTokenDetails | null) => void;
-  token1Amount: number;
-  token2Amount: number;
-  setToken1Amount: (value: number) => void;
-  setToken2Amount: (value: number) => void;
+  token1Amount: string;
+  token2Amount: string;
+  setToken1Amount: (value: string) => void;
+  setToken2Amount: (value: string) => void;
   tokens: UserTokenDetails[];
   lpFee: number;
   setLpFee: (value: number) => void;
@@ -58,7 +60,7 @@ const CreatePoolForm = ({
     label: <TokenUI
       name={token.symbol}
       chainName={chain.chainId}
-      balance={formatBalance(Number(token.balance) / (10 ** token.decimals))}
+      balance={formatBalance(tokenAmountToFloat(token.balance, token.decimals))}
       icon={token.logo || ""}
     />,
   })), [tokens]);
@@ -66,16 +68,17 @@ const CreatePoolForm = ({
   const handleSelectToken: SelectCustomProps<UserTokenDetails>["onChange"] = (option) => {
     setToken1(option?.value || null);
     const balance = option?.value.balance;
-    setToken1Amount(balance ? Number(balance) : 0);
+    setToken1Amount(balance || "0");
   };
 
   const handleSelectSecond: SelectCustomProps<UserTokenDetails>["onChange"] = (option) => {
     setToken2(option?.value || null);
     const balance = option?.value.balance;
-    setToken2Amount(balance ? Number(balance) : 0);
+    setToken2Amount(balance || "0");
   };
 
-  const handleSubmit = () => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
     if (!token1 || !token2) {
       toast.warning("Please, select tokens");
       return;
@@ -94,14 +97,15 @@ const CreatePoolForm = ({
 
   return (
     <div className={styles.common}>
-      <div className={styles.swap}>
+      <form className={styles.swap} onSubmit={handleSubmit}>
         <div className={styles.InputBlock}>
-          <input
+          <InputTokenAmount
+            decimals={token1?.decimals || 0}
+            maxAmount={token1?.balance || 0}
             disabled={!token1}
-            type="number"
             className={styles.currencyInput}
-            value={token1Amount.toString()}
-            onChange={(e) => setToken1Amount(Number(e.target.value))}
+            value={token1Amount || "0"}
+            onChange={setToken1Amount}
           />
           <div className={styles.selectWrapper}>
             <SelectCustom<UserTokenDetails>
@@ -120,7 +124,7 @@ const CreatePoolForm = ({
           <div className={styles.balance}>
             Balance:
             {" "}
-            {token1 ? token1.balance : 0}
+            {token1 ? tokenAmountToFloat(token1.balance, token1.decimals) : 0}
             {" "}
           </div>
         </div>
@@ -131,12 +135,14 @@ const CreatePoolForm = ({
           </div>
         </div>
         <div className={styles.OutputBlock}>
-          <input
+          <InputTokenAmount
+            decimals={token2?.decimals || 0}
+            maxAmount={token2?.balance || 0}
             disabled={!token2}
             type="number"
             className={styles.currencyInput}
-            value={token2Amount.toString()}
-            onChange={(e) => setToken2Amount(Number(e.target.value))}
+            value={token2Amount || "0"}
+            onChange={setToken2Amount}
           />
           <div className={styles.selectWrapper}>
             <SelectCustom<UserTokenDetails>
@@ -155,7 +161,7 @@ const CreatePoolForm = ({
           <div className={styles.balance}>
             Balance:
             {" "}
-            {token2 ? token2.balance : 0}
+            {token2 ? tokenAmountToFloat(token2.balance, token2.decimals) : 0}
           </div>
         </div>
         <div className={styles.stringSelect}>
@@ -175,10 +181,16 @@ const CreatePoolForm = ({
             ))}
           </div>
         </div>
-        <NewButton disabled={!token1 || !token2} onClick={handleSubmit} size="hg">
-          create pool
+        <NewButton
+          type="submit"
+          disabled={!token1 || !token2 || !token1Amount || !token2Amount}
+          size="hg"
+        >
+          {!token1 || !token2 ? "select tokens"
+            : (!token1Amount || !token2Amount ? "enter amount" : "create pool")}
+
         </NewButton>
-      </div>
+      </form>
     </div>
   );
 };

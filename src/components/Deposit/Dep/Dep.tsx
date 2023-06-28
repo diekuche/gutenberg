@@ -11,12 +11,14 @@ import {
 } from "../../../utils/tokens";
 import { useContracts } from "../../../hooks/useContracts";
 import { useAddLiquidity } from "../../../hooks/useAddLiquidity";
+import { InputTokenAmount } from "../../controls/InputTokenAmount";
 
 export type DepProps = {
   pool: AppStatePool;
   token1: UserTokenDetails;
   token2: UserTokenDetails;
-  token1ForToken2Price: string;
+  reserve1: string;
+  reserve2: string;
   onSuccess: ()=>void;
 };
 
@@ -27,27 +29,33 @@ const Dep = ({
   pool,
   token1,
   token2,
-  token1ForToken2Price,
+  reserve1,
+  reserve2,
 }: DepProps) => {
+  const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(true);
   const contracts = useContracts();
   const { data: account } = useAccount();
   const [token1Amount, setToken1Amount] = useState("0");
   const [token2Amount, setToken2Amount] = useState("0");
   const { addLiquidity } = useAddLiquidity();
+  const r1 = Number(reserve1);
+  const r2 = Number(reserve2);
   const onToken1AmountChange = (value: string) => {
-    setToken1Amount(value);
-    if (+token1ForToken2Price) {
-      const amount = Number(value) * Number(token1ForToken2Price);
-      setToken2Amount((amount + amount * SLIPPAGE).toString());
+    if (r1 && r2) {
+      const amount = (Number(value) * r2) / r1 + 1;
+      const token2Value = Math.ceil((amount + amount * SLIPPAGE));
+      setToken2Amount(token2Value.toString());
     }
+    setToken1Amount(value);
   };
   const onToken2AmountChange = (value: string) => {
-    setToken2Amount(value);
-    if (+token1ForToken2Price) {
-      const amount = Number(value);
-      setToken1Amount(((amount - amount * SLIPPAGE) / Number(token1ForToken2Price)).toString());
+    if (r1 && r2) {
+      const amount = (Number(value) * r1) / r2 + 1;
+      const token1Value = Math.ceil((amount + amount * SLIPPAGE));
+      setToken1Amount(token1Value.toString());
     }
+    setToken2Amount(value);
   };
 
   useEffect(() => {
@@ -65,6 +73,7 @@ const Dep = ({
     if (!contracts || !account || !addLiquidity) {
       return;
     }
+    setProcessing(true);
     addLiquidity(pool.address, token1, token1Amount, token2, token2Amount).then(() => {
       toast.success("Liquidity was added successfully");
       onSuccess();
@@ -73,23 +82,25 @@ const Dep = ({
       console.log("Error when deposit to pool", pool);
       console.log(e);
       toast.error("Unknown error");
-    });
+    }).finally(() => setProcessing(false));
   };
   return (
     <div className={styles.depositWindow}>
       <div className={styles.firstField}>
         <div className={styles.firstStringOneField}>
-          <input
+          <InputTokenAmount
             type="number"
             className={styles.value}
-            value={+token1Amount}
-            onChange={(e) => onToken1AmountChange(e.target.value)}
+            value={token1Amount}
+            decimals={token1.decimals}
+            maxAmount={token1.balance}
+            onChange={onToken1AmountChange}
           />
           <div className={styles.element}>
             <div
               className={styles.level}
               onClick={
-                () => onToken1AmountChange(tokenAmountToFloat(token1.balance, token1.decimals))
+                () => onToken1AmountChange(token1.balance)
 }
             >
               max
@@ -111,11 +122,13 @@ const Dep = ({
       </div>
       <div className={styles.secondField}>
         <div className={styles.firstStringOneField}>
-          <input
+          <InputTokenAmount
             type="number"
             className={styles.value}
-            value={+token2Amount}
-            onChange={(e) => onToken2AmountChange(e.target.value)}
+            value={token2Amount}
+            decimals={token2.decimals}
+            maxAmount={token2.balance}
+            onChange={onToken2AmountChange}
           />
           <div className={styles.element}>
             <div
@@ -142,7 +155,14 @@ const Dep = ({
         </div>
       </div>
 
-      <NewBT disabled={loading} onClick={() => onDeposit()} size="hg">deposit</NewBT>
+      <NewBT
+        disabled={loading || processing}
+        onClick={() => onDeposit()}
+        size="hg"
+      >
+        {processing ? "processing" : "deposit"}
+
+      </NewBT>
     </div>
   );
 };

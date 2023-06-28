@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { get, set, del } from "idb-keyval";
 
 export type QueryCacheConfig = {
@@ -9,6 +10,14 @@ export type QueryCacheItem<T> = {
   timestamp: number;
   data: T;
 };
+
+export type QueryGetParams<C, T> = {
+  queryKey: string;
+  queryFn: (context: C) => T | Promise<T>
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type QueryCacheRecord<C=any> = <T = any>(...args: any[]) => QueryGetParams<C, T>;
 
 export class QueryCache {
   cacheTime: number;
@@ -43,10 +52,18 @@ export class QueryCache {
     }
   }
 
-  async getOrUpdate<T>(key: string, queryFn: () => (T | Promise<T>), options?: {
+  async getOrUpdate<T>({
+    queryFn,
+    queryKey,
+    cacheTime,
+  }: {
+    queryKey: string;
+    queryFn: (context: any) => T | Promise<T>;
+    cacheTime?: number;
+  }, context: any, options?: {
     cacheTime?: number;
   }): Promise<T> {
-    const listners = this.listeners.get(key);
+    const listners = this.listeners.get(queryKey);
     if (listners) {
       return new Promise<T>((resolve, reject) => {
         listners.push({
@@ -55,23 +72,26 @@ export class QueryCache {
         });
       });
     }
-    this.listeners.set(key, []);
+    this.listeners.set(queryKey, []);
     try {
-      let data = await this.get<T>(key, options);
+      let data = await this.get<T>(queryKey, {
+        ...options,
+        cacheTime: options?.cacheTime || cacheTime,
+      });
       if (typeof data === "undefined") {
-        console.log(`QueryCache:: invalidate key: ${key}`);
-        data = await queryFn();
-        await this.set(key, data);
+        console.log(`QueryCache:: invalidate key: ${queryKey}`);
+        data = await queryFn(context);
+        await this.set(queryKey, data);
       }
-      this.listeners.get(key)?.forEach(({ resolve }) => resolve(data));
+      this.listeners.get(queryKey)?.forEach(({ resolve }) => resolve(data));
       return data;
     } catch (e) {
-      console.log(`Error when fetch key ${key}`);
+      console.log(`Error when fetch key ${queryKey}`);
       console.log(e);
-      this.listeners.get(key)?.forEach(({ reject }) => reject(e));
+      this.listeners.get(queryKey)?.forEach(({ reject }) => reject(e));
       throw e;
     } finally {
-      this.listeners.delete(key);
+      this.listeners.delete(queryKey);
     }
   }
 

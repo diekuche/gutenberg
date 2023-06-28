@@ -29,6 +29,11 @@
   color: rgba(6, 15, 25, 0.9);
 }
 
+.hugeSize[disabled], .hugeSize:hover[disabled] {
+  background: #E2FB5FB2;
+  color: #060F19B2;
+}
+
 .smallsize {
   border-radius: 100px;
   padding: 9px 31px;

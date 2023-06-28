@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import { useMemo } from "react";
 import { useAccount } from "graz";
-import { isCw20, tokenFloatToAmount } from "../utils/tokens";
+import { isCw20 } from "../utils/tokens";
 import { useFee } from "../utils/useFee";
 import { useContracts } from "./useContracts";
 import { TokenDetails } from "./useQueries";
@@ -22,8 +22,8 @@ export const useAddLiquidity = () => {
       token2: TokenDetails,
       token2Amount: string,
     ) => {
-      const token1RealAmount = tokenFloatToAmount(token1Amount, token1.decimals).toString();
-      const token2RealAmount = tokenFloatToAmount(token2Amount, token2.decimals).toString();
+      const token1RealAmount = token1Amount;
+      const token2RealAmount = token2Amount;
       if (isCw20(token1.denom)) {
         const token1Cw = contracts.Cw20ContractFactory(token1.denom.cw20, account.bech32Address);
         const token1Allowance = await token1Cw.querier.allowance({

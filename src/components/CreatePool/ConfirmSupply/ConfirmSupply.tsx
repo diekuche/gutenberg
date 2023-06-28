@@ -3,16 +3,21 @@ import styles from "./ConfirmSupply.module.css";
 import NewButton from "../../newButton/newButton";
 import { TokenDetails } from "../../../hooks/useQueries";
 import { formatBalance } from "../../../utils/balance";
+import { calcTokenExchangePrice, tokenAmountToFloat } from "../../../utils/tokens";
 
 type Props = {
   token1: TokenDetails;
   token2: TokenDetails;
-  token1Amount: number;
-  token2Amount: number;
+  token1Amount: string;
+  token2Amount: string;
+  fee: number;
   onSubmit: () => void;
+  processing: boolean;
 };
 
 const ConfirmSupply = ({
+  fee,
+  processing,
   token1, token2,
   token1Amount,
   token2Amount,
@@ -37,28 +42,36 @@ const ConfirmSupply = ({
           <div className={styles.nameString}>{token1.name}</div>
           <div className={styles.test}>
             <div className={styles.nameToken}>{token1.symbol}</div>
-            <div className={styles.priceToken}>{formatBalance(token1Amount)}</div>
+            <div className={styles.priceToken}>
+              {formatBalance(tokenAmountToFloat(token1Amount, token1.decimals))}
+            </div>
           </div>
         </div>
         <div className={styles.secondString}>
           <div className={styles.nameString}>{token2.name}</div>
           <div className={styles.test}>
             <div className={styles.nameToken}>{token2.symbol}</div>
-            <div className={styles.priceToken}>{formatBalance(token2Amount)}</div>
+            <div className={styles.priceToken}>
+              {formatBalance(tokenAmountToFloat(token2Amount, token2.decimals))}
+
+            </div>
           </div>
         </div>
         <div className={styles.thirdString}>
           <div className={styles.nameString}>Exchanged Rate</div>
 
           <div className={styles.priceSummary}>
-            {(1 + token1Amount) / (token1Amount * token2Amount)}
-
+            {
+              (calcTokenExchangePrice(token1Amount, token2Amount, fee + 0.1)
+              / Number(tokenAmountToFloat(token2Amount, token2.decimals))
+              ).toFixed(token2.decimals)
+          }
           </div>
         </div>
       </div>
     </div>
-    <NewButton onClick={onSubmit} size="hg">
-      order deposit
+    <NewButton disabled={processing} onClick={onSubmit} size="hg">
+      {processing ? "processing" : "order deposit"}
     </NewButton>
   </div>
 );

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useAccount } from "graz";
 import { Tabs, Tab } from "./TabD/TabD";
 import styles from "./Deposit.module.css";
 import Withdraw from "./Withdraw/Withdraw";
@@ -6,7 +7,9 @@ import Farm from "./Farm/Farm";
 import Dep from "./Dep/Dep";
 import Unfarm from "./Unfarm/Unfarm";
 import { AppStatePool } from "../../context/AppStateContext";
-import { UserTokenDetails, useQueries } from "../../hooks/useQueries";
+import {
+  SWAP_POOL_INFO, USER_TOKEN_DETAILS, UserTokenDetails, useQueries,
+} from "../../hooks/useQueries";
 
 export type DepositProps = {
   pool: AppStatePool;
@@ -17,10 +20,15 @@ const Deposit = ({
   onLiquidityAdded,
   pool,
 }: DepositProps) => {
-  const { queries } = useQueries();
-  const [token1, setToken1] = useState<UserTokenDetails>();
-  const [token2, setToken2] = useState<UserTokenDetails>();
-  const [token1ForToken2Price, setToken1ForToken2Price] = useState<string | undefined>();
+  const { data: account } = useAccount();
+  const queries = useQueries();
+  const [depositData, setDepositData] = useState<{
+    token1: UserTokenDetails;
+    token2: UserTokenDetails;
+    reserve1: string;
+    reserve2: string;
+  }>();
+
   const tabs: Tab[] = [
     { id: "1", label: "deposit" },
     { id: "2", label: "withdraw" },
@@ -30,32 +38,36 @@ const Deposit = ({
   const [selectedTabId, setSelectedTabId] = useState(tabs[0].id);
 
   useEffect(() => {
-    if (!queries) {
+    if (!queries || !account) {
       return;
     }
     const fetch = async () => {
-      const data = await Promise.all([
-        queries.USER_TOKEN_DETAILS(pool.denom1),
-        queries.USER_TOKEN_DETAILS(pool.denom2),
-        queries.POOL_TOKEN1_FOR_TOKEN2_PRICE(pool.address, "1"),
+      const { query } = queries;
+      const [poolInfo, ...tokens] = await Promise.all([
+        query(SWAP_POOL_INFO(pool.address), { cacheTime: 1 }),
+        query(USER_TOKEN_DETAILS(pool.denom1, account.bech32Address)),
+        query(USER_TOKEN_DETAILS(pool.denom2, account.bech32Address)),
       ]);
-      setToken1(data[0]);
-      setToken2(data[1]);
-      setToken1ForToken2Price(data[2]);
+      setDepositData({
+        token1: tokens[0],
+        token2: tokens[1],
+        reserve1: poolInfo.token1_reserve,
+        reserve2: poolInfo.token2_reserve,
+      });
     };
     fetch();
-  }, [queries]);
+  }, [account, queries]);
 
-  if (!token1 || !token2 || !token1ForToken2Price) {
+  if (!depositData) {
     return <p>Loading...</p>;
   }
   return (
     <div>
       <div className={styles.depositWindow}>
         <div className={styles.nameField}>
-          {token1.symbol}
+          {depositData.token1.symbol}
           /
-          {token2.symbol}
+          {depositData.token2.symbol}
         </div>
         <Tabs
           selectedId={selectedTabId}
@@ -67,10 +79,11 @@ const Deposit = ({
             {selectedTabId === tabs[0].id && (
             <Dep
               onSuccess={onLiquidityAdded}
-              token1ForToken2Price={token1ForToken2Price}
+              reserve1={depositData.reserve1}
+              reserve2={depositData.reserve2}
               pool={pool}
-              token1={token1}
-              token2={token2}
+              token1={depositData.token1}
+              token2={depositData.token2}
             />
             )}
             {selectedTabId === tabs[1].id && <Withdraw />}
