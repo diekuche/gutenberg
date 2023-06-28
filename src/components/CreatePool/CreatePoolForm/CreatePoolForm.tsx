@@ -1,26 +1,42 @@
-import React, { useContext, useState } from "react";
+import React, {
+  useContext, useEffect, useMemo, useState,
+} from "react";
 import styles from "./CreatePoolForm.module.css";
 import UpDoAr from "../../../assets/UpDoAr.svg";
 import SelectCustom, { SelectCustomProps } from "../../SelectCustom/SelectCustom";
 import NewButton from "../../newButton/newButton";
 import { AppStateContext } from "../../../context/AppStateContext";
+import { UserTokenDetails, useQueries } from "../../../hooks/useQueries";
+import { useChain } from "../../../hooks/useChain";
+import TokenUI from "../../SelectCustom/TokenUI/TokenUI";
+import { formatBalance } from "../../../utils/balance";
 
 type Props = {
   onSubmit: (token: string, secondToken: string) => void;
 };
 
 const CreatePoolForm = ({ onSubmit }: Props) => {
-  const [token, setToken] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [token1, setToken1] = useState("");
   const [secondToken, setSecondToken] = useState("");
   const { userTokens } = useContext(AppStateContext);
+  const [tokens, setTokens] = useState<UserTokenDetails[]>([]);
 
-  const options = userTokens?.map((value) => ({
-    value,
-    label: value.slice(0, 10),
-  }));
+  const queries = useQueries();
+  const chain = useChain();
+  console.log(`tokens`,tokens)
+  const options = useMemo(() => tokens.map((token) => ({
+    value: token.address,
+    label: <TokenUI
+      name={token.symbol}
+      chainName={chain.chainId}
+      balance={formatBalance(+token.balance / (10 ** token.decimals))}
+      icon={token.logo || ""}
+    />,
+  })), [tokens]);
 
   const handleSelectToken: SelectCustomProps["onChange"] = (option) => {
-    setToken(option?.value || "");
+    setToken1(option?.value || "");
   };
 
   const handleSelectSecond: SelectCustomProps["onChange"] = (option) => {
@@ -28,8 +44,30 @@ const CreatePoolForm = ({ onSubmit }: Props) => {
   };
 
   const handleSubmit = () => {
-    onSubmit(token, secondToken);
+    onSubmit(token1, secondToken);
   };
+
+  useEffect(() => {
+    if (!queries) {
+      return;
+    }
+    alert(1);
+    const fetch = async () => {
+      setTokens(
+        await Promise.all(
+          (userTokens || []).map((tokenAddr) => queries.USER_TOKEN_DETAILS({
+            cw20: tokenAddr,
+          })),
+        ),
+      );
+      setLoading(false);
+    };
+    fetch();
+  }, [queries]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className={styles.common}>

@@ -1,13 +1,19 @@
-import React from "react";
-import { Tabs, Tab } from "./../Deposit/TabD/TabD";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Tabs, Tab } from "./TabD/TabD";
 import styles from "./Deposit.module.css";
 import Withdraw from "./Withdraw/Withdraw";
 import Farm from "./Farm/Farm";
 import Dep from "./Dep/Dep";
 import Unfarm from "./Unfarm/Unfarm";
+import { AppStatePool } from "../../context/AppStateContext";
 
-const Deposit = () => {
+export type DepositProps = {
+  pool: AppStatePool
+};
+
+const Deposit = ({
+  pool,
+}: DepositProps) => {
   const tabs: Tab[] = [
     { id: "1", label: "deposit" },
     { id: "2", label: "withdraw" },
@@ -27,7 +33,7 @@ const Deposit = () => {
         />
         <div>
           <div>
-            {selectedTabId === tabs[0].id && <Dep />}
+            {selectedTabId === tabs[0].id && <Dep pool={pool} />}
             {selectedTabId === tabs[1].id && <Withdraw />}
             {selectedTabId === tabs[2].id && <Farm />}
             {selectedTabId === tabs[3].id && <Unfarm />}

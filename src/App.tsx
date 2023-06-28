@@ -20,6 +20,7 @@ import { CustomChains } from "./utils/config";
 import Pools from "./components/Pools/Pools";
 import { loadFromStorage } from "./utils/storage";
 import { createIDBPersister } from "./utils/cache";
+import { PersistQueryClientContext } from "./hooks/usePersistentQueryClient";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,7 +30,7 @@ const queryClient = new QueryClient({
   },
 });
 
-const persister = createIDBPersister();
+const persister = createIDBPersister("gutenberg");
 
 const TokensStorageKey = "userTokens";
 const PoolsStorageKey = "pools";
@@ -105,6 +106,7 @@ function App() {
     <PersistQueryClientProvider
       client={queryClient}
       persistOptions={{ persister }}
+      context={PersistQueryClientContext}
     >
       <GrazProvider
         grazOptions={{

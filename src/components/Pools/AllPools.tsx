@@ -10,50 +10,58 @@ import greyArrowDown from "../../assets/greyArrowDown.svg";
 import Deposit from "../Deposit/Deposit";
 
 import Modal from "../Modal/Modal";
-import { useSwapPoolFactory } from "../../hooks/useSwapPoolFactory";
-import { AppState, AppStateContext } from "../../context/AppStateContext";
-import { useSwapPoolContractFactory } from "../../hooks/useSwapPool";
+import { AppState, AppStateContext, AppStatePool } from "../../context/AppStateContext";
 import { Denom } from "../../ts/SwapPoolFactory.types";
-import { useCw20ContractFactory } from "../../hooks/useCw20";
+import { useQueries } from "../../hooks/useQueries";
 
 const AllPools = () => {
   const [loading, setLoading] = useState(true);
+  const [poolForDeposit, setPoolForDeposit] = useState<AppStatePool | null>(null);
   const initialized = useRef(false);
   const [modal, setModal] = useState(false);
   const [pools, setPools] = useState<AppState["pools"]>([]);
   const { pools: savedPools, setPools: setSavedPools } = useContext(AppStateContext);
 
-  const factory = useSwapPoolFactory();
-  const PoolContractFactory = useSwapPoolContractFactory();
-  const Cw20ContractFactory = useCw20ContractFactory();
+  const queries = useQueries();
 
   const toggleModal = () => {
     setModal(!modal);
   };
 
+  const onPoolDeposit = (pool: AppStatePool) => {
+    setPoolForDeposit(pool);
+    setModal(true);
+  };
+
   useEffect(() => {
-    if (!factory || !PoolContractFactory || !Cw20ContractFactory) {
+    if (!queries) {
       return;
     }
     const fetch = async () => {
-      const { pools: poolList } = await factory.querier.getPools();
+      const { pools: poolList } = await queries.SWAP_POOL_LIST();
       const updatedPools = await Promise.all(
         poolList.slice(savedPools.length).map(async (poolAddress, index) => {
-          const { querier } = PoolContractFactory(poolAddress);
-          const info = await querier.info();
-          const token1Addr = (info.token1_denom as unknown as { cw20: string }).cw20;
-          const token2Addr = (info.token2_denom as unknown as { cw20: string }).cw20;
-          const token1 = Cw20ContractFactory(token1Addr);
-          const token1Info = await token1.querier.tokenInfo();
-          const token2 = Cw20ContractFactory(token2Addr);
-          const token2Info = await token2.querier.tokenInfo();
+          const poolInfo = await queries.SWAP_POOL_INFO(poolAddress);
+          const token1Denom = (poolInfo.token1_denom as unknown as Denom);
+          const token2Denom = (poolInfo.token1_denom as unknown as Denom);
+          if ("native" in token1Denom || "native" in token2Denom) {
+            throw new Error("Unsupported native token");
+          }
+
+          const token1Addr = token1Denom.cw20;
+          const token2Addr = token2Denom.cw20;
+          const token1Details = await queries.CW20_TOKEN_DETAILS(token1Addr);
+          const token2Details = await queries.CW20_TOKEN_DETAILS(token2Addr);
+
           return {
             address: poolAddress,
             index,
-            denom1: info.token1_denom as unknown as Denom,
-            denom2: info.token2_denom as unknown as Denom,
-            symbol1: token1Info.symbol,
-            symbol2: token2Info.symbol,
+            denom1: token1Denom,
+            denom2: token2Denom,
+            symbol1: token1Details.symbol,
+            symbol2: token2Details.symbol,
+            logo1: token1Details.logo,
+            logo2: token2Details.logo,
           };
         }),
       );
@@ -67,7 +75,7 @@ const AllPools = () => {
       initialized.current = true;
       fetch();
     }
-  }, [factory]);
+  }, [queries]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -101,14 +109,8 @@ const AllPools = () => {
           </thead>
           <tbody className={styles.mainTable}>
             {pools.map((pool) => (
-              <tr key={pool.index} onClick={toggleModal}>
+              <tr key={pool.index} onClick={() => onPoolDeposit(pool)}>
                 <td className={styles.pairwidth}>
-                  {modal && (
-                  <div className={styles.content}>
-                    <div className={styles.overlay} />
-                    <Deposit />
-                  </div>
-                  )}
                   <div className={styles.pairPool}>
                     <img className={styles.imgToken_1} src={atom} alt="" />
                     <img
@@ -137,7 +139,7 @@ const AllPools = () => {
         </div>
       </div>
       <Modal open={modal} onClose={toggleModal}>
-        <Deposit />
+        {poolForDeposit && <Deposit pool={poolForDeposit} />}
       </Modal>
     </>
   );
