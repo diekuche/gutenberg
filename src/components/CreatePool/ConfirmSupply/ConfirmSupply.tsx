@@ -43,7 +43,7 @@ const ConfirmSupply = ({
         <div className={styles.secondString}>
           <div className={styles.nameString}>{token2.name}</div>
           <div className={styles.test}>
-            <div className={styles.nameToken}>{token2.name}</div>
+            <div className={styles.nameToken}>{token2.symbol}</div>
             <div className={styles.priceToken}>{formatBalance(token2Amount)}</div>
           </div>
         </div>

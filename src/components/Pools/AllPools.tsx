@@ -88,15 +88,21 @@ const AllPools = ({
             {pools
               .slice((page - 1) * PAGE_SIZE, (page - 1) * PAGE_SIZE + PAGE_SIZE)
               .map((pool) => (
-                <tr key={pool.index} onClick={() => onPoolDeposit(pool)}>
+                <tr key={pool.address} onClick={() => onPoolDeposit(pool)}>
                   <td className={styles.pairwidth}>
                     <div className={styles.pairPool}>
-                      <img className={styles.imgToken_1} src={atom} alt="" />
-                      <img
-                        className={styles.imgToken_2}
-                        src={circle}
-                        alt=""
-                      />
+                      {false
+                      && (
+                      <>
+                        <img className={styles.imgToken_1} src={atom} alt="" />
+                        <img
+                          className={styles.imgToken_2}
+                          src={circle}
+                          alt=""
+                        />
+
+                      </>
+                      )}
                       <div className={styles.pair}>{`${pool.symbol1}/${pool.symbol2}`}</div>
                     </div>
                   </td>

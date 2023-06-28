@@ -35,7 +35,43 @@ const Pools = () => {
   const contractConfig = useContractConfig();
   const factory = useSwapPoolFactory();
   const fee = useFee();
+  const fetchPools = async () => {
+    if (!queries) {
+      return;
+    }
+    const { pools: poolList } = await queries.SWAP_POOL_LIST();
+    const updatedPools = await Promise.all(
+      poolList.filter(
+        (p) => !savedPools.find((p2) => p2.address === p),
+      ).map(async (poolAddress, index) => {
+        const poolInfo = await queries.SWAP_POOL_INFO(poolAddress);
+        const token1Denom = (poolInfo.token1_denom as unknown as Denom);
+        const token2Denom = (poolInfo.token2_denom as unknown as Denom);
+        if ("native" in token1Denom || "native" in token2Denom) {
+          throw new Error("Unsupported native token");
+        }
 
+        const token1Addr = token1Denom.cw20;
+        const token2Addr = token2Denom.cw20;
+        const token1Details = await queries.CW20_TOKEN_DETAILS(token1Addr);
+        const token2Details = await queries.CW20_TOKEN_DETAILS(token2Addr);
+
+        return {
+          address: poolAddress,
+          index,
+          denom1: token1Denom,
+          denom2: token2Denom,
+          symbol1: token1Details.symbol,
+          symbol2: token2Details.symbol,
+          logo1: token1Details.logo,
+          logo2: token2Details.logo,
+        };
+      }),
+    );
+    const newPools = [...savedPools, ...updatedPools];
+    setSavedPools(newPools);
+    setPools(newPools);
+  };
   useEffect(() => {
     if (!factory || !queries) {
       return;
@@ -49,40 +85,7 @@ const Pools = () => {
         ),
       );
     };
-    const fetchPools = async () => {
-      const { pools: poolList } = await queries.SWAP_POOL_LIST();
-      const updatedPools = await Promise.all(
-        poolList.filter(
-          (p) => !savedPools.find((p2) => p2.address === p),
-        ).map(async (poolAddress, index) => {
-          const poolInfo = await queries.SWAP_POOL_INFO(poolAddress);
-          const token1Denom = (poolInfo.token1_denom as unknown as Denom);
-          const token2Denom = (poolInfo.token2_denom as unknown as Denom);
-          if ("native" in token1Denom || "native" in token2Denom) {
-            throw new Error("Unsupported native token");
-          }
 
-          const token1Addr = token1Denom.cw20;
-          const token2Addr = token2Denom.cw20;
-          const token1Details = await queries.CW20_TOKEN_DETAILS(token1Addr);
-          const token2Details = await queries.CW20_TOKEN_DETAILS(token2Addr);
-
-          return {
-            address: poolAddress,
-            index,
-            denom1: token1Denom,
-            denom2: token2Denom,
-            symbol1: token1Details.symbol,
-            symbol2: token2Details.symbol,
-            logo1: token1Details.logo,
-            logo2: token2Details.logo,
-          };
-        }),
-      );
-      const newPools = [...savedPools, ...updatedPools];
-      setSavedPools(newPools);
-      setPools(newPools);
-    };
     Promise.all([fetchPools(), fetchTokens()]).then(() => setLoading(false)).catch((e) => {
       console.log("Error when load info for page Pools");
       console.log(e);
@@ -129,6 +132,7 @@ const Pools = () => {
       }, fee);
       console.log("CreatePoolResponse", CreatePoolResponse);
       toast.success("Pool created successfully, depositing...");
+      fetchPools();
       let poolContractAddress = "";
       for (const event of CreatePoolResponse.logs[0].events) {
         const attrIndex = event.attributes.findIndex(
