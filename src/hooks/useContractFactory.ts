@@ -20,10 +20,10 @@ export const useContractFactory = <Q, E>(
   const { data: account } = useAccount();
   return useMemo(() => (!cosmClients || !account || !cosmSigningClients
     ? undefined
-    : (contractAddress: string) => {
+    : (contractAddress: string, userAddress?: string) => {
       const executor = new ContractClassExecute(
         cosmSigningClients.cosmWasm,
-        account.bech32Address,
+        userAddress || account.bech32Address,
         contractAddress,
       );
       const querier = new ContractClassQuery(

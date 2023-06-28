@@ -15,6 +15,11 @@ export class QueryCache {
 
   prefix: string;
 
+  listeners: Map<string, {
+    resolve: (value: unknown) => void;
+    reject: (err: unknown) => void;
+  }[]> = new Map();
+
   constructor(config: QueryCacheConfig) {
     this.prefix = config.prefix || "";
     this.cacheTime = config.cacheTime || 10 * 365 * 24 * 60 * 60 * 1000; // 10 years
@@ -41,13 +46,33 @@ export class QueryCache {
   async getOrUpdate<T>(key: string, queryFn: () => (T | Promise<T>), options?: {
     cacheTime?: number;
   }): Promise<T> {
-    let data = await this.get<T>(key, options);
-    if (typeof data === "undefined") {
-      console.log(`QueryCache:: invalidate key: ${key}`);
-      data = await queryFn();
-      await this.set(key, data);
+    const listners = this.listeners.get(key);
+    if (listners) {
+      return new Promise<T>((resolve, reject) => {
+        listners.push({
+          resolve: resolve as (value: unknown) => void,
+          reject,
+        });
+      });
     }
-    return data;
+    this.listeners.set(key, []);
+    try {
+      let data = await this.get<T>(key, options);
+      if (typeof data === "undefined") {
+        console.log(`QueryCache:: invalidate key: ${key}`);
+        data = await queryFn();
+        await this.set(key, data);
+      }
+      this.listeners.get(key)?.forEach(({ resolve }) => resolve(data));
+      return data;
+    } catch (e) {
+      console.log(`Error when fetch key ${key}`);
+      console.log(e);
+      this.listeners.get(key)?.forEach(({ reject }) => reject(e));
+      throw e;
+    } finally {
+      this.listeners.delete(key);
+    }
   }
 
   set(key: string, data: unknown) {

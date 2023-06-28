@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styles from "./Pools.module.css";
@@ -14,10 +15,13 @@ import {
   UserTokenDetails, useQueries,
 } from "../../hooks/useQueries";
 import { AppStateContext, AppStatePool } from "../../context/AppStateContext";
+import { useAddLiquidity } from "../../hooks/useAddLiquidity";
+import { useContractConfig } from "../../hooks/useContractConfig";
 
 const Pools = () => {
   const [isDepositOpen, setIsDepositOpen] = useState(false);
-  const queries = useQueries();
+  const { queries } = useQueries();
+  const { addLiquidity } = useAddLiquidity();
   const { userTokens, pools: savedPools, setPools: setSavedPools } = useContext(AppStateContext);
   const [tokens, setTokens] = useState<UserTokenDetails[]>([]);
   const [pools, setPools] = useState<AppStatePool[]>([]);
@@ -27,7 +31,8 @@ const Pools = () => {
   const [token1Amount, setToken1Amount] = useState(0);
   const [token2Amount, setToken2Amount] = useState(0);
   const [isNewPoolOpen, setIsNewPoolOpen] = useState(false);
-  const [lpFee, setLpFee] = useState(1);
+  const [lpFee, setLpFee] = useState(0.9);
+  const contractConfig = useContractConfig();
   const factory = useSwapPoolFactory();
   const fee = useFee();
 
@@ -47,10 +52,12 @@ const Pools = () => {
     const fetchPools = async () => {
       const { pools: poolList } = await queries.SWAP_POOL_LIST();
       const updatedPools = await Promise.all(
-        poolList.slice(savedPools.length).map(async (poolAddress, index) => {
+        poolList.filter(
+          (p) => !savedPools.find((p2) => p2.address === p),
+        ).map(async (poolAddress, index) => {
           const poolInfo = await queries.SWAP_POOL_INFO(poolAddress);
           const token1Denom = (poolInfo.token1_denom as unknown as Denom);
-          const token2Denom = (poolInfo.token1_denom as unknown as Denom);
+          const token2Denom = (poolInfo.token2_denom as unknown as Denom);
           if ("native" in token1Denom || "native" in token2Denom) {
             throw new Error("Unsupported native token");
           }
@@ -84,7 +91,7 @@ const Pools = () => {
     });
   }, [factory, queries]);
 
-  if (loading || !factory || !queries) {
+  if (loading || !factory || !queries || !addLiquidity) {
     return <p>Loading...</p>;
   }
 
@@ -103,6 +110,7 @@ const Pools = () => {
     setIsNewPoolOpen(false);
     setIsDepositOpen(true);
   };
+  const onPoolUpdated = () => {};
   const onPoolDeposit = async () => {
     if (!token1 || !token2) {
       toast.error("Tokens are required");
@@ -120,6 +128,33 @@ const Pools = () => {
         token2Denom: token2.denom,
       }, fee);
       console.log("CreatePoolResponse", CreatePoolResponse);
+      toast.success("Pool created successfully, depositing...");
+      let poolContractAddress = "";
+      for (const event of CreatePoolResponse.logs[0].events) {
+        const attrIndex = event.attributes.findIndex(
+          (attr) => attr.key === "code_id" && attr.value === contractConfig.swapPoolContractCodeId,
+        );
+        if (attrIndex > 0) {
+          poolContractAddress = event.attributes[attrIndex - 1].value;
+          break;
+        }
+      }
+      if (!poolContractAddress) {
+        throw new Error("Not found pool contract address");
+      }
+      await addLiquidity(
+        poolContractAddress,
+        token1,
+        token1Amount.toString(),
+        token2,
+        token2Amount.toString(),
+      );
+      setIsDepositOpen(false);
+      setIsNewPoolOpen(false);
+      setToken1(null);
+      setToken2(null);
+      setToken1Amount(0);
+      setToken2Amount(0);
     } catch (e) {
       console.log("Error when try to create pool");
       console.log(e);
@@ -170,7 +205,7 @@ const Pools = () => {
           </button>
         </div>
         {/* <MyPools /> */}
-        <AllPools pools={pools} />
+        <AllPools onPoolUpdated={onPoolUpdated} pools={pools} />
 
       </div>
     </div>

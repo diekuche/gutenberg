@@ -1,5 +1,6 @@
 /* eslint-disable no-plusplus */
-export const formatBalance = (num: number): string => {
+export const formatBalance = (source: number | string, separator = ","): string => {
+  const num = Number(source);
   const neg = (num < 0) ? "-" : "";
   let result: string; let x1: string; let
     x3: string;
@@ -17,7 +18,7 @@ export const formatBalance = (num: number): string => {
         j = 1;
       }
       if (i !== 0 && (j % factor) === 0) {
-        x3 = `,${x3}`;
+        x3 = `${separator}${x3}`;
       }
       j++;
       x3 = x1[len - i - 1] + x3;

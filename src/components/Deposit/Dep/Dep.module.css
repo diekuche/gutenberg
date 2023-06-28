@@ -38,6 +38,9 @@
   color: #f6f8fe;
   font-size: 36px;
   font-weight: 100 !important;
+  background: rgba(67, 151, 178, 0.01);
+  border: none;
+  max-width: 195px;
 }
 .level {
   color: #e2fb5f;
@@ -48,6 +51,7 @@
   height: 20px;
   align-self: center;
   margin-right: 6px;
+  cursor: pointer;
 }
 .firstStringOneField,
 .secondStirngTwoField {

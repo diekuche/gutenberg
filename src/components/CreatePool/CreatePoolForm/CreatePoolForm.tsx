@@ -29,7 +29,7 @@ type CreatePoolFormProps = {
   setLpFee: (value: number) => void;
 };
 
-const LP_PERCENTS = [0.05, 0.5, 1];
+const LP_PERCENTS = [0.05, 0.5, 0.9] as const;
 
 const SelectValue: ComponentType<SingleValueProps<{
   label: unknown;

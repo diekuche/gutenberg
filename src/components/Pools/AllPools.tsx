@@ -12,15 +12,30 @@ import Deposit from "../Deposit/Deposit";
 import Modal from "../Modal/Modal";
 import { AppStatePool } from "../../context/AppStateContext";
 
+const PAGE_SIZE = 10;
+
 type AllPoolsProps = {
-  pools: AppStatePool[]
+  pools: AppStatePool[];
+  onPoolUpdated: (pool: AppStatePool)=> void;
 };
 
 const AllPools = ({
-  pools,
+  onPoolUpdated,
+  pools: nonFilteredPools,
 }: AllPoolsProps) => {
+  const [filter, setFilter] = useState("");
+  const [page, setPage] = useState(1);
   const [poolForDeposit, setPoolForDeposit] = useState<AppStatePool | null>(null);
   const [modal, setModal] = useState(false);
+  const pools = (
+    filter
+      ? nonFilteredPools.filter(
+        (pool) => pool.symbol1.toLowerCase().includes(filter.toLowerCase())
+        || pool.symbol2.toLowerCase().includes(filter.toLowerCase()),
+      )
+      : nonFilteredPools
+  );
+  const pagesCount = Math.ceil(pools.length / PAGE_SIZE);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -30,6 +45,16 @@ const AllPools = ({
     setPoolForDeposit(pool);
     setModal(true);
   };
+  const onNextPage = () => {
+    if (page < pagesCount) {
+      setPage(page + 1);
+    }
+  };
+  const onPreviousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
   return (
     <>
       <div className={styles.secondString}>
@@ -38,6 +63,8 @@ const AllPools = ({
           className={styles.filterTokens}
           type="text"
           placeholder="Filter tokens"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
         />
       </div>
       <div className={styles.tablePools}>
@@ -45,7 +72,7 @@ const AllPools = ({
           <thead>
             <tr className={styles.theadPools}>
               <th className={styles.pair}>Pair</th>
-              <th>ARP</th>
+              <th>APR</th>
               <th>
                 Total Liquidity
                 <img
@@ -58,38 +85,65 @@ const AllPools = ({
             </tr>
           </thead>
           <tbody className={styles.mainTable}>
-            {pools.map((pool) => (
-              <tr key={pool.index} onClick={() => onPoolDeposit(pool)}>
-                <td className={styles.pairwidth}>
-                  <div className={styles.pairPool}>
-                    <img className={styles.imgToken_1} src={atom} alt="" />
-                    <img
-                      className={styles.imgToken_2}
-                      src={circle}
-                      alt=""
-                    />
-                    <div className={styles.pair}>{`${pool.symbol1}/${pool.symbol2}`}</div>
-                  </div>
-                </td>
-                <td className={styles.ARP}>54.51%</td>
-                <td>$283,478,297</td>
-                <td className={styles.volume}>$111,111,111</td>
-              </tr>
-            ))}
+            {pools
+              .slice((page - 1) * PAGE_SIZE, (page - 1) * PAGE_SIZE + PAGE_SIZE)
+              .map((pool) => (
+                <tr key={pool.index} onClick={() => onPoolDeposit(pool)}>
+                  <td className={styles.pairwidth}>
+                    <div className={styles.pairPool}>
+                      <img className={styles.imgToken_1} src={atom} alt="" />
+                      <img
+                        className={styles.imgToken_2}
+                        src={circle}
+                        alt=""
+                      />
+                      <div className={styles.pair}>{`${pool.symbol1}/${pool.symbol2}`}</div>
+                    </div>
+                  </td>
+                  <td className={styles.ARP}>54.51%</td>
+                  <td>$283,478,297</td>
+                  <td className={styles.volume}>$111,111,111</td>
+                </tr>
+              ))}
           </tbody>
         </table>
         <div className={styles.page}>
-          <button type="button" className={styles.leftButton}>
+          <button
+            type="button"
+            className={styles.leftButton}
+            onClick={(() => onPreviousPage())}
+          >
             <img src={leftarrow} alt="" />
           </button>
-          <div>Page 1 of 2</div>
-          <button type="button" className={styles.rightButton}>
+          <div>
+            Page
+            {" "}
+            {page}
+            {" "}
+            of
+            {" "}
+            {pagesCount}
+          </div>
+          <button
+            type="button"
+            className={styles.rightButton}
+            onClick={(() => onNextPage())}
+          >
             <img src={rightarrow} alt="" />
           </button>
         </div>
       </div>
       <Modal open={modal} onClose={toggleModal}>
-        {poolForDeposit && <Deposit pool={poolForDeposit} />}
+        {poolForDeposit && (
+        <Deposit
+          onLiquidityAdded={() => {
+            onPoolUpdated(poolForDeposit);
+            setPoolForDeposit(null);
+            toggleModal();
+          }}
+          pool={poolForDeposit}
+        />
+        )}
       </Modal>
     </>
   );

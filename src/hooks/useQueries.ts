@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useAccount } from "graz";
 import { useContracts } from "./useContracts";
 import { Denom } from "../ts/SwapPoolFactory.types";
@@ -22,13 +22,15 @@ export type UserTokenDetails = TokenDetails & {
 export type PoolInfo = InfoResponse;
 
 export const useQueries = () => {
+  const [loading, setLoading] = useState(true);
   const cache = useQueryCache();
   const contracts = useContracts();
   const { data: account } = useAccount();
-  return useMemo(() => {
+  const queries = useMemo(() => {
     if (!contracts) {
       return undefined;
     }
+    setLoading(false);
     const CW20_TOKEN_INFO = (tokenAddr: string) => {
       const token = contracts.Cw20ContractFactory(tokenAddr).querier;
       return cache.getOrUpdate(
@@ -65,9 +67,17 @@ export const useQueries = () => {
     };
     const SWAP_POOL_INFO = async (poolAddress: string): Promise<PoolInfo> => {
       const pool = contracts.PoolContractFactory(poolAddress).querier;
-      return cache.getOrUpdate(`/pool/${poolAddress}/info`, () => pool.info());
+      return cache.getOrUpdate(`/pool/${poolAddress}/info`, () => pool.info(), {
+        cacheTime: 60 * 1000,
+      });
     };
-    const SWAP_POOL_LIST = async () => contracts.poolFactory.querier.getPools();
+    const SWAP_POOL_LIST = async () => cache.getOrUpdate(
+      "/pools",
+      () => contracts.poolFactory.querier.getPools(),
+      {
+        cacheTime: 1 * 60 * 1000,
+      },
+    );
     const CW20_USER_BALANCE = async (
       tokenAddr: string,
       userAddress: string | undefined = account?.bech32Address,
@@ -113,6 +123,26 @@ export const useQueries = () => {
       }
       return CW20_USER_TOKEN_DETAILS(denom.cw20);
     };
+
+    const POOL_TOKEN1_FOR_TOKEN2_PRICE = async (poolAddress: string, token1Amount: string) => {
+      const pool = contracts.PoolContractFactory(poolAddress).querier;
+      return cache.getOrUpdate(
+        `/pool/${poolAddress}/token1ForToken2Price`,
+        async () => (await pool.token1ForToken2Price({
+          token1Amount,
+        }).catch((e) => {
+          if (typeof e !== "undefined" && (e as Error).toString().includes("No liquidity")) {
+            return {
+              token2_amount: "0",
+            };
+          }
+          throw e;
+        })).token2_amount,
+        {
+          cacheTime: 1000,
+        },
+      );
+    };
     return {
       CW20_TOKEN_INFO,
       CW20_TOKEN_DETAILS,
@@ -122,6 +152,11 @@ export const useQueries = () => {
       SWAP_POOL_LIST,
       CW20_USER_TOKEN_DETAILS,
       USER_TOKEN_DETAILS,
+      POOL_TOKEN1_FOR_TOKEN2_PRICE,
     };
-  }, [contracts, cache]);
+  }, [account, contracts, cache]);
+  return {
+    queries,
+    loading,
+  };
 };
