@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import styles from "./CreatePoolForm.module.css";
 import UpDoAr from "../../../assets/UpDoAr.svg";
-import SelectCustom from "../../SelectCustom/SelectCustom";
+import SelectCustom, { SelectCustomProps } from "../../SelectCustom/SelectCustom";
 import NewButton from "../../newButton/newButton";
 import { AppStateContext } from "../../../context/AppStateContext";
 
@@ -19,12 +19,12 @@ const CreatePoolForm = ({ onSubmit }: Props) => {
     label: value.slice(0, 10),
   }));
 
-  const handleSelectToken = ({ value }: any) => {
-    setToken(value);
+  const handleSelectToken: SelectCustomProps["onChange"] = (option) => {
+    setToken(option?.value || "");
   };
 
-  const handleSelectSecond = ({ value }: any) => {
-    setSecondToken(value);
+  const handleSelectSecond: SelectCustomProps["onChange"] = (option) => {
+    setSecondToken(option?.value || "");
   };
 
   const handleSubmit = () => {
@@ -48,7 +48,7 @@ const CreatePoolForm = ({ onSubmit }: Props) => {
           <div className={styles.balance}>Balance: 0</div>
         </div>
         <div className={styles.center}>
-          <div className={styles.line}></div>
+          <div className={styles.line} />
           <div className={styles.circle}>
             <img className={styles.iconSwap} src={UpDoAr} alt="" />
           </div>
@@ -69,9 +69,9 @@ const CreatePoolForm = ({ onSubmit }: Props) => {
         <div className={styles.stringSelect}>
           <div className={styles.fee}>Select Liquidity Provider Fee:</div>
           <div className={styles.percent}>
-            <button className={styles.percent_1}>0.05%</button>
-            <button className={styles.percent_2}>0.5%</button>
-            <button className={styles.percent_1}>1%</button>
+            <button type="button" className={styles.percent_1}>0.05%</button>
+            <button type="button" className={styles.percent_2}>0.5%</button>
+            <button type="button" className={styles.percent_1}>1%</button>
           </div>
         </div>
         <NewButton onClick={handleSubmit} size="hg">

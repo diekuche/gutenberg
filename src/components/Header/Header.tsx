@@ -1,10 +1,12 @@
-import styles from "./Header.module.css";
 import { NavLink } from "react-router-dom";
+import {
+  useSuggestChainAndConnect, useActiveChain, mainnetChains, GrazChain,
+} from "graz";
+import styles from "./Header.module.css";
 import Wallet from "../Wallet/Wallet";
 import icon from "../../assets/icon_wallet.svg";
-import SelectCustom from "../SelectCustom/SelectCustom";
+import SelectCustom, { SelectCustomProps } from "../SelectCustom/SelectCustom";
 import { CustomChains } from "../../utils/config";
-import { mainnetChains, useSuggestChainAndConnect, useActiveChain } from "graz";
 import ChainUX from "../SelectCustom/Chain/ChainUX";
 
 const options = [
@@ -13,20 +15,25 @@ const options = [
     label: <ChainUX chainName="Bostrom" />,
   },
   {
-    value: mainnetChains.juno,
-    label: <ChainUX chainName="Juno" />,
+    value: CustomChains.junotest,
+    label: <ChainUX chainName="Junotest" />,
   },
 ];
 
 const Header = () => {
   const { suggestAndConnect } = useSuggestChainAndConnect();
   const activeChain = useActiveChain();
-  const defaultValue =
-    options.find((option) => option.value.chainId === activeChain?.chainId) ||
-    options[0];
+  const defaultValue = options.find((option) => option.value.chainId === activeChain?.chainId)
+    || options[0];
 
-  const handleSelect = ({ value }: any) => {
-    suggestAndConnect({ chainInfo: value });
+  const handleSelect: SelectCustomProps<GrazChain>["onChange"] = (option) => {
+    const chainInfo = option?.value as any;
+    if (!chainInfo) {
+      return;
+    }
+    suggestAndConnect({
+      chainInfo,
+    });
   };
 
   return (
@@ -41,9 +48,7 @@ const Header = () => {
           <div>
             <NavLink
               to="/swap"
-              className={(link) =>
-                link.isActive ? styles.active : styles.link
-              }
+              className={(link) => (link.isActive ? styles.active : styles.link)}
             >
               Swap
             </NavLink>
@@ -51,9 +56,7 @@ const Header = () => {
           <div>
             <NavLink
               to="/pools"
-              className={(link) =>
-                link.isActive ? styles.active : styles.link
-              }
+              className={(link) => (link.isActive ? styles.active : styles.link)}
             >
               Pools
             </NavLink>
@@ -61,30 +64,26 @@ const Header = () => {
           <div>
             <NavLink
               to="/create"
-              className={(link) =>
-                link.isActive ? styles.active : styles.link
-              }
+              className={(link) => (link.isActive ? styles.active : styles.link)}
             >
               Create Token
             </NavLink>
           </div>
         </div>
         <div className={styles.myWallet}>
-          <img src={icon} alt=""></img>
+          <img src={icon} alt="" />
           <NavLink
             to="/my-wallet"
-            className={(myWalletText) =>
-              myWalletText.isActive
-                ? styles.activemyWalletText
-                : styles.myWalletText
-            }
+            className={(myWalletText) => (myWalletText.isActive
+              ? styles.activemyWalletText
+              : styles.myWalletText)}
           >
             My Wallet
           </NavLink>
         </div>
         <div className={styles.rightButton}>
           <div className={styles.chainButton}>
-            <SelectCustom
+            <SelectCustom<GrazChain>
               options={options}
               heightControl={42}
               fontSizePlaceholder={16}

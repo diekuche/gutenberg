@@ -1,10 +1,12 @@
 import React from "react";
-import styles from "./SelectCustom.module.css";
-import AsyncSelect from "react-select";
-import { Props } from "react-select";
+import AsyncSelect, { Props } from "react-select";
 import classNames from "classnames";
+import styles from "./SelectCustom.module.css";
 
-interface SelectCustomProps extends Props {
+export interface SelectCustomProps<VALUE=string> extends Props<{
+  label: unknown;
+  value: VALUE;
+}, false> {
   heightControl?: number;
   fontSizePlaceholder?: number;
   minHeight?: number;
@@ -14,7 +16,7 @@ interface SelectCustomProps extends Props {
   rightMenu?: number;
 }
 
-const SelectCustom = (props: SelectCustomProps) => {
+const SelectCustom = <VALUE=string>(props: SelectCustomProps<VALUE>) => {
   const {
     options,
     placeholder,
@@ -27,7 +29,6 @@ const SelectCustom = (props: SelectCustomProps) => {
     rightMenu = -35,
     ...rest
   } = props;
-
   return (
     <AsyncSelect
       placeholder={placeholder}
@@ -44,7 +45,7 @@ const SelectCustom = (props: SelectCustomProps) => {
           width: "100%",
           boxShadow: "none",
         }),
-        placeholder: (baseStyles, state) => ({
+        placeholder: () => ({
           fontSize: `${fontSizePlaceholder}px`,
           color: "#F6F8FE",
         }),
@@ -60,7 +61,7 @@ const SelectCustom = (props: SelectCustomProps) => {
           ...baseStyles,
           position: "absolute",
         }),
-        menu: (baseStyles, state) => ({
+        menu: (baseStyles) => ({
           ...baseStyles,
           position: "absolute",
           zIndex: 16,
@@ -75,7 +76,7 @@ const SelectCustom = (props: SelectCustomProps) => {
           boxShadow: "none",
           padding: `${paddingMenu}px`,
         }),
-        menuList: (baseStyles, state) => ({
+        menuList: (baseStyles) => ({
           ...baseStyles,
           maxHeight: "320px",
           overflowX: "hidden",
@@ -93,6 +94,7 @@ const SelectCustom = (props: SelectCustomProps) => {
         }),
         option: (provided, state) => ({
           ...provided,
+          // eslint-disable-next-line no-nested-ternary
           background: state.isSelected
             ? "rgba(67, 151, 178, 0.1)"
             : state.isFocused
@@ -103,14 +105,14 @@ const SelectCustom = (props: SelectCustomProps) => {
           marginBottom: "4px",
           padding: "12px",
         }),
-        singleValue: (provided, state) => ({
+        singleValue: (provided) => ({
           ...provided,
           color: "#F6F8FE",
           margin: "0px",
           padding: "0px",
           zIndex: 15,
         }),
-        valueContainer: (provided, state) => ({
+        valueContainer: (provided) => ({
           ...provided,
           display: "flex",
           padding: "0px",

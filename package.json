@@ -33,10 +33,11 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "start": "DISABLE_ESLINT_PLUGIN=true react-app-rewired start",
+    "build": "DISABLE_ESLINT_PLUGIN=true react-app-rewired build",
     "test": "react-app-rewired testing",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate:contracts": "cosmwasm-ts-codegen generate --plugin client --schema ./schemas/swap_pool_factory/schema --out ./src/ts --name SwapPoolFactory --no-bundle && cosmwasm-ts-codegen generate --plugin client --schema ./schemas/swap_pool/schema --out ./src/ts --name SwapPool --no-bundle && cosmwasm-ts-codegen generate --plugin client --schema ./schemas/cw20/schema --out ./src/ts --name Cw20 --no-bundle"
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +59,11 @@
   },
   "devDependencies": {
     "@keplr-wallet/types": "^0.10.24",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@typescript-eslint/parser": "^5.60.0",
+    "eslint": "^8.43.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "node-stdlib-browser": "^1.2.0",
     "react-app-rewired": "^2.2.1",
     "react-scripts": "^5.0.1"

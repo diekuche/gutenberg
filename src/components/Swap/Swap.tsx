@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./Swap.module.css";
 import UpDoAr from "../../assets/UpDoAr.svg";
 import NewBT from "../newButton/newButton";
@@ -9,7 +10,6 @@ import mew_icon from "../../assets/mew_logo.svg";
 import shit_icon from "../../assets/shit_logo.svg";
 import ps_icon from "../../assets/ps_logo.svg";
 import boot_icon from "../../assets/boot_logo.svg";
-import { Link } from "react-router-dom";
 import Search from "../SelectCustom/Search/Search";
 
 const options = [
@@ -57,47 +57,47 @@ const options = [
   },
 ];
 
-const Swap = () => {
-  return (
-    <div className={styles.common}>
-      <div className={styles.swap}>
-        <div className={styles.InputBlock}>
-          <div className={styles.currencyInput}>0</div>
-          <div className={styles.selectWrapper}>
-            <SelectCustom options={options} placeholder="Select Token" />
-          </div>
+const Swap = () => (
+  <div className={styles.common}>
+    <div className={styles.swap}>
+      <div className={styles.InputBlock}>
+        <div className={styles.currencyInput}>0</div>
+        <div className={styles.selectWrapper}>
+          <SelectCustom options={options} placeholder="Select Token" />
         </div>
-        <div className={styles.balanceBlock}>
-          <div className={styles.balance}>Balance: 0</div>
-        </div>
-        <div className={styles.center}>
-          <div className={styles.line}></div>
-          <div className={styles.circle}>
-            <img className={styles.iconSwap} src={UpDoAr} alt="" />
-          </div>
-        </div>
-        <div className={styles.OutputBlock}>
-          <div className={styles.currencyOutput}>0</div>
-          <div className={styles.selectWrapper}>
-            <SelectCustom options={options} placeholder="Select Token" />
-          </div>
-        </div>
-        <div className={styles.balanceBlock}>
-          <div className={styles.balance}>Balance: 0</div>
-        </div>
-        <div className={styles.stringSwapFee}>
-          <div className={styles.fee}>Swap fee</div>
-          <div className={styles.fee}>0.00%</div>
-        </div>
-        <div></div>
       </div>
-      <NewBT size="hg">swap!</NewBT>
-      <div className={styles.textToPools}>
-        <Link to="/pools">Provide liquidity</Link> to he market and receive swap
-        fees each trade.
+      <div className={styles.balanceBlock}>
+        <div className={styles.balance}>Balance: 0</div>
       </div>
+      <div className={styles.center}>
+        <div className={styles.line} />
+        <div className={styles.circle}>
+          <img className={styles.iconSwap} src={UpDoAr} alt="" />
+        </div>
+      </div>
+      <div className={styles.OutputBlock}>
+        <div className={styles.currencyOutput}>0</div>
+        <div className={styles.selectWrapper}>
+          <SelectCustom options={options} placeholder="Select Token" />
+        </div>
+      </div>
+      <div className={styles.balanceBlock}>
+        <div className={styles.balance}>Balance: 0</div>
+      </div>
+      <div className={styles.stringSwapFee}>
+        <div className={styles.fee}>Swap fee</div>
+        <div className={styles.fee}>0.00%</div>
+      </div>
+      <div />
     </div>
-  );
-};
+    <NewBT size="hg">swap!</NewBT>
+    <div className={styles.textToPools}>
+      <Link to="/pools">Provide liquidity</Link>
+      {" "}
+      to he market and receive swap
+      fees each trade.
+    </div>
+  </div>
+);
 
 export default Swap;
