@@ -14,11 +14,11 @@ import WelcomePage from "./components/WelcomePage/WelcomePage";
 import Swap from "./components/Swap/Swap";
 import MyWallet from "./components/MyWalletPage/MyWallet";
 import License from "./components/LicensePage/LicensePage";
-import { CustomChains } from "./utils/config";
 import Pools from "./components/Pools/Pools";
 import { loadFromStorage } from "./utils/storage";
 import { QueryCacheContext } from "./hooks/useQueryCache";
 import { QueryCache } from "./utils/QueryCache";
+import { Chains } from "./config/chains";
 
 const TokensStorageKey = "userTokens";
 const PoolsStorageKey = "pools";
@@ -95,7 +95,7 @@ function App() {
     <QueryCacheContext.Provider value={queryCache}>
       <GrazProvider
         grazOptions={{
-          defaultChain: CustomChains["uni-6"],
+          defaultChain: Chains.bostrom,
         }}
       >
         <div className="App">

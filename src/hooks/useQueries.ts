@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useAccount } from "graz";
 import { useContracts } from "./useContracts";
 import { Denom } from "../ts/SwapPoolFactory.types";
 import { useQueryCache } from "./useQueryCache";
@@ -157,7 +156,6 @@ export const POOL_TOKEN1_FOR_TOKEN2_PRICE = (poolAddress: string, token1Amount: 
 export const useQueries = () => {
   const cache = useQueryCache();
   const contracts = useContracts();
-  const { data: account } = useAccount();
   return useMemo(() => {
     if (!contracts) {
       return undefined;
@@ -172,7 +170,7 @@ export const useQueries = () => {
         contracts,
       }, options),
     };
-  }, [account, contracts, cache]);
+  }, [contracts, cache]);
 };
 
 export type Queries = NonNullable<ReturnType<typeof useQueries>>;

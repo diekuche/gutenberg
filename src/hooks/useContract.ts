@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CosmWasmClient, SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
 import { useContractFactory } from "./useContractFactory";
+import { WalletContext } from "./useWalletContext";
 
 export const useContract = <Q, E>(
   ContractClassQuery: new (
@@ -16,7 +17,7 @@ export const useContract = <Q, E>(
 ) => {
   const factory = useContractFactory(ContractClassQuery, ContractClassExecute);
   const [clients, setClients] = useState<{
-    executor: E,
+    createExecutor:(context: WalletContext) => E,
     querier: Q,
   } | undefined>();
   useEffect(() => {

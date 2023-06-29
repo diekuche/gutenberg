@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useAccount } from "graz";
 import styles from "./Pools.module.css";
 
 import { useFee } from "../../utils/useFee";
@@ -23,11 +22,12 @@ import {
 import { AppStateContext, AppStatePool } from "../../context/AppStateContext";
 import { useAddLiquidity } from "../../hooks/useAddLiquidity";
 import { useContractConfig } from "../../hooks/useContractConfig";
+import { useWalletContext } from "../../hooks/useWalletContext";
 
 const Pools = () => {
   const [isDepositOpen, setIsDepositOpen] = useState(false);
   const queries = useQueries();
-  const { data: account } = useAccount();
+  const walletContext = useWalletContext();
   const { addLiquidity } = useAddLiquidity();
   const { userTokens, pools: savedPools, setPools: setSavedPools } = useContext(AppStateContext);
   const [tokens, setTokens] = useState<UserTokenDetails[]>([]);
@@ -102,18 +102,18 @@ const Pools = () => {
     } catch (e) {
       console.log("Error when load info for page Pools");
       console.log(e);
-      toast.error("Data fetching error, page will reload after 5 seconds");
-      setTimeout(() => window.location.reload(), 5000);
+      toast.error("Data fetching error, page will reload after 25 seconds");
+      setTimeout(() => window.location.reload(), 25000);
     }
   };
   useEffect(() => {
-    if (!factory || !queries) {
+    if (!queries) {
       return;
     }
-    updateData(queries, account?.bech32Address);
-  }, [factory, queries, account]);
+    updateData(queries, walletContext?.account?.bech32Address);
+  }, [queries, walletContext]);
 
-  if (loading || !factory || !queries || !addLiquidity) {
+  if (loading || !queries) {
     return <p>Loading...</p>;
   }
 
@@ -134,6 +134,10 @@ const Pools = () => {
   };
   const onPoolUpdated = () => {};
   const onPoolDeposit = async () => {
+    if (!walletContext || !factory || !addLiquidity) {
+      toast.error("Please, connect wallet");
+      return;
+    }
     if (!token1 || !token2) {
       toast.error("Tokens are required");
       return;
@@ -145,7 +149,8 @@ const Pools = () => {
         token1Denom: token1.denom,
         token2Denom: token2.denom,
       }, fee);
-      const CreatePoolResponse = await factory.executor.createPool({
+      const factoryExecutor = factory.createExecutor(walletContext);
+      const CreatePoolResponse = await factoryExecutor.createPool({
         lpFeePercent: lpFee.toString(),
         token1Denom: token1.denom,
         token2Denom: token2.denom,

@@ -6,18 +6,22 @@ import styles from "./Header.module.css";
 import Wallet from "../Wallet/Wallet";
 import icon from "../../assets/icon_wallet.svg";
 import SelectCustom, { SelectCustomProps } from "../SelectCustom/SelectCustom";
-import { CustomChains } from "../../utils/config";
 import ChainUX from "../SelectCustom/Chain/ChainUX";
 import { useChain } from "../../hooks/useChain";
+import { Chains } from "../../config/chains";
 
 const options = [
   {
-    value: CustomChains.bostrom,
+    value: Chains.bostrom,
     label: <ChainUX chainName="Bostrom" />,
   },
   {
-    value: CustomChains.junotest,
+    value: Chains["uni-6"],
     label: <ChainUX chainName="Junotest" />,
+  },
+  {
+    value: Chains["juno-1"],
+    label: <ChainUX chainName="Juno" />,
   },
 ];
 
