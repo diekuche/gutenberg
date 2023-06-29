@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useAccount } from "graz";
+import { connect, useAccount } from "graz";
+import { ThreeCircles } from "react-loader-spinner";
 import { Tabs, Tab } from "./TabD/TabD";
 import styles from "./Deposit.module.css";
 import Withdraw from "./Withdraw/Withdraw";
@@ -10,6 +11,7 @@ import { AppStatePool } from "../../context/AppStateContext";
 import {
   SWAP_POOL_INFO, USER_TOKEN_DETAILS, UserTokenDetails, useQueries,
 } from "../../hooks/useQueries";
+import { useChain } from "../../hooks/useChain";
 
 export type DepositProps = {
   pool: AppStatePool;
@@ -21,6 +23,7 @@ const Deposit = ({
   pool,
 }: DepositProps) => {
   const { data: account } = useAccount();
+  const chain = useChain();
   const queries = useQueries();
   const [depositData, setDepositData] = useState<{
     token1: UserTokenDetails;
@@ -38,7 +41,11 @@ const Deposit = ({
   const [selectedTabId, setSelectedTabId] = useState(tabs[0].id);
 
   useEffect(() => {
-    if (!queries || !account) {
+    if (!account) {
+      connect(chain);
+      return;
+    }
+    if (!queries) {
       return;
     }
     const fetch = async () => {
@@ -59,7 +66,16 @@ const Deposit = ({
   }, [account, queries]);
 
   if (!depositData) {
-    return <p>Loading...</p>;
+    return (
+      <div style={{ padding: "30px" }}>
+        <ThreeCircles
+          height="100"
+          width="100"
+          color="#4fa94d"
+          visible
+        />
+      </div>
+    );
   }
   return (
     <div>

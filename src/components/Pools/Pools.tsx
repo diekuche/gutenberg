@@ -44,7 +44,6 @@ const Pools = () => {
   const fee = useFee();
   const updateData = async (q: Queries, userAddress?: string) => {
     try {
-      setLoading(true);
       const { query } = q;
       const { pools: poolList } = await query(SWAP_POOL_LIST(
         contractConfig.factoryAddress,
