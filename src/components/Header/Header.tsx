@@ -1,14 +1,16 @@
 import { NavLink } from "react-router-dom";
 import {
-  useSuggestChainAndConnect, GrazChain,
+  useSuggestChainAndConnect,
 } from "graz";
+import { useContext } from "react";
 import styles from "./Header.module.css";
 import Wallet from "../Wallet/Wallet";
 import icon from "../../assets/icon_wallet.svg";
 import SelectCustom, { SelectCustomProps } from "../SelectCustom/SelectCustom";
 import ChainUX from "../SelectCustom/Chain/ChainUX";
 import { useChain } from "../../hooks/useChain";
-import { Chains } from "../../config/chains";
+import { ChainConfig, Chains } from "../../config/chains";
+import { AppStateContext } from "../../context/AppStateContext";
 
 const options = [
   {
@@ -28,17 +30,18 @@ const options = [
 const Header = () => {
   const { suggestAndConnect } = useSuggestChainAndConnect();
   const { chainId } = useChain();
+  const { setChainId } = useContext(AppStateContext);
   const defaultValue = options.find((option) => option.value.chainId === chainId)
     || options[0];
 
-  const handleSelect: SelectCustomProps<GrazChain>["onChange"] = (option) => {
+  const handleSelect: SelectCustomProps<ChainConfig>["onChange"] = (option) => {
     const chainInfo = option?.value;
     if (!chainInfo) {
       return;
     }
+    setChainId(chainInfo.chainId);
     suggestAndConnect({
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      chainInfo: chainInfo as any,
+      chainInfo,
     });
   };
 
@@ -89,7 +92,7 @@ const Header = () => {
         </div>
         <div className={styles.rightButton}>
           <div className={styles.chainButton}>
-            <SelectCustom<GrazChain>
+            <SelectCustom<ChainConfig>
               options={options}
               heightControl={42}
               fontSizePlaceholder={16}

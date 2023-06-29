@@ -18,10 +18,9 @@ import Pools from "./components/Pools/Pools";
 import { loadFromStorage } from "./utils/storage";
 import { QueryCacheContext } from "./hooks/useQueryCache";
 import { QueryCache } from "./utils/QueryCache";
-import { Chains } from "./config/chains";
+import { ChainId, Chains } from "./config/chains";
 
 const TokensStorageKey = "userTokens";
-const PoolsStorageKey = "pools";
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Window extends KeplrWindow {}
@@ -31,6 +30,7 @@ type SavedTokens = Record<string, AppState["userTokens"]>;
 const queryCache = new QueryCache({});
 
 function App() {
+  const [chainId, setChainId] = useState<ChainId>("bostrom");
   const [address, setAddress] = useState("");
   const { data: account } = useAccount();
   const [userTokens, setUserTokens] = useState<SavedTokens>(
@@ -38,17 +38,9 @@ function App() {
   );
   const currentTokens = account ? userTokens[account.bech32Address] : [];
 
-  const [pools, setPools] = useState<AppState["pools"]>(
-    () => loadFromStorage<AppState["pools"]>(PoolsStorageKey, []),
-  );
-
   useEffect(() => {
     localStorage.setItem(TokensStorageKey, JSON.stringify(userTokens));
   }, [userTokens]);
-
-  useEffect(() => {
-    localStorage.setItem(PoolsStorageKey, JSON.stringify(pools));
-  }, [pools]);
 
   const addUserToken = (contractAddress: string) => {
     if (!account) {
@@ -75,18 +67,18 @@ function App() {
   };
 
   const appState = useMemo(() => ({
+    chainId,
+    setChainId,
     userTokens: currentTokens,
     addUserToken,
     removeUserToken,
     address,
     setAddress,
-    pools,
-    setPools,
   }), [
+    chainId,
+    setChainId,
     address,
     setAddress,
-    pools,
-    setPools,
     addUserToken,
     currentTokens,
     removeUserToken]);

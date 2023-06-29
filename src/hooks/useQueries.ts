@@ -51,7 +51,7 @@ export const CW20_TOKEN_LOGO = (tokenAddr: string) => ({
 });
 
 export const CW20_TOKEN_DETAILS = (tokenAddr: string) => ({
-  queryKey: `/v0.1/token/${tokenAddr}/details`,
+  queryKey: `/v0.1/cw20/${tokenAddr}/details`,
   queryFn: async (context: QueryContext): Promise<TokenDetails> => {
     const { cache } = context;
     const info = await cache.getOrUpdate(CW20_TOKEN_INFO(tokenAddr), context);
@@ -74,6 +74,18 @@ export const CW20_TOKEN_DETAILS = (tokenAddr: string) => ({
   },
 });
 
+export const TOKEN_DETAILS = (denom: Denom) => {
+  if ("native" in denom) {
+    throw new Error("Native token still not implemented");
+  }
+  return {
+    queryKey: `/v0.1/cw20/${denom.cw20}/details`,
+    queryFn: (context: QueryContext) => CW20_TOKEN_DETAILS(
+      denom.cw20,
+    ).queryFn(context),
+  };
+};
+
 export const SWAP_POOL_INFO = (poolAddress: string) => ({
   queryKey: `/pool/${poolAddress}/info`,
   queryFn: ({ contracts }: QueryContext) => {
@@ -83,9 +95,11 @@ export const SWAP_POOL_INFO = (poolAddress: string) => ({
   cacheTime: 60 * 1000,
 });
 
-export const SWAP_POOL_LIST = () => ({
-  queryKey: "/pools",
-  queryFn: ({ contracts }: QueryContext) => contracts.poolFactory.querier.getPools(),
+export const SWAP_POOL_LIST = (factoryAddr: string) => ({
+  queryKey: `/v0.1/factory/${factoryAddr}/pools`,
+  queryFn: ({ contracts }: QueryContext) => contracts.PoolFactoryContractFactory(
+    factoryAddr,
+  ).querier.getPools(),
   cacheTime: 1 * 60 * 1000,
 });
 
@@ -123,13 +137,13 @@ export const USER_TOKEN_DETAILS = (denom: Denom, userAddress: string) => {
     throw new Error("Native token still not implemented");
   }
   return {
-    queryKey: `/v0.1/user/${userAddress}/token/${denom.cw20}/details`,
+    queryKey: `/v0.1/user/${userAddress}/cw20/${denom.cw20}/details`,
     queryFn: (
       context: QueryContext,
-    ): Promise<UserTokenDetails> => context.cache.getOrUpdate(CW20_USER_TOKEN_DETAILS(
+    ): Promise<UserTokenDetails> => CW20_USER_TOKEN_DETAILS(
       denom.cw20,
       userAddress,
-    ), context),
+    ).queryFn(context),
     cacheTime: 1,
   };
 };

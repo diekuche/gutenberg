@@ -5,6 +5,7 @@ import {
 } from "react";
 import { SingleValueProps } from "react-select";
 import { toast } from "react-toastify";
+import { connect, useAccount } from "graz";
 import styles from "./CreatePoolForm.module.css";
 import UpDoAr from "../../../assets/UpDoAr.svg";
 import SelectCustom, { SelectCustomProps } from "../../SelectCustom/SelectCustom";
@@ -55,6 +56,7 @@ const CreatePoolForm = ({
   setLpFee,
 }: CreatePoolFormProps) => {
   const chain = useChain();
+  const { isConnected, isConnecting } = useAccount();
   const options = useMemo(() => tokens.map((token) => ({
     value: token,
     label: <TokenUI
@@ -79,6 +81,10 @@ const CreatePoolForm = ({
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    if (!isConnected) {
+      connect(chain);
+      return;
+    }
     if (!token1 || !token2) {
       toast.warning("Please, select tokens");
       return;
@@ -183,11 +189,14 @@ const CreatePoolForm = ({
         </div>
         <NewButton
           type="submit"
-          disabled={!token1 || !token2 || !token1Amount || !token2Amount}
+          disabled={
+            !isConnected ? isConnecting : (!token1 || !token2 || !token1Amount || !token2Amount)
+}
           size="hg"
         >
-          {!token1 || !token2 ? "select tokens"
-            : (!token1Amount || !token2Amount ? "enter amount" : "create pool")}
+          {!isConnected ? "connect wallet"
+            : (!token1 || !token2 ? "select tokens"
+              : (!token1Amount || !token2Amount ? "enter amount" : "create pool"))}
 
         </NewButton>
       </form>

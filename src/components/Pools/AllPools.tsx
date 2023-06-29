@@ -113,6 +113,7 @@ const AllPools = ({
               ))}
           </tbody>
         </table>
+        {pagesCount > 0 && (
         <div className={styles.page}>
           <button
             type="button"
@@ -138,6 +139,7 @@ const AllPools = ({
             <img src={rightarrow} alt="" />
           </button>
         </div>
+        )}
       </div>
       <Modal open={modal} onClose={toggleModal}>
         {poolForDeposit && (

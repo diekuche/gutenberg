@@ -1,21 +1,21 @@
 /* eslint-disable no-restricted-syntax */
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { Triangle } from "react-loader-spinner";
 import styles from "./Pools.module.css";
 
 import { useFee } from "../../utils/useFee";
 import AllPools from "./AllPools";
-import { useSwapPoolFactory } from "../../hooks/useSwapPoolFactory";
 import CreatePoolForm from "../CreatePool/CreatePoolForm/CreatePoolForm";
 import Modal from "../Modal/Modal";
 import { Denom } from "../../ts/SwapPoolFactory.types";
 import { compareDenoms, isCw20 } from "../../utils/tokens";
 import ConfirmSupply from "../CreatePool/ConfirmSupply/ConfirmSupply";
 import {
-  CW20_TOKEN_DETAILS,
   Queries,
   SWAP_POOL_INFO,
   SWAP_POOL_LIST,
+  TOKEN_DETAILS,
   USER_TOKEN_DETAILS,
   UserTokenDetails, useQueries,
 } from "../../hooks/useQueries";
@@ -25,11 +25,11 @@ import { useContractConfig } from "../../hooks/useContractConfig";
 import { useWalletContext } from "../../hooks/useWalletContext";
 
 const Pools = () => {
+  const { userTokens } = useContext(AppStateContext);
   const [isDepositOpen, setIsDepositOpen] = useState(false);
   const queries = useQueries();
   const walletContext = useWalletContext();
   const { addLiquidity } = useAddLiquidity();
-  const { userTokens, pools: savedPools, setPools: setSavedPools } = useContext(AppStateContext);
   const [tokens, setTokens] = useState<UserTokenDetails[]>([]);
   const [pools, setPools] = useState<AppStatePool[]>([]);
   const [loading, setLoading] = useState(true);
@@ -41,28 +41,21 @@ const Pools = () => {
   const [lpFee, setLpFee] = useState(0.9);
   const [processing, setProcessing] = useState(false);
   const contractConfig = useContractConfig();
-  const factory = useSwapPoolFactory();
   const fee = useFee();
   const updateData = async (q: Queries, userAddress?: string) => {
     try {
       setLoading(true);
       const { query } = q;
-      const { pools: poolList } = await query(SWAP_POOL_LIST());
-      const updatedPools = await Promise.all(
-        poolList.filter(
-          (p) => !savedPools.find((p2) => p2.address === p),
-        ).map(async (poolAddress, index) => {
+      const { pools: poolList } = await query(SWAP_POOL_LIST(
+        contractConfig.factoryAddress,
+      ));
+      const newPools = await Promise.all(
+        poolList.map(async (poolAddress, index) => {
           const poolInfo = await query(SWAP_POOL_INFO(poolAddress));
           const token1Denom = (poolInfo.token1_denom as unknown as Denom);
           const token2Denom = (poolInfo.token2_denom as unknown as Denom);
-          if ("native" in token1Denom || "native" in token2Denom) {
-            throw new Error("Unsupported native token");
-          }
-
-          const token1Addr = token1Denom.cw20;
-          const token2Addr = token2Denom.cw20;
-          const token1Details = await query(CW20_TOKEN_DETAILS(token1Addr));
-          const token2Details = await query(CW20_TOKEN_DETAILS(token2Addr));
+          const token1Details = await query(TOKEN_DETAILS(token1Denom));
+          const token2Details = await query(TOKEN_DETAILS(token2Denom));
 
           return {
             address: poolAddress,
@@ -76,7 +69,6 @@ const Pools = () => {
           };
         }),
       );
-      const newPools = [...savedPools, ...updatedPools];
       if (userAddress) {
         const poolTokens = newPools.reduce((result, pool) => {
           if (isCw20(pool.denom1)) {
@@ -96,7 +88,6 @@ const Pools = () => {
           ),
         );
       }
-      setSavedPools(newPools);
       setPools(newPools);
       setLoading(false);
     } catch (e) {
@@ -111,10 +102,29 @@ const Pools = () => {
       return;
     }
     updateData(queries, walletContext?.account?.bech32Address);
-  }, [queries, walletContext]);
+  }, [contractConfig, queries, walletContext]);
 
   if (loading || !queries) {
-    return <p>Loading...</p>;
+    return (
+      <div style={{
+        width: "100%",
+        height: "100%",
+        position: "absolute",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+      >
+        <Triangle
+          height="80"
+          width="80"
+          color="#E2FB5F"
+          ariaLabel="triangle-loading"
+          wrapperStyle={{}}
+          visible
+        />
+      </div>
+    );
   }
 
   const onNewPoolSubmit = async () => {
@@ -134,7 +144,7 @@ const Pools = () => {
   };
   const onPoolUpdated = () => {};
   const onPoolDeposit = async () => {
-    if (!walletContext || !factory || !addLiquidity) {
+    if (!walletContext || !addLiquidity) {
       toast.error("Please, connect wallet");
       return;
     }
@@ -149,7 +159,9 @@ const Pools = () => {
         token1Denom: token1.denom,
         token2Denom: token2.denom,
       }, fee);
-      const factoryExecutor = factory.createExecutor(walletContext);
+      const factoryExecutor = walletContext.contracts.PoolFactoryContractFactory(
+        contractConfig.factoryAddress,
+      ).createExecutor(walletContext);
       const CreatePoolResponse = await factoryExecutor.createPool({
         lpFeePercent: lpFee.toString(),
         token1Denom: token1.denom,

@@ -36,7 +36,7 @@ const CYBER = {
 
 export type ChainId = "juno-1" | "uni-6" | "bostrom";
 
-type ChainConfig = Omit<ChainInfo, "chainId"> & {
+export type ChainConfig = Omit<ChainInfo, "chainId"> & {
   chainId: ChainId
 };
 

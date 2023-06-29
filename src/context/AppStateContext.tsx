@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react";
 import { Denom } from "../ts/SwapPoolFactory.types";
+import { ChainId } from "../config/chains";
 
 export type AppStatePool = {
   index: number;
@@ -11,23 +12,23 @@ export type AppStatePool = {
 };
 
 export interface AppState {
+  chainId: ChainId,
+  setChainId: (chainId: ChainId) => void,
   address: string;
   userTokens: string[];
   addUserToken: (address: string) => void;
   removeUserToken: (address: string) => void;
   setAddress: (address: string) => void;
-  pools: AppStatePool[];
-  setPools: (pools: AppStatePool[]) => void;
 }
 
 export const AppStateContext = createContext<AppState>({
+  chainId: "bostrom",
+  setChainId: () => {},
   address: "",
   userTokens: [],
   addUserToken: () => {},
   removeUserToken: () => {},
   setAddress: () => {},
-  pools: [],
-  setPools: () => {},
 });
 
 export function useAppState() {
