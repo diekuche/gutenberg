@@ -17,10 +17,10 @@ const options = [
     value: Chains.bostrom,
     label: <ChainUX chainName="Bostrom" />,
   },
-  {
-    value: Chains["uni-6"],
-    label: <ChainUX chainName="Junotest" />,
-  },
+  // {
+  //   value: Chains["uni-6"],
+  //   label: <ChainUX chainName="Junotest" />,
+  // },
   {
     value: Chains["juno-1"],
     label: <ChainUX chainName="Juno" />,
