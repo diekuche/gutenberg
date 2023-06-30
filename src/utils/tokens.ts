@@ -1,3 +1,4 @@
+import { BigNumber } from "bignumber.js";
 import { Denom } from "../ts/SwapPoolFactory.types";
 
 export const compareDenoms = (denom1: Denom, denom2: Denom) => {
@@ -11,21 +12,14 @@ export const compareDenoms = (denom1: Denom, denom2: Denom) => {
   }
   return false;
 };
-
-const countDecimals = (value: number) => {
-  if (Math.floor(value.valueOf()) === value.valueOf()) return 0;
-  return value.toString().split(".")[1].length || 0;
-};
-
 export const tokenAmountToFloat = (
   amount: string | number,
   decimal: number,
 ) => {
-  const value = (Number(amount) / (10 ** decimal));
-
-  return value.toFixed(
-    Math.min(countDecimals(value), decimal),
-  );
+  const value = BigNumber(amount).dividedBy(BigNumber(10 ** decimal));
+  return parseFloat(value.toFixed(
+    decimal,
+  )).toString();
 };
 
 export const tokenFloatToAmount = (
