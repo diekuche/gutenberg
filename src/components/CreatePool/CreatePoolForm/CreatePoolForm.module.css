@@ -9,13 +9,6 @@
   display: flex;
   width: 470px;
   flex-direction: column;
-  background: rgba(124, 196, 219, 0.05);
-  border-color: rgba(115, 237, 201, 0.1);
-  border-width: 1px 1px 0px 1px;
-  border-style: solid;
-  border-radius: 16px 16px 0px 0px;
-  backdrop-filter: blur(10px);
-  margin-top: 150px;
 }
 
 .InputBlock {
@@ -34,6 +27,13 @@
   font-size: 36px;
   color: #f6f8fe;
   padding: 42px 0px 0px 50px;
+  display: flex;
+  background: rgba(6, 15, 25, 0.95);
+  border: none;
+  min-width: 215px;
+  max-width: 215px;
+  font-family: "Bai Jamjuree", sans-serif;
+  overflow: hidden;
 }
 
 .currencyOutput {
@@ -54,6 +54,12 @@
   font-size: 14px;
   color: rgba(246, 248, 254, 0.4);
   padding: 0px 0px 24px 50px;
+}
+
+.selectValue {
+  font-weight: 300;
+  font-size: 36px;
+  color: #f6f8fe;
 }
 
 .selectWrapper {
@@ -85,6 +91,7 @@
 
 .line {
   border-top: 1px solid rgba(115, 237, 201, 0.1);
+  z-index: 1;
 }
 
 .iconSwap {
@@ -100,13 +107,16 @@
   font-size: 16px;
   justify-content: space-between;
   padding: 12px 50px 12px 50px;
+  margin-bottom: 20px;
 }
+
 .percent {
   display: flex;
   justify-content: center;
+  gap: 13px;
 }
-.percent_1,
-.percent_2 {
+
+.percent_1 {
   font-family: "Bai Jamjuree";
   width: 100px;
   margin-top: 15px;
@@ -120,26 +130,25 @@
   text-align: center;
   border: none;
 }
-.percent_2 {
-  margin-left: 13px;
-  margin-right: 13px;
-}
+
 .fee {
   color: #f6f8fe;
   font-weight: normal;
   font-size: 16px;
   line-height: 20px;
 }
-.percent_1:hover,
-.percent_2:hover {
+
+.percent_1:hover {
   background: #e2fb5f;
   color: #060f19;
 }
+
 .percent_1:focus,
-.percent_2:focus {
+.percent_1__active {
   background: #e2fb5f;
   color: #060f19;
 }
+
 .textToPools {
   color: #f6f8fe;
   font-size: 16px;

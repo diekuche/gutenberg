@@ -1,5 +1,14 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback, useContext, useEffect, useState,
+} from "react";
 import { Coin, coins } from "@cosmjs/stargate";
+import {
+  useAccount,
+  useClients,
+  useSendTokens,
+  validateAddress,
+} from "graz";
+import { toast } from "react-toastify";
 import styles from "./MyWallet.module.css";
 import circle from "../../assets/circle.svg";
 import swapMA from "../../assets/swapMA.svg";
@@ -9,18 +18,10 @@ import icon_burn from "../../assets/icon_burn.svg";
 import Button from "../Button/Button";
 import MyInvestment from "../Pools/MyInvestment/MyInvestment";
 import MyPools from "../Pools/MyPools/MyPools";
-import {
-  useAccount,
-  useActiveChain,
-  useClients,
-  useSendTokens,
-  validateAddress,
-} from "graz";
 import { AppStateContext } from "../../context/AppStateContext";
 import Token from "./Token/Token";
-import { toast } from "react-toastify";
 import { useFee } from "../../utils/useFee";
-import { getPrefix } from "../ManageAssets/ManageAssets";
+import { useChain } from "../../hooks/useChain";
 
 const sendBalance = {
   recepient: "",
@@ -33,18 +34,29 @@ const ManageAssets = () => {
   const [token, setToken] = useState(false);
   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
   const { data: account } = useAccount();
-  const activeChain = useActiveChain();
   const { data } = useClients();
   const client = data?.stargate;
   const [currentBalance, setCurrentBalance] = useState<Coin | null>(null);
-  const { userTokens, removeUserToken, addUserToken } =
-    useContext(AppStateContext);
+  const { userTokens, removeUserToken, addUserToken } = useContext(AppStateContext);
   const fee = useFee();
+
+  const chain = useChain();
+
+  const fetchBalance = useCallback(async () => {
+    if (account?.bech32Address) {
+      const balances = await client?.getAllBalances(account.bech32Address);
+      if (balances?.[0]) {
+        setCurrentBalance(balances[0]);
+      }
+    }
+  }, [client, account]);
+
   const { sendTokens } = useSendTokens({
-    onError: (error: any) => {
-      toast(error, {
+    onError: (error) => {
+      toast(String(error), {
         type: "error",
       });
+      console.log("Error when send tokens");
       console.log("error", error);
     },
     onSuccess: (result) => {
@@ -60,48 +72,39 @@ const ManageAssets = () => {
     },
   });
 
-  const fetchBalance = useCallback(async () => {
-    if (account?.bech32Address) {
-      const balances = await client?.getAllBalances(account.bech32Address);
-      if (balances?.[0]) {
-        setCurrentBalance(balances[0]);
-      }
-    }
-  }, [client, account]);
-
   useEffect(() => {
     fetchBalance();
   }, [fetchBalance]);
 
   const handleSendTokens = () => {
     const { recepient, amount } = balance;
-    if (recepient !== "" && amount !== "") {
+    if (recepient !== "" && amount !== "" && currentBalance) {
       sendTokens({
         recipientAddress: recepient,
-        amount: coins(amount, currentBalance!.denom),
+        amount: coins(amount, currentBalance.denom),
         fee,
       });
     }
   };
 
-  const handleSendChange =
-    (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setBalance({
-        ...balance,
-        [name]: event.target.value,
-      });
-    };
+  const handleSendChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBalance({
+      ...balance,
+      [name]: event.target.value,
+    });
+  };
 
-  function addContract() {
+  const addContract = () => {
     if (userTokens.includes(newTokenAddress)) {
       setNewTokenAddress("");
-      return toast("Token already exist", {
+      toast("Token already exist", {
         type: "error",
         autoClose: 2000,
       });
+      return;
     }
 
-    if (validateAddress(newTokenAddress, getPrefix(activeChain!.chainId))) {
+    if (validateAddress(newTokenAddress, chain.bech32Config.bech32PrefixAccAddr)) {
       addUserToken(newTokenAddress);
       setNewTokenAddress("");
     } else {
@@ -110,7 +113,7 @@ const ManageAssets = () => {
         autoClose: 2000,
       });
     }
-  }
+  };
 
   return (
     <div className={styles.main}>
@@ -123,7 +126,7 @@ const ManageAssets = () => {
               <tr className={styles.theadMA}>
                 <th className={styles.thLeft}>Tokens</th>
                 <th className={styles.thLeft}>Balance</th>
-                <th className={styles.thLeft}></th>
+                <th className={styles.thLeft} aria-label="divider" />
                 <th className={styles.thwidth}>Send</th>
                 <th className={styles.thwidth}>Swap</th>
                 <th className={styles.thwidth}>Mint</th>
@@ -141,7 +144,7 @@ const ManageAssets = () => {
                 <td className={styles.balance}>
                   {Number(currentBalance?.amount).toLocaleString()}
                 </td>
-                <td></td>
+                <td />
                 <td className={styles.thwidth}>
                   <div className={styles.send} onClick={() => setOpen(!open)}>
                     <img src={icon_send} alt="" />

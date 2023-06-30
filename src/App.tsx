@@ -1,110 +1,126 @@
 import "./App.css";
-import { useEffect, useState } from "react";
-import { AppStateContext } from "././context/AppStateContext";
+import { useEffect, useMemo, useState } from "react";
 import { Window as KeplrWindow } from "@keplr-wallet/types";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { GrazProvider, useAccount } from "graz";
+import { AppState, AppStateContext } from "./context/AppStateContext";
 import CreatePage from "./components/CreatePage/CreatePage";
 import Footer from "./components/Footer/Footer";
 import LegalPage from "./components/LegalPage/LegalPage";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header/Header";
 import WelcomePage from "./components/WelcomePage/WelcomePage";
 import Swap from "./components/Swap/Swap";
 import MyWallet from "./components/MyWalletPage/MyWallet";
 import License from "./components/LicensePage/LicensePage";
-import { GrazProvider } from "graz";
-import { CustomChains } from "../src/utils/config";
 import Pools from "./components/Pools/Pools";
-
-import CreatePool from "./components/CreatePool/CreatePool/CreatePool";
-import { useAccount } from "graz";
+import { loadFromStorage } from "./utils/storage";
+import { QueryCacheContext } from "./hooks/useQueryCache";
+import { QueryCache } from "./utils/QueryCache";
+import { ChainId, Chains } from "./config/chains";
 
 const TokensStorageKey = "userTokens";
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Window extends KeplrWindow {}
 }
 
+type SavedTokens = Record<string, AppState["userTokens"]>;
+const queryCache = new QueryCache({});
+
 function App() {
+  const [chainId, setChainId] = useState<ChainId>("bostrom");
   const [address, setAddress] = useState("");
   const { data: account } = useAccount();
-  const [userTokens, setUserTokens] = useState<any>(() => {
-    const saved = localStorage.getItem(TokensStorageKey) as string;
-    if (saved) {
-      try {
-        const initialValue = JSON.parse(saved);
-        return initialValue || {};
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    return [];
-  });
-  const currentTokens = userTokens[account?.bech32Address!] || [];
+  const [savedTokens, setSavedTokens] = useState<SavedTokens>(
+    () => loadFromStorage<SavedTokens>(TokensStorageKey, {}),
+  );
+  const userTokens = account ? (savedTokens[account.bech32Address] || []) : [];
 
   useEffect(() => {
-    localStorage.setItem(TokensStorageKey, JSON.stringify(userTokens));
-  }, [userTokens]);
+    localStorage.setItem(TokensStorageKey, JSON.stringify(savedTokens));
+  }, [savedTokens]);
 
   const addUserToken = (contractAddress: string) => {
-    setUserTokens({
-      ...userTokens,
-      [account?.bech32Address!]: [...currentTokens, contractAddress],
+    if (!account) {
+      toast.error("Please, connect the wallet");
+      return;
+    }
+    setSavedTokens({
+      ...savedTokens,
+      [account.bech32Address]: [...userTokens, contractAddress],
     });
   };
 
   const removeUserToken = (contractAddress: string) => {
-    setUserTokens({
-      ...userTokens,
-      [account?.bech32Address!]: currentTokens.filter(
-        (address: any) => address !== contractAddress
+    if (!account) {
+      toast.error("Please, connect the wallet");
+      return;
+    }
+    setSavedTokens({
+      ...savedTokens,
+      [account.bech32Address]: userTokens.filter(
+        (tokenAddress) => tokenAddress !== contractAddress,
       ),
     });
   };
 
+  const appState: AppState = useMemo(() => ({
+    chainId,
+    setChainId,
+    userTokens,
+    addUserToken,
+    removeUserToken,
+    address,
+    setAddress,
+  }), [
+    chainId,
+    setChainId,
+    address,
+    setAddress,
+    addUserToken,
+    userTokens,
+    removeUserToken]);
+
   return (
-    <GrazProvider
-      grazOptions={{
-        defaultChain: CustomChains.bostrom,
-      }}
-    >
-      <div className="App">
-        <div className="container">
-          <AppStateContext.Provider
-            value={{
-              userTokens: currentTokens,
-              addUserToken,
-              removeUserToken,
-              address,
-              setAddress,
-            }}
-          >
-            <Router>
-              <Header />
-              <Routes>
-                <Route path="/" element={<WelcomePage />}></Route>
-                <Route path="/legalinfo" element={<LegalPage />}></Route>
-                <Route path="/license" element={<License />}></Route>
-                <Route path="/create" element={<CreatePage />}></Route>
-                <Route path="/swap" element={<Swap />}></Route>
-                <Route path="/my-wallet" element={<MyWallet />}></Route>
-                <Route path="/pools" element={<Pools />}></Route>
+    <QueryCacheContext.Provider value={queryCache}>
+      <GrazProvider
+        grazOptions={{
+          defaultChain: Chains.bostrom,
+        }}
+      >
+        <div className="App">
+          <div className="container">
 
-                <Route path="/createPool" element={<CreatePool />}></Route>
-              </Routes>
-              <Footer />
-            </Router>
+            <AppStateContext.Provider
+              value={appState}
+            >
+              <Router>
+                <Header />
+                <Routes>
+                  <Route path="/" element={<WelcomePage />} />
+                  <Route path="/legalinfo" element={<LegalPage />} />
+                  <Route path="/license" element={<License />} />
+                  <Route path="/create" element={<CreatePage />} />
+                  <Route path="/swap" element={<Swap />} />
+                  <Route path="/my-wallet" element={<MyWallet />} />
+                  <Route path="/pools" element={<Pools />} />
+                </Routes>
+                <Footer />
+              </Router>
 
-            <ToastContainer
-              bodyClassName="font-link"
-              style={{ marginTop: 50 }}
-              theme="dark"
-              autoClose={false}
-            />
-          </AppStateContext.Provider>
+              <ToastContainer
+                bodyClassName="font-link"
+                style={{ marginTop: 50 }}
+                theme="dark"
+                autoClose={false}
+              />
+            </AppStateContext.Provider>
+          </div>
         </div>
-      </div>
-    </GrazProvider>
+      </GrazProvider>
+    </QueryCacheContext.Provider>
   );
 }
 

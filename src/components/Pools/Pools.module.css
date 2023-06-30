@@ -38,6 +38,10 @@
   justify-content: center;
 }
 
+.buttonCreate:disabled {
+  background: #8e8e8e;
+}
+
 .buttonCreate:hover {
   font-weight: 500;
   box-shadow: none;

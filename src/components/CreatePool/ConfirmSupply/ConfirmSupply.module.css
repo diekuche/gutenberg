@@ -1,16 +1,5 @@
-.cross {
-  display: flex;
-  margin-left: auto;
-  padding-top: 18px;
-  padding-right: 22px;
-}
-
 .confirm {
-  background: rgba(6, 15, 25, 0.95);
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
   width: 470px;
-  margin-top: 149px;
 }
 .name {
   color: #e2fb5f;

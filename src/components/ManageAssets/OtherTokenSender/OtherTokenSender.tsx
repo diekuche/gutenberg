@@ -36,6 +36,11 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
   const { data: marketingInfo } = useQuerySmart<any, any>(contractAddress, {
     marketing_info: {},
   });
+  // const { data: test } = useQuerySmart<any, any>(contractAddress, {
+  //   get_config: {},
+  // });
+  // console.log("test", test);
+
   const logoId = marketingInfo?.logo?.url?.match(/d\/(.+)\//)?.[1];
   const logoUrl = logoId && `https://drive.google.com/uc?id=${logoId}`;
   const fee = useFee();

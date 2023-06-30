@@ -1,10 +1,11 @@
 import styles from "./Form.module.css";
+import { GasPrice, calculateFee } from "@cosmjs/stargate";
 import React, { FormEvent, useContext, useState } from "react";
 import Button from "../../Button/Button";
 import Collapsible from "../Collapsible/Collapsible";
 import Input from "../Input/Input";
 import { v4 as uuidv4 } from "uuid";
-import { useAccount, useConnect, useInstantiateContract } from "graz";
+import { useAccount, useActiveChain, useConnect, useInstantiateContract } from "graz";
 import { useFee } from "../../../utils/useFee";
 import { toast } from "react-toastify";
 import { AppStateContext } from "../../../context/AppStateContext";
@@ -21,10 +22,12 @@ export const Form = () => {
   ]);
   const [description, setDescription] = useState("");
   const { connect } = useConnect();
+  const activeChain = useActiveChain();
   const { data: account, isConnected } = useAccount();
   const { addUserToken } = useContext(AppStateContext);
+  const codeId = activeChain?.chainId==='uni-6' ? 2571 : 1;
   const { instantiateContract } = useInstantiateContract({
-    codeId: 1,
+    codeId,
     onError: (error: any) => {
       console.log("error", error);
       toast(error, {
@@ -39,7 +42,7 @@ export const Form = () => {
       addUserToken(data.contractAddress);
     },
   });
-  const fee = useFee();
+  // const fee = useFee();
 
   const address = account?.bech32Address;
 
@@ -69,7 +72,10 @@ export const Form = () => {
       name: token.value,
       symbol: symbol.value,
       decimals: parseInt(decimals.value, 10),
-      initial_balances: [initialBalance, ...balances.slice(1)],
+      initial_balances: [initialBalance, ...balances.slice(1)].map((value)=>({
+        ...value, 
+        id: undefined,
+      })),
       mint: {
         minter: address,
         cap: quantity.value,
@@ -83,8 +89,15 @@ export const Form = () => {
         },
       },
     };
-
-    instantiateContract({
+    const gasPrice = GasPrice.fromString(`0.001ujunox`);
+const fee = calculateFee(600000, activeChain?.chainId==='uni-6' ? gasPrice :  GasPrice.fromString('0boot'))
+ 
+console.log(`msg`, {
+  msg,
+  label: token.value,
+  fee,
+},  `activeChain`, activeChain)
+   instantiateContract({
       msg,
       label: token.value,
       fee,

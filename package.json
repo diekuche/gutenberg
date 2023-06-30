@@ -13,16 +13,19 @@
     "@types/react": "^18.0.38",
     "@types/react-dom": "^18.0.0",
     "@types/uuid": "^8.3.4",
+    "bignumber.js": "^9.1.1",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
     "classnames": "^2.3.2",
     "cosmjs-types": "^0.5.1",
     "crypto-browserify": "^3.12.0",
     "graz": "^0.0.34",
+    "idb-keyval": "^6.2.1",
     "path-browserify": "^1.0.1",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.4.2",
     "react-select": "^5.7.0",
     "react-toastify": "^9.1.1",
@@ -33,10 +36,11 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "start": "DISABLE_ESLINT_PLUGIN=true react-app-rewired start",
+    "build": "DISABLE_ESLINT_PLUGIN=true react-app-rewired build",
     "test": "react-app-rewired testing",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate:contracts": "cosmwasm-ts-codegen generate --plugin client --schema ./schemas/swap_pool_factory/schema --out ./src/ts --name SwapPoolFactory --no-bundle && cosmwasm-ts-codegen generate --plugin client --schema ./schemas/swap_pool/schema --out ./src/ts --name SwapPool --no-bundle && cosmwasm-ts-codegen generate --plugin client --schema ./schemas/cw20/schema --out ./src/ts --name Cw20 --no-bundle"
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +62,11 @@
   },
   "devDependencies": {
     "@keplr-wallet/types": "^0.10.24",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@typescript-eslint/parser": "^5.60.0",
+    "eslint": "^8.43.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "node-stdlib-browser": "^1.2.0",
     "react-app-rewired": "^2.2.1",
     "react-scripts": "^5.0.1"
