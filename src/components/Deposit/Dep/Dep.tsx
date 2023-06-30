@@ -43,17 +43,25 @@ const Dep = ({
   const r2 = Number(reserve2);
   const onToken1AmountChange = (value: string) => {
     if (r1 && r2) {
-      const amount = (Number(value) * r2) / r1 + 1;
-      const token2Value = Math.ceil((amount + amount * SLIPPAGE));
-      setToken2Amount(token2Value.toString());
+      if (Number(value) === 0) {
+        setToken2Amount("0");
+      } else {
+        const amount = (Number(value) * r2) / r1 + 1;
+        const token2Value = Math.ceil((amount + amount * SLIPPAGE));
+        setToken2Amount(token2Value.toString());
+      }
     }
     setToken1Amount(value);
   };
   const onToken2AmountChange = (value: string) => {
     if (r1 && r2) {
-      const amount = (Number(value) * r1) / r2 + 1;
-      const token1Value = Math.ceil((amount + amount * SLIPPAGE));
-      setToken1Amount(token1Value.toString());
+      if (Number(value) === 0) {
+        setToken1Amount("0");
+      } else {
+        const amount = (Number(value) * r1) / r2 + 1;
+        const token1Value = Math.ceil((amount + amount * SLIPPAGE));
+        setToken1Amount(token1Value.toString());
+      }
     }
     setToken2Amount(value);
   };
@@ -116,7 +124,7 @@ const Dep = ({
           <div className={styles.balance}>
             Balance:
             {" "}
-            {formatBalance(tokenAmountToFloat(token1.balance, token1.decimals), ".")}
+            {formatBalance(tokenAmountToFloat(token1.balance, token1.decimals), token1.decimals, ".")}
           </div>
         </div>
       </div>
@@ -134,7 +142,7 @@ const Dep = ({
             <div
               className={styles.level}
               onClick={
-                () => onToken2AmountChange(tokenAmountToFloat(token2.balance, token2.decimals))
+                () => onToken2AmountChange(token2.balance)
 }
             >
               max
@@ -150,7 +158,7 @@ const Dep = ({
           <div className={styles.balance}>
             Balance:
             {" "}
-            {formatBalance(tokenAmountToFloat(token2.balance, token2.decimals), ".")}
+            {formatBalance(tokenAmountToFloat(token2.balance, token2.decimals), token2.decimals, ".")}
           </div>
         </div>
       </div>

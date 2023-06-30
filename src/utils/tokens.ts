@@ -16,10 +16,8 @@ export const tokenAmountToFloat = (
   amount: string | number,
   decimal: number,
 ) => {
-  const value = BigNumber(amount).dividedBy(BigNumber(10 ** decimal));
-  return parseFloat(value.toFixed(
-    decimal,
-  )).toString();
+  const value = BigNumber(amount).dividedBy(BigNumber(10 ** decimal)).dp(decimal);
+  return value.toFixed();
 };
 
 export const tokenFloatToAmount = (

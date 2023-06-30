@@ -43,7 +43,7 @@ const ConfirmSupply = ({
           <div className={styles.test}>
             <div className={styles.nameToken}>{token1.symbol}</div>
             <div className={styles.priceToken}>
-              {formatBalance(tokenAmountToFloat(token1Amount, token1.decimals))}
+              {formatBalance(tokenAmountToFloat(token1Amount, token1.decimals), token1.decimals)}
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@ const ConfirmSupply = ({
           <div className={styles.test}>
             <div className={styles.nameToken}>{token2.symbol}</div>
             <div className={styles.priceToken}>
-              {formatBalance(tokenAmountToFloat(token2Amount, token2.decimals))}
+              {formatBalance(tokenAmountToFloat(token2Amount, token2.decimals), token2.decimals)}
 
             </div>
           </div>

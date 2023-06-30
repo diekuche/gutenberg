@@ -30,6 +30,7 @@
   display: flex;
   background: rgba(6, 15, 25, 0.95);
   border: none;
+  min-width: 215px;
   max-width: 215px;
   font-family: "Bai Jamjuree", sans-serif;
   overflow: hidden;

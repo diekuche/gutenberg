@@ -62,7 +62,7 @@ const CreatePoolForm = ({
     label: <TokenUI
       name={token.symbol}
       chainName={chain.chainId}
-      balance={formatBalance(tokenAmountToFloat(token.balance, token.decimals))}
+      balance={formatBalance(tokenAmountToFloat(token.balance, token.decimals), token.decimals)}
       icon={token.logo || ""}
     />,
   })), [tokens]);
