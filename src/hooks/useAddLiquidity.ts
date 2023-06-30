@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import { useMemo } from "react";
-import { isCw20, tokenFloatToAmount } from "../utils/tokens";
+import { isCw20 } from "../utils/tokens";
 import { useFee } from "../utils/useFee";
 import { useContracts } from "./useContracts";
 import { TokenDetails } from "./useQueries";
@@ -22,8 +22,8 @@ export const useAddLiquidity = () => {
       token2: TokenDetails,
       token2Amount: string,
     ) => {
-      const token1RealAmount = tokenFloatToAmount(token1Amount, token1.decimals).toString();
-      const token2RealAmount = tokenFloatToAmount(token2Amount, token1.decimals).toString();
+      const token1RealAmount = token1Amount;
+      const token2RealAmount = token2Amount;
       const { account } = walletContext;
       if (isCw20(token1.denom)) {
         const token1Cw = contracts.Cw20ContractFactory(token1.denom.cw20);
@@ -69,7 +69,9 @@ export const useAddLiquidity = () => {
         poolAddress,
       ).createExecutor(walletContext);
       console.log(`Adding liquidity to pool ${poolAddress}`);
-      console.log(`Token1 amount: ${token1Amount}, max token2: ${token2RealAmount}`);
+      console.log(`Token1: ${token1.symbol} (${token1.decimals})`);
+      console.log(`Token2: ${token2.symbol} (${token2.decimals})`);
+      console.log(`Token1 amount: ${token1RealAmount}, max token2: ${token2RealAmount}`);
       return poolFactoryExecutor.addLiquidity({
         token1Amount: token1RealAmount,
         maxToken2: token2RealAmount,
