@@ -204,6 +204,9 @@ const Pools = () => {
         token2,
         token2Amount,
       );
+      toast.success("Liquidity was added");
+      await updateData(queries, walletContext.account.bech32Address);
+
       setIsDepositOpen(false);
       setIsNewPoolOpen(false);
       setToken1(null);

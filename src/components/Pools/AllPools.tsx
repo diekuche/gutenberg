@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useState,
 } from "react";
 import styles from "./Pools.module.css";
@@ -40,6 +41,9 @@ const AllPools = ({
   const toggleModal = () => {
     setModal(!modal);
   };
+  useEffect(() => {
+    setPage(1);
+  }, [filter]);
 
   const onPoolDeposit = (pool: AppStatePool) => {
     setPoolForDeposit(pool);
