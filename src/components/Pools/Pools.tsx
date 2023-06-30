@@ -70,10 +70,10 @@ const Pools = () => {
       );
       if (userAddress) {
         const poolTokens = newPools.reduce((result, pool) => {
-          if (isCw20(pool.denom1)) {
+          if (isCw20(pool.denom1) && !result.includes(pool.denom1.cw20)) {
             result.push(pool.denom1.cw20);
           }
-          if (isCw20(pool.denom2)) {
+          if (isCw20(pool.denom2) && !result.includes(pool.denom2.cw20)) {
             result.push(pool.denom2.cw20);
           }
           return result;
@@ -136,6 +136,21 @@ const Pools = () => {
       toast.error("Error: Tokens are equal", {
         autoClose: 5000,
       });
+      return;
+    }
+    if (pools.find((pool) => (
+      (
+        compareDenoms(pool.denom1, token1.denom)
+      && compareDenoms(pool.denom2, token2.denom)
+      )
+    || (
+      compareDenoms(pool.denom1, token2.denom)
+      && compareDenoms(pool.denom2, token1.denom)
+    )))) {
+      toast.warn("Pool already exists, you can add liquidity", {
+        autoClose: 5000,
+      });
+      setIsNewPoolOpen(false);
       return;
     }
     setIsNewPoolOpen(false);

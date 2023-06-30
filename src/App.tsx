@@ -2,7 +2,7 @@ import "./App.css";
 import { useEffect, useMemo, useState } from "react";
 import { Window as KeplrWindow } from "@keplr-wallet/types";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { GrazProvider, useAccount } from "graz";
 import { AppState, AppStateContext } from "./context/AppStateContext";
 import CreatePage from "./components/CreatePage/CreatePage";
@@ -33,43 +33,43 @@ function App() {
   const [chainId, setChainId] = useState<ChainId>("bostrom");
   const [address, setAddress] = useState("");
   const { data: account } = useAccount();
-  const [userTokens, setUserTokens] = useState<SavedTokens>(
+  const [savedTokens, setSavedTokens] = useState<SavedTokens>(
     () => loadFromStorage<SavedTokens>(TokensStorageKey, {}),
   );
-  const currentTokens = account ? userTokens[account.bech32Address] : [];
+  const userTokens = account ? (savedTokens[account.bech32Address] || []) : [];
 
   useEffect(() => {
-    localStorage.setItem(TokensStorageKey, JSON.stringify(userTokens));
-  }, [userTokens]);
+    localStorage.setItem(TokensStorageKey, JSON.stringify(savedTokens));
+  }, [savedTokens]);
 
   const addUserToken = (contractAddress: string) => {
     if (!account) {
-      alert("Not connected");
+      toast.error("Please, connect the wallet");
       return;
     }
-    setUserTokens({
-      ...userTokens,
-      [account.bech32Address]: [...currentTokens, contractAddress],
+    setSavedTokens({
+      ...savedTokens,
+      [account.bech32Address]: [...userTokens, contractAddress],
     });
   };
 
   const removeUserToken = (contractAddress: string) => {
     if (!account) {
-      alert("Not connected");
+      toast.error("Please, connect the wallet");
       return;
     }
-    setUserTokens({
-      ...userTokens,
-      [account.bech32Address]: currentTokens.filter(
+    setSavedTokens({
+      ...savedTokens,
+      [account.bech32Address]: userTokens.filter(
         (tokenAddress) => tokenAddress !== contractAddress,
       ),
     });
   };
 
-  const appState = useMemo(() => ({
+  const appState: AppState = useMemo(() => ({
     chainId,
     setChainId,
-    userTokens: currentTokens,
+    userTokens,
     addUserToken,
     removeUserToken,
     address,
@@ -80,7 +80,7 @@ function App() {
     address,
     setAddress,
     addUserToken,
-    currentTokens,
+    userTokens,
     removeUserToken]);
 
   return (

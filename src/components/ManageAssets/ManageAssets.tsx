@@ -1,50 +1,39 @@
-import React, { useContext } from "react";
+import React, { ChangeEventHandler, useContext, useState } from "react";
+import { useAccount, validateAddress } from "graz";
+import { toast } from "react-toastify";
 import styles from "./ManageAssets.module.css";
 import Button from "../Button/Button";
-import Token from "./OtherTokenSender/OtherTokenSender";
-import { useState } from "react";
+import OtherTokenSender from "./OtherTokenSender/OtherTokenSender";
 import TokenSender from "./NativeTokenSender/NativeTokenSender";
-import { useAccount, useActiveChain, validateAddress } from "graz";
-import { toast } from "react-toastify";
 import { AppStateContext } from "../../context/AppStateContext";
-
-export const getPrefix = (chainId: string) => {
-  switch (chainId) {
-    case "juno-1": {
-      return "juno";
-    }
-    default: {
-      return chainId;
-    }
-  }
-};
+import { useChain } from "../../hooks/useChain";
 
 function ManageTokens() {
   const [contract, setContract] = useState("");
   const [isVisible, setVisible] = useState(false);
+  const chain = useChain();
   const { isConnected } = useAccount();
-  const activeChain = useActiveChain();
   const [open, setOpen] = useState(false);
-  const { addUserToken, userTokens, removeUserToken } =
-    useContext(AppStateContext);
+  const { addUserToken, userTokens, removeUserToken } = useContext(AppStateContext);
 
-  function handleChangeContractAddress(event: any) {
+  const handleChangeContractAddress: ChangeEventHandler<HTMLInputElement> = (event) => {
     const response = event.target.value;
-    if (response !== undefined) {
+    if (response) {
       setContract(response);
     }
-  }
+  };
 
   function addContract() {
     if (userTokens.includes(contract)) {
       setContract("");
-      return toast("Token already exist", {
+      toast("Token already exist", {
         type: "error",
         autoClose: 2000,
       });
+      return;
     }
 
-    if (validateAddress(contract, getPrefix(activeChain!.chainId))) {
+    if (validateAddress(contract, chain.bech32Config.bech32PrefixAccAddr)) {
       addUserToken(contract);
       setContract("");
     } else {
@@ -70,7 +59,7 @@ function ManageTokens() {
           <TokenSender />
           <div className={styles.tokenList}>
             {userTokens.map((contractAddress) => (
-              <Token
+              <OtherTokenSender
                 contractAddress={contractAddress}
                 removeContract={removeUserToken}
                 key={contractAddress}
@@ -95,7 +84,7 @@ function ManageTokens() {
                 <Button
                   color="green"
                   type="button"
-                  onClick={addContract}
+                  onClick={() => addContract()}
                   className={styles.addTokenButton}
                 >
                   Add Token
@@ -107,7 +96,11 @@ function ManageTokens() {
         </div>
       ) : (
         <div className={styles.info2}>
-          Please connect your wallet <br></br> to view your active positions.
+          Please connect your wallet
+          {" "}
+          <br />
+          {" "}
+          to view your active positions.
         </div>
       )}
     </div>

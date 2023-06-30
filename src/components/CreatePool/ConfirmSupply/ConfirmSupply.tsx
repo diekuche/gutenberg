@@ -62,7 +62,11 @@ const ConfirmSupply = ({
 
           <div className={styles.priceSummary}>
             {
-              (calcTokenExchangePrice(token1Amount, token2Amount, fee + 0.1)
+              (calcTokenExchangePrice(
+                tokenAmountToFloat(token1Amount, token1.decimals),
+                tokenAmountToFloat(token2Amount, token2.decimals),
+                fee + 0.1,
+              )
               / Number(tokenAmountToFloat(token2Amount, token2.decimals))
               ).toFixed(token2.decimals)
           }
