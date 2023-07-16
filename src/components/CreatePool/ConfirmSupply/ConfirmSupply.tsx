@@ -1,9 +1,8 @@
-import React from "react";
+import NewButton from "ui/NewButton";
+import { TokenDetails } from "hooks/useQueries";
+import { formatBalance } from "utils/balance";
+import { calcTokenExchangePrice, tokenAmountToFloat } from "utils/tokens";
 import styles from "./ConfirmSupply.module.css";
-import NewButton from "../../newButton/newButton";
-import { TokenDetails } from "../../../hooks/useQueries";
-import { formatBalance } from "../../../utils/balance";
-import { calcTokenExchangePrice, tokenAmountToFloat } from "../../../utils/tokens";
 
 type Props = {
   token1: TokenDetails;

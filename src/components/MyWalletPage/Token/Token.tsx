@@ -1,14 +1,16 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from "react";
 import { useQuerySmart, useAccount, useExecuteContract } from "graz";
-import { useFee } from "../../../utils/useFee";
 import { toast } from "react-toastify";
+import Button from "ui/Button";
+import { useFee } from "../../../utils/useFee";
 import basket from "../../../assets/basket.svg";
 import icon_send from "../../../assets/icon_send.svg";
 import swapMAYellow from "../../../assets/SwapCircleYellow.svg";
 import icon_mint_yellow from "../../../assets/icon_mint_yellow.svg";
 import icon_burn_yellow from "../../../assets/icon_burn_yellow.svg";
 import styles from "./Token.module.css";
-import Button from "../../Button/Button";
+import { BalanceResponse, MarketingInfoResponse, TokenInfoResponse } from "../../../ts/Cw20.types";
 
 type Props = {
   contractAddress: string;
@@ -26,25 +28,25 @@ const Token = ({ contractAddress, removeContract }: Props) => {
   const [burnAmount, setBurnAmount] = useState("");
   const [currentAction, setCurrentAction] = useState("");
   const { data: account } = useAccount();
-  const { data: tokenBalance, refetch } = useQuerySmart<any, any>(
+  const { data: tokenBalance, refetch } = useQuerySmart<BalanceResponse, string>(
     contractAddress,
     {
       balance: { address: account?.bech32Address },
-    }
+    },
   );
-  const { data: tokenInfo } = useQuerySmart<any, any>(contractAddress, {
+  const { data: tokenInfo } = useQuerySmart<TokenInfoResponse, string>(contractAddress, {
     token_info: {},
   });
-  const { data: marketingInfo } = useQuerySmart<any, any>(contractAddress, {
+  const { data: marketingInfo } = useQuerySmart<MarketingInfoResponse, string>(contractAddress, {
     marketing_info: {},
   });
-  const logoId = marketingInfo?.logo?.url?.match(/d\/(.+)\//)?.[1];
+  const logoId = marketingInfo?.logo === "embedded" ? marketingInfo?.logo : marketingInfo?.logo?.url?.match(/d\/(.+)\//)?.[1];
   const logoUrl = logoId && `https://drive.google.com/uc?id=${logoId}`;
-  const { executeContract } = useExecuteContract<any>({
+  const { executeContract } = useExecuteContract({
     contractAddress,
-    onError: (error: any) => {
+    onError: (error) => {
       console.log("error", error);
-      toast(error, {
+      toast(`${error}`, {
         type: "error",
         autoClose: 2000,
       });
@@ -60,13 +62,12 @@ const Token = ({ contractAddress, removeContract }: Props) => {
   });
   const fee = useFee();
 
-  const handleSendChange =
-    (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setBalance({
-        ...balance,
-        [name]: event.target.value,
-      });
-    };
+  const handleSendChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBalance({
+      ...balance,
+      [name]: event.target.value,
+    });
+  };
 
   const handleSendTokens = () => {
     const { recipient, amount } = balance;

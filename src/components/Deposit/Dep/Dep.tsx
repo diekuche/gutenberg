@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAccount } from "graz";
 import { toast } from "react-toastify";
+import NewButton from "ui/NewButton";
+import InputTokenAmount from "ui/InputTokenAmount";
 import styles from "./Dep.module.css";
-import NewBT from "../../newButton/newButton";
 import { AppStatePool } from "../../../context/AppStateContext";
 import { UserTokenDetails } from "../../../hooks/useQueries";
 import { formatBalance } from "../../../utils/balance";
@@ -11,7 +12,6 @@ import {
 } from "../../../utils/tokens";
 import { useContracts } from "../../../hooks/useContracts";
 import { useAddLiquidity } from "../../../hooks/useAddLiquidity";
-import { InputTokenAmount } from "../../controls/InputTokenAmount";
 
 export type DepProps = {
   pool: AppStatePool;
@@ -163,14 +163,14 @@ const Dep = ({
         </div>
       </div>
 
-      <NewBT
+      <NewButton
         disabled={loading || processing}
         onClick={() => onDeposit()}
         size="hg"
       >
         {processing ? "processing" : "deposit"}
 
-      </NewBT>
+      </NewButton>
     </div>
   );
 };

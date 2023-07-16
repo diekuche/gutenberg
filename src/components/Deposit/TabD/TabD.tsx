@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./TabD.module.css";
 import classNames from "classnames";
+import styles from "./TabD.module.css";
 
 export interface Tab {
   id: string | number;
@@ -19,16 +19,15 @@ export const Tabs: React.FC<TabsProps> = ({
   selectedId,
   tabs,
   onClick,
-}) => {
-  return (
-    <div className={classNames(styles.tabs, className)}>
-      {tabs &&
-        tabs.map((tab) => (
+}) => (
+  <div className={classNames(styles.tabs, className)}>
+    {tabs
+        && tabs.map((tab) => (
           <div
             key={tab.id}
             onClick={() => {
               if (onClick) {
-                return onClick(tab.id);
+                onClick(tab.id);
               }
             }}
           >
@@ -42,8 +41,7 @@ export const Tabs: React.FC<TabsProps> = ({
             </div>
           </div>
         ))}
-    </div>
-  );
-};
+  </div>
+);
 
 export default Tabs;

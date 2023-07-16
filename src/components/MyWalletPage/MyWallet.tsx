@@ -6,22 +6,22 @@ import {
   useAccount,
   useClients,
   useSendTokens,
-  validateAddress,
 } from "graz";
 import { toast } from "react-toastify";
+import Button from "ui/Button";
 import styles from "./MyWallet.module.css";
 import circle from "../../assets/circle.svg";
 import swapMA from "../../assets/swapMA.svg";
 import icon_send from "../../assets/icon_send.svg";
 import icon_mint from "../../assets/icon_mint.svg";
 import icon_burn from "../../assets/icon_burn.svg";
-import Button from "../Button/Button";
 import MyInvestment from "../Pools/MyInvestment/MyInvestment";
 import MyPools from "../Pools/MyPools/MyPools";
 import { AppStateContext } from "../../context/AppStateContext";
 import Token from "./Token/Token";
 import { useFee } from "../../utils/useFee";
 import { useChain } from "../../hooks/useChain";
+import { validateAddress } from "../../utils/wallet";
 
 const sendBalance = {
   recepient: "",

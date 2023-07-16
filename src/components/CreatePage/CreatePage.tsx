@@ -1,10 +1,9 @@
 import React, { useState } from "react";
+import { Tabs, Tab } from "ui/CreatePage/Tabs";
+import NTT from "ui/CreatePage/NTT";
+import NFT from "ui/CreatePage/NFT";
 import styles from "./CreatePage.module.css";
 import ManageTokens from "../ManageAssets/ManageAssets";
-import NFT from "./NFT/NFT";
-import NTT from "./NTT/NTT";
-import { Tabs } from "./Tabs/Tabs";
-import { Tab } from "./Tabs/Tabs";
 import { Form } from "./Form/Form";
 
 export const MainPage: React.FC = () => {
@@ -26,8 +25,8 @@ export const MainPage: React.FC = () => {
         <div className={styles.tools}>
           <div className={styles.tabPageContent}>
             {selectedTabId === tabs[0].id && <Form />}
-            {selectedTabId === tabs[1].id && <NFT></NFT>}
-            {selectedTabId === tabs[2].id && <NTT></NTT>}
+            {selectedTabId === tabs[1].id && <NFT />}
+            {selectedTabId === tabs[2].id && <NTT />}
           </div>
           <ManageTokens />
         </div>

@@ -3,11 +3,11 @@ import {
   useSuggestChainAndConnect,
 } from "graz";
 import { useContext } from "react";
+import SelectCustom, { SelectCustomProps } from "ui/SelectCustom";
+import SelectChainLabel from "ui/SelectCustom/SelectChainLabel";
 import styles from "./Header.module.css";
 import Wallet from "../Wallet/Wallet";
 import icon from "../../assets/icon_wallet.svg";
-import SelectCustom, { SelectCustomProps } from "../SelectCustom/SelectCustom";
-import ChainUX from "../SelectCustom/Chain/ChainUX";
 import { useChain } from "../../hooks/useChain";
 import { ChainConfig, Chains } from "../../config/chains";
 import { AppStateContext } from "../../context/AppStateContext";
@@ -15,15 +15,15 @@ import { AppStateContext } from "../../context/AppStateContext";
 const options = [
   {
     value: Chains.bostrom,
-    label: <ChainUX chainName="Bostrom" />,
+    label: <SelectChainLabel chainName="Bostrom" />,
   },
   // {
   //   value: Chains["uni-6"],
-  //   label: <ChainUX chainName="Junotest" />,
+  //   label: <SelectChainLabel chainName="Junotest" />,
   // },
   {
     value: Chains["juno-1"],
-    label: <ChainUX chainName="Juno" />,
+    label: <SelectChainLabel chainName="Juno" />,
   },
 ];
 

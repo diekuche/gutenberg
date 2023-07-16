@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { connect, useAccount } from "graz";
 import { ThreeCircles } from "react-loader-spinner";
 import { Tabs, Tab } from "./TabD/TabD";
@@ -42,7 +42,7 @@ const Deposit = ({
 
   useEffect(() => {
     if (!account) {
-      connect(chain);
+      connect({ chain });
       return;
     }
     if (!queries) {

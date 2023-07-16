@@ -1,13 +1,14 @@
-import styles from "./Form.module.css";
 import { GasPrice, calculateFee } from "@cosmjs/stargate";
 import React, { FormEvent, useContext, useState } from "react";
-import Button from "../../Button/Button";
-import Collapsible from "../Collapsible/Collapsible";
-import Input from "../Input/Input";
 import { v4 as uuidv4 } from "uuid";
-import { useAccount, useActiveChain, useConnect, useInstantiateContract } from "graz";
-import { useFee } from "../../../utils/useFee";
+import {
+  useAccount, useActiveChain, useConnect, useInstantiateContract,
+} from "graz";
 import { toast } from "react-toastify";
+import Button from "ui/Button";
+import Input, { InputProps } from "ui/CreatePage/Input";
+import Collapsible from "ui/CreatePage/Collapsible";
+import styles from "./Form.module.css";
 import { AppStateContext } from "../../../context/AppStateContext";
 
 const defaultBalance = {
@@ -25,12 +26,12 @@ export const Form = () => {
   const activeChain = useActiveChain();
   const { data: account, isConnected } = useAccount();
   const { addUserToken } = useContext(AppStateContext);
-  const codeId = activeChain?.chainId==='uni-6' ? 2571 : 1;
+  const codeId = activeChain?.chainId === "uni-6" ? 2571 : 1;
   const { instantiateContract } = useInstantiateContract({
     codeId,
-    onError: (error: any) => {
+    onError: (error) => {
       console.log("error", error);
-      toast(error, {
+      toast(error as string, {
         type: "error",
       });
     },
@@ -50,21 +51,22 @@ export const Form = () => {
     event.preventDefault();
     const initialBalance = { ...balances[0] };
 
-    const { token, symbol, quantity, decimals, logo } =
-      event.target as typeof event.target & {
-        token: { value: string };
-        symbol: { value: string };
-        quantity: { value: string };
-        decimals: { value: string };
-        logo: { value: string };
-      };
+    const {
+      token, symbol, quantity, decimals, logo,
+    } = event.target as typeof event.target & {
+      token: { value: string };
+      symbol: { value: string };
+      quantity: { value: string };
+      decimals: { value: string };
+      logo: { value: string };
+    };
 
     if (!decimals.value) {
       decimals.value = "0";
     }
 
-    if (!initialBalance?.amount) {
-      initialBalance.address = address!;
+    if (!initialBalance?.amount && address) {
+      initialBalance.address = address;
       initialBalance.amount = quantity.value;
     }
 
@@ -72,8 +74,8 @@ export const Form = () => {
       name: token.value,
       symbol: symbol.value,
       decimals: parseInt(decimals.value, 10),
-      initial_balances: [initialBalance, ...balances.slice(1)].map((value)=>({
-        ...value, 
+      initial_balances: [initialBalance, ...balances.slice(1)].map((value) => ({
+        ...value,
         id: undefined,
       })),
       mint: {
@@ -82,22 +84,22 @@ export const Form = () => {
       },
       marketing: {
         project: "",
-        description: description,
+        description,
         marketing: address,
         logo: {
           url: logo.value,
         },
       },
     };
-    const gasPrice = GasPrice.fromString(`0.001ujunox`);
-const fee = calculateFee(600000, activeChain?.chainId==='uni-6' ? gasPrice :  GasPrice.fromString('0boot'))
- 
-console.log(`msg`, {
-  msg,
-  label: token.value,
-  fee,
-},  `activeChain`, activeChain)
-   instantiateContract({
+    const gasPrice = GasPrice.fromString("0.001ujunox");
+    const fee = calculateFee(600000, activeChain?.chainId === "uni-6" ? gasPrice : GasPrice.fromString("0boot"));
+
+    console.log("msg", {
+      msg,
+      label: token.value,
+      fee,
+    }, "activeChain", activeChain);
+    instantiateContract({
       msg,
       label: token.value,
       fee,
@@ -119,70 +121,70 @@ console.log(`msg`, {
     setBalances(balances.filter((item) => item.id !== id));
   };
 
-  const handleChangeInitialBalance =
-    (id: string, name: string) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setBalances(
-        balances.map((balance) => {
-          if (balance.id === id) {
-            return {
-              ...balance,
-              [name]: event.target.value,
-            };
-          } else {
-            return balance;
-          }
-        })
-      );
-    };
+  const handleChangeInitialBalance = (
+    id: string,
+    name: string,
+  ): InputProps["onChange"] => (event) => {
+    setBalances(
+      balances.map((balance) => {
+        if (balance.id === id) {
+          return {
+            ...balance,
+            [name]: event.target.value,
+          };
+        }
+        return balance;
+      }),
+    );
+  };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.formContent}>
         <Input
           id="token"
-          label={`Token's Name:`}
+          label={"Token's Name:"}
           htmlFor="token"
-          subtitle={`You can specify any name you like. But it is better to come up with something original (min 3, max 50 symbols)`}
-          placeholder={`John's Obligations`}
+          subtitle="You can specify any name you like. But it is better to come up with something original (min 3, max 50 symbols)"
+          placeholder={"John's Obligations"}
           name="token"
           required
         />
         <Input
           id="symbol"
           htmlFor="symbol"
-          label={`Symbol:`}
+          label="Symbol:"
           name="symbol"
-          subtitle={`How your token will be displayed in users'wallets (min 3, max 5 symbols)`}
-          pattern={`[A-Za-z-0-9]{2,5}`}
-          placeholder={`JUSD`}
+          subtitle={"How your token will be displayed in users'wallets (min 3, max 5 symbols)"}
+          pattern="[A-Za-z-0-9]{2,5}"
+          placeholder="JUSD"
           required
         />
         <Input
           id="quantity"
           htmlFor="quantity"
-          label={`Quantity:`}
+          label="Quantity:"
           name="quantity"
-          subtitle={`You can print as many tokens as you want`}
-          pattern={`[0-9]{1,}`}
-          placeholder={`0`}
+          subtitle="You can print as many tokens as you want"
+          pattern="[0-9]{1,}"
+          placeholder="0"
           required
         />
         <Input
           id="decimals"
           htmlFor="decimals"
-          label={`Decimals:`}
+          label="Decimals:"
           name="decimals"
-          subtitle={`The number of digits after the decimal point (e.x. Bitcoin has 8 digits, max 10 symbols)`}
-          pattern={`[0-9]{0,10}`}
-          placeholder={`0`}
+          subtitle="The number of digits after the decimal point (e.x. Bitcoin has 8 digits, max 10 symbols)"
+          pattern="[0-9]{0,10}"
+          placeholder="0"
         />
         <Input
           id="logo"
           htmlFor="logo"
-          label={`Logo URL:`}
+          label="Logo URL:"
           name="logo"
-          placeholder={`https://www.example.com/image.png`}
+          placeholder="https://www.example.com/image.png"
         />
         <Collapsible title="Changing initial balances">
           <div className={styles.inputComponent}>
@@ -191,35 +193,33 @@ console.log(`msg`, {
               <br />
               You can change that.
             </div>
-            {balances.map(({ id, address, amount }, index) => {
-              return (
-                <div className={styles.inputs} key={id}>
-                  <Input
-                    id="address"
-                    placeholder="bostrom..."
-                    label="Wallet"
-                    value={address}
-                    onChange={handleChangeInitialBalance(id, "address")}
-                  />
-                  <Input
-                    id="amount"
-                    placeholder="100"
-                    label="Amount"
-                    value={amount}
-                    onChange={handleChangeInitialBalance(id, "amount")}
-                  />
-                  <button
-                    className={styles.dot}
-                    type="button"
-                    onClick={
+            {balances.map(({ id, address: addr, amount }, index) => (
+              <div className={styles.inputs} key={id}>
+                <Input
+                  id="address"
+                  placeholder="bostrom..."
+                  label="Wallet"
+                  value={addr}
+                  onChange={handleChangeInitialBalance(id, "address")}
+                />
+                <Input
+                  id="amount"
+                  placeholder="100"
+                  label="Amount"
+                  value={amount}
+                  onChange={handleChangeInitialBalance(id, "amount")}
+                />
+                <button
+                  className={styles.dot}
+                  type="button"
+                  onClick={
                       index === 0 ? handleAddNewBalance : removeBalance(id)
                     }
-                  >
-                    {index === 0 ? "+" : "-"}
-                  </button>
-                </div>
-              );
-            })}
+                >
+                  {index === 0 ? "+" : "-"}
+                </button>
+              </div>
+            ))}
           </div>
         </Collapsible>
         <Collapsible title="Token details">
@@ -232,9 +232,7 @@ console.log(`msg`, {
           <Input
             value={description}
             name="description"
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setDescription(e.target.value)
-            }
+            onChange={(e) => setDescription(e.target.value)}
             isTextArea
           />
         </Collapsible>

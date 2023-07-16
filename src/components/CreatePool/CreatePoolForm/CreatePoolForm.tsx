@@ -6,16 +6,16 @@ import {
 import { SingleValueProps } from "react-select";
 import { toast } from "react-toastify";
 import { connect, useAccount } from "graz";
+import NewButton from "ui/NewButton";
+import SelectCustom, { SelectCustomProps } from "ui/SelectCustom";
+import { UserTokenDetails } from "hooks/useQueries";
+import { useChain } from "hooks/useChain";
+import SelectTokenLabel from "ui/SelectCustom/SelectTokenLabel";
+import InputTokenAmount from "ui/InputTokenAmount";
+import { formatBalance } from "utils/balance";
+import { compareDenoms, tokenAmountToFloat } from "utils/tokens";
 import styles from "./CreatePoolForm.module.css";
 import UpDoAr from "../../../assets/UpDoAr.svg";
-import SelectCustom, { SelectCustomProps } from "../../SelectCustom/SelectCustom";
-import NewButton from "../../newButton/newButton";
-import { UserTokenDetails } from "../../../hooks/useQueries";
-import { useChain } from "../../../hooks/useChain";
-import TokenUI from "../../SelectCustom/TokenUI/TokenUI";
-import { formatBalance } from "../../../utils/balance";
-import { compareDenoms, tokenAmountToFloat } from "../../../utils/tokens";
-import { InputTokenAmount } from "../../controls/InputTokenAmount";
 
 type CreatePoolFormProps = {
   onSubmit: () => void;
@@ -59,7 +59,7 @@ const CreatePoolForm = ({
   const { isConnected, isConnecting } = useAccount();
   const options = useMemo(() => tokens.map((token) => ({
     value: token,
-    label: <TokenUI
+    label: <SelectTokenLabel
       name={token.symbol}
       chainName={chain.chainId}
       balance={formatBalance(tokenAmountToFloat(token.balance, token.decimals), token.decimals)}
@@ -82,7 +82,7 @@ const CreatePoolForm = ({
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (!isConnected) {
-      connect(chain);
+      connect({ chain });
       return;
     }
     if (!token1 || !token2) {

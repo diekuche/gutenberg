@@ -1,12 +1,13 @@
-import React, { ChangeEventHandler, useContext, useState } from "react";
-import { useAccount, validateAddress } from "graz";
+import { ChangeEventHandler, useContext, useState } from "react";
+import { useAccount } from "graz";
 import { toast } from "react-toastify";
+import Button from "ui/Button";
 import styles from "./ManageAssets.module.css";
-import Button from "../Button/Button";
 import OtherTokenSender from "./OtherTokenSender/OtherTokenSender";
 import TokenSender from "./NativeTokenSender/NativeTokenSender";
 import { AppStateContext } from "../../context/AppStateContext";
 import { useChain } from "../../hooks/useChain";
+import { validateAddress } from "../../utils/wallet";
 
 function ManageTokens() {
   const [contract, setContract] = useState("");

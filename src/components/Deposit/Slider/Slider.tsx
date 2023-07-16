@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styles from "../Slider/Slider.module.css";
+import styles from "./Slider.module.css";
 
 const MySlider = () => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(parseInt(event.target.value));
+    setValue(parseInt(event.target.value, 10));
   };
 
   const marks = [
@@ -27,7 +27,7 @@ const MySlider = () => {
         step={1}
         value={value}
         list="step"
-      ></input>
+      />
       <div className={styles.percent}>
         {marks.map((mark) => (
           <div key={mark.value}>{mark.label}</div>

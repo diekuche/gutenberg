@@ -1,6 +1,6 @@
-import Button from "../Button/Button";
-import styles from "./Wallet.module.css";
 import { useAccount, useConnect, useDisconnect } from "graz";
+import Button from "ui/Button";
+import styles from "./Wallet.module.css";
 
 const Wallet: React.FC = () => {
   const { data: account, isConnected } = useAccount();
@@ -27,9 +27,9 @@ const Wallet: React.FC = () => {
       <div className={styles.address}>
         {isConnected
           ? `${account?.bech32Address.slice(
-              0,
-              10
-            )}...${account?.bech32Address.slice(-10, -5)}`
+            0,
+            10,
+          )}...${account?.bech32Address.slice(-10, -5)}`
           : "Connect Wallet"}
       </div>
     </Button>

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { get, set, del } from "idb-keyval";
 
 export type QueryCacheConfig = {
@@ -58,8 +57,10 @@ export class QueryCache {
     cacheTime,
   }: {
     queryKey: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     queryFn: (context: any) => T | Promise<T>;
     cacheTime?: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   }, context: any, options?: {
     cacheTime?: number;
   }): Promise<T> {

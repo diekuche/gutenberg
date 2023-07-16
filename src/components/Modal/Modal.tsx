@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from "react";
 import styles from "./Modal.module.css";
 import cross from "../../assets/cross.svg";
@@ -8,18 +9,16 @@ type Props = {
   children: React.ReactNode;
 };
 
-const Modal = ({ open, onClose, children }: Props) => {
-  return open ? (
-    <div className={styles.modal}>
-      <div className={styles.overlay} />
-      <div className={styles.content}>
-        <div className={styles.close}>
-          <img src={cross} onClick={onClose} alt=""></img>
-        </div>
-        {children}
+const Modal = ({ open, onClose, children }: Props) => (open ? (
+  <div className={styles.modal}>
+    <div className={styles.overlay} />
+    <div className={styles.content}>
+      <div className={styles.close}>
+        <img src={cross} onClick={onClose} alt="" />
       </div>
+      {children}
     </div>
-  ) : null;
-};
+  </div>
+) : null);
 
 export default Modal;

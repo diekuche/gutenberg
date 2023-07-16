@@ -1,13 +1,14 @@
-import styles from "./NativeTokenSender.module.css";
-import React, { useEffect, useCallback, useRef } from "react";
-import Button from "../../Button/Button";
-import { useState } from "react";
+import React, {
+  useEffect, useCallback, useRef, useState,
+} from "react";
 import { Coin, coins } from "@cosmjs/stargate";
+import { useSendTokens, useClients, useAccount } from "graz";
+import { toast } from "react-toastify";
+import Button from "ui/Button";
+import styles from "./NativeTokenSender.module.css";
 import plus from "../../../assets/plus.svg";
 import minus from "../../../assets/minus.svg";
-import { useSendTokens, useClients, useAccount } from "graz";
 import { useFee } from "../../../utils/useFee";
-import { toast } from "react-toastify";
 
 const sendBalance = {
   recepient: "",
@@ -23,11 +24,20 @@ function TokenSender() {
   const { data } = useClients();
   const client = data?.stargate;
   const fee = useFee();
-  const ref = useRef<any>();
+  const ref = useRef<HTMLDivElement>(null);
+
+  const fetchBalance = useCallback(async () => {
+    if (account?.bech32Address) {
+      const balances = await client?.getAllBalances(account.bech32Address);
+      if (balances?.[0]) {
+        setCurrentBalance(balances[0]);
+      }
+    }
+  }, [client, account]);
 
   const { sendTokens } = useSendTokens({
-    onError: (error: any) => {
-      toast(error, {
+    onError: (error) => {
+      toast(`${error}`, {
         type: "error",
       });
       console.log("error", error);
@@ -49,22 +59,13 @@ function TokenSender() {
     },
   });
 
-  const fetchBalance = useCallback(async () => {
-    if (account?.bech32Address) {
-      const balances = await client?.getAllBalances(account.bech32Address);
-      if (balances?.[0]) {
-        setCurrentBalance(balances[0]);
-      }
-    }
-  }, [client, account]);
-
   useEffect(() => {
     fetchBalance();
   }, [fetchBalance]);
 
   useEffect(() => {
-    const checkIfClickedOutside = (e: any) => {
-      if (open && ref.current && !ref.current.contains(e.target)) {
+    const checkIfClickedOutside = (e: MouseEvent) => {
+      if (open && ref.current && !ref.current.contains(e.target as Node)) {
         setOpen(false);
         console.log(ref.current);
       }
@@ -75,19 +76,18 @@ function TokenSender() {
     };
   }, [open]);
 
-  const handleSendChange =
-    (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      setBalance({
-        ...balance,
-        [name]: event.target.value,
-      });
-    };
+  const handleSendChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBalance({
+      ...balance,
+      [name]: event.target.value,
+    });
+  };
 
   async function getBootSent(recipientAddress: string, amount: string) {
-    if (recipientAddress !== "" && amount !== "") {
+    if (recipientAddress !== "" && amount !== "" && currentBalance) {
       sendTokens({
         recipientAddress,
-        amount: coins(amount, currentBalance!.denom),
+        amount: coins(amount, currentBalance.denom),
         fee,
       });
     }
@@ -99,8 +99,12 @@ function TokenSender() {
 
   return (
     <div className={styles.contractData} ref={ref}>
-      <button className={styles.cashName} onClick={() => setOpen(!open)}>
-        <div className={styles.token}>🟢 {currentBalance.denom}</div>
+      <button type="button" className={styles.cashName} onClick={() => setOpen(!open)}>
+        <div className={styles.token}>
+          🟢
+          {" "}
+          {currentBalance.denom}
+        </div>
         <img alt="icons" className={styles.icon} src={open ? minus : plus} />
         <div className={styles.balance}>
           {Number(currentBalance.amount).toLocaleString()}
@@ -126,7 +130,7 @@ function TokenSender() {
             color="sendButton"
             type="button"
             className={styles.tokenButton}
-            onClick={(e: any) => getBootSent(balance.recepient, balance.amount)}
+            onClick={() => getBootSent(balance.recepient, balance.amount)}
           >
             Send
           </Button>
