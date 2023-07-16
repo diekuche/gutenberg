@@ -17,6 +17,7 @@
   margin: 0;
   color: white;
   text-align: left;
+  text-transform: capitalize;
 }
 
 .nameWrapper {

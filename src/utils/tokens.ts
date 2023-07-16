@@ -1,4 +1,6 @@
 import { BigNumber } from "bignumber.js";
+import { TokenDetails } from "hooks/useQueries";
+import type { Metadata } from "cosmjs-types/cosmos/bank/v1beta1/bank";
 import { Denom } from "../ts/SwapPoolFactory.types";
 
 export const compareDenoms = (denom1: Denom, denom2: Denom) => {
@@ -39,4 +41,17 @@ export const calcTokenExchangePrice = (
   const outputReserve = Number(amount2);
   const inputWithFee = (1 - (fee / 100)) * input;
   return ((inputWithFee * outputReserve) / (inputReserve + inputWithFee));
+};
+
+export const nativeTokenDetails = (nativeToken: Metadata): TokenDetails => {
+  const { denom } = nativeToken.denomUnits[0];
+  const name = nativeToken.name || nativeToken.symbol || nativeToken.display || denom;
+  const symbol = name.toLowerCase().startsWith("factory/") ? name.split("/")[2] : name;
+  return {
+    denom: { native: denom },
+    type: "native",
+    decimals: nativeToken.denomUnits[0].exponent,
+    name,
+    symbol,
+  };
 };

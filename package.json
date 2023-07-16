@@ -9,13 +9,17 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "graz:chains": "graz generate -g"
   },
   "dependencies": {
     "@cosmjs/encoding": "^0.31.0",
     "@cosmjs/stargate": "^0.31.0",
+    "@cosmjs/tendermint-rpc": "^0.31.0",
     "bignumber.js": "^9.1.1",
+    "chain-registry": "^1.17.1",
     "classnames": "^2.3.2",
+    "cosmjs-types": "^0.8.0",
     "graz": "^0.0.44",
     "idb-keyval": "^6.2.1",
     "react": "^18.2.0",

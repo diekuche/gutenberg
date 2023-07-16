@@ -1,15 +1,18 @@
 /* eslint-disable no-restricted-syntax */
 import { useContext, useEffect, useState } from "react";
+import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
+import { QueryClient, setupBankExtension } from "@cosmjs/stargate";
 import { toast } from "react-toastify";
 import { Triangle } from "react-loader-spinner";
+import Modal from "ui/Modal";
+import { useChain } from "hooks/useChain";
 import styles from "./Pools.module.css";
 
 import { useFee } from "../../utils/useFee";
 import AllPools from "./AllPools";
 import CreatePoolForm from "../CreatePool/CreatePoolForm/CreatePoolForm";
-import Modal from "../Modal/Modal";
 import { Denom } from "../../ts/SwapPoolFactory.types";
-import { compareDenoms, isCw20 } from "../../utils/tokens";
+import { compareDenoms, isCw20, nativeTokenDetails } from "../../utils/tokens";
 import ConfirmSupply from "../CreatePool/ConfirmSupply/ConfirmSupply";
 import {
   Queries,
@@ -28,6 +31,7 @@ const Pools = () => {
   const { userTokens } = useContext(AppStateContext);
   const [isDepositOpen, setIsDepositOpen] = useState(false);
   const queries = useQueries();
+  const chain = useChain();
   const walletContext = useWalletContext();
   const { addLiquidity } = useAddLiquidity();
   const [tokens, setTokens] = useState<UserTokenDetails[]>([]);
@@ -78,14 +82,29 @@ const Pools = () => {
           }
           return result;
         }, [] as string[]);
+        const tendermint = await Tendermint34Client.connect(chain.rpc);
+        const queryClient = new QueryClient(tendermint);
+        const { bank } = setupBankExtension(queryClient);
+        const nativeTokens = await bank.denomsMetadata();
+        const nativeBalances = await bank.allBalances(userAddress);
+        const nativeUserTokens: UserTokenDetails[] = nativeTokens.map((nativeToken) => {
+          const detail = nativeTokenDetails(nativeToken);
+          return {
+            ...detail,
+            balance: nativeBalances.find((b) => b.denom === nativeToken.denomUnits[0].denom)?.amount || "0",
+          };
+        });
+
         const allTokens = (userTokens || []).concat(poolTokens);
-        setTokens(
+        const allCw20Tokens = (
           await Promise.all(
             allTokens.map((tokenAddr) => query(USER_TOKEN_DETAILS({
               cw20: tokenAddr,
             }, userAddress))),
-          ),
+          )
         );
+
+        setTokens(allCw20Tokens.concat(nativeUserTokens));
       }
       setPools(newPools);
       setLoading(false);

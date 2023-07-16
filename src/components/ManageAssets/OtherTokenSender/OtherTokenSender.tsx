@@ -91,7 +91,6 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
       fee,
     });
   }
-
   return (
     tokenBalance && tokenInfo && marketingInfo ? (
       <div className={styles.contractData}>
@@ -104,7 +103,10 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
             {logoUrl && (
             <img src={logoUrl} alt="" className={styles.logo} />
             )}
-            <div className={styles.token}>{tokenInfo.symbol}</div>
+            <div className={styles.token}>
+              {tokenInfo.symbol}
+
+            </div>
             <img
               alt="icons"
               className={styles.icon}

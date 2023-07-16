@@ -1,4 +1,7 @@
 import { useMemo } from "react";
+import { QueryClient, setupBankExtension } from "@cosmjs/stargate";
+import { nativeTokenDetails } from "utils/tokens";
+import { useClients } from "graz";
 import { useContracts } from "./useContracts";
 import { Denom } from "../ts/SwapPoolFactory.types";
 import { useQueryCache } from "./useQueryCache";
@@ -7,8 +10,8 @@ import { QueryCache, QueryGetParams } from "../utils/QueryCache";
 
 export type TokenDetails = {
   denom: Denom;
-  type: "cw20" | "tokenfactory" | "native";
-  address: string;
+  type: "cw20" | "native";
+  address?: string;
   decimals: number;
   name: string;
   symbol: string;
@@ -24,6 +27,7 @@ export type PoolInfo = InfoResponse;
 export type QueryContext = {
   cache: QueryCache;
   contracts: NonNullable<ReturnType<typeof useContracts>>;
+  clients: NonNullable<ReturnType<typeof useClients>["data"]>
 };
 
 export const CW20_TOKEN_INFO = (tokenAddr: string) => ({
@@ -74,9 +78,19 @@ export const CW20_TOKEN_DETAILS = (tokenAddr: string) => ({
   },
 });
 
+export const NATIVE_TOKEN_DETAILS = (denom: { native: string }) => ({
+  queryKey: `v0.1/native/${denom.native}/details`,
+  queryFn: async ({ clients: { tendermint } }: QueryContext) => {
+    const native = await setupBankExtension(
+      new QueryClient(tendermint),
+    ).bank.denomMetadata(denom.native);
+    return nativeTokenDetails(native);
+  },
+});
+
 export const TOKEN_DETAILS = (denom: Denom) => {
   if ("native" in denom) {
-    throw new Error("Native token still not implemented");
+    return NATIVE_TOKEN_DETAILS(denom);
   }
   return {
     queryKey: `/v0.1/cw20/${denom.cw20}/details`,
@@ -134,7 +148,21 @@ export const CW20_USER_TOKEN_DETAILS = (
 
 export const USER_TOKEN_DETAILS = (denom: Denom, userAddress: string) => {
   if ("native" in denom) {
-    throw new Error("Native token still not implemented");
+    return {
+      queryKey: `/v0.1/user/${userAddress}/native/${denom.native}/details`,
+      queryFn: async (context :QueryContext) => {
+        const { cache, clients: { tendermint } } = context;
+        const details = await cache.getOrUpdate(NATIVE_TOKEN_DETAILS(denom), context);
+        const native = await setupBankExtension(
+          new QueryClient(tendermint),
+        ).bank.balance(userAddress, denom.native);
+        return {
+          ...details,
+          balance: native.amount,
+        };
+      },
+      cacheTime: 1,
+    };
   }
   return {
     queryKey: `/v0.1/user/${userAddress}/cw20/${denom.cw20}/details`,
@@ -170,21 +198,24 @@ export const POOL_TOKEN1_FOR_TOKEN2_PRICE = (poolAddress: string, token1Amount: 
 export const useQueries = () => {
   const cache = useQueryCache();
   const contracts = useContracts();
+  const { data: clients } = useClients();
   return useMemo(() => {
-    if (!contracts) {
+    if (!contracts || !clients) {
       return undefined;
     }
     return {
       contracts,
       cache,
+      clients,
       query: <C, T>(params: QueryGetParams<C, T>, options?: {
         cacheTime?: number
       }) => cache.getOrUpdate(params, {
         cache,
         contracts,
+        clients,
       }, options),
     };
-  }, [contracts, cache]);
+  }, [contracts, clients, cache]);
 };
 
 export type Queries = NonNullable<ReturnType<typeof useQueries>>;

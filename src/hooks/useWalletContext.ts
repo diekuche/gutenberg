@@ -1,23 +1,25 @@
 /* eslint-disable consistent-return */
-import { useAccount, useSigningClients } from "graz";
+import { useAccount, useClients, useSigningClients } from "graz";
 import { useMemo } from "react";
 import { Key } from "@keplr-wallet/types";
 import { SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
-import { SigningStargateClient } from "@cosmjs/stargate";
+import { SigningStargateClient, StargateClient } from "@cosmjs/stargate";
 import { useContracts, type ContractsContext } from "./useContracts";
 
 export const useWalletContext = () => {
   const { data: account } = useAccount();
   const { data: signingClients } = useSigningClients();
+  const { data: clients } = useClients();
   const contracts = useContracts();
   return useMemo(() => {
-    if (!account || !signingClients || !contracts) {
+    if (!account || !signingClients || !contracts || !clients) {
       return;
     }
     return {
       account,
       contracts,
       signingClients,
+      clients,
     };
   }, [account, signingClients, contracts]);
 };
@@ -27,6 +29,9 @@ export type WalletContext = {
   signingClients: {
     cosmWasm: SigningCosmWasmClient;
     stargate: SigningStargateClient;
+  };
+  clients: {
+    stargate: StargateClient;
   };
   contracts: ContractsContext
 };

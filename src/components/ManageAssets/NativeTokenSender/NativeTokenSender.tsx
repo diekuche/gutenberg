@@ -101,9 +101,13 @@ function TokenSender() {
     <div className={styles.contractData} ref={ref}>
       <button type="button" className={styles.cashName} onClick={() => setOpen(!open)}>
         <div className={styles.token}>
-          🟢
+
           {" "}
-          {currentBalance.denom}
+          {
+          currentBalance.denom.toLowerCase().startsWith("factory/")
+            ? currentBalance.denom.split("/")[2] : currentBalance.denom
+
+          }
         </div>
         <img alt="icons" className={styles.icon} src={open ? minus : plus} />
         <div className={styles.balance}>

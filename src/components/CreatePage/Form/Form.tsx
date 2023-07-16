@@ -1,15 +1,17 @@
 import { GasPrice, calculateFee } from "@cosmjs/stargate";
-import React, { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
-  useAccount, useActiveChain, useConnect, useInstantiateContract,
+  useAccount, useConnect, useInstantiateContract,
 } from "graz";
 import { toast } from "react-toastify";
 import Button from "ui/Button";
 import Input, { InputProps } from "ui/CreatePage/Input";
 import Collapsible from "ui/CreatePage/Collapsible";
+import { useChain } from "hooks/useChain";
 import styles from "./Form.module.css";
 import { AppStateContext } from "../../../context/AppStateContext";
+import { ContractConfigs } from "../../../config/contracts";
 
 const defaultBalance = {
   id: uuidv4(),
@@ -23,10 +25,10 @@ export const Form = () => {
   ]);
   const [description, setDescription] = useState("");
   const { connect } = useConnect();
-  const activeChain = useActiveChain();
+  const chain = useChain();
   const { data: account, isConnected } = useAccount();
   const { addUserToken } = useContext(AppStateContext);
-  const codeId = activeChain?.chainId === "uni-6" ? 2571 : 1;
+  const codeId = ContractConfigs[chain.chainId].cw20ContractCodeId;
   const { instantiateContract } = useInstantiateContract({
     codeId,
     onError: (error) => {
@@ -91,14 +93,19 @@ export const Form = () => {
         },
       },
     };
-    const gasPrice = GasPrice.fromString("0.001ujunox");
-    const fee = calculateFee(600000, activeChain?.chainId === "uni-6" ? gasPrice : GasPrice.fromString("0boot"));
+
+    const gasPrice = GasPrice.fromString(
+      `${chain.feeCurrencies[0].gasPriceStep?.low || 0}${
+        chain.feeCurrencies[0].coinDenom
+      }`,
+    );
+    const fee = calculateFee(600000, gasPrice);
 
     console.log("msg", {
       msg,
       label: token.value,
       fee,
-    }, "activeChain", activeChain);
+    }, "activeChain", chain.chainId);
     instantiateContract({
       msg,
       label: token.value,

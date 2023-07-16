@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from "react";
 import { useQuerySmart, useAccount, useExecuteContract } from "graz";
 import { toast } from "react-toastify";

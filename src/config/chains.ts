@@ -1,5 +1,5 @@
 import { ChainInfo } from "@keplr-wallet/types";
-import { mainnetChains } from "graz";
+import { mainnetChains } from "graz/chains";
 
 const CYBER = {
   CYBER_CONGRESS_ADDRESS: "cyber1latzme6xf6s8tsrymuu6laf2ks2humqvdq39v8",
@@ -34,7 +34,7 @@ const CYBER = {
   MEMO_KEPLR: "[bostrom] cyb.ai, using keplr",
 };
 
-export type ChainId = "juno-1" | "uni-6" | "bostrom";
+export type ChainId = "juno-1" | "uni-6" | "bostrom" | "archway-1";
 
 export type ChainConfig = Omit<ChainInfo, "chainId"> & {
   chainId: ChainId
@@ -42,6 +42,7 @@ export type ChainConfig = Omit<ChainInfo, "chainId"> & {
 
 export const Chains: Record<ChainId, ChainConfig> = {
   "juno-1": mainnetChains.juno as ChainConfig,
+  "archway-1": mainnetChains.archway as ChainConfig,
   "uni-6": {
     chainId: "uni-6" as const,
     chainName: "Juno TestNet",
@@ -139,12 +140,6 @@ export const Chains: Record<ChainId, ChainConfig> = {
         coinDecimals: 0,
       },
     ],
-    coinType: 118,
-    gasPriceStep: {
-      low: 0,
-      average: 0,
-      high: 0.01,
-    },
     features: ["stargate", "ibc-transfer"],
   },
 };

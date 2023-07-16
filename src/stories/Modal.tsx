@@ -1,7 +1,6 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from "react";
+import cross from "ui/assets/cross.svg";
 import styles from "./Modal.module.css";
-import cross from "../../assets/cross.svg";
 
 type Props = {
   open: boolean;

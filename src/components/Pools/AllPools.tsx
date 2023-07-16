@@ -2,6 +2,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import Modal from "ui/Modal";
 import styles from "./Pools.module.css";
 import circle from "../../assets/circle.svg";
 import atom from "../../assets/atom.svg";
@@ -10,7 +11,6 @@ import rightarrow from "../../assets/greyArrowRight.svg";
 import greyArrowDown from "../../assets/greyArrowDown.svg";
 import Deposit from "../Deposit/Deposit";
 
-import Modal from "../Modal/Modal";
 import { AppStatePool } from "../../context/AppStateContext";
 
 const PAGE_SIZE = 10;
