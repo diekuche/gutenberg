@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Slider.module.css";
 
-const MySlider = () => {
+const Slider = () => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,4 +37,4 @@ const MySlider = () => {
   );
 };
 
-export default MySlider;
+export default Slider;

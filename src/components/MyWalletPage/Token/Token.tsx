@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuerySmart, useAccount, useExecuteContract } from "graz";
 import { toast } from "react-toastify";
 import Button from "ui/Button";
+import { getShortTokenName } from "utils/tokens";
 import { useFee } from "../../../utils/useFee";
 import basket from "../../../assets/basket.svg";
 import icon_send from "../../../assets/icon_send.svg";
@@ -110,7 +111,7 @@ const Token = ({ contractAddress, removeContract }: Props) => {
         <td>
           <div className={styles.nameToken}>
             <img src={logoUrl} className={styles.iconToken} alt="" />
-            <div>{tokenInfo?.symbol}</div>
+            <div>{getShortTokenName(tokenInfo.symbol)}</div>
           </div>
         </td>
         <td className={styles.balance}>

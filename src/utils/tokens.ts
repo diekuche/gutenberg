@@ -30,6 +30,7 @@ export const tokenFloatToAmount = (
 export const isDenomCw20 = (denom: Denom) => !("native" in denom);
 
 export const isCw20 = (obj: Denom): obj is { cw20: string } => !("native" in obj);
+export const isNative = (obj: Denom): obj is { native: string } => ("native" in obj);
 
 export const calcTokenExchangePrice = (
   amount1: string,
@@ -42,11 +43,12 @@ export const calcTokenExchangePrice = (
   const inputWithFee = (1 - (fee / 100)) * input;
   return ((inputWithFee * outputReserve) / (inputReserve + inputWithFee));
 };
+export const getShortTokenName = (name: string) => (name.toLowerCase().startsWith("factory/") ? name.split("/")[2] : name);
 
 export const nativeTokenDetails = (nativeToken: Metadata): TokenDetails => {
   const { denom } = nativeToken.denomUnits[0];
   const name = nativeToken.name || nativeToken.symbol || nativeToken.display || denom;
-  const symbol = name.toLowerCase().startsWith("factory/") ? name.split("/")[2] : name;
+  const symbol = getShortTokenName(name);
   return {
     denom: { native: denom },
     type: "native",

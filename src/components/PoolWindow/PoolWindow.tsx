@@ -1,27 +1,32 @@
+// libs
 import { useEffect, useState } from "react";
 import { connect, useAccount } from "graz";
 import { ThreeCircles } from "react-loader-spinner";
-import { Tabs, Tab } from "./TabD/TabD";
-import styles from "./Deposit.module.css";
-import Withdraw from "./Withdraw/Withdraw";
-import Farm from "./Farm/Farm";
-import Dep from "./Dep/Dep";
-import Unfarm from "./Unfarm/Unfarm";
-import { AppStatePool } from "../../context/AppStateContext";
+// utils
+import { AppStatePool } from "context/AppStateContext";
 import {
   SWAP_POOL_INFO, USER_TOKEN_DETAILS, UserTokenDetails, useQueries,
-} from "../../hooks/useQueries";
-import { useChain } from "../../hooks/useChain";
+} from "hooks/useQueries";
+import { useChain } from "hooks/useChain";
+// ui
+import { Tabs, Tab } from "ui/PoolWindow/Tabs";
+// styles
+import styles from "./PoolWindow.module.css";
+// components
+import Withdraw from "./Withdraw/Withdraw";
+import Farm from "./Farm/Farm";
+import Deposit from "./Deposit/Deposit";
+import Unfarm from "./Unfarm/Unfarm";
 
-export type DepositProps = {
+export type PoolWindowProps = {
   pool: AppStatePool;
   onLiquidityAdded: ()=>void;
 };
 
-const Deposit = ({
+const PoolWindow = ({
   onLiquidityAdded,
   pool,
-}: DepositProps) => {
+}: PoolWindowProps) => {
   const { data: account } = useAccount();
   const chain = useChain();
   const queries = useQueries();
@@ -32,13 +37,16 @@ const Deposit = ({
     reserve2: string;
   }>();
 
-  const tabs: Tab[] = [
-    { id: "1", label: "deposit" },
-    { id: "2", label: "withdraw" },
-    { id: "3", label: "farm" },
-    { id: "4", label: "unfarm" },
+  const tabKeys = ["deposit", "withdraw", "farm", "unfarm"] as const;
+  type TabKey = typeof tabKeys[number];
+
+  const tabs: Tab<TabKey>[] = [
+    { key: "deposit", label: "deposit" },
+    { key: "withdraw", label: "withdraw" },
+    // { id: "farm", label: "farm" },
+    // { id: "unfarm", label: "unfarm" },
   ];
-  const [selectedTabId, setSelectedTabId] = useState(tabs[0].id);
+  const [selectedTabKey, setSelectedTabKey] = useState<TabKey>(tabs[0].key);
 
   useEffect(() => {
     if (!account) {
@@ -85,15 +93,15 @@ const Deposit = ({
           /
           {depositData.token2.symbol}
         </div>
-        <Tabs
-          selectedId={selectedTabId}
+        <Tabs<TabKey>
+          selectedId={selectedTabKey}
           tabs={tabs}
-          onClick={setSelectedTabId}
+          onSelect={setSelectedTabKey}
         />
         <div>
           <div>
-            {selectedTabId === tabs[0].id && (
-            <Dep
+            {selectedTabKey === "deposit" && (
+            <Deposit
               onSuccess={onLiquidityAdded}
               reserve1={depositData.reserve1}
               reserve2={depositData.reserve2}
@@ -102,9 +110,9 @@ const Deposit = ({
               token2={depositData.token2}
             />
             )}
-            {selectedTabId === tabs[1].id && <Withdraw />}
-            {selectedTabId === tabs[2].id && <Farm />}
-            {selectedTabId === tabs[3].id && <Unfarm />}
+            {selectedTabKey === "withdraw" && <Withdraw />}
+            {selectedTabKey === "farm" && <Farm />}
+            {selectedTabKey === "unfarm" && <Unfarm />}
           </div>
         </div>
       </div>
@@ -112,4 +120,4 @@ const Deposit = ({
   );
 };
 
-export default Deposit;
+export default PoolWindow;

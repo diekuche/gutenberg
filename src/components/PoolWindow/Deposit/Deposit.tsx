@@ -1,17 +1,21 @@
+// libs
 import { useEffect, useState } from "react";
 import { useAccount } from "graz";
 import { toast } from "react-toastify";
+// utils
 import NewButton from "ui/NewButton";
 import InputTokenAmount from "ui/InputTokenAmount";
-import styles from "./Dep.module.css";
-import { AppStatePool } from "../../../context/AppStateContext";
-import { UserTokenDetails } from "../../../hooks/useQueries";
-import { formatBalance } from "../../../utils/balance";
+import { useContracts } from "hooks/useContracts";
+import { useAddLiquidity } from "hooks/useAddLiquidity";
 import {
   tokenAmountToFloat,
-} from "../../../utils/tokens";
-import { useContracts } from "../../../hooks/useContracts";
-import { useAddLiquidity } from "../../../hooks/useAddLiquidity";
+} from "utils/tokens";
+import { AppStatePool } from "context/AppStateContext";
+import { UserTokenDetails } from "hooks/useQueries";
+import { formatBalance } from "utils/balance";
+// styles
+import styles from "./Deposit.module.css";
+// components
 
 export type DepProps = {
   pool: AppStatePool;

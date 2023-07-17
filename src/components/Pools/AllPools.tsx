@@ -9,7 +9,7 @@ import atom from "../../assets/atom.svg";
 import leftarrow from "../../assets/greyArrowLeft.svg";
 import rightarrow from "../../assets/greyArrowRight.svg";
 import greyArrowDown from "../../assets/greyArrowDown.svg";
-import Deposit from "../Deposit/Deposit";
+import PoolWindow from "../PoolWindow/PoolWindow";
 
 import { AppStatePool } from "../../context/AppStateContext";
 
@@ -147,7 +147,7 @@ const AllPools = ({
       </div>
       <Modal open={modal} onClose={toggleModal}>
         {poolForDeposit && (
-        <Deposit
+        <PoolWindow
           onLiquidityAdded={() => {
             onPoolUpdated(poolForDeposit);
             setPoolForDeposit(null);

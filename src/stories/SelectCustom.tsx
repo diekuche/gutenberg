@@ -2,8 +2,8 @@ import AsyncSelect, { Props } from "react-select";
 import classNames from "classnames";
 import styles from "./SelectCustom.module.css";
 
-export interface SelectCustomProps<VALUE=string> extends Props<{
-  label: unknown;
+export interface SelectCustomProps<VALUE=string, LABEL=unknown> extends Props<{
+  label: LABEL;
   value: VALUE;
 }, false> {
   heightControl?: number;
@@ -15,7 +15,7 @@ export interface SelectCustomProps<VALUE=string> extends Props<{
   rightMenu?: number;
 }
 
-const SelectCustom = <VALUE=string>(props: SelectCustomProps<VALUE>) => {
+const SelectCustom = <VALUE=string, LABEL=unknown>(props: SelectCustomProps<VALUE, LABEL>) => {
   const {
     options,
     placeholder,

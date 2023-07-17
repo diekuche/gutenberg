@@ -1,8 +1,10 @@
+// ui
 import NewButton from "ui/NewButton";
-import styles from "./Unfarm.module.css";
-import MySlider from "../Slider/Slider";
+import MySlider from "ui/PoolWindow/Slider";
+// styles
+import styles from "./Withdraw.module.css";
 
-const Unfarm = () => (
+const Withdraw = () => (
   <div className={styles.depositWindow}>
     <div className={styles.firstField}>
       <div className={styles.percentString}>
@@ -32,8 +34,8 @@ const Unfarm = () => (
         </div>
       </div>
     </div>
-    <NewButton size="hg">unfarm</NewButton>
+    <NewButton size="hg">withdraw</NewButton>
   </div>
 );
 
-export default Unfarm;
+export default Withdraw;

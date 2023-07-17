@@ -2,7 +2,9 @@ import { NavLink } from "react-router-dom";
 import {
   useSuggestChainAndConnect,
 } from "graz";
-import { useContext } from "react";
+import {
+  useContext, useEffect, useMemo, useState,
+} from "react";
 import SelectCustom, { SelectCustomProps } from "ui/SelectCustom";
 import SelectChainLabel from "ui/SelectCustom/SelectChainLabel";
 import { chains } from "chain-registry";
@@ -33,22 +35,38 @@ const options = Object.keys(Chains)
   });
 
 const Header = () => {
-  const { suggestAndConnect } = useSuggestChainAndConnect();
   const { chainId } = useChain();
-  const { setChainId } = useContext(AppStateContext);
-  const defaultValue = options.find((option) => option.value.chainId === chainId)
-    || options[0];
+  const currentChainOption = useMemo(
+    () => options.find(
+      (option) => option.value.chainId === chainId,
+    ) || options[0],
+    [chainId],
+  );
+  const [selectedChainOption, setSelectedChainOption] = useState(
+    currentChainOption,
+  );
+  const { suggestAndConnect } = useSuggestChainAndConnect();
 
-  const handleSelect: SelectCustomProps<ChainConfig>["onChange"] = (option) => {
+  const { setChainId } = useContext(AppStateContext);
+
+  const handleSelect: SelectCustomProps<ChainConfig, JSX.Element>["onChange"] = (option) => {
     const chainInfo = option?.value;
     if (!chainInfo) {
       return;
     }
+    setSelectedChainOption({
+      value: option.value,
+      label: option.label,
+    });
     setChainId(chainInfo.chainId);
     suggestAndConnect({
       chainInfo,
     });
   };
+
+  useEffect(() => {
+    setSelectedChainOption(currentChainOption);
+  }, [currentChainOption]);
 
   return (
     <header>
@@ -97,7 +115,7 @@ const Header = () => {
         </div>
         <div className={styles.rightButton}>
           <div className={styles.chainButton}>
-            <SelectCustom<ChainConfig>
+            <SelectCustom<ChainConfig, JSX.Element>
               options={options}
               heightControl={42}
               fontSizePlaceholder={16}
@@ -105,7 +123,7 @@ const Header = () => {
               paddingMenu={0}
               topMenu={32}
               rightMenu={-6}
-              defaultValue={defaultValue}
+              value={selectedChainOption}
               onChange={handleSelect}
             />
           </div>

@@ -9,6 +9,7 @@
   color: #060f19;
   border-radius: 4px;
   padding: 6px 35px;
+  cursor: pointer;
 }
 
 .tabLabel__selected {

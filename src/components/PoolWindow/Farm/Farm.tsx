@@ -1,6 +1,6 @@
 import NewButton from "ui/NewButton";
+import MySlider from "ui/PoolWindow/Slider";
 import styles from "./Farm.module.css";
-import MySlider from "../Slider/Slider";
 
 const Farm = () => (
   <div className={styles.depositWindow}>

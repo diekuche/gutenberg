@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-export const formatBalance = (source: string, _: number): string => source;
+export const formatBalance = (source: string, _: number, __ = ","): string => source;
 // export const formatBalance = (source: string, decimals: number, separator = ","): string => {
 //   return source;
 // const num = Number(source);

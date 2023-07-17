@@ -1,18 +1,20 @@
 /* eslint-disable consistent-return */
 import { useMemo } from "react";
-import { isCw20 } from "../utils/tokens";
+import { Coin } from "@cosmjs/amino";
+import { isCw20, isNative } from "../utils/tokens";
 import { useFee } from "../utils/useFee";
 import { useContracts } from "./useContracts";
-import { TokenDetails } from "./useQueries";
+import { TokenDetails, USER_TOKEN_DETAILS, useQueries } from "./useQueries";
 import { useWalletContext } from "./useWalletContext";
 
 export const useAddLiquidity = () => {
   const fee = useFee();
   const contracts = useContracts();
+  const queries = useQueries();
   const walletContext = useWalletContext();
 
   const addLiquidity = useMemo(() => {
-    if (!contracts || !walletContext) {
+    if (!contracts || !walletContext || !queries) {
       return;
     }
     return async (
@@ -72,11 +74,34 @@ export const useAddLiquidity = () => {
       console.log(`Token1: ${token1.symbol} (${token1.decimals})`);
       console.log(`Token2: ${token2.symbol} (${token2.decimals})`);
       console.log(`Token1 amount: ${token1RealAmount}, max token2: ${token2RealAmount}`);
-      return poolFactoryExecutor.addLiquidity({
+
+      const funds: Coin[] = [];
+      if (isNative(token1.denom)) {
+        funds.push({
+          denom: token1.denom.native,
+          amount: token1RealAmount,
+        });
+      }
+      if (isNative(token2.denom)) {
+        funds.push({
+          denom: token2.denom.native,
+          amount: token2RealAmount,
+        });
+      }
+
+      const result = await poolFactoryExecutor.addLiquidity({
         token1Amount: token1RealAmount,
         maxToken2: token2RealAmount,
         minLiquidity: "0",
-      }, fee);
+      }, fee, undefined, funds);
+      try {
+        queries.cache.getOrUpdate(USER_TOKEN_DETAILS(token1.denom, account.bech32Address), queries);
+        queries.cache.getOrUpdate(USER_TOKEN_DETAILS(token2.denom, account.bech32Address), queries);
+      } catch (e) {
+        console.log("Invalidate user tokens info failed");
+        console.log(e);
+      }
+      return result;
     };
   }, [walletContext, contracts]);
   return {
