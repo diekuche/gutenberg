@@ -2,11 +2,13 @@ import { useMemo } from "react";
 import { QueryClient, setupBankExtension } from "@cosmjs/stargate";
 import { nativeTokenDetails } from "utils/tokens";
 import { useClients } from "graz";
+import { CosmWasmClient } from "@cosmjs/cosmwasm-stargate";
 import { useContracts } from "./useContracts";
 import { Denom } from "../ts/SwapPoolFactory.types";
 import { useQueryCache } from "./useQueryCache";
 import { InfoResponse } from "../ts/SwapPool.types";
 import { QueryCache, QueryGetParams } from "../utils/QueryCache";
+import { Cw20QueryClient } from "../ts/Cw20.client";
 
 export type TokenDetails = {
   denom: Denom;
@@ -16,6 +18,7 @@ export type TokenDetails = {
   name: string;
   symbol: string;
   logo?: string;
+  minter: string;
 };
 
 export type UserTokenDetails = TokenDetails & {
@@ -32,34 +35,54 @@ export type QueryContext = {
 
 export const CW20_TOKEN_INFO = (tokenAddr: string) => ({
   queryKey: `/token/${tokenAddr}/info`,
-  queryFn: ({ contracts }: QueryContext) => {
-    const token = contracts.Cw20ContractFactory(tokenAddr).querier;
+  queryFn: ({ cosmwasm }: {
+    cosmwasm: CosmWasmClient;
+  }) => {
+    const token = new Cw20QueryClient(cosmwasm, tokenAddr);
     return token.tokenInfo();
   },
 });
 
 export const CW20_TOKEN_MARKETING = (tokenAddr: string) => ({
   queryKey: `/token/${tokenAddr}/marketing`,
-  queryFn: ({ contracts }: QueryContext) => {
-    const token = contracts.Cw20ContractFactory(tokenAddr).querier;
+  queryFn: ({ cosmwasm }: {
+    cosmwasm: CosmWasmClient;
+  }) => {
+    const token = new Cw20QueryClient(cosmwasm, tokenAddr);
     return token.marketingInfo();
+  },
+});
+
+export const CW20_TOKEN_MINTER = (tokenAddr: string) => ({
+  queryKey: `/token/${tokenAddr}/minter`,
+  queryFn: ({ cosmwasm }: {
+    cosmwasm: CosmWasmClient;
+  }) => {
+    const token = new Cw20QueryClient(cosmwasm, tokenAddr);
+    return token.minter();
   },
 });
 
 export const CW20_TOKEN_LOGO = (tokenAddr: string) => ({
   queryKey: `/token/${tokenAddr}/logo`,
-  queryFn: ({ contracts }: QueryContext) => {
-    const token = contracts.Cw20ContractFactory(tokenAddr).querier;
+  queryFn: ({ cosmwasm }: {
+    cosmwasm: CosmWasmClient;
+  }) => {
+    const token = new Cw20QueryClient(cosmwasm, tokenAddr);
     return token.downloadLogo();
   },
 });
 
 export const CW20_TOKEN_DETAILS = (tokenAddr: string) => ({
   queryKey: `/v0.1/cw20/${tokenAddr}/details`,
-  queryFn: async (context: QueryContext): Promise<TokenDetails> => {
+  queryFn: async (context: {
+    cache: QueryCache;
+    cosmwasm: CosmWasmClient;
+  }): Promise<TokenDetails> => {
     const { cache } = context;
     const info = await cache.getOrUpdate(CW20_TOKEN_INFO(tokenAddr), context);
     const marketing = await cache.getOrUpdate(CW20_TOKEN_MARKETING(tokenAddr), context);
+    const minter = await cache.getOrUpdate(CW20_TOKEN_MINTER(tokenAddr), context);
 
     const logo = marketing?.logo === "embedded"
       ? (await cache.getOrUpdate(CW20_TOKEN_LOGO(tokenAddr), context)).data
@@ -74,6 +97,7 @@ export const CW20_TOKEN_DETAILS = (tokenAddr: string) => ({
       decimals: info.decimals,
       symbol: info.symbol,
       logo,
+      minter: minter.minter,
     };
   },
 });
@@ -94,7 +118,10 @@ export const TOKEN_DETAILS = (denom: Denom) => {
   }
   return {
     queryKey: `/v0.1/cw20/${denom.cw20}/details`,
-    queryFn: (context: QueryContext) => CW20_TOKEN_DETAILS(
+    queryFn: (context: {
+      cache: QueryCache;
+      cosmwasm: CosmWasmClient;
+    }) => CW20_TOKEN_DETAILS(
       denom.cw20,
     ).queryFn(context),
   };
@@ -134,8 +161,10 @@ export const CW20_USER_BALANCE = (
   userAddress: string,
 ) => ({
   queryKey: `/user/${userAddress}/token/${tokenAddr}/balance`,
-  queryFn: async ({ contracts }: QueryContext) => {
-    const token = contracts.Cw20ContractFactory(tokenAddr).querier;
+  queryFn: async ({ cosmwasm }: {
+    cosmwasm: CosmWasmClient;
+  }) => {
+    const token = new Cw20QueryClient(cosmwasm, tokenAddr);
     return (await token.balance({ address: userAddress })).balance;
   },
   cacheTime: 5 * 60 * 1000,
@@ -146,7 +175,10 @@ export const CW20_USER_TOKEN_DETAILS = (
   userAddress: string,
 ) => ({
   queryKey: `/v0.1/user/${userAddress}/cw20/${tokenAddress}/details`,
-  queryFn: async (context: QueryContext): Promise<UserTokenDetails> => {
+  queryFn: async (context: {
+    cache: QueryCache
+    cosmwasm: CosmWasmClient
+  }): Promise<UserTokenDetails> => {
     const { cache } = context;
     const details = await cache.getOrUpdate(CW20_TOKEN_DETAILS(tokenAddress), context);
     const balance = await cache.getOrUpdate(CW20_USER_BALANCE(tokenAddress, userAddress), context);

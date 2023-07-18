@@ -51,17 +51,17 @@ export class QueryCache {
     }
   }
 
-  async getOrUpdate<T>({
+  async getOrUpdate<T, C>({
     queryFn,
     queryKey,
     cacheTime,
   }: {
     queryKey: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    queryFn: (context: any) => T | Promise<T>;
+    queryFn: (context: C) => T | Promise<T>;
     cacheTime?: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  }, context: any, options?: {
+  }, context: C, options?: {
     cacheTime?: number;
   }): Promise<T> {
     const listners = this.listeners.get(queryKey);

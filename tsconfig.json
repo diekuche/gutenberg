@@ -24,7 +24,8 @@
       "ui/*": ["./src/stories/*"],
       "utils/*": ["./src/utils/*"],
       "hooks/*": ["./src/hooks/*"],
-      "context/*": ["./src/context/*"]
+      "context/*": ["./src/context/*"],
+      "config/*": ["./src/config/*"]
     }
   },
   "include": ["src"],

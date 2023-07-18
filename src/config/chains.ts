@@ -37,13 +37,15 @@ const CYBER = {
 export type ChainId = "juno-1" | "uni-6" | "bostrom" | "archway-1";
 
 export type ChainConfig = Omit<ChainInfo, "chainId"> & {
-  chainId: ChainId
+  chainId: ChainId;
+  tokenfactoryEnabled: boolean;
 };
 
 export const Chains: Record<ChainId, ChainConfig> = {
-  "juno-1": mainnetChains.juno as ChainConfig,
-  "archway-1": mainnetChains.archway as ChainConfig,
+  "juno-1": { ...mainnetChains.juno, tokenfactoryEnabled: true } as ChainConfig,
+  "archway-1": { ...mainnetChains.archway, tokenfactoryEnabled: false } as ChainConfig,
   "uni-6": {
+    tokenfactoryEnabled: true,
     chainId: "uni-6" as const,
     chainName: "Juno TestNet",
     stakeCurrency: {
@@ -80,6 +82,7 @@ export const Chains: Record<ChainId, ChainConfig> = {
     features: ["stargate", "ibc-transfer"],
   },
   bostrom: {
+    tokenfactoryEnabled: true,
     // Chain-id of the Cosmos SDK chain.
     chainId: CYBER.CHAIN_ID,
     // The name of the chain to be displayed to the user.

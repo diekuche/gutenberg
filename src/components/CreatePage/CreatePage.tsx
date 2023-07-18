@@ -1,17 +1,26 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Tabs, Tab } from "ui/CreatePage/Tabs";
 import NTT from "ui/CreatePage/NTT";
 import NFT from "ui/CreatePage/NFT";
+import { useChain } from "hooks/useChain";
 import styles from "./CreatePage.module.css";
 import ManageTokens from "../ManageAssets/ManageAssets";
-import { Form } from "./Form/Form";
+import CW20TokenForm from "./CW20TokenForm/CW20TokenForm";
+import FactoryTokenForm from "./FactoryTokenForm/FactoryTokenForm";
 
-export const MainPage: React.FC = () => {
+const CreatePage = () => {
+  const chain = useChain();
   const tabs: Tab[] = [
-    { id: "1", label: "Token" },
-    { id: "2", label: "NFT" },
-    { id: "3", label: "NTT" },
+    { id: "cw20", label: "Token" },
   ];
+  if (chain.tokenfactoryEnabled) {
+    tabs.push({
+      id: "native",
+      label: "Native",
+    });
+  }
+  tabs.push({ id: "nft", label: "NFT" });
+  tabs.push({ id: "ntt", label: "NTT" });
   const [selectedTabId, setSelectedTabId] = useState(tabs[0].id);
 
   return (
@@ -24,9 +33,10 @@ export const MainPage: React.FC = () => {
         />
         <div className={styles.tools}>
           <div className={styles.tabPageContent}>
-            {selectedTabId === tabs[0].id && <Form />}
-            {selectedTabId === tabs[1].id && <NFT />}
-            {selectedTabId === tabs[2].id && <NTT />}
+            {selectedTabId === "cw20" && <CW20TokenForm />}
+            {selectedTabId === "native" && <FactoryTokenForm />}
+            {selectedTabId === "nft" && <NFT />}
+            {selectedTabId === "ntt" && <NTT />}
           </div>
           <ManageTokens />
         </div>
@@ -36,4 +46,4 @@ export const MainPage: React.FC = () => {
   );
 };
 
-export default MainPage;
+export default CreatePage;

@@ -1,0 +1,30 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 80px 17% 120px 17%;
+}
+.test {
+  color: rgba(246, 248, 254, 0.4);
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  margin-top: -5px;
+  text-align: initial;
+}
+.send {
+  border: none;
+  cursor: pointer;
+}
+
+.title {
+  display: flex;
+  color: rgba(67, 178, 91, 0.15);
+  font-weight: 700;
+  font-size: 60px;
+  background: linear-gradient(306.95deg, #e2fb5f 10.17%, #0fefd4 101.39%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 24px;
+}

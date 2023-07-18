@@ -12,7 +12,7 @@ import LegalPage from "./components/LegalPage/LegalPage";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header/Header";
 import Swap from "./components/Swap/Swap";
-import MyWallet from "./components/MyWalletPage/MyWallet";
+import MyWalletPage from "./components/MyWalletPage/MyWalletPage";
 import License from "./components/LicensePage/LicensePage";
 import Pools from "./components/Pools/Pools";
 import { loadFromStorage } from "./utils/storage";
@@ -104,7 +104,7 @@ function App() {
                   <Route path="/license" element={<License />} />
                   <Route path="/create" element={<CreatePage />} />
                   <Route path="/swap" element={<Swap />} />
-                  <Route path="/my-wallet" element={<MyWallet />} />
+                  <Route path="/my-wallet" element={<MyWalletPage />} />
                   <Route path="/pools" element={<Pools />} />
                 </Routes>
                 <Footer />

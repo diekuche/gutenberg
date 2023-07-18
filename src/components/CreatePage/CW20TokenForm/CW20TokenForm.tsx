@@ -9,9 +9,9 @@ import Button from "ui/Button";
 import Input, { InputProps } from "ui/CreatePage/Input";
 import Collapsible from "ui/CreatePage/Collapsible";
 import { useChain } from "hooks/useChain";
-import styles from "./Form.module.css";
-import { AppStateContext } from "../../../context/AppStateContext";
-import { ContractConfigs } from "../../../config/contracts";
+import { AppStateContext } from "context/AppStateContext";
+import { ContractConfigs } from "config/contracts";
+import styles from "../Form.module.css";
 
 const defaultBalance = {
   id: uuidv4(),
@@ -19,7 +19,7 @@ const defaultBalance = {
   amount: "",
 };
 
-export const Form = () => {
+const CW20TokenForm = () => {
   const [balances, setBalances] = useState<Array<typeof defaultBalance>>([
     defaultBalance,
   ]);
@@ -264,4 +264,4 @@ export const Form = () => {
   );
 };
 
-export default Form;
+export default CW20TokenForm;
