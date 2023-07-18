@@ -1,5 +1,6 @@
 import { useContext, useMemo } from "react";
 import { useActiveChain } from "graz";
+import { Chain } from "classes/Chain";
 import { ChainId, Chains } from "../config/chains";
 import { AppStateContext } from "../context/AppStateContext";
 
@@ -12,6 +13,6 @@ export const useChain = () => {
       realChainId = activeChain.chainId as ChainId;
       setChainId(realChainId);
     }
-    return Chains[realChainId];
+    return new Chain(Chains[realChainId]);
   }, [chainId, activeChain]);
 };

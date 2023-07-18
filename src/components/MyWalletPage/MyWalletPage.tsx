@@ -9,35 +9,32 @@ import BigNumber from "bignumber.js";
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
 import withError from "with-error";
 import { CosmWasmClient } from "@cosmjs/cosmwasm-stargate";
-import { QueryCache } from "utils/QueryCache";
 import { CW20_USER_TOKEN_DETAILS } from "hooks/useQueries";
+import { validateAddress } from "utils/wallet";
+import { toast } from "react-toastify";
 import styles from "./MyWalletPage.module.css";
+import { Chain } from "../../classes/Chain";
+import { Wallet } from "classes/Wallet";
+import { useWallet } from "hooks/useWallet";
+import { useQueryCache } from "hooks/useQueryCache";
+import { QueryCache } from "classes/QueryCache";
 
 const fetch = async (
-  chain: ChainConfig,
+  cache: QueryCache,
+  chain: Chain,
+  wallet: Wallet,
   pushTokens: (tokens: TokenListItem[]) => void,
 ) => {
-  if (!window.keplr) {
-    throw new Error("Wallet is not connected");
-  }
-  const signer = window.keplr.getOfflineSigner(chain.chainId);
-  const accounts = await signer.getAccounts();
-  const account = accounts[0];
-  const tendermint = await Tendermint34Client.connect(chain.rpc);
-  // const stargate = await StargateClient.create(tendermint);
-  const queryClient = new QueryClient(tendermint);
-  const { bank } = setupBankExtension(queryClient);
-  const cosmwasm = await CosmWasmClient.create(tendermint);
-  const cache = new QueryCache({});
-  // const balances = await stargate.getAllBalances(account.address);
-  const balances = await bank.allBalances(account.address);
+  const address = await wallet.getMainAddress(chain.config.chainId);
+  const bank = await chain.bank()
+  const balances = await bank.allBalances(address);
+  const userCw20Tokens = await cache.getOrUpdate({
+    queryKey: `chain/${chain.config.chainId}/user/${address}/cw20`,
+    queryFn: (): string[] => {
+      return []
+    }
+  }, {})
 
-  // const tokenFactoryDenoms = //
-
-  const cw20SavedTokensRaw = localStorage.getItem("userTokens");
-  const [cw20SavedTokens] = withError(() => JSON.parse(cw20SavedTokensRaw || "") as Record<string, string[]>);
-  const userCw20Tokens = cw20SavedTokens && cw20SavedTokens[account.address]
-    ? cw20SavedTokens[account.address] : [];
   await Promise.all(balances.map(async (balance) => {
     const isFactoryToken = balance.denom.toLowerCase().startsWith("factory/");
     if (isFactoryToken) {
@@ -54,8 +51,8 @@ const fetch = async (
       }]);
       return;
     }
-
-    const native = chain.currencies.find((currency) => currency.coinDenom === balance.denom);
+    const native = chain.config.currencies.find((currency) => currency.coinMinimalDenom
+    === balance.denom);
     if (native) {
       pushTokens([{
         shortName: balance.denom,
@@ -69,13 +66,13 @@ const fetch = async (
       }]);
     }
   }).concat(userCw20Tokens.map(async (tokenAddress) => {
-    const token = await cache.getOrUpdate(CW20_USER_TOKEN_DETAILS(tokenAddress, account.address), {
+    const token = await cache.getOrUpdate(CW20_USER_TOKEN_DETAILS(tokenAddress, address), {
       cache,
-      cosmwasm,
+      chain,
     });
     pushTokens([{
       shortName: token.name,
-      key: tokenAddress,
+      key: `cw20:${tokenAddress}`,
       logoUrl: token.logo || "",
       userBalance: BigNumber(token.balance).dividedBy(10 ** token.decimals),
       isBurnable: token.minter === account.address,
@@ -87,31 +84,62 @@ const fetch = async (
 };
 
 const MyWalletPage = () => {
+  const cache = useQueryCache()
   const chain = useChain();
+  const wallet = useWallet();
 
   const [loading, setLoading] = useState(true);
+  const [addTokenLoading, setAddTokenLoading] = useState(false);
 
   const [tokens, setTokens] = useState<TokenListItem[]>([]);
 
   useEffect(() => {
     setLoading(true);
-    fetch(chain, (newTokens) => {
+    setTokens([]);
+    fetch(
+      cache,
+      chain,
+      wallet, (newTokens) => {
       setTokens((oldTokens) => oldTokens.filter(
         (oldToken) => !newTokens.find((newToken) => newToken.key === oldToken.key),
       ).concat(newTokens));
     }).finally(() => setLoading(false));
   }, [chain]);
 
-  const addCw20Token = () => {};
+  const addCw20Token = (tokenAddress: string) => {
+    if (!validateAddress(tokenAddress, "")) {
+      toast.error("Invalid token address");
+      return;
+    }
+    if (tokens.find((token) => token.key === tokenAddress)) {
+      toast.error("Token already exists");
+      return;
+    }
+    setAddTokenLoading(true);
+  };
   const onBurn = () => {};
   const onMint = () => {};
-  const onSend = () => {};
+  const onSend = (key: string, recipient: string, amount: string) => {
+    if (!validateAddress(recipient)) {
+      toast.error("Invalid recipient");
+      return;
+    }
+    const signingClient = await SigningStargateClient.createWithSigner(tendermint, signer, {
+      registry
+    });
+    if (key.startsWith("cw20:")) {
+      const contractAddress = 
+    }else {
+
+    }
+  };
   const onRemove = () => {};
 
   return (
     <div className={styles.main}>
       <div className={styles.title}>manage assets</div>
       <TokenList
+        addTokenLoading={addTokenLoading}
         addCw20Token={addCw20Token}
         onBurn={onBurn}
         onMint={onMint}
@@ -124,236 +152,168 @@ const MyWalletPage = () => {
   );
 };
 export default MyWalletPage;
+//   const { executeContract } = useExecuteContract({
+//     contractAddress,
+//     onError: (error) => {
+//       console.log("error", error);
+//       toast(`${error}`, {
+//         type: "error",
+//         autoClose: 2000,
+//       });
+//     },
+//     onSuccess: (success) => {
+//       console.log("success", success);
+//       toast("Success!", {
+//         type: "success",
+//         autoClose: 2000,
+//       });
+//       refetch();
+//     },
+//   });
+//   const fee = useFee();
 
-// import React, {
-//   useCallback, useContext, useEffect, useState,
-// } from "react";
-// import { Coin, coins } from "@cosmjs/stargate";
-// import {
-//   useAccount,
-//   useClients,
-//   useSendTokens,
-// } from "graz";
-// import { toast } from "react-toastify";
-// import Button from "ui/Button";
-// import { getShortTokenName } from "utils/tokens";
-// import TokenList, { TokenListItem } from "ui/MyWalletPage/TokenList";
-// import { useQueries } from "hooks/useQueries";
-// import { useWalletContext } from "hooks/useWalletContext";
-// import styles from "./MyWallet.module.css";
-// import circle from "../../assets/circle.svg";
-// import swapMA from "../../assets/swapMA.svg";
-// import icon_send from "../../assets/icon_send.svg";
-// import icon_mint from "../../assets/icon_mint.svg";
-// import icon_burn from "../../assets/icon_burn.svg";
-// // import MyInvestment from "../Pools/MyInvestment/MyInvestment";
-// // import MyPools from "../Pools/MyPools/MyPools";
-// import { AppStateContext } from "../../context/AppStateContext";
-// import Token from "./Token/Token";
-// import { useFee } from "../../utils/useFee";
-// import { useChain } from "../../hooks/useChain";
-// import { validateAddress } from "../../utils/wallet";
+//   const handleSendChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+//     setBalance({
+//       ...balance,
+//       [name]: event.target.value,
+//     });
+//   };
 
-// // const sendBalance = {
-// //   recepient: "",
-// //   amount: "",
-// // };
+//   const handleSendTokens = () => {
+//     const { recipient, amount } = balance;
+//     executeContract({
+//       msg: {
+//         transfer: {
+//           amount,
+//           recipient,
+//         },
+//       },
+//       fee,
+//     });
+//   };
 
-// // const ManageAssets = () => {
-// //   const [loading, setLoading] = useState(false);
-// //   const [tokens, setTokens] = useState<TokenListItem[]>([]);
-// //   const [newTokenAddress, setNewTokenAddress] = useState("");
-// //   const [open, setOpen] = useState(false);
-// //   const [token, setToken] = useState(false);
-// //   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
-// //   const { data: account } = useAccount();
-// //   const { data } = useClients();
-// //   const client = data?.stargate;
-// //   const [currentBalances, setCurrentBalances] = useState<readonly Coin[]>([]);
-// //   const { userTokens, removeUserToken, addUserToken } = useContext(AppStateContext);
-// //   const fee = useFee();
+//   const handleBurnToken = async () => {
+//     executeContract({
+//       msg: {
+//         burn: {
+//           amount: burnAmount,
+//         },
+//       },
+//       fee,
+//     });
+//   };
 
-// //   const chain = useChain();
-// //   const queries = useQueries();
-// //   const walletContext = useWalletContext();
+//   const handleMintToken = async () => {
+//     executeContract({
+//       msg: {
+//         mint: {
+//           amount: mintAmount,
+//           recipient: account?.bech32Address,
+//         },
+//       },
+//       fee,
+//     });
+//   };
 
-// //   const { data: account } = useAccount();
-// //   const { data: tokenBalance, refetch } = useQuerySmart<BalanceResponse, string>(
-// //     contractAddress,
-// //     {
-// //       balance: { address: account?.bech32Address },
-// //     },
-// //   );
-// //   const { data: tokenInfo } = useQuerySmart<TokenInfoResponse, string>(contractAddress, {
-// //     token_info: {},
-// //   });
-// //   const { data: marketingInfo } = useQuerySmart<MarketingInfoResponse, string>(contractAddress, {
-// //     marketing_info: {},
-// //   });
-// //   const logoId = marketingInfo?.logo === "embedded" ? marketingInfo?.logo : marketingInfo?.logo?.url?.match(/d\/(.+)\//)?.[1];
-// //   const logoUrl = logoId && `https://drive.google.com/uc?id=${logoId}`;
-// //   const { executeContract } = useExecuteContract({
-// //     contractAddress,
-// //     onError: (error) => {
-// //       console.log("error", error);
-// //       toast(`${error}`, {
-// //         type: "error",
-// //         autoClose: 2000,
-// //       });
-// //     },
-// //     onSuccess: (success) => {
-// //       console.log("success", success);
-// //       toast("Success!", {
-// //         type: "success",
-// //         autoClose: 2000,
-// //       });
-// //       refetch();
-// //     },
-// //   });
-// //   const fee = useFee();
+//   const fetchBalances = async (
+//     {
+//       clients: { stargate },
+//     }: NonNullable<ReturnType<typeof useQueries>>,
+//     {
+//       account: { bech32Address },
+//     }: NonNullable<ReturnType<typeof useWalletContext>>,
+//   ) => {
+//     const nativeBalances = await stargate.getAllBalances(
+//       bech32Address,
+//     );
+//     setTokens(nativeBalances.map((balance) => ({
+//       denom: balance.denom,
+//       amount: balance.
+//     })));
+//   };
 
-// //   const handleSendChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-// //     setBalance({
-// //       ...balance,
-// //       [name]: event.target.value,
-// //     });
-// //   };
+//   useEffect(() => {
+//     if (!queries || !walletContext) {
+//       return;
+//     }
+//     setLoading(true);
+//     fetchBalances(queries, walletContext)
+//       .finally(() => setLoading(false));
+//   }, [queries, walletContext]);
 
-// //   const handleSendTokens = () => {
-// //     const { recipient, amount } = balance;
-// //     executeContract({
-// //       msg: {
-// //         transfer: {
-// //           amount,
-// //           recipient,
-// //         },
-// //       },
-// //       fee,
-// //     });
-// //   };
+//   const { sendTokens } = useSendTokens({
+//     onError: (error) => {
+//       toast(String(error), {
+//         type: "error",
+//       });
+//       console.log("Error when send tokens");
+//       console.log("error", error);
+//     },
+//     onSuccess: (result) => {
+//       toast("Success", {
+//         type: "success",
+//         autoClose: 2000,
+//       });
+//       console.log("success", result);
+//       fetchBalance();
 
-// //   const handleBurnToken = async () => {
-// //     executeContract({
-// //       msg: {
-// //         burn: {
-// //           amount: burnAmount,
-// //         },
-// //       },
-// //       fee,
-// //     });
-// //   };
+//       setBalance({ recepient: "", amount: "" });
+//       setOpen(false);
+//     },
+//   });
 
-// //   const handleMintToken = async () => {
-// //     executeContract({
-// //       msg: {
-// //         mint: {
-// //           amount: mintAmount,
-// //           recipient: account?.bech32Address,
-// //         },
-// //       },
-// //       fee,
-// //     });
-// //   };
+//   useEffect(() => {
+//     fetchBalance();
+//   }, [fetchBalance]);
 
-// //   const fetchBalances = async (
-// //     {
-// //       clients: { stargate },
-// //     }: NonNullable<ReturnType<typeof useQueries>>,
-// //     {
-// //       account: { bech32Address },
-// //     }: NonNullable<ReturnType<typeof useWalletContext>>,
-// //   ) => {
-// //     const nativeBalances = await stargate.getAllBalances(
-// //       bech32Address,
-// //     );
-// //     setTokens(nativeBalances.map((balance) => ({
-// //       denom: balance.denom,
-// //       amount: balance.
-// //     })));
-// //   };
+//   // const handleSendTokens = () => {
+//   //   const { recepient, amount } = balance;
+//   //   if (recepient !== "" && amount !== "" && currentBalance) {
+//   //     sendTokens({
+//   //       recipientAddress: recepient,
+//   //       amount: coins(amount, currentBalance.denom),
+//   //       fee,
+//   //     });
+//   //   }
+//   // };
 
-// //   useEffect(() => {
-// //     if (!queries || !walletContext) {
-// //       return;
-// //     }
-// //     setLoading(true);
-// //     fetchBalances(queries, walletContext)
-// //       .finally(() => setLoading(false));
-// //   }, [queries, walletContext]);
+//   const handleSendChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+//     setBalance({
+//       ...balance,
+//       [name]: event.target.value,
+//     });
+//   };
 
-// //   const { sendTokens } = useSendTokens({
-// //     onError: (error) => {
-// //       toast(String(error), {
-// //         type: "error",
-// //       });
-// //       console.log("Error when send tokens");
-// //       console.log("error", error);
-// //     },
-// //     onSuccess: (result) => {
-// //       toast("Success", {
-// //         type: "success",
-// //         autoClose: 2000,
-// //       });
-// //       console.log("success", result);
-// //       fetchBalance();
+//   const addContract = () => {
+//     if (userTokens.includes(newTokenAddress)) {
+//       setNewTokenAddress("");
+//       toast("Token already exist", {
+//         type: "error",
+//         autoClose: 2000,
+//       });
+//       return;
+//     }
 
-// //       setBalance({ recepient: "", amount: "" });
-// //       setOpen(false);
-// //     },
-// //   });
+//     if (validateAddress(newTokenAddress, chain.bech32Config.bech32PrefixAccAddr)) {
+//       addUserToken(newTokenAddress);
+//       setNewTokenAddress("");
+//     } else {
+//       toast("Invalid contract address", {
+//         type: "error",
+//         autoClose: 2000,
+//       });
+//     }
+//   };
 
-// //   useEffect(() => {
-// //     fetchBalance();
-// //   }, [fetchBalance]);
+//   return (
+//     <div className={styles.main}>
+//       <div className={styles.title}>manage assets</div>
+//       <TokenList items={[]} />
 
-// //   // const handleSendTokens = () => {
-// //   //   const { recepient, amount } = balance;
-// //   //   if (recepient !== "" && amount !== "" && currentBalance) {
-// //   //     sendTokens({
-// //   //       recipientAddress: recepient,
-// //   //       amount: coins(amount, currentBalance.denom),
-// //   //       fee,
-// //   //     });
-// //   //   }
-// //   // };
+//       {/* <MyInvestment />
+//       <MyPools /> */}
+//     </div>
+//   );
+// };
 
-// //   const handleSendChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-// //     setBalance({
-// //       ...balance,
-// //       [name]: event.target.value,
-// //     });
-// //   };
-
-// //   const addContract = () => {
-// //     if (userTokens.includes(newTokenAddress)) {
-// //       setNewTokenAddress("");
-// //       toast("Token already exist", {
-// //         type: "error",
-// //         autoClose: 2000,
-// //       });
-// //       return;
-// //     }
-
-// //     if (validateAddress(newTokenAddress, chain.bech32Config.bech32PrefixAccAddr)) {
-// //       addUserToken(newTokenAddress);
-// //       setNewTokenAddress("");
-// //     } else {
-// //       toast("Invalid contract address", {
-// //         type: "error",
-// //         autoClose: 2000,
-// //       });
-// //     }
-// //   };
-
-// //   return (
-// //     <div className={styles.main}>
-// //       <div className={styles.title}>manage assets</div>
-// //       <TokenList items={[]} />
-
-// //       {/* <MyInvestment />
-// //       <MyPools /> */}
-// //     </div>
-// //   );
-// // };
-
-// // export default ManageAssets;
+// export default ManageAssets;

@@ -25,7 +25,9 @@
       "utils/*": ["./src/utils/*"],
       "hooks/*": ["./src/hooks/*"],
       "context/*": ["./src/context/*"],
-      "config/*": ["./src/config/*"]
+      "config/*": ["./src/config/*"],
+      "classes/*": ["./src/classes/*"],
+      "types/*": ["./src/types/*"]
     }
   },
   "include": ["src"],

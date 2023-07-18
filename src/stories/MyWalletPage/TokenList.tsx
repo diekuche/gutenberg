@@ -9,6 +9,7 @@ TokenItemProps,
 >;
 
 type TokenListProps = {
+  addTokenLoading: boolean;
   addCw20Token: (tokenAddress: string) => void;
   onBurn: (key: string, burnAmount: string) => void;
   onMint: (key: string, mintAmount: string) => void;
@@ -18,6 +19,7 @@ type TokenListProps = {
 };
 
 const TokenList = ({
+  addTokenLoading,
   addCw20Token,
   onBurn,
   onMint,
@@ -68,10 +70,11 @@ const TokenList = ({
                   <Button
                     color="green"
                     type="button"
+                    disabled={addTokenLoading}
                     onClick={() => addCw20Token(newTokenAddress)}
                     className={styles.buttonStyle}
                   >
-                    Add
+                    {addTokenLoading ? "adding..." : "Add token"}
                   </Button>
                 </div>
                 )}
@@ -82,7 +85,7 @@ const TokenList = ({
                   className={styles.buttonToken}
                   onClick={() => setOpenNewToken(true)}
                 >
-                  Add cw20 Token
+                  Add Token
                 </Button>
               </div>
             </td>

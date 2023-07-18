@@ -2,6 +2,7 @@ import { BigNumber } from "bignumber.js";
 import { TokenDetails } from "hooks/useQueries";
 import type { Metadata } from "cosmjs-types/cosmos/bank/v1beta1/bank";
 import { Denom } from "../ts/SwapPoolFactory.types";
+import { ChainConfig } from "config/chains";
 
 export const compareDenoms = (denom1: Denom, denom2: Denom) => {
   const isDenom1Native = "native" in denom1;
@@ -55,5 +56,9 @@ export const nativeTokenDetails = (nativeToken: Metadata): TokenDetails => {
     decimals: nativeToken.denomUnits[0].exponent,
     name,
     symbol,
+    minter: "",
   };
 };
+
+export const transferCw20 = (chain: ChainConfig, contractAddress: string, recipient: string) => {};
+export const transferNative = () => {};

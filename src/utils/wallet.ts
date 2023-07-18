@@ -1,6 +1,6 @@
 import { fromBech32 } from "@cosmjs/encoding";
 
-export const validateAddress = (address: string, prefix: string) => {
+export const validateAddress = (address: string, prefix = "") => {
   try {
     fromBech32(prefix + address);
     return true;

@@ -6,6 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { GrazProvider, useAccount } from "graz";
 import WelcomePage from "ui/WelcomePage";
 import Footer from "ui/Footer";
+import { QueryCache } from "classes/QueryCache";
+import { WalletContext } from "hooks/useWallet";
 import { AppState, AppStateContext } from "./context/AppStateContext";
 import CreatePage from "./components/CreatePage/CreatePage";
 import LegalPage from "./components/LegalPage/LegalPage";
@@ -17,8 +19,8 @@ import License from "./components/LicensePage/LicensePage";
 import Pools from "./components/Pools/Pools";
 import { loadFromStorage } from "./utils/storage";
 import { QueryCacheContext } from "./hooks/useQueryCache";
-import { QueryCache } from "./utils/QueryCache";
 import { ChainId, Chains } from "./config/chains";
+import { Wallet } from "classes/Wallet";
 
 const TokensStorageKey = "userTokens";
 declare global {
@@ -28,6 +30,7 @@ declare global {
 
 type SavedTokens = Record<string, AppState["userTokens"]>;
 const queryCache = new QueryCache({});
+const wallet = new Wallet();
 
 function App() {
   const [chainId, setChainId] = useState<ChainId>("bostrom");
@@ -85,41 +88,43 @@ function App() {
 
   return (
     <QueryCacheContext.Provider value={queryCache}>
-      <GrazProvider
-        grazOptions={{
-          defaultChain: Chains.bostrom,
-        }}
-      >
-        <div className="App">
-          <div className="container">
+      <WalletContext.Provider value={wallet}>
+        <GrazProvider
+          grazOptions={{
+            defaultChain: Chains.bostrom,
+          }}
+        >
+          <div className="App">
+            <div className="container">
 
-            <AppStateContext.Provider
-              value={appState}
-            >
-              <Router>
-                <Header />
-                <Routes>
-                  <Route path="/" element={<WelcomePage />} />
-                  <Route path="/legalinfo" element={<LegalPage />} />
-                  <Route path="/license" element={<License />} />
-                  <Route path="/create" element={<CreatePage />} />
-                  <Route path="/swap" element={<Swap />} />
-                  <Route path="/my-wallet" element={<MyWalletPage />} />
-                  <Route path="/pools" element={<Pools />} />
-                </Routes>
-                <Footer />
-              </Router>
+              <AppStateContext.Provider
+                value={appState}
+              >
+                <Router>
+                  <Header />
+                  <Routes>
+                    <Route path="/" element={<WelcomePage />} />
+                    <Route path="/legalinfo" element={<LegalPage />} />
+                    <Route path="/license" element={<License />} />
+                    <Route path="/create" element={<CreatePage />} />
+                    <Route path="/swap" element={<Swap />} />
+                    <Route path="/my-wallet" element={<MyWalletPage />} />
+                    <Route path="/pools" element={<Pools />} />
+                  </Routes>
+                  <Footer />
+                </Router>
 
-              <ToastContainer
-                bodyClassName="font-link"
-                style={{ marginTop: 50 }}
-                theme="dark"
-                autoClose={false}
-              />
-            </AppStateContext.Provider>
+                <ToastContainer
+                  bodyClassName="font-link"
+                  style={{ marginTop: 50 }}
+                  theme="dark"
+                  autoClose={false}
+                />
+              </AppStateContext.Provider>
+            </div>
           </div>
-        </div>
-      </GrazProvider>
+        </GrazProvider>
+      </WalletContext.Provider>
     </QueryCacheContext.Provider>
   );
 }
