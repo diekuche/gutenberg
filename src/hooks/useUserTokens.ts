@@ -98,7 +98,7 @@ const userTokenToListItem = (token: TokenItem, address: string): TokenListItem =
     shortName = token.name;
   } else {
     const isFactoryToken = isCw20 ? false : token.denom.toLowerCase().startsWith("factory/");
-    shortName = isFactoryToken ? getShortTokenName(token.denom) : token.denom;
+    shortName = isFactoryToken ? getShortTokenName(token) : token.denom;
   }
   return {
     shortName,

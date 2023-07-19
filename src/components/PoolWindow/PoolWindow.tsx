@@ -9,6 +9,7 @@ import { Chain } from "classes/Chain";
 import { Account } from "classes/Account";
 import { SWAP_POOL_INFO } from "queries/pool";
 import { USER_TOKEN_DETAILS } from "queries/tokens";
+import { getShortTokenName } from "utils/tokens";
 import styles from "./PoolWindow.module.css";
 import Withdraw from "./Withdraw/Withdraw";
 import Farm from "./Farm/Farm";
@@ -23,8 +24,8 @@ export type PoolWindowProps = {
 const fetch = async (chain: Chain, account: Account, pool: PoolDetails) => {
   const [poolInfo, ...tokens] = await Promise.all([
     chain.query(SWAP_POOL_INFO(pool.address), { cacheTime: 1 }),
-    chain.query(USER_TOKEN_DETAILS(pool.denom1, account.address)),
-    chain.query(USER_TOKEN_DETAILS(pool.denom2, account.address)),
+    chain.query(USER_TOKEN_DETAILS(pool.token1, account.address)),
+    chain.query(USER_TOKEN_DETAILS(pool.token2, account.address)),
   ]);
   return {
     poolInfo,
@@ -86,9 +87,9 @@ const PoolWindow = ({
     <div>
       <div className={styles.depositWindow}>
         <div className={styles.nameField}>
-          {depositData.token1.symbol}
+          {getShortTokenName(depositData.token1)}
           /
-          {depositData.token2.symbol}
+          {getShortTokenName(depositData.token2)}
         </div>
         <Tabs<TabKey>
           selectedId={selectedTabKey}

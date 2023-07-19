@@ -1,7 +1,7 @@
 import NewButton from "ui/NewButton";
-import { TokenDetails } from "hooks/useQueries";
 import { formatBalance } from "utils/balance";
-import { calcTokenExchangePrice, tokenAmountToFloat } from "utils/tokens";
+import { calcTokenExchangePrice, getShortTokenName, tokenAmountToFloat } from "utils/tokens";
+import { TokenDetails } from "types/tokens";
 import styles from "./ConfirmSupply.module.css";
 
 type Props = {
@@ -28,9 +28,9 @@ const ConfirmSupply = ({
       <div className={styles.text}>
         Creating
         {" "}
-        {token1.symbol}
+        {getShortTokenName(token1)}
         /
-        {token2.symbol}
+        {getShortTokenName(token2)}
         {" "}
         liquidity pool You are providing
         the listed assets. The exchange rate is calculated automatically. Make
@@ -38,18 +38,18 @@ const ConfirmSupply = ({
       </div>
       <div className={styles.change}>
         <div className={styles.firstString}>
-          <div className={styles.nameString}>{token1.name}</div>
+          <div className={styles.nameString}>{getShortTokenName(token1)}</div>
           <div className={styles.test}>
-            <div className={styles.nameToken}>{token1.symbol}</div>
+            <div className={styles.nameToken}>{getShortTokenName(token1)}</div>
             <div className={styles.priceToken}>
               {formatBalance(tokenAmountToFloat(token1Amount, token1.decimals), token1.decimals)}
             </div>
           </div>
         </div>
         <div className={styles.secondString}>
-          <div className={styles.nameString}>{token2.name}</div>
+          <div className={styles.nameString}>{getShortTokenName(token2)}</div>
           <div className={styles.test}>
-            <div className={styles.nameToken}>{token2.symbol}</div>
+            <div className={styles.nameToken}>{getShortTokenName(token2)}</div>
             <div className={styles.priceToken}>
               {formatBalance(tokenAmountToFloat(token2Amount, token2.decimals), token2.decimals)}
 

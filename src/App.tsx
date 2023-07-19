@@ -54,7 +54,7 @@ function App() {
   const [isConnecting, setIsConnecting] = useState(false);
   const [connectError, setConnectError] = useState<unknown>();
   const [account, setAccount] = useState<Account>();
-  const [chain, setChain] = useState<Chain>(() => new Chain(Chains.bostrom));
+  const [chain, setChain] = useState<Chain | null>(null);
   const [chainId, setChainId] = useState<ChainId>("bostrom");
 
   const appState: AppState = useMemo(() => ({
@@ -76,6 +76,9 @@ function App() {
   };
 
   const onWalletUpdate = async (ch: Chain) => {
+    if (!chain) {
+      return;
+    }
     setIsConnecting(true);
     try {
       const address = await wallet.getAddress(ch.config.chainId);
@@ -93,6 +96,9 @@ function App() {
     }
   };
   useEffect(() => {
+    if (!chain) {
+      return () => { /** */ };
+    }
     wallet.onUpdate(() => onWalletUpdate(chain));
     onWalletUpdate(chain);
     return () => wallet.offUpdate(() => { onWalletUpdate(chain); });
@@ -102,14 +108,20 @@ function App() {
     store.get({
       key: "selected-chain-id",
       default: "bostrom" as ChainId,
-    }).then(setChainId);
+    }).then(onSelectChainId);
   }, []);
 
   const connect = useMemo(() => () => {
+    if (!chain) {
+      return;
+    }
     wallet.connect(chain);
     onWalletUpdate(chain);
   }, [chain]);
   const disconnect = useMemo(() => () => {
+    if (!chain) {
+      return;
+    }
     wallet.disconnect(chain);
     setAccount(undefined);
   }, [chain]);
@@ -127,7 +139,9 @@ function App() {
     connectError,
     disconnect,
   ]);
-
+  if (!chain) {
+    return null;
+  }
   return (
     <AppStoreContext.Provider value={store}>
       <ChainContext.Provider value={chain}>

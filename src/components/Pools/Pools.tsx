@@ -5,14 +5,17 @@ import { Triangle } from "react-loader-spinner";
 import Modal from "ui/Modal";
 import { useChain } from "hooks/useChain";
 import { PoolDenom, UserTokenDetails } from "types/tokens";
-import { comparePoolDenoms, isCw20, nativeTokenDetails } from "utils/tokens";
+import { compareTokens, nativeTokenDetails, tokenToPoolDenom } from "utils/tokens";
 import { Chain } from "classes/Chain";
-import { SWAP_POOL_INFO, SWAP_POOL_LIST } from "queries/pool";
-import { TOKEN_DETAILS, USER_TOKEN_DETAILS } from "queries/tokens";
+import { POOL_TOKEN_DETAILS, SWAP_POOL_INFO, SWAP_POOL_LIST } from "queries/pool";
 import { ADD_LIQUIDITY, CREATE_POOL } from "mutations/pool";
 import { useAccount } from "hooks/useAccount";
 import { Account } from "classes/Account";
 import { PoolDetails } from "types/pools";
+import { CW20_USER_TOKEN_DETAILS } from "queries/cw20";
+import { useStore } from "hooks/useStore";
+import { QueryCache } from "classes/QueryCache";
+import { STORE_USER_CW20_TOKENS_KEY } from "store/cw20";
 import styles from "./Pools.module.css";
 
 import AllPools from "./AllPools";
@@ -22,7 +25,7 @@ import ConfirmSupply from "../CreatePool/ConfirmSupply/ConfirmSupply";
 const fetchData = async (
   chain: Chain,
   account: Account | undefined,
-  userTokens: string[],
+  store: QueryCache,
 ) => {
   const { pools: poolList } = await chain.query(SWAP_POOL_LIST(
     chain.cosmwasmConfigs.factoryAddress,
@@ -32,18 +35,14 @@ const fetchData = async (
       const poolInfo = await chain.query(SWAP_POOL_INFO(poolAddress));
       const token1Denom = (poolInfo.token1_denom as unknown as PoolDenom);
       const token2Denom = (poolInfo.token2_denom as unknown as PoolDenom);
-      const token1Details = await chain.query(TOKEN_DETAILS(token1Denom));
-      const token2Details = await chain.query(TOKEN_DETAILS(token2Denom));
+      const token1 = await chain.query(POOL_TOKEN_DETAILS(token1Denom));
+      const token2 = await chain.query(POOL_TOKEN_DETAILS(token2Denom));
 
       return {
         address: poolAddress,
         index,
-        denom1: token1Denom,
-        denom2: token2Denom,
-        symbol1: token1Details.symbol,
-        symbol2: token2Details.symbol,
-        logo1: token1Details.logo,
-        logo2: token2Details.logo,
+        token1,
+        token2,
       };
     }),
   );
@@ -51,11 +50,11 @@ const fetchData = async (
   if (account) {
     const { address } = account;
     const poolTokens = newPools.reduce((result, pool) => {
-      if (isCw20(pool.denom1) && !result.includes(pool.denom1.cw20)) {
-        result.push(pool.denom1.cw20);
+      if (pool.token1.type === "cw20" && !result.includes(pool.token1.address)) {
+        result.push(pool.token1.address);
       }
-      if (isCw20(pool.denom2) && !result.includes(pool.denom2.cw20)) {
-        result.push(pool.denom2.cw20);
+      if (pool.token2.type === "cw20" && !result.includes(pool.token2.address)) {
+        result.push(pool.token2.address);
       }
       return result;
     }, [] as string[]);
@@ -70,13 +69,12 @@ const fetchData = async (
         balance: nativeBalances.find((b) => b.denom === nativeToken.denomUnits[0].denom)?.amount || "0",
       };
     });
+    const userTokens = await store.get(STORE_USER_CW20_TOKENS_KEY(chain, account));
 
     const allTokens = (userTokens || []).concat(poolTokens);
-    const allCw20Tokens = (
+    const allCw20Tokens: UserTokenDetails[] = (
       await Promise.all(
-        allTokens.map((tokenAddr) => chain.query(USER_TOKEN_DETAILS({
-          cw20: tokenAddr,
-        }, address))),
+        allTokens.map((tokenAddr) => chain.query(CW20_USER_TOKEN_DETAILS(tokenAddr, address))),
       )
     );
 
@@ -91,6 +89,7 @@ const fetchData = async (
 
 const Pools = () => {
   const chain = useChain();
+  const store = useStore();
   const { account } = useAccount();
 
   const [isDepositOpen, setIsDepositOpen] = useState(false);
@@ -106,7 +105,7 @@ const Pools = () => {
   const [processing, setProcessing] = useState(false);
 
   const updateData = () => {
-    fetchData(chain, account, [])
+    fetchData(chain, account, store)
       .then(({ pools: newPools, tokens: newTokens }) => {
         setPools(newPools);
         if (newTokens) {
@@ -154,7 +153,7 @@ const Pools = () => {
       toast.error("Tokens are required");
       return;
     }
-    const denomsAreEqual = comparePoolDenoms(token1.denom, token2.denom);
+    const denomsAreEqual = compareTokens(token1, token2);
     if (denomsAreEqual) {
       toast.error("Error: Tokens are equal", {
         autoClose: 5000,
@@ -163,12 +162,12 @@ const Pools = () => {
     }
     if (pools.find((pool) => (
       (
-        comparePoolDenoms(pool.denom1, token1.denom)
-      && comparePoolDenoms(pool.denom2, token2.denom)
+        compareTokens(pool.token1, token1)
+      && compareTokens(pool.token2, token2)
       )
     || (
-      comparePoolDenoms(pool.denom1, token2.denom)
-      && comparePoolDenoms(pool.denom2, token1.denom)
+      compareTokens(pool.token1, token2)
+      && compareTokens(pool.token2, token1)
     )))) {
       toast.warn("Pool already exists, you can add liquidity", {
         autoClose: 5000,
@@ -193,10 +192,15 @@ const Pools = () => {
     try {
       console.log("New pool attempt", {
         lpFeePercent: lpFee.toString(),
-        token1Denom: token1.denom,
-        token2Denom: token2.denom,
+        token1,
+        token2,
       });
-      const CreatePoolResponse = await CREATE_POOL(account, lpFee, token1.denom, token2.denom);
+      const CreatePoolResponse = await CREATE_POOL(
+        account,
+        lpFee,
+        tokenToPoolDenom(token1),
+        tokenToPoolDenom(token2),
+      );
       console.log("CreatePoolResponse", CreatePoolResponse);
       toast.success("Pool created successfully, depositing...");
       updateData();

@@ -11,7 +11,9 @@ import { useChain } from "hooks/useChain";
 import SelectTokenLabel from "ui/SelectCustom/SelectTokenLabel";
 import InputTokenAmount from "ui/InputTokenAmount";
 import { formatBalance } from "utils/balance";
-import { comparePoolDenoms, tokenAmountToFloat } from "utils/tokens";
+import {
+  compareTokens, getShortTokenName, tokenAmountToFloat,
+} from "utils/tokens";
 import { UserTokenDetails } from "types/tokens";
 import { useAccount } from "hooks/useAccount";
 import styles from "./CreatePoolForm.module.css";
@@ -38,8 +40,8 @@ const SelectValue: ComponentType<SingleValueProps<{
   label: unknown;
   value: UserTokenDetails;
 }, false>> = (
-  { data: { value: { symbol } } },
-) => <div className={styles.selectValue}>{symbol}</div>;
+  { data: { value: token } },
+) => <div className={styles.selectValue}>{getShortTokenName(token)}</div>;
 
 const CreatePoolForm = ({
   onSubmit,
@@ -60,7 +62,7 @@ const CreatePoolForm = ({
   const options = useMemo(() => tokens.map((token) => ({
     value: token,
     label: <SelectTokenLabel
-      name={token.symbol}
+      name={getShortTokenName(token)}
       chainName={chain.config.chainId}
       balance={formatBalance(tokenAmountToFloat(token.balance, token.decimals), token.decimals)}
       icon={token.logo || ""}
@@ -121,7 +123,7 @@ const CreatePoolForm = ({
               components={{ SingleValue: SelectValue }}
               value={token1
                 && options.find(
-                  ({ value }) => comparePoolDenoms(value.denom, token1.denom),
+                  ({ value }) => compareTokens(value, token1),
                 )}
             />
           </div>
@@ -158,7 +160,7 @@ const CreatePoolForm = ({
               placeholder="Select Token"
               value={token2
                 && options.find(
-                  ({ value }) => comparePoolDenoms(value.denom, token2.denom),
+                  ({ value }) => compareTokens(value, token2),
                 )}
             />
           </div>

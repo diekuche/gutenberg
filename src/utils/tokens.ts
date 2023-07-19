@@ -1,6 +1,6 @@
 import { BigNumber } from "bignumber.js";
 import type { Metadata } from "cosmjs-types/cosmos/bank/v1beta1/bank";
-import { PoolDenom, TokenDetails } from "types/tokens";
+import { NativeTokenDetails, PoolDenom, TokenDetails } from "types/tokens";
 
 export const comparePoolDenoms = (denom1: PoolDenom, denom2: PoolDenom) => {
   const isDenom1Native = "native" in denom1;
@@ -13,6 +13,18 @@ export const comparePoolDenoms = (denom1: PoolDenom, denom2: PoolDenom) => {
   }
   return false;
 };
+
+export const compareTokens = (
+  token1: TokenDetails,
+  token2: TokenDetails,
+) => (
+  token1.type === "cw20" && token2.type === "cw20"
+    && token1.address === token2.address
+) || (
+  token1.type === "native" && token2.type === "native"
+    && token1.denom === token2.denom
+);
+
 export const tokenAmountToFloat = (
   amount: string | number,
   decimal: number,
@@ -42,18 +54,33 @@ export const calcTokenExchangePrice = (
   const inputWithFee = (1 - (fee / 100)) * input;
   return ((inputWithFee * outputReserve) / (inputReserve + inputWithFee));
 };
-export const getShortTokenName = (name: string) => (name.toLowerCase().startsWith("factory/") ? name.split("/")[2] : name);
+export const getShortTokenName = (token: TokenDetails) => {
+  if (token.type === "native") {
+    const name = token.denom;
+    return (name.toLowerCase().startsWith("factory/") ? name.split("/")[2] : name);
+  }
+  return token.symbol;
+};
 
-export const nativeTokenDetails = (nativeToken: Metadata): TokenDetails => {
+export const nativeTokenDetails = (nativeToken: Metadata): NativeTokenDetails => {
   const { denom } = nativeToken.denomUnits[0];
-  const name = nativeToken.name || nativeToken.symbol || nativeToken.display || denom;
-  const symbol = getShortTokenName(name);
   return {
-    denom: { native: denom },
+    denom,
     type: "native",
     decimals: nativeToken.denomUnits[0].exponent,
-    name,
-    symbol,
-    minter: "",
   };
+};
+
+export const tokenToPoolDenom = (token: TokenDetails): PoolDenom => (token.type === "cw20" ? {
+  cw20: token.address,
+} : {
+  native: token.denom,
+});
+
+export const searchInToken = (token: TokenDetails, q: string) => {
+  if (token.type === "native") {
+    return token.denom.toLowerCase().includes(q.toLowerCase());
+  }
+  return token.name.toLowerCase().includes(q.toLowerCase())
+  || token.symbol.toLowerCase().includes(q.toLowerCase());
 };

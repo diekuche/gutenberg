@@ -3,21 +3,21 @@ import {
   useState,
 } from "react";
 import Modal from "ui/Modal";
+import { PoolDetails } from "types/pools";
+import { getShortTokenName, searchInToken } from "utils/tokens";
 import styles from "./Pools.module.css";
 import circle from "../../assets/circle.svg";
 import atom from "../../assets/atom.svg";
 import leftarrow from "../../assets/greyArrowLeft.svg";
 import rightarrow from "../../assets/greyArrowRight.svg";
-import greyArrowDown from "../../assets/greyArrowDown.svg";
+// import greyArrowDown from "../../assets/greyArrowDown.svg";
 import PoolWindow from "../PoolWindow/PoolWindow";
-
-import { AppStatePool } from "../../context/AppStateContext";
 
 const PAGE_SIZE = 10;
 
 type AllPoolsProps = {
-  pools: AppStatePool[];
-  onPoolUpdated: (pool: AppStatePool)=> void;
+  pools: PoolDetails[];
+  onPoolUpdated: (pool: PoolDetails)=> void;
 };
 
 const AllPools = ({
@@ -26,13 +26,13 @@ const AllPools = ({
 }: AllPoolsProps) => {
   const [filter, setFilter] = useState("");
   const [page, setPage] = useState(1);
-  const [poolForDeposit, setPoolForDeposit] = useState<AppStatePool | null>(null);
+  const [poolForDeposit, setPoolForDeposit] = useState<PoolDetails | null>(null);
   const [modal, setModal] = useState(false);
   const pools = (
     filter
       ? nonFilteredPools.filter(
-        (pool) => pool.symbol1.toLowerCase().includes(filter.toLowerCase())
-        || pool.symbol2.toLowerCase().includes(filter.toLowerCase()),
+        (pool) => searchInToken(pool.token1, filter)
+        || searchInToken(pool.token2, filter),
       )
       : nonFilteredPools
   );
@@ -45,7 +45,7 @@ const AllPools = ({
     setPage(1);
   }, [filter]);
 
-  const onPoolDeposit = (pool: AppStatePool) => {
+  const onPoolDeposit = (pool: PoolDetails) => {
     setPoolForDeposit(pool);
     setModal(true);
   };
@@ -76,7 +76,7 @@ const AllPools = ({
           <thead>
             <tr className={styles.theadPools}>
               <th className={styles.pair}>Pair</th>
-              <th>APR</th>
+              {/* <th>APR</th>
               <th>
                 Total Liquidity
                 <img
@@ -85,7 +85,7 @@ const AllPools = ({
                   alt=""
                 />
               </th>
-              <th className={styles.volume}>Volume (24h)</th>
+              <th className={styles.volume}>Volume (24h)</th> */}
             </tr>
           </thead>
           <tbody className={styles.mainTable}>
@@ -107,12 +107,15 @@ const AllPools = ({
 
                       </>
                       )}
-                      <div className={styles.pair}>{`${pool.symbol1}/${pool.symbol2}`}</div>
+                      <div className={styles.pair}>
+                        {`${getShortTokenName(pool.token1)}/${getShortTokenName(pool.token2)}`}
+
+                      </div>
                     </div>
                   </td>
-                  <td className={styles.ARP}>54.51%</td>
+                  {/* <td className={styles.ARP}>54.51%</td>
                   <td>$283,478,297</td>
-                  <td className={styles.volume}>$111,111,111</td>
+                  <td className={styles.volume}>$111,111,111</td> */}
                 </tr>
               ))}
           </tbody>

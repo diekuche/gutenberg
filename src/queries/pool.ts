@@ -1,6 +1,9 @@
 import { Chain } from "classes/Chain";
 import { SwapPoolQueryClient } from "generated/SwapPool.client";
 import { SwapPoolFactoryQueryClient } from "generated/SwapPoolFactory.client";
+import { PoolDenom, TokenDetails } from "types/tokens";
+import { NATIVE_TOKEN_DETAILS } from "./native";
+import { CW20_TOKEN_DETAILS } from "./cw20";
 
 export const SWAP_POOL_INFO = (poolAddress: string) => ({
   queryKey: `/pool/${poolAddress}/info`,
@@ -31,3 +34,22 @@ export const SWAP_POOL_LIST = (factoryAddr: string) => ({
   },
   cacheTime: 1 * 60 * 1000,
 });
+
+export const POOL_TOKEN_DETAILS = (denom: PoolDenom): {
+  queryKey: string;
+  queryFn: (context: {
+    chain: Chain
+  }) => Promise<TokenDetails>
+} => {
+  if ("native" in denom) {
+    return NATIVE_TOKEN_DETAILS(denom);
+  }
+  return {
+    queryKey: `/v0.1/cw20/${denom.cw20}/details`,
+    queryFn: (context: {
+      chain: Chain
+    }) => CW20_TOKEN_DETAILS(
+      denom.cw20,
+    ).queryFn(context),
+  };
+};

@@ -109,10 +109,10 @@ const CreatePage = () => {
       await store.setInArray(STORE_USER_CW20_TOKENS_KEY(chain, account).key, res.contractAddress);
       addCw20Token(res.contractAddress);
     } catch (error) {
-      console.log("error", error);
       toast(error as string, {
         type: "error",
       });
+      console.log("error", error);
     }
     setCreating(false);
   };

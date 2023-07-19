@@ -19,9 +19,9 @@ export type ChainCosmwasmConfig = {
 };
 
 const gasLimits = {
-  [GasLimit.Cw20IncreaseAllowance]: 60000,
-  [GasLimit.PoolAddLiquidity]: 60000,
-  [GasLimit.PoolFactoryCreatePool]: 60000,
+  [GasLimit.Cw20IncreaseAllowance]: 160000,
+  [GasLimit.PoolAddLiquidity]: 500000,
+  [GasLimit.PoolFactoryCreatePool]: 600000,
   [GasLimit.Cw20Instantiate]: 250000,
   [GasLimit.Cw20Send]: 150000,
   [GasLimit.NativeSendTokens]: 100000,

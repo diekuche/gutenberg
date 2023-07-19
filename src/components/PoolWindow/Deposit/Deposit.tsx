@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import NewButton from "ui/NewButton";
 import InputTokenAmount from "ui/InputTokenAmount";
 import {
+  getShortTokenName,
   tokenAmountToFloat,
 } from "utils/tokens";
 import { formatBalance } from "utils/balance";
@@ -114,7 +115,7 @@ const Dep = ({
             </div>
             {token1.logo
             && <img className={styles.circle} src={token1.logo} alt="" />}
-            <div className={styles.bootToken}>{pool.symbol1}</div>
+            <div className={styles.bootToken}>{getShortTokenName(pool.token1)}</div>
           </div>
         </div>
         <div className={styles.secondStirngTwoField}>
@@ -148,7 +149,7 @@ const Dep = ({
             </div>
             {token2.logo
             && <img className={styles.circle} src={token2.logo} alt="" />}
-            <div className={styles.bootToken}>{pool.symbol2}</div>
+            <div className={styles.bootToken}>{getShortTokenName(pool.token2)}</div>
           </div>
         </div>
         <div className={styles.secondStirngTwoField}>

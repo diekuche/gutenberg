@@ -1,5 +1,5 @@
 import { PoolDenom, TokenDetails } from "types/tokens";
-import { isCw20, isNative } from "utils/tokens";
+import { getShortTokenName } from "utils/tokens";
 import { Cw20Client, Cw20QueryClient } from "generated/Cw20.client";
 import BigNumber from "bignumber.js";
 import { GasLimit } from "config/cosmwasm";
@@ -44,13 +44,13 @@ export const ADD_LIQUIDITY = async (
   const signingCosmWasmClient = await chain.getSigningCosmWasmClient(account.signer);
   const cosmWasmClient = await chain.getCosmWasmClient();
 
-  if (isCw20(token1.denom)) {
+  if (token1.type === "cw20") {
     const token1CwExecutor = new Cw20Client(
       signingCosmWasmClient,
       address,
-      token1.denom.cw20,
+      token1.address,
     );
-    const token1CwQuery = new Cw20QueryClient(cosmWasmClient, token1.denom.cw20);
+    const token1CwQuery = new Cw20QueryClient(cosmWasmClient, token1.address);
     const token1Allowance = await token1CwQuery.allowance({
       owner: address,
       spender: poolAddress,
@@ -66,13 +66,13 @@ export const ADD_LIQUIDITY = async (
       }, chain.calculateFee(GasLimit.Cw20IncreaseAllowance));
     }
   }
-  if (isCw20(token2.denom)) {
+  if (token2.type === "cw20") {
     const token2CwExecutor = new Cw20Client(
       signingCosmWasmClient,
       address,
-      token2.denom.cw20,
+      token2.address,
     );
-    const token2CwQuery = new Cw20QueryClient(cosmWasmClient, token2.denom.cw20);
+    const token2CwQuery = new Cw20QueryClient(cosmWasmClient, token2.address);
 
     const token2Allowance = await token2CwQuery.allowance({
       owner: address,
@@ -97,20 +97,20 @@ export const ADD_LIQUIDITY = async (
   );
 
   console.log(`Adding liquidity to pool ${poolAddress}`);
-  console.log(`Token1: ${token1.symbol} (${token1.decimals})`);
-  console.log(`Token2: ${token2.symbol} (${token2.decimals})`);
+  console.log(`Token1: ${getShortTokenName(token1)} (${token1.decimals})`);
+  console.log(`Token2: ${getShortTokenName(token2)} (${token2.decimals})`);
   console.log(`Token1 amount: ${token1RealAmount}, max token2: ${token2RealAmount}`);
 
   const funds: Coin[] = [];
-  if (isNative(token1.denom)) {
+  if (token1.type === "native") {
     funds.push({
-      denom: token1.denom.native,
+      denom: token1.denom,
       amount: token1RealAmount,
     });
   }
-  if (isNative(token2.denom)) {
+  if (token2.type === "native") {
     funds.push({
-      denom: token2.denom.native,
+      denom: token2.denom,
       amount: token2RealAmount,
     });
   }
@@ -121,8 +121,8 @@ export const ADD_LIQUIDITY = async (
     minLiquidity: "0",
   }, chain.calculateFee(GasLimit.PoolAddLiquidity), undefined, funds);
   try {
-    chain.invalidate(USER_TOKEN_DETAILS(token1.denom, address));
-    chain.invalidate(USER_TOKEN_DETAILS(token2.denom, address));
+    chain.invalidate(USER_TOKEN_DETAILS(token1, address));
+    chain.invalidate(USER_TOKEN_DETAILS(token2, address));
   } catch (e) {
     console.log("Invalidate user tokens info failed");
     console.log(e);
