@@ -21,8 +21,8 @@ const gasLimits = {
   [GasLimit.PoolAddLiquidity]: 60000,
   [GasLimit.PoolFactoryCreatePool]: 60000,
   [GasLimit.Cw20Instantiate]: 60000,
-  [GasLimit.Cw20Send]: 60000,
-  [GasLimit.NativeSendTokens]: 60000,
+  [GasLimit.Cw20Send]: 100000,
+  [GasLimit.NativeSendTokens]: 100000,
 };
 
 export const chainCosmwasmConfigs: Record<ChainId, ChainCosmwasmConfig> = {

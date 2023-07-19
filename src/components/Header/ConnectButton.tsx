@@ -1,13 +1,19 @@
 import Button from "ui/Button";
-import { useAccount } from "hooks/useAccount";
 import styles from "./ConnectButton.module.css";
 
-const ConnectButton: React.FC = () => {
-  const {
-    account, connect, disconnect, isConnected,
-  } = useAccount();
+type ConnectButtonProps = {
+  address?: string;
+  connect: () => void;
+  disconnect: () => void;
+};
+
+const ConnectButton = ({
+  address,
+  connect,
+  disconnect,
+}: ConnectButtonProps) => {
   const connectWallet = () => {
-    if (isConnected) {
+    if (address) {
       disconnect();
     } else {
       connect();
@@ -17,15 +23,15 @@ const ConnectButton: React.FC = () => {
   return (
     <Button
       color="white"
-      className={`${styles.wallet} ${isConnected ? styles.connected : ""}`}
+      className={`${styles.wallet} ${address ? styles.connected : ""}`}
       onClick={connectWallet}
     >
       <div className={styles.address}>
-        {isConnected
-          ? `${account?.address.slice(
+        {address
+          ? `${address.slice(
             0,
             10,
-          )}...${account?.address.slice(-10, -5)}`
+          )}...${address.slice(-10, -5)}`
           : "Connect Wallet"}
       </div>
     </Button>

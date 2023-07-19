@@ -1,51 +1,51 @@
 import { NavLink } from "react-router-dom";
 import {
-  useContext, useEffect, useMemo, useState,
+  useEffect, useMemo, useState,
 } from "react";
 import SelectCustom, { SelectCustomProps } from "ui/SelectCustom";
 import SelectChainLabel from "ui/SelectCustom/SelectChainLabel";
-import { chains } from "chain-registry";
-import { useAccount } from "hooks/useAccount";
-import { useChain } from "hooks/useChain";
-import { ChainId, Chains } from "config/chains";
-import { AppContext } from "context/AppContext";
+import { ChainId } from "config/chains";
 import styles from "./Header.module.css";
 import ConnectButton from "./ConnectButton";
-import icon from "../../assets/icon_wallet.svg";
+import iconWallet from "../../assets/icon_wallet.svg";
 
-const options = Object.keys(Chains)
-  .map((chainId) => chainId as ChainId)
-  // .filter((chainId) => !Chains[chainId].chainName.toLowerCase().includes("test"))
-  .sort(
-    (chainId1, chainId2) => Chains[chainId1].chainName.localeCompare(Chains[chainId2].chainName),
-  )
-  .map((chainId) => {
-    const { chainName } = Chains[chainId as unknown as ChainId];
-    return {
-      value: chainId,
-      label: <SelectChainLabel
-        icon={
-      chains.filter(({ chain_id }) => chain_id === chainId)[0].logo_URIs?.svg
-}
-        chainName={chainName}
-      />,
-    };
-  });
+export type HeaderProps = {
+  chains: {
+    id: ChainId;
+    name: string;
+    icon?: string;
+  }[];
+  chainId: ChainId;
+  onSelectChainId: (chainId: ChainId) => void;
+  address?: string;
+  connect: () => void;
+  disconnect: () => void;
+};
 
-const Header = () => {
-  const chain = useChain();
-  const { connect } = useAccount();
+const Header = ({
+  address,
+  connect,
+  disconnect,
+  chainId,
+  onSelectChainId,
+  chains,
+}: HeaderProps) => {
+  const options = chains.map(({ id, name, icon }) => ({
+    value: id,
+    label: <SelectChainLabel
+      icon={icon}
+      chainName={name}
+    />,
+  }));
   const currentChainOption = useMemo(
     () => options.find(
-      (option) => option.value === chain.config.chainId,
+      (option) => option.value === chainId,
     ) || options[0],
-    [chain],
+    [chainId],
   );
   const [selectedChainOption, setSelectedChainOption] = useState(
     currentChainOption,
   );
-
-  const { setChainId } = useContext(AppContext);
 
   const handleSelect: SelectCustomProps<ChainId, JSX.Element>["onChange"] = (option) => {
     const chainInfo = option?.value;
@@ -56,8 +56,7 @@ const Header = () => {
       value: option.value,
       label: option.label,
     });
-    setChainId(chainInfo);
-    connect();
+    onSelectChainId(chainInfo);
   };
 
   useEffect(() => {
@@ -99,7 +98,7 @@ const Header = () => {
           </div>
         </div>
         <div className={styles.myWallet}>
-          <img src={icon} alt="" />
+          <img src={iconWallet} alt="" />
           <NavLink
             to="/my-wallet"
             className={(myWalletText) => (myWalletText.isActive
@@ -123,7 +122,11 @@ const Header = () => {
               onChange={handleSelect}
             />
           </div>
-          <ConnectButton />
+          <ConnectButton
+            address={address}
+            connect={connect}
+            disconnect={disconnect}
+          />
         </div>
       </div>
     </header>

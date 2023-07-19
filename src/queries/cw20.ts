@@ -1,7 +1,9 @@
 import { Chain } from "classes/Chain";
 import { Cw20QueryClient } from "generated/Cw20.client";
 import { SwapPoolQueryClient } from "generated/SwapPool.client";
-import { TokenDetails, UserTokenDetails } from "types/tokens";
+import {
+  Cw20TokenDetails, UserCw20TokenDetails,
+} from "types/tokens";
 
 export const CW20_TOKEN_MARKETING = (tokenAddr: string) => ({
   queryKey: `/token/${tokenAddr}/marketing`,
@@ -47,7 +49,7 @@ export const CW20_TOKEN_DETAILS = (tokenAddr: string) => ({
   queryKey: `/v0.1/cw20/${tokenAddr}/details`,
   queryFn: async (context: {
     chain: Chain
-  }): Promise<TokenDetails> => {
+  }): Promise<Cw20TokenDetails> => {
     const { chain } = context;
     const info = await chain.query(CW20_TOKEN_INFO(tokenAddr));
     const marketing = await chain.query(CW20_TOKEN_MARKETING(tokenAddr));
@@ -59,9 +61,6 @@ export const CW20_TOKEN_DETAILS = (tokenAddr: string) => ({
     const gDriveId = logo?.match(/d\/(.+)\//)?.[1];
     return {
       type: "cw20",
-      denom: {
-        cw20: tokenAddr,
-      },
       address: tokenAddr,
       name: info.name,
       decimals: info.decimals,
@@ -93,7 +92,7 @@ export const CW20_USER_TOKEN_DETAILS = (
   queryKey: `/v0.1/user/${userAddress}/cw20/${tokenAddress}/details`,
   queryFn: async (context: {
     chain: Chain
-  }): Promise<UserTokenDetails> => {
+  }): Promise<UserCw20TokenDetails> => {
     const { chain } = context;
     const details = await chain.query(CW20_TOKEN_DETAILS(tokenAddress));
     const balance = await chain.query(CW20_USER_BALANCE(tokenAddress, userAddress));

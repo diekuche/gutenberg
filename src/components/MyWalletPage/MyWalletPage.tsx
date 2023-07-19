@@ -14,73 +14,119 @@ import { useStore } from "hooks/useStore";
 import { QueryCache } from "classes/QueryCache";
 import { STORE_USER_CW20_TOKENS_KEY } from "store/cw20";
 import { GasLimit } from "config/cosmwasm";
+import Button from "ui/Button";
+import { UserTokenDetails } from "types/tokens";
 import styles from "./MyWalletPage.module.css";
+
+const fetchCw20Token = async (
+  chain: Chain,
+  tokenAddress: string,
+  accountAddress: string,
+): Promise<TokenItem> => {
+  const token = await chain.query(CW20_USER_TOKEN_DETAILS(tokenAddress, accountAddress));
+  return {
+    id: `cw20:${token.address}`,
+    type: "cw20",
+    name: token.name,
+    symbol: token.symbol,
+    address: token.address,
+    logo: token.logo || "",
+    balance: token.balance,
+    decimals: token.decimals,
+    minter: token.minter,
+  };
+};
+
+const fetchNativeToken = async (
+  chain: Chain,
+  denom: string,
+  accountAddress: string,
+  userBalance?: string,
+): Promise<TokenItem> => {
+  const bank = await chain.bank();
+  const isFactoryToken = denom.toLowerCase().startsWith("factory/");
+  let balance = userBalance;
+  if (!balance) {
+    balance = (await bank.balance(accountAddress, denom)).amount;
+  }
+  if (isFactoryToken) {
+    const meta = await bank.denomMetadata(denom);
+    return {
+      id: denom,
+      type: "native",
+      denom,
+      balance,
+      decimals: meta.denomUnits[0].exponent,
+    };
+  }
+  const native = chain.config.currencies.find((currency) => currency.coinMinimalDenom
+  === denom);
+  if (native) {
+    return {
+      id: denom,
+      type: "native",
+      logo: native.coinImageUrl,
+      denom,
+      decimals: native.coinDecimals,
+      balance,
+    };
+  }
+  throw new Error(`Unknown token ${denom}`);
+};
 
 const fetch = async (
   chain: Chain,
   account: Account,
   store: QueryCache,
-  pushTokens: (tokens: TokenListItem[]) => void,
+  pushTokens: (tokens: TokenItem[]) => void,
 ) => {
   const bank = await chain.bank();
   const balances = await bank.allBalances(account.address);
-
   const userCw20Tokens = await store.get(STORE_USER_CW20_TOKENS_KEY(chain, account));
-
-  await Promise.all(balances.map(async (balance) => {
-    const isFactoryToken = balance.denom.toLowerCase().startsWith("factory/");
-    if (isFactoryToken) {
-      const meta = await bank.denomMetadata(balance.denom);
-      pushTokens([{
-        shortName: getShortTokenName(balance.denom),
-        key: balance.denom,
-        logoUrl: "",
-        userBalance: BigNumber(balance.amount).dividedBy(10 ** meta.denomUnits[0].exponent),
-        isBurnable: true,
-        isMintable: true,
-        isRemovable: false,
-        isSendable: true,
-      }]);
-      return;
-    }
-    const native = chain.config.currencies.find((currency) => currency.coinMinimalDenom
-    === balance.denom);
-    if (native) {
-      pushTokens([{
-        shortName: balance.denom,
-        key: balance.denom,
-        logoUrl: native.coinImageUrl || "",
-        userBalance: BigNumber(balance.amount).dividedBy(10 ** native.coinDecimals),
-        isBurnable: false,
-        isMintable: false,
-        isRemovable: false,
-        isSendable: true,
-      }]);
-    }
+  await Promise.all(balances.map(async (coin) => {
+    const token = await fetchNativeToken(chain, coin.denom, account.address, coin.amount);
+    pushTokens([token]);
   }).concat(userCw20Tokens.map(async (tokenAddress) => {
-    const token = await chain.query(CW20_USER_TOKEN_DETAILS(tokenAddress, account.address));
-    pushTokens([{
-      shortName: token.name,
-      key: `cw20:${tokenAddress}`,
-      logoUrl: token.logo || "",
-      userBalance: BigNumber(token.balance).dividedBy(10 ** token.decimals),
-      isBurnable: token.minter === account.address,
-      isMintable: token.minter === account.address,
-      isRemovable: false,
-      isSendable: true,
-    }]);
+    const token = await fetchCw20Token(chain, tokenAddress, account.address);
+    pushTokens([token]);
   })));
+};
+
+const userTokenToListItem = (token: TokenItem, address: string): TokenListItem => {
+  const isCw20 = token.type === "cw20";
+  let shortName: string;
+  if (isCw20) {
+    shortName = token.name;
+  } else {
+    const isFactoryToken = isCw20 ? false : token.denom.toLowerCase().startsWith("factory/");
+    shortName = isFactoryToken ? getShortTokenName(token.denom) : token.denom;
+  }
+  return {
+    shortName,
+    id: token.id,
+    key: token.id + new Date().getTime(),
+    logoUrl: token.logo || "",
+    userBalance: BigNumber(token.balance).dividedBy(10 ** token.decimals),
+    isBurnable: isCw20 && token.minter === address,
+    isMintable: isCw20 && token.minter === address,
+    isRemovable: false,
+    isSendable: true,
+  };
+};
+
+type TokenItem = UserTokenDetails & {
+  id: string;
 };
 
 const MyWalletPage = () => {
   const chain = useChain();
-  const { account } = useAccount();
+  const { account, connect } = useAccount();
   const store = useStore();
 
   const [loading, setLoading] = useState(true);
   const [addTokenLoading, setAddTokenLoading] = useState(false);
 
-  const [tokens, setTokens] = useState<TokenListItem[]>([]);
+  const [tokens, setTokens] = useState<TokenItem[]>([]);
 
   useEffect(() => {
     setLoading(true);
@@ -95,7 +141,7 @@ const MyWalletPage = () => {
 
       (newTokens) => {
         setTokens((oldTokens) => oldTokens.filter(
-          (oldToken) => !newTokens.find((newToken) => newToken.key === oldToken.key),
+          (oldToken) => !newTokens.find((newToken) => newToken.id === oldToken.id),
         ).concat(newTokens));
       },
     ).finally(() => setLoading(false));
@@ -106,11 +152,22 @@ const MyWalletPage = () => {
       toast.error("Invalid token address");
       return;
     }
-    if (tokens.find((token) => token.key === tokenAddress)) {
+    if (tokens.find((token) => token.type === "cw20" && token.address === tokenAddress)) {
       toast.error("Token already exists");
       return;
     }
+    if (!account) {
+      toast.error("Account is not connected");
+      return;
+    }
     setAddTokenLoading(true);
+    fetchCw20Token(chain, tokenAddress, account.address).then(async (newToken) => {
+      await store.setInArray(STORE_USER_CW20_TOKENS_KEY(chain, account).key, tokenAddress);
+      setTokens(tokens.filter((t) => t.id !== newToken.id).concat(newToken));
+    }).catch((e) => {
+      console.log(e);
+      toast.error(`Unknown error: ${e}`);
+    }).finally(() => setAddTokenLoading(false));
   };
 
   const checkAccount = () => {
@@ -121,9 +178,19 @@ const MyWalletPage = () => {
     return account;
   };
 
+  const updateToken = async (token: TokenItem) => {
+    if (!account) {
+      return;
+    }
+    const newToken = await (token.type === "cw20"
+      ? fetchCw20Token(chain, token.address, account.address)
+      : fetchNativeToken(chain, token.denom, account.address));
+    setTokens(tokens.filter((t) => t.id !== token.id).concat(newToken));
+  };
+
   const onBurn = () => {};
   const onMint = () => {};
-  const onSend = async (key: string, recipient: string, amount: string) => {
+  const onSend = async (id: string, recipient: string, amount: string) => {
     if (!account) {
       toast.error("Account is not connected");
       return;
@@ -133,25 +200,59 @@ const MyWalletPage = () => {
       toast.error("Invalid recipient");
       return;
     }
+    console.log(`Send for ${id} to ${recipient}, amount: ${amount}`);
+    const token = tokens.find((t) => t.id === id);
+    if (!token) {
+      toast.error(`Not found token ${id}`);
+      return;
+    }
+
+    const realAmount = BigNumber(amount).multipliedBy(BigNumber(10 ** token.decimals)).toFixed();
 
     const signingCosmWasmClient = await chain.getSigningCosmWasmClient(signer);
-    if (key.startsWith("cw20:")) {
-      const contractAddress = key.substring(5);
-      await new Cw20Client(signingCosmWasmClient, account.address, contractAddress).send({
-        amount,
-        contract: recipient,
-        msg: "",
-      }, chain.calculateFee(GasLimit.Cw20Send));
-    } else {
-      (await chain.getSigningCosmWasmClient(account.signer)).sendTokens(
-        account.address,
-        recipient,
-        [{
-          denom: key,
-          amount,
-        }],
-        chain.calculateFee(GasLimit.NativeSendTokens),
-      );
+    let error = "";
+    try {
+      if (token.type === "cw20") {
+        const contractAddress = id.substring(5);
+        const response = await new Cw20Client(
+          signingCosmWasmClient,
+          account.address,
+          contractAddress,
+        ).send({
+          amount: realAmount,
+          contract: recipient,
+          msg: "",
+        }, chain.calculateFee(GasLimit.Cw20Send));
+        console.log("Cw20 token send response", response);
+      } else {
+        const result = await (await chain.getSigningCosmWasmClient(account.signer)).sendTokens(
+          account.address,
+          recipient,
+          [{
+            denom: token.denom,
+            amount: realAmount,
+          }],
+          chain.calculateFee(GasLimit.NativeSendTokens),
+        );
+        console.log("Send token result ", result);
+        if (result.code !== 0) {
+          error = result.rawLog || `Unknown error ${result.code}`;
+        }
+      }
+      if (error) {
+        throw new Error(error);
+      }
+      toast("Success", {
+        type: "success",
+        autoClose: 2000,
+      });
+      updateToken(token);
+    } catch (e) {
+      toast(String(e), {
+        type: "error",
+      });
+      console.log("Error when send tokens");
+      console.log("error", e);
     }
   };
   const onRemove = () => {};
@@ -159,6 +260,8 @@ const MyWalletPage = () => {
   return (
     <div className={styles.main}>
       <div className={styles.title}>manage assets</div>
+      {!account && <Button color="green" onClick={() => connect()}>Connect</Button>}
+      {account && (
       <TokenList
         addTokenLoading={addTokenLoading}
         addCw20Token={addCw20Token}
@@ -166,9 +269,10 @@ const MyWalletPage = () => {
         onMint={onMint}
         onSend={onSend}
         onRemove={onRemove}
-        tokens={tokens}
+        tokens={tokens.map((token) => userTokenToListItem(token, account.address))}
       />
-      {loading && <Triangle />}
+      )}
+      {account && loading && <Triangle />}
     </div>
   );
 };

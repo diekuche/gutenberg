@@ -11,7 +11,7 @@ import icon_burn from "ui/assets/icon_burn.svg";
 import styles from "./TokenItem.module.css";
 
 export type TokenItemProps = {
-  key: string;
+  id: string;
   logoUrl: string;
   shortName: string;
   userBalance: BigNumber;
@@ -19,14 +19,14 @@ export type TokenItemProps = {
   isBurnable: boolean;
   isMintable: boolean;
   isRemovable: boolean;
-  onBurn: (key: string, burnAmount: string) => void;
-  onMint: (key: string, mintAmount: string) => void;
-  onSend: (key: string, sendRecipient: string, sendAmount: string) => void;
-  onRemove: (key: string) => void;
+  onBurn: (id: string, burnAmount: string) => void;
+  onMint: (id: string, mintAmount: string) => void;
+  onSend: (id: string, sendRecipient: string, sendAmount: string) => void;
+  onRemove: (id: string) => void;
 };
 
 const TokenItem = ({
-  key,
+  id,
   logoUrl,
   isBurnable,
   isMintable,
@@ -45,7 +45,6 @@ const TokenItem = ({
 
   const [sendRecipient, setSendRecipient] = useState("");
   const [sendAmount, setSendAmount] = useState("");
-
   return (
     <>
       <tr>
@@ -63,7 +62,7 @@ const TokenItem = ({
             <img
               src={basket}
               alt=""
-              onClick={() => onRemove(key)}
+              onClick={() => onRemove(id)}
               style={{ cursor: "pointer" }}
             />
           ) : null}
@@ -123,7 +122,7 @@ const TokenItem = ({
                 color="sendButton"
                 type="button"
                 className={styles.sendButton}
-                onClick={() => onSend(key, sendRecipient, sendAmount)}
+                onClick={() => onSend(id, sendRecipient, sendAmount)}
               >
                 Send
               </Button>
@@ -148,7 +147,7 @@ const TokenItem = ({
                 <Button
                   color="sendButton"
                   type="button"
-                  onClick={() => onMint(key, mintAmount)}
+                  onClick={() => onMint(id, mintAmount)}
                   className={styles.sendButton}
                 >
                   Mint
@@ -176,7 +175,7 @@ const TokenItem = ({
                   color="sendButton"
                   type="button"
                   className={styles.sendButton}
-                  onClick={() => onBurn(key, burnAmount)}
+                  onClick={() => onBurn(id, burnAmount)}
                 >
                   Burn
                 </Button>

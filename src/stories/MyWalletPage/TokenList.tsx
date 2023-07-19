@@ -6,7 +6,9 @@ import TokenItem, { TokenItemProps } from "./TokenItem";
 export type TokenListItem = Omit<
 TokenItemProps,
 "onBurn" | "onMint" | "onSend" | "onRemove"
->;
+> & {
+  key: string;
+};
 
 type TokenListProps = {
   addTokenLoading: boolean;
@@ -47,6 +49,7 @@ const TokenList = ({
           {tokens.map((item) => (
             <TokenItem
               {...item}
+              key={item.key}
               onSend={onSend}
               onBurn={onBurn}
               onMint={onMint}

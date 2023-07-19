@@ -24,6 +24,7 @@ export class Wallet {
   }
 
   public async connect(chain: Chain) {
+    console.log(`Keplr connect to ${chain.config.chainId}`);
     const keplr = this.getKeplr();
     await keplr.experimentalSuggestChain(chain.config);
   }
