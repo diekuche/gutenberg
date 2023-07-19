@@ -7,7 +7,7 @@ import WelcomePage from "ui/WelcomePage";
 import Footer from "ui/Footer";
 import { WalletContext } from "hooks/useWallet";
 import { Wallet } from "classes/Wallet";
-import { AppState, AppStateContext } from "./context/AppStateContext";
+import { AppState, AppContext } from "./context/AppContext";
 import CreatePage from "./components/CreatePage/CreatePage";
 import LegalPage from "./components/LegalPage/LegalPage";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,11 +17,17 @@ import MyWalletPage from "./components/MyWalletPage/MyWalletPage";
 import License from "./components/LicensePage/LicensePage";
 import Pools from "./components/Pools/Pools";
 import { ChainId } from "./config/chains";
+import { QueryCache } from "classes/QueryCache";
+import { AppStoreContext } from "context/AppStoreContext";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface Window extends KeplrWindow {}
 }
+
+const store = new QueryCache({
+  prefix: 'gutenberg',
+})
 
 const wallet = new Wallet();
 
@@ -36,11 +42,12 @@ function App() {
     setChainId]);
 
   return (
+    <AppStoreContext.Provider value={store}>
     <WalletContext.Provider value={wallet}>
       <div className="App">
         <div className="container">
 
-          <AppStateContext.Provider
+          <AppContext.Provider
             value={appState}
           >
             <Router>
@@ -63,10 +70,11 @@ function App() {
               theme="dark"
               autoClose={false}
             />
-          </AppStateContext.Provider>
+          </AppContext.Provider>
         </div>
       </div>
     </WalletContext.Provider>
+    </AppStoreContext.Provider>
   );
 }
 

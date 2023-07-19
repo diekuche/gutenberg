@@ -6,11 +6,11 @@ export interface AppState {
   setChainId: (chainId: ChainId) => void,
 }
 
-export const AppStateContext = createContext<AppState>({
+export const AppContext = createContext<AppState>({
   chainId: "bostrom",
   setChainId: () => {},
 });
 
 export function useAppState() {
-  return useContext(AppStateContext);
+  return useContext(AppContext);
 }

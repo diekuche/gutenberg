@@ -33,21 +33,27 @@ export class QueryCache {
     this.cacheTime = config.cacheTime || 10 * 365 * 24 * 60 * 60 * 1000; // 10 years
   }
 
-  async get<T>(key: string, options?: {
+  async get<T>({
+    key,
+    default: defaultValue,
+  }: {
+    key: string,
+    default: T
+  }, options?: {
     cacheTime?: number;
-  }): Promise<T | undefined> {
+  }): Promise<T> {
     const now = new Date().getTime();
     const cacheTime = options?.cacheTime || this.cacheTime;
     const raw: string | undefined = await get(this.prefix + key);
     try {
       const item = raw ? JSON.parse(raw) : undefined;
       if (!item || now > item.timestamp + cacheTime) {
-        return undefined;
+        return defaultValue;
       }
 
       return item.data;
     } catch {
-      return undefined;
+      return defaultValue;
     }
   }
 
@@ -75,7 +81,7 @@ export class QueryCache {
     }
     this.listeners.set(queryKey, []);
     try {
-      let data = await this.get<T>(queryKey, {
+      let data = await this.get<T | undefined>({ key: queryKey, default: undefined }, {
         ...options,
         cacheTime: options?.cacheTime || cacheTime,
       });
@@ -101,6 +107,26 @@ export class QueryCache {
       timestamp: new Date().getTime(),
       data,
     }));
+  }
+
+  async setInArray<V>(key: string, value:V) {
+    const items = await this.get({
+      key,
+      default: [] as unknown[],
+    });
+    if (items.includes(value)) {
+      return;
+    }
+    items.push(value);
+    await this.set(key, items);
+  }
+
+  async deleteFromArray<V>(key: string, value:V) {
+    const items = await this.get({
+      key,
+      default: [] as unknown[],
+    });
+    await this.set(key, items.filter((item) => item !== value));
   }
 
   delete(key: string) {

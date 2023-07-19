@@ -8,7 +8,7 @@ import { chains } from "chain-registry";
 import { useAccount } from "hooks/useAccount";
 import { useChain } from "hooks/useChain";
 import { ChainId, Chains } from "config/chains";
-import { AppStateContext } from "context/AppStateContext";
+import { AppContext } from "context/AppContext";
 import styles from "./Header.module.css";
 import ConnectButton from "./ConnectButton";
 import icon from "../../assets/icon_wallet.svg";
@@ -45,7 +45,7 @@ const Header = () => {
     currentChainOption,
   );
 
-  const { setChainId } = useContext(AppStateContext);
+  const { setChainId } = useContext(AppContext);
 
   const handleSelect: SelectCustomProps<ChainId, JSX.Element>["onChange"] = (option) => {
     const chainInfo = option?.value;

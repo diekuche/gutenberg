@@ -4,26 +4,28 @@ import { Triangle } from "react-loader-spinner";
 import { useChain } from "hooks/useChain";
 import { getShortTokenName } from "utils/tokens";
 import BigNumber from "bignumber.js";
-import { validateAddress } from "utils/wallet";
 import { toast } from "react-toastify";
 import { Chain } from "classes/Chain";
 import { CW20_USER_TOKEN_DETAILS } from "queries/cw20";
 import { useAccount } from "hooks/useAccount";
 import { Cw20Client } from "generated/Cw20.client";
 import { Account } from "classes/Account";
+import { useStore } from "hooks/useStore";
+import { QueryCache } from "classes/QueryCache";
+import { STORE_USER_CW20_TOKENS_KEY } from "store/cw20";
+import { GasLimit } from "config/cosmwasm";
 import styles from "./MyWalletPage.module.css";
 
 const fetch = async (
   chain: Chain,
   account: Account,
+  store: QueryCache,
   pushTokens: (tokens: TokenListItem[]) => void,
 ) => {
   const bank = await chain.bank();
   const balances = await bank.allBalances(account.address);
-  const userCw20Tokens = await chain.query({
-    queryKey: `chain/${chain.config.chainId}/user/${account.address}/cw20`,
-    queryFn: (): string[] => [],
-  });
+
+  const userCw20Tokens = await store.get(STORE_USER_CW20_TOKENS_KEY(chain, account));
 
   await Promise.all(balances.map(async (balance) => {
     const isFactoryToken = balance.denom.toLowerCase().startsWith("factory/");
@@ -73,6 +75,7 @@ const fetch = async (
 const MyWalletPage = () => {
   const chain = useChain();
   const { account } = useAccount();
+  const store = useStore();
 
   const [loading, setLoading] = useState(true);
   const [addTokenLoading, setAddTokenLoading] = useState(false);
@@ -88,6 +91,7 @@ const MyWalletPage = () => {
     fetch(
       chain,
       account,
+      store,
 
       (newTokens) => {
         setTokens((oldTokens) => oldTokens.filter(
@@ -98,7 +102,7 @@ const MyWalletPage = () => {
   }, [account, chain]);
 
   const addCw20Token = (tokenAddress: string) => {
-    if (!validateAddress(tokenAddress, "")) {
+    if (!chain.validateAddress(tokenAddress)) {
       toast.error("Invalid token address");
       return;
     }
@@ -120,8 +124,12 @@ const MyWalletPage = () => {
   const onBurn = () => {};
   const onMint = () => {};
   const onSend = async (key: string, recipient: string, amount: string) => {
+    if (!account) {
+      toast.error("Account is not connected");
+      return;
+    }
     const { signer } = checkAccount();
-    if (!validateAddress(recipient)) {
+    if (!chain.validateAddress(recipient)) {
       toast.error("Invalid recipient");
       return;
     }
@@ -129,12 +137,21 @@ const MyWalletPage = () => {
     const signingCosmWasmClient = await chain.getSigningCosmWasmClient(signer);
     if (key.startsWith("cw20:")) {
       const contractAddress = key.substring(5);
-      new Cw20Client(signingCosmWasmClient, contractAddress).send({
+      await new Cw20Client(signingCosmWasmClient, account.address, contractAddress).send({
         amount,
-
-      });
+        contract: recipient,
+        msg: "",
+      }, chain.calculateFee(GasLimit.Cw20Send));
     } else {
-
+      (await chain.getSigningCosmWasmClient(account.signer)).sendTokens(
+        account.address,
+        recipient,
+        [{
+          denom: key,
+          amount,
+        }],
+        chain.calculateFee(GasLimit.NativeSendTokens),
+      );
     }
   };
   const onRemove = () => {};

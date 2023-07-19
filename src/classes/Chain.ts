@@ -1,3 +1,4 @@
+import { fromBech32 } from "@cosmjs/encoding";
 import { OfflineAminoSigner } from "@cosmjs/amino";
 import { CosmWasmClient, SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
 import {
@@ -94,5 +95,17 @@ export class Chain {
       this.cosmwasmConfigs.gasLimits[gasLimit],
       GasPrice.fromString(`${currency.gasPriceStep?.low || "0.0001"}${currency.coinMinimalDenom}`),
     );
+  }
+
+  validateAddress(address: string) {
+    if (!address.startsWith(this.config.bech32Config.bech32PrefixAccAddr)) {
+      return false;
+    }
+    try {
+      fromBech32(address);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

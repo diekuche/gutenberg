@@ -3,8 +3,10 @@ import { ChainId } from "./chains";
 export enum GasLimit {
   Cw20Instantiate,
   Cw20IncreaseAllowance,
+  Cw20Send,
   PoolAddLiquidity,
   PoolFactoryCreatePool,
+  NativeSendTokens,
 }
 
 export type ChainCosmwasmConfig = {
@@ -19,6 +21,8 @@ const gasLimits = {
   [GasLimit.PoolAddLiquidity]: 60000,
   [GasLimit.PoolFactoryCreatePool]: 60000,
   [GasLimit.Cw20Instantiate]: 60000,
+  [GasLimit.Cw20Send]: 60000,
+  [GasLimit.NativeSendTokens]: 60000,
 };
 
 export const chainCosmwasmConfigs: Record<ChainId, ChainCosmwasmConfig> = {

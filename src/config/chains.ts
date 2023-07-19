@@ -1,15 +1,15 @@
 import { ChainInfo } from "@keplr-wallet/types";
-import { mainnetChains } from "graz/chains";
+import { juno } from "./juno";
 
-export type ChainId = "juno-1" | "uni-6" | "bostrom" | "archway-1";
+export type ChainId = "juno-1" | "uni-6" | "bostrom";
 
 export type ChainConfig = Omit<ChainInfo, "chainId"> & {
   chainId: ChainId;
 };
 
 export const Chains: Record<ChainId, ChainConfig> = {
-  "juno-1": { ...mainnetChains.juno, features: ["tokenfactory"] } as ChainConfig,
-  "archway-1": { ...mainnetChains.archway } as ChainConfig,
+  "juno-1": { ...juno, features: ["tokenfactory"] } as ChainConfig,
+  // "archway-1": { ...mainnetChains.archway } as ChainConfig,
   "uni-6": {
     chainId: "uni-6" as const,
     chainName: "Juno TestNet",

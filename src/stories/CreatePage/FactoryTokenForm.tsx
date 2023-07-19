@@ -1,6 +1,6 @@
-import Input, { InputProps } from "ui/CreatePage/Input";
+import Input from "ui/CreatePage/Input";
 
-import styles from "../Form.module.css";
+import styles from "./Form.module.css";
 
 const FactoryTokenForm = () => {
   const handleSubmit = () => {};

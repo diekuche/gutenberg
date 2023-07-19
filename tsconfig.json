@@ -30,7 +30,8 @@
       "types/*": ["./src/types/*"],
       "generated/*": ["./src/generated/*"],
       "queries/*": ["./src/queries/*"],
-      "mutations/*": ["./src/mutations/*"]
+      "mutations/*": ["./src/mutations/*"],
+      "store/*": ["./src/store/*"]
     }
   },
   "include": ["src"],

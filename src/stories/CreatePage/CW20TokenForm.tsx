@@ -1,13 +1,9 @@
-import { FormEvent, useContext, useState } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { toast } from "react-toastify";
 import Button from "ui/Button";
 import Input, { InputProps } from "ui/CreatePage/Input";
 import Collapsible from "ui/CreatePage/Collapsible";
-import { useChain } from "hooks/useChain";
-import { AppStateContext } from "context/AppStateContext";
-import { GasLimit } from "config/cosmwasm";
-import styles from "../Form.module.css";
+import styles from "./Form.module.css";
 
 const defaultBalance = {
   id: uuidv4(),
@@ -15,91 +11,33 @@ const defaultBalance = {
   amount: "",
 };
 
-const CW20TokenForm = () => {
-  const [balances, setBalances] = useState<Array<typeof defaultBalance>>([
+type Balance = typeof defaultBalance;
+
+export type CreateCw20FormValues = {
+  balances: Balance[];
+  decimals: string;
+  tokenName: string;
+  tokenSymbol: string;
+  quantity: string;
+  logo: string;
+  description: string;
+};
+
+export type CW20TokenFormProps = {
+  isConnected: boolean;
+  connect: () => void;
+  onCreate: (values: CreateCw20FormValues) => void;
+};
+
+const CW20TokenForm = ({
+  isConnected,
+  connect,
+  onCreate,
+}: CW20TokenFormProps) => {
+  const [balances, setBalances] = useState<Balance[]>([
     defaultBalance,
   ]);
   const [description, setDescription] = useState("");
-  const { connect } = useConnect();
-  const chain = useChain();
-  const { data: account, isConnected } = useAccount();
-  const { addUserToken } = useContext(AppStateContext);
-  const codeId = chain.cosmwasmConfigs.cw20ContractCodeId;
-  const { instantiateContract } = useInstantiateContract({
-    codeId,
-    onError: (error) => {
-      console.log("error", error);
-      toast(error as string, {
-        type: "error",
-      });
-    },
-    onSuccess: (data) => {
-      console.log("data", data);
-      toast(`Success! Contract address: ${data.contractAddress}`, {
-        type: "success",
-      });
-      addUserToken(data.contractAddress);
-    },
-  });
-  // const fee = useFee();
-
-  const address = account?.bech32Address;
-
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const initialBalance = { ...balances[0] };
-
-    const {
-      token, symbol, quantity, decimals, logo,
-    } = event.target as typeof event.target & {
-      token: { value: string };
-      symbol: { value: string };
-      quantity: { value: string };
-      decimals: { value: string };
-      logo: { value: string };
-    };
-
-    if (!decimals.value) {
-      decimals.value = "0";
-    }
-
-    if (!initialBalance?.amount && address) {
-      initialBalance.address = address;
-      initialBalance.amount = quantity.value;
-    }
-
-    const msg = {
-      name: token.value,
-      symbol: symbol.value,
-      decimals: parseInt(decimals.value, 10),
-      initial_balances: [initialBalance, ...balances.slice(1)].map((value) => ({
-        ...value,
-        id: undefined,
-      })),
-      mint: {
-        minter: address,
-        cap: quantity.value,
-      },
-      marketing: {
-        project: "",
-        description,
-        marketing: address,
-        logo: {
-          url: logo.value,
-        },
-      },
-    };
-
-    console.log("msg", {
-      msg,
-      label: token.value,
-    }, "activeChain", chain);
-    instantiateContract({
-      msg,
-      label: token.value,
-      fee: chain.calculateFee(GasLimit.Cw20Instantiate),
-    });
-  };
 
   const handleAddNewBalance = () => {
     setBalances([
@@ -133,8 +71,34 @@ const CW20TokenForm = () => {
     );
   };
 
+  const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    const {
+      token, symbol, quantity, decimals, logo,
+    } = e.target as typeof e.target & {
+      token: { value: string };
+      symbol: { value: string };
+      quantity: { value: string };
+      decimals: { value: string };
+      logo: { value: string };
+    };
+
+    onCreate({
+      balances,
+      decimals: decimals.value || "0",
+      tokenName: token.value,
+      tokenSymbol: symbol.value,
+      quantity: quantity.value,
+      logo: logo.value,
+      description,
+    });
+  };
+
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form
+      className={styles.form}
+      onSubmit={onSubmit}
+    >
       <div className={styles.formContent}>
         <Input
           id="token"

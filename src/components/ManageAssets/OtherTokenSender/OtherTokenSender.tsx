@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { useQuerySmart, useAccount, useExecuteContract } from "graz";
 import { toast } from "react-toastify";
 import Button from "ui/Button";
+import { useAccount } from "hooks/useAccount";
+import { BalanceResponse, MarketingInfoResponse, TokenInfoResponse } from "generated/Cw20.types";
 import styles from "./OtherTokenSender.module.css";
 import deleteButton from "../../../assets/Button_Delite.svg";
 import plus from "../../../assets/plus.svg";
 import minus from "../../../assets/minus.svg";
 import { useFee } from "../../../utils/useFee";
-import { BalanceResponse, MarketingInfoResponse, TokenInfoResponse } from "../../../ts/Cw20.types";
 
 interface ContractDataProps {
   contractAddress: string;
@@ -23,7 +23,7 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
   const [open, setOpen] = useState(false);
   const [isSent, setSent] = useState(false);
   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
-  const { data: account } = useAccount();
+  const { account } = useAccount();
   const { data: tokenBalance, refetch } = useQuerySmart<BalanceResponse, string>(
     contractAddress,
     {

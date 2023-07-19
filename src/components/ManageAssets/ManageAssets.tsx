@@ -1,21 +1,25 @@
-import { ChangeEventHandler, useContext, useState } from "react";
-import { useAccount } from "graz";
+import { ChangeEventHandler, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Button from "ui/Button";
+import { useAccount } from "hooks/useAccount";
+import { useStore } from "hooks/useStore";
+import { useChain } from "hooks/useChain";
+import { STORE_USER_CW20_TOKENS_KEY } from "store/cw20";
+import { FidgetSpinner } from "react-loader-spinner";
 import styles from "./ManageAssets.module.css";
 import OtherTokenSender from "./OtherTokenSender/OtherTokenSender";
 import TokenSender from "./NativeTokenSender/NativeTokenSender";
-import { AppStateContext } from "../../context/AppStateContext";
-import { useChain } from "../../hooks/useChain";
-import { validateAddress } from "../../utils/wallet";
 
 function ManageTokens() {
+  const [loading, setLoading] = useState(true);
   const [contract, setContract] = useState("");
   const [isVisible, setVisible] = useState(false);
   const chain = useChain();
+  const { account } = useAccount();
   const { isConnected } = useAccount();
   const [open, setOpen] = useState(false);
-  const { addUserToken, userTokens, removeUserToken } = useContext(AppStateContext);
+  const [userTokens, setUserTokens] = useState<string []>([]);
+  const store = useStore();
 
   const handleChangeContractAddress: ChangeEventHandler<HTMLInputElement> = (event) => {
     const response = event.target.value;
@@ -24,7 +28,28 @@ function ManageTokens() {
     }
   };
 
-  function addContract() {
+  useEffect(() => {
+    if (!account) {
+      return;
+    }
+    store.get<string[]>(STORE_USER_CW20_TOKENS_KEY(chain, account)).then((data) => {
+      if (data) {
+        setUserTokens(data);
+      }
+    }).catch((e) => {
+      console.log("Error when load store");
+      console.log(e);
+      toast("Store loading error");
+    }).finally(() => {
+      setLoading(false);
+    });
+  }, [chain, account]);
+
+  const addContract = async () => {
+    if (!account) {
+      toast("Account is not connected");
+      return;
+    }
     if (userTokens.includes(contract)) {
       setContract("");
       toast("Token already exist", {
@@ -34,8 +59,9 @@ function ManageTokens() {
       return;
     }
 
-    if (validateAddress(contract, chain.bech32Config.bech32PrefixAccAddr)) {
-      addUserToken(contract);
+    if (chain.validateAddress(contract)) {
+      await store.setInArray(STORE_USER_CW20_TOKENS_KEY(chain, account).key, contract);
+      setUserTokens([...userTokens, contract]);
       setContract("");
     } else {
       toast("Invalid contract address", {
@@ -47,6 +73,19 @@ function ManageTokens() {
         setVisible(false);
       }, 2000);
     }
+  };
+
+  const removeUserToken = async () => {
+    if (!account) {
+      toast("Account is not connected");
+      return;
+    }
+    await store.deleteFromArray(STORE_USER_CW20_TOKENS_KEY(chain, account).key, contract);
+    setUserTokens(userTokens.filter((t) => t !== contract));
+  };
+
+  if (loading) {
+    return <FidgetSpinner />;
   }
 
   return (
