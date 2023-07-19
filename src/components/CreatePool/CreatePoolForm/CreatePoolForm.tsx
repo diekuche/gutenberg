@@ -5,15 +5,15 @@ import {
 } from "react";
 import { SingleValueProps } from "react-select";
 import { toast } from "react-toastify";
-import { connect, useAccount } from "graz";
 import NewButton from "ui/NewButton";
 import SelectCustom, { SelectCustomProps } from "ui/SelectCustom";
-import { UserTokenDetails } from "hooks/useQueries";
 import { useChain } from "hooks/useChain";
 import SelectTokenLabel from "ui/SelectCustom/SelectTokenLabel";
 import InputTokenAmount from "ui/InputTokenAmount";
 import { formatBalance } from "utils/balance";
-import { compareDenoms, tokenAmountToFloat } from "utils/tokens";
+import { comparePoolDenoms, tokenAmountToFloat } from "utils/tokens";
+import { UserTokenDetails } from "types/tokens";
+import { useAccount } from "hooks/useAccount";
 import styles from "./CreatePoolForm.module.css";
 import UpDoAr from "../../../assets/UpDoAr.svg";
 
@@ -56,12 +56,12 @@ const CreatePoolForm = ({
   setLpFee,
 }: CreatePoolFormProps) => {
   const chain = useChain();
-  const { isConnected, isConnecting } = useAccount();
+  const { isConnected, connect, isConnecting } = useAccount();
   const options = useMemo(() => tokens.map((token) => ({
     value: token,
     label: <SelectTokenLabel
       name={token.symbol}
-      chainName={chain.chainId}
+      chainName={chain.config.chainId}
       balance={formatBalance(tokenAmountToFloat(token.balance, token.decimals), token.decimals)}
       icon={token.logo || ""}
     />,
@@ -82,7 +82,7 @@ const CreatePoolForm = ({
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (!isConnected) {
-      connect({ chain });
+      connect();
       return;
     }
     if (!token1 || !token2) {
@@ -121,7 +121,7 @@ const CreatePoolForm = ({
               components={{ SingleValue: SelectValue }}
               value={token1
                 && options.find(
-                  ({ value }) => compareDenoms(value.denom, token1.denom),
+                  ({ value }) => comparePoolDenoms(value.denom, token1.denom),
                 )}
             />
           </div>
@@ -158,7 +158,7 @@ const CreatePoolForm = ({
               placeholder="Select Token"
               value={token2
                 && options.find(
-                  ({ value }) => compareDenoms(value.denom, token2.denom),
+                  ({ value }) => comparePoolDenoms(value.denom, token2.denom),
                 )}
             />
           </div>

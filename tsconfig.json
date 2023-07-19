@@ -27,7 +27,10 @@
       "context/*": ["./src/context/*"],
       "config/*": ["./src/config/*"],
       "classes/*": ["./src/classes/*"],
-      "types/*": ["./src/types/*"]
+      "types/*": ["./src/types/*"],
+      "generated/*": ["./src/generated/*"],
+      "queries/*": ["./src/queries/*"],
+      "mutations/*": ["./src/mutations/*"]
     }
   },
   "include": ["src"],

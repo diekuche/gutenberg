@@ -1,16 +1,12 @@
-import { GasPrice, calculateFee } from "@cosmjs/stargate";
 import { FormEvent, useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import {
-  useAccount, useConnect, useInstantiateContract,
-} from "graz";
 import { toast } from "react-toastify";
 import Button from "ui/Button";
 import Input, { InputProps } from "ui/CreatePage/Input";
 import Collapsible from "ui/CreatePage/Collapsible";
 import { useChain } from "hooks/useChain";
 import { AppStateContext } from "context/AppStateContext";
-import { ContractConfigs } from "config/contracts";
+import { GasLimit } from "config/cosmwasm";
 import styles from "../Form.module.css";
 
 const defaultBalance = {
@@ -28,7 +24,7 @@ const CW20TokenForm = () => {
   const chain = useChain();
   const { data: account, isConnected } = useAccount();
   const { addUserToken } = useContext(AppStateContext);
-  const codeId = ContractConfigs[chain.chainId].cw20ContractCodeId;
+  const codeId = chain.cosmwasmConfigs.cw20ContractCodeId;
   const { instantiateContract } = useInstantiateContract({
     codeId,
     onError: (error) => {
@@ -94,22 +90,14 @@ const CW20TokenForm = () => {
       },
     };
 
-    const gasPrice = GasPrice.fromString(
-      `${chain.feeCurrencies[0].gasPriceStep?.low || 0}${
-        chain.feeCurrencies[0].coinDenom
-      }`,
-    );
-    const fee = calculateFee(600000, gasPrice);
-
     console.log("msg", {
       msg,
       label: token.value,
-      fee,
-    }, "activeChain", chain.chainId);
+    }, "activeChain", chain);
     instantiateContract({
       msg,
       label: token.value,
-      fee,
+      fee: chain.calculateFee(GasLimit.Cw20Instantiate),
     });
   };
 

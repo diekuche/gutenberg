@@ -1,19 +1,17 @@
 import { NavLink } from "react-router-dom";
 import {
-  useSuggestChainAndConnect,
-} from "graz";
-import {
   useContext, useEffect, useMemo, useState,
 } from "react";
 import SelectCustom, { SelectCustomProps } from "ui/SelectCustom";
 import SelectChainLabel from "ui/SelectCustom/SelectChainLabel";
 import { chains } from "chain-registry";
+import { useAccount } from "hooks/useAccount";
+import { useChain } from "hooks/useChain";
+import { ChainId, Chains } from "config/chains";
+import { AppStateContext } from "context/AppStateContext";
 import styles from "./Header.module.css";
-import Wallet from "../Wallet/Wallet";
+import ConnectButton from "./ConnectButton";
 import icon from "../../assets/icon_wallet.svg";
-import { useChain } from "../../hooks/useChain";
-import { ChainConfig, ChainId, Chains } from "../../config/chains";
-import { AppStateContext } from "../../context/AppStateContext";
 
 const options = Object.keys(Chains)
   .map((chainId) => chainId as ChainId)
@@ -22,34 +20,34 @@ const options = Object.keys(Chains)
     (chainId1, chainId2) => Chains[chainId1].chainName.localeCompare(Chains[chainId2].chainName),
   )
   .map((chainId) => {
-    const chain = Chains[chainId as unknown as ChainId];
+    const { chainName } = Chains[chainId as unknown as ChainId];
     return {
-      value: chain,
+      value: chainId,
       label: <SelectChainLabel
         icon={
       chains.filter(({ chain_id }) => chain_id === chainId)[0].logo_URIs?.svg
 }
-        chainName={chain.chainName}
+        chainName={chainName}
       />,
     };
   });
 
 const Header = () => {
-  const { chainId } = useChain();
+  const chain = useChain();
+  const { connect } = useAccount();
   const currentChainOption = useMemo(
     () => options.find(
-      (option) => option.value.chainId === chainId,
+      (option) => option.value === chain.config.chainId,
     ) || options[0],
-    [chainId],
+    [chain],
   );
   const [selectedChainOption, setSelectedChainOption] = useState(
     currentChainOption,
   );
-  const { suggestAndConnect } = useSuggestChainAndConnect();
 
   const { setChainId } = useContext(AppStateContext);
 
-  const handleSelect: SelectCustomProps<ChainConfig, JSX.Element>["onChange"] = (option) => {
+  const handleSelect: SelectCustomProps<ChainId, JSX.Element>["onChange"] = (option) => {
     const chainInfo = option?.value;
     if (!chainInfo) {
       return;
@@ -58,10 +56,8 @@ const Header = () => {
       value: option.value,
       label: option.label,
     });
-    setChainId(chainInfo.chainId);
-    suggestAndConnect({
-      chainInfo,
-    });
+    setChainId(chainInfo);
+    connect();
   };
 
   useEffect(() => {
@@ -115,7 +111,7 @@ const Header = () => {
         </div>
         <div className={styles.rightButton}>
           <div className={styles.chainButton}>
-            <SelectCustom<ChainConfig, JSX.Element>
+            <SelectCustom<ChainId, JSX.Element>
               options={options}
               heightControl={42}
               fontSizePlaceholder={16}
@@ -127,7 +123,7 @@ const Header = () => {
               onChange={handleSelect}
             />
           </div>
-          <Wallet />
+          <ConnectButton />
         </div>
       </div>
     </header>

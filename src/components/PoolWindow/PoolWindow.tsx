@@ -1,35 +1,43 @@
-// libs
 import { useEffect, useState } from "react";
-import { connect, useAccount } from "graz";
 import { ThreeCircles } from "react-loader-spinner";
-// utils
-import { AppStatePool } from "context/AppStateContext";
-import {
-  SWAP_POOL_INFO, USER_TOKEN_DETAILS, UserTokenDetails, useQueries,
-} from "hooks/useQueries";
 import { useChain } from "hooks/useChain";
-// ui
 import { Tabs, Tab } from "ui/PoolWindow/Tabs";
-// styles
+import { UserTokenDetails } from "types/tokens";
+import { PoolDetails } from "types/pools";
+import { useAccount } from "hooks/useAccount";
+import { Chain } from "classes/Chain";
+import { Account } from "classes/Account";
+import { SWAP_POOL_INFO } from "queries/pool";
+import { USER_TOKEN_DETAILS } from "queries/tokens";
 import styles from "./PoolWindow.module.css";
-// components
 import Withdraw from "./Withdraw/Withdraw";
 import Farm from "./Farm/Farm";
 import Deposit from "./Deposit/Deposit";
 import Unfarm from "./Unfarm/Unfarm";
 
 export type PoolWindowProps = {
-  pool: AppStatePool;
+  pool: PoolDetails;
   onLiquidityAdded: ()=>void;
+};
+
+const fetch = async (chain: Chain, account: Account, pool: PoolDetails) => {
+  const [poolInfo, ...tokens] = await Promise.all([
+    chain.query(SWAP_POOL_INFO(pool.address), { cacheTime: 1 }),
+    chain.query(USER_TOKEN_DETAILS(pool.denom1, account.address)),
+    chain.query(USER_TOKEN_DETAILS(pool.denom2, account.address)),
+  ]);
+  return {
+    poolInfo,
+    tokens,
+  };
 };
 
 const PoolWindow = ({
   onLiquidityAdded,
   pool,
 }: PoolWindowProps) => {
-  const { data: account } = useAccount();
+  const { account, connect } = useAccount();
   const chain = useChain();
-  const queries = useQueries();
   const [depositData, setDepositData] = useState<{
     token1: UserTokenDetails;
     token2: UserTokenDetails;
@@ -50,28 +58,17 @@ const PoolWindow = ({
 
   useEffect(() => {
     if (!account) {
-      connect({ chain });
+      connect();
       return;
     }
-    if (!queries) {
-      return;
-    }
-    const fetch = async () => {
-      const { query } = queries;
-      const [poolInfo, ...tokens] = await Promise.all([
-        query(SWAP_POOL_INFO(pool.address), { cacheTime: 1 }),
-        query(USER_TOKEN_DETAILS(pool.denom1, account.bech32Address)),
-        query(USER_TOKEN_DETAILS(pool.denom2, account.bech32Address)),
-      ]);
-      setDepositData({
+    fetch(chain, account, pool)
+      .then(({ poolInfo, tokens }) => setDepositData({
         token1: tokens[0],
         token2: tokens[1],
         reserve1: poolInfo.token1_reserve,
         reserve2: poolInfo.token2_reserve,
-      });
-    };
-    fetch();
-  }, [account, queries]);
+      }));
+  }, [account, chain, pool]);
 
   if (!depositData) {
     return (

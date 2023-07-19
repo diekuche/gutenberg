@@ -2,38 +2,28 @@ import TokenList, { TokenListItem } from "ui/MyWalletPage/TokenList";
 import { useEffect, useState } from "react";
 import { Triangle } from "react-loader-spinner";
 import { useChain } from "hooks/useChain";
-import { ChainConfig } from "config/chains";
-import { QueryClient, setupBankExtension } from "@cosmjs/stargate";
 import { getShortTokenName } from "utils/tokens";
 import BigNumber from "bignumber.js";
-import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
-import withError from "with-error";
-import { CosmWasmClient } from "@cosmjs/cosmwasm-stargate";
-import { CW20_USER_TOKEN_DETAILS } from "hooks/useQueries";
 import { validateAddress } from "utils/wallet";
 import { toast } from "react-toastify";
+import { Chain } from "classes/Chain";
+import { CW20_USER_TOKEN_DETAILS } from "queries/cw20";
+import { useAccount } from "hooks/useAccount";
+import { Cw20Client } from "generated/Cw20.client";
+import { Account } from "classes/Account";
 import styles from "./MyWalletPage.module.css";
-import { Chain } from "../../classes/Chain";
-import { Wallet } from "classes/Wallet";
-import { useWallet } from "hooks/useWallet";
-import { useQueryCache } from "hooks/useQueryCache";
-import { QueryCache } from "classes/QueryCache";
 
 const fetch = async (
-  cache: QueryCache,
   chain: Chain,
-  wallet: Wallet,
+  account: Account,
   pushTokens: (tokens: TokenListItem[]) => void,
 ) => {
-  const address = await wallet.getMainAddress(chain.config.chainId);
-  const bank = await chain.bank()
-  const balances = await bank.allBalances(address);
-  const userCw20Tokens = await cache.getOrUpdate({
-    queryKey: `chain/${chain.config.chainId}/user/${address}/cw20`,
-    queryFn: (): string[] => {
-      return []
-    }
-  }, {})
+  const bank = await chain.bank();
+  const balances = await bank.allBalances(account.address);
+  const userCw20Tokens = await chain.query({
+    queryKey: `chain/${chain.config.chainId}/user/${account.address}/cw20`,
+    queryFn: (): string[] => [],
+  });
 
   await Promise.all(balances.map(async (balance) => {
     const isFactoryToken = balance.denom.toLowerCase().startsWith("factory/");
@@ -66,10 +56,7 @@ const fetch = async (
       }]);
     }
   }).concat(userCw20Tokens.map(async (tokenAddress) => {
-    const token = await cache.getOrUpdate(CW20_USER_TOKEN_DETAILS(tokenAddress, address), {
-      cache,
-      chain,
-    });
+    const token = await chain.query(CW20_USER_TOKEN_DETAILS(tokenAddress, account.address));
     pushTokens([{
       shortName: token.name,
       key: `cw20:${tokenAddress}`,
@@ -84,9 +71,8 @@ const fetch = async (
 };
 
 const MyWalletPage = () => {
-  const cache = useQueryCache()
   const chain = useChain();
-  const wallet = useWallet();
+  const { account } = useAccount();
 
   const [loading, setLoading] = useState(true);
   const [addTokenLoading, setAddTokenLoading] = useState(false);
@@ -96,15 +82,20 @@ const MyWalletPage = () => {
   useEffect(() => {
     setLoading(true);
     setTokens([]);
+    if (!account) {
+      return;
+    }
     fetch(
-      cache,
       chain,
-      wallet, (newTokens) => {
-      setTokens((oldTokens) => oldTokens.filter(
-        (oldToken) => !newTokens.find((newToken) => newToken.key === oldToken.key),
-      ).concat(newTokens));
-    }).finally(() => setLoading(false));
-  }, [chain]);
+      account,
+
+      (newTokens) => {
+        setTokens((oldTokens) => oldTokens.filter(
+          (oldToken) => !newTokens.find((newToken) => newToken.key === oldToken.key),
+        ).concat(newTokens));
+      },
+    ).finally(() => setLoading(false));
+  }, [account, chain]);
 
   const addCw20Token = (tokenAddress: string) => {
     if (!validateAddress(tokenAddress, "")) {
@@ -117,19 +108,32 @@ const MyWalletPage = () => {
     }
     setAddTokenLoading(true);
   };
+
+  const checkAccount = () => {
+    if (!account) {
+      toast.error("Account is not connected");
+      throw new Error("Account is not connected");
+    }
+    return account;
+  };
+
   const onBurn = () => {};
   const onMint = () => {};
-  const onSend = (key: string, recipient: string, amount: string) => {
+  const onSend = async (key: string, recipient: string, amount: string) => {
+    const { signer } = checkAccount();
     if (!validateAddress(recipient)) {
       toast.error("Invalid recipient");
       return;
     }
-    const signingClient = await SigningStargateClient.createWithSigner(tendermint, signer, {
-      registry
-    });
+
+    const signingCosmWasmClient = await chain.getSigningCosmWasmClient(signer);
     if (key.startsWith("cw20:")) {
-      const contractAddress = 
-    }else {
+      const contractAddress = key.substring(5);
+      new Cw20Client(signingCosmWasmClient, contractAddress).send({
+        amount,
+
+      });
+    } else {
 
     }
   };

@@ -1,7 +1,9 @@
-import { Denom } from "../ts/SwapPoolFactory.types";
+import { Denom } from "generated/SwapPoolFactory.types";
+
+export type PoolDenom = Denom;
 
 export type TokenDetails = {
-  denom: Denom;
+  denom: PoolDenom;
   type: "cw20" | "native";
   address?: string;
   decimals: number;

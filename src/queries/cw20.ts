@@ -1,7 +1,7 @@
 import { Chain } from "classes/Chain";
-import { QueryCache } from "classes/QueryCache";
+import { Cw20QueryClient } from "generated/Cw20.client";
+import { SwapPoolQueryClient } from "generated/SwapPool.client";
 import { TokenDetails, UserTokenDetails } from "types/tokens";
-import { Cw20QueryClient } from "../ts/Cw20.client";
 
 export const CW20_TOKEN_MARKETING = (tokenAddr: string) => ({
   queryKey: `/token/${tokenAddr}/marketing`,
@@ -46,16 +46,15 @@ export const CW20_TOKEN_LOGO = (tokenAddr: string) => ({
 export const CW20_TOKEN_DETAILS = (tokenAddr: string) => ({
   queryKey: `/v0.1/cw20/${tokenAddr}/details`,
   queryFn: async (context: {
-    cache: QueryCache;
     chain: Chain
   }): Promise<TokenDetails> => {
-    const { cache } = context;
-    const info = await cache.getOrUpdate(CW20_TOKEN_INFO(tokenAddr), context);
-    const marketing = await cache.getOrUpdate(CW20_TOKEN_MARKETING(tokenAddr), context);
-    const minter = await cache.getOrUpdate(CW20_TOKEN_MINTER(tokenAddr), context);
+    const { chain } = context;
+    const info = await chain.query(CW20_TOKEN_INFO(tokenAddr));
+    const marketing = await chain.query(CW20_TOKEN_MARKETING(tokenAddr));
+    const minter = await chain.query(CW20_TOKEN_MINTER(tokenAddr));
 
     const logo = marketing?.logo === "embedded"
-      ? (await cache.getOrUpdate(CW20_TOKEN_LOGO(tokenAddr), context)).data
+      ? (await chain.query(CW20_TOKEN_LOGO(tokenAddr))).data
       : marketing.logo?.url;
     const gDriveId = logo?.match(/d\/(.+)\//)?.[1];
     return {
@@ -93,12 +92,11 @@ export const CW20_USER_TOKEN_DETAILS = (
 ) => ({
   queryKey: `/v0.1/user/${userAddress}/cw20/${tokenAddress}/details`,
   queryFn: async (context: {
-    cache: QueryCache
     chain: Chain
   }): Promise<UserTokenDetails> => {
-    const { cache } = context;
-    const details = await cache.getOrUpdate(CW20_TOKEN_DETAILS(tokenAddress), context);
-    const balance = await cache.getOrUpdate(CW20_USER_BALANCE(tokenAddress, userAddress), context);
+    const { chain } = context;
+    const details = await chain.query(CW20_TOKEN_DETAILS(tokenAddress));
+    const balance = await chain.query(CW20_USER_BALANCE(tokenAddress, userAddress));
     return {
       balance,
       ...details,
@@ -107,16 +105,10 @@ export const CW20_USER_TOKEN_DETAILS = (
   cacheTime: 1,
 });
 
-
-
-
-
-
-
 export const POOL_TOKEN1_FOR_TOKEN2_PRICE = (poolAddress: string, token1Amount: string) => ({
   queryKey: `/pool/${poolAddress}/token1ForToken2Price`,
-  queryFn: async ({ contracts }: QueryContext) => {
-    const pool = contracts.PoolContractFactory(poolAddress).querier;
+  queryFn: async ({ chain }: { chain: Chain }) => {
+    const pool = new SwapPoolQueryClient(await chain.getCosmWasmClient(), poolAddress);
     const res = (await pool.token1ForToken2Price({
       token1Amount,
     }).catch((e: unknown) => {

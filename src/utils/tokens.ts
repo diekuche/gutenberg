@@ -1,10 +1,8 @@
 import { BigNumber } from "bignumber.js";
-import { TokenDetails } from "hooks/useQueries";
 import type { Metadata } from "cosmjs-types/cosmos/bank/v1beta1/bank";
-import { Denom } from "../ts/SwapPoolFactory.types";
-import { ChainConfig } from "config/chains";
+import { PoolDenom, TokenDetails } from "types/tokens";
 
-export const compareDenoms = (denom1: Denom, denom2: Denom) => {
+export const comparePoolDenoms = (denom1: PoolDenom, denom2: PoolDenom) => {
   const isDenom1Native = "native" in denom1;
   const isDenom2Native = "native" in denom2;
   if (isDenom1Native && isDenom2Native) {
@@ -28,10 +26,10 @@ export const tokenFloatToAmount = (
   decimal: number,
 ) => (Number(amount) * (10 ** decimal));
 
-export const isDenomCw20 = (denom: Denom) => !("native" in denom);
+export const isDenomCw20 = (denom: PoolDenom) => !("native" in denom);
 
-export const isCw20 = (obj: Denom): obj is { cw20: string } => !("native" in obj);
-export const isNative = (obj: Denom): obj is { native: string } => ("native" in obj);
+export const isCw20 = (obj: PoolDenom): obj is { cw20: string } => !("native" in obj);
+export const isNative = (obj: PoolDenom): obj is { native: string } => ("native" in obj);
 
 export const calcTokenExchangePrice = (
   amount1: string,
@@ -59,6 +57,3 @@ export const nativeTokenDetails = (nativeToken: Metadata): TokenDetails => {
     minter: "",
   };
 };
-
-export const transferCw20 = (chain: ChainConfig, contractAddress: string, recipient: string) => {};
-export const transferNative = () => {};

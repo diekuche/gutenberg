@@ -11,3 +11,11 @@ export const NATIVE_TOKEN_DETAILS = (denom: { native: string }) => ({
     return nativeTokenDetails(native);
   },
 });
+
+export const CHAIN_DENOMS_METADATA = () => ({
+  queryKey: "/denoms/metadata",
+  queryFn: async ({ chain }:{ chain: Chain }) => {
+    const bank = await chain.bank();
+    return bank.denomsMetadata();
+  },
+});

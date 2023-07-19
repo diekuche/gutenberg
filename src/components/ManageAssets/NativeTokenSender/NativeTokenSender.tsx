@@ -2,9 +2,10 @@ import React, {
   useEffect, useCallback, useRef, useState,
 } from "react";
 import { Coin, coins } from "@cosmjs/stargate";
-import { useSendTokens, useClients, useAccount } from "graz";
+
 import { toast } from "react-toastify";
 import Button from "ui/Button";
+import { useAccount } from "hooks/useAccount";
 import styles from "./NativeTokenSender.module.css";
 import plus from "../../../assets/plus.svg";
 import minus from "../../../assets/minus.svg";
@@ -20,8 +21,7 @@ function TokenSender() {
   const [currentBalance, setCurrentBalance] = useState<Coin | null>(null);
   const [isSent, setSent] = useState(false);
   const [open, setOpen] = useState(false);
-  const { data: account } = useAccount();
-  const { data } = useClients();
+  const { account } = useAccount();
   const client = data?.stargate;
   const fee = useFee();
   const ref = useRef<HTMLDivElement>(null);

@@ -1,51 +1,16 @@
 import { ChainInfo } from "@keplr-wallet/types";
 import { mainnetChains } from "graz/chains";
 
-const CYBER = {
-  CYBER_CONGRESS_ADDRESS: "cyber1latzme6xf6s8tsrymuu6laf2ks2humqvdq39v8",
-  DIVISOR_CYBER_G: 10 ** 9,
-  DENOM_CYBER: "boot",
-  DENOM_CYBER_G: "GBOOT",
-  HYDROGEN: "H",
-
-  // CHAIN_ID: 'dev',
-  // CYBER_NODE_URL_API: 'http://localhost:26657',
-  // CYBER_WEBSOCKET_URL: 'ws://localhost:26657/websocket',
-  // CYBER_NODE_URL_LCD: 'http://localhost:1317',
-
-  CHAIN_ID: "bostrom" as const,
-  CYBER_NODE_URL_API: "https://rpc.bostrom.cybernode.ai",
-  CYBER_WEBSOCKET_URL: "wss://rpc.bostrom.cybernode.ai/websocket",
-  CYBER_NODE_URL_LCD: "https://lcd.bostrom.cybernode.ai",
-  CYBER_INDEX_HTTPS: "https://index.bostrom.cybernode.ai/v1/graphql",
-  CYBER_INDEX_WEBSOCKET: "wss://index.bostrom.cybernode.ai/v1/graphql",
-
-  // CHAIN_ID: 'space-pussy-1',
-  // CYBER_NODE_URL_API: 'https://rpc.space-pussy-1.cybernode.ai',
-  // CYBER_WEBSOCKET_URL: 'wss://rpc.space-pussy-1.cybernode.ai/websocket',
-  // CYBER_NODE_URL_LCD: 'https://lcd.space-pussy-1.cybernode.ai',
-  // CYBER_INDEX_HTTPS: 'https://index.space-pussy-1.cybernode.ai/v1/graphql',
-  // CYBER_INDEX_WEBSOCKET: 'wss://index.space-pussy-1.cybernode.ai/v1/graphql',
-
-  CYBER_GATEWAY: "https://gateway.ipfs.cybernode.ai",
-
-  BECH32_PREFIX_ACC_ADDR_CYBER: "bostrom",
-  BECH32_PREFIX_ACC_ADDR_CYBERVALOPER: "bostromvaloper",
-  MEMO_KEPLR: "[bostrom] cyb.ai, using keplr",
-};
-
 export type ChainId = "juno-1" | "uni-6" | "bostrom" | "archway-1";
 
 export type ChainConfig = Omit<ChainInfo, "chainId"> & {
   chainId: ChainId;
-  tokenfactoryEnabled: boolean;
 };
 
 export const Chains: Record<ChainId, ChainConfig> = {
-  "juno-1": { ...mainnetChains.juno, tokenfactoryEnabled: true } as ChainConfig,
-  "archway-1": { ...mainnetChains.archway, tokenfactoryEnabled: false } as ChainConfig,
+  "juno-1": { ...mainnetChains.juno, features: ["tokenfactory"] } as ChainConfig,
+  "archway-1": { ...mainnetChains.archway } as ChainConfig,
   "uni-6": {
-    tokenfactoryEnabled: true,
     chainId: "uni-6" as const,
     chainName: "Juno TestNet",
     stakeCurrency: {
@@ -79,20 +44,19 @@ export const Chains: Record<ChainId, ChainConfig> = {
       bech32PrefixConsAddr: "junovalcons",
       bech32PrefixConsPub: "junovalconspub",
     },
-    features: ["stargate", "ibc-transfer"],
+    features: ["stargate", "ibc-transfer", "tokenfactory"],
   },
   bostrom: {
-    tokenfactoryEnabled: true,
     // Chain-id of the Cosmos SDK chain.
-    chainId: CYBER.CHAIN_ID,
+    chainId: "bostrom",
     // The name of the chain to be displayed to the user.
-    chainName: CYBER.CHAIN_ID,
+    chainName: "bostrom",
     // RPC endpoint of the chain.
-    rpc: CYBER.CYBER_NODE_URL_API,
-    rest: CYBER.CYBER_NODE_URL_LCD,
+    rpc: "https://rpc.bostrom.cybernode.ai",
+    rest: "https://lcd.bostrom.cybernode.ai",
     stakeCurrency: {
-      coinDenom: CYBER.DENOM_CYBER.toUpperCase(),
-      coinMinimalDenom: CYBER.DENOM_CYBER,
+      coinDenom: "boot",
+      coinMinimalDenom: "boot",
       coinDecimals: 0,
     },
     bip44: {
@@ -110,10 +74,10 @@ export const Chains: Record<ChainId, ChainConfig> = {
     },
     currencies: [
       {
-        coinDenom: CYBER.DENOM_CYBER.toUpperCase(),
-        coinMinimalDenom: CYBER.DENOM_CYBER,
+        coinDenom: "boot",
+        coinMinimalDenom: "boot",
         coinDecimals: 6,
-        coinGeckoId: CYBER.CHAIN_ID,
+        coinGeckoId: "bostrom",
         coinImageUrl: "https://raw.githubusercontent.com/cosmos/chain-registry/master/bostrom/images/boot.png",
       },
       {
@@ -136,13 +100,13 @@ export const Chains: Record<ChainId, ChainConfig> = {
     feeCurrencies: [
       {
       // Coin denomination to be displayed to the user.
-        coinDenom: CYBER.DENOM_CYBER.toUpperCase(),
+        coinDenom: "boot",
         // Actual denom (i.e. uatom, uscrt) used by the blockchain.
-        coinMinimalDenom: CYBER.DENOM_CYBER,
+        coinMinimalDenom: "boot",
         // # of decimal points to convert minimal denomination to user-facing denomination.
-        coinDecimals: 0,
+        coinDecimals: 6,
       },
     ],
-    features: ["stargate", "ibc-transfer"],
+    features: ["stargate", "ibc-transfer", "tokenfactory"],
   },
 };

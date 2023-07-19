@@ -1,24 +1,19 @@
-// libs
 import { useEffect, useState } from "react";
-import { useAccount } from "graz";
 import { toast } from "react-toastify";
-// utils
 import NewButton from "ui/NewButton";
 import InputTokenAmount from "ui/InputTokenAmount";
-import { useContracts } from "hooks/useContracts";
-import { useAddLiquidity } from "hooks/useAddLiquidity";
 import {
   tokenAmountToFloat,
 } from "utils/tokens";
-import { AppStatePool } from "context/AppStateContext";
-import { UserTokenDetails } from "hooks/useQueries";
 import { formatBalance } from "utils/balance";
-// styles
+import { UserTokenDetails } from "types/tokens";
+import { PoolDetails } from "types/pools";
+import { useAccount } from "hooks/useAccount";
+import { ADD_LIQUIDITY } from "mutations/pool";
 import styles from "./Deposit.module.css";
-// components
 
 export type DepProps = {
-  pool: AppStatePool;
+  pool: PoolDetails;
   token1: UserTokenDetails;
   token2: UserTokenDetails;
   reserve1: string;
@@ -38,11 +33,9 @@ const Dep = ({
 }: DepProps) => {
   const [processing, setProcessing] = useState(false);
   const [loading, setLoading] = useState(true);
-  const contracts = useContracts();
-  const { data: account } = useAccount();
+  const { account, connect } = useAccount();
   const [token1Amount, setToken1Amount] = useState("0");
   const [token2Amount, setToken2Amount] = useState("0");
-  const { addLiquidity } = useAddLiquidity();
   const r1 = Number(reserve1);
   const r2 = Number(reserve2);
   const onToken1AmountChange = (value: string) => {
@@ -71,22 +64,23 @@ const Dep = ({
   };
 
   useEffect(() => {
-    if (contracts && account && addLiquidity) {
+    if (account) {
       setLoading(false);
     } else {
+      connect();
       setLoading(true);
     }
-  }, [account, contracts]);
+  }, [account]);
   const onDeposit = async () => {
     if (!token1Amount || !token2Amount) {
       toast.error("Please, specify token amount");
       return;
     }
-    if (!contracts || !account || !addLiquidity) {
+    if (!account) {
       return;
     }
     setProcessing(true);
-    addLiquidity(pool.address, token1, token1Amount, token2, token2Amount).then(() => {
+    ADD_LIQUIDITY(account, pool.address, token1, token1Amount, token2, token2Amount).then(() => {
       toast.success("Liquidity was added successfully");
       onSuccess();
     }).catch((e) => {
