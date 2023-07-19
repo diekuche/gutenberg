@@ -189,8 +189,83 @@ export const useUserTokens = () => {
     setTokens(tokens.filter((t) => t.id !== token.id).concat(newToken));
   };
 
-  const onBurn = () => {};
-  const onMint = () => {};
+  const onBurn = async (id: string, amount: string) => {
+    if (!account) {
+      toast.error("Account is not connected");
+      return;
+    }
+    console.log(`Burn for ${id}, amount: ${amount}`);
+    const token = tokens.find((t) => t.id === id);
+    if (!token) {
+      toast.error(`Not found token ${id}`);
+      return;
+    }
+    const realAmount = BigNumber(amount).multipliedBy(BigNumber(10 ** token.decimals)).toFixed();
+    try {
+      if (token.type === "cw20") {
+        const signingCosmWasmClient = await chain.getSigningCosmWasmClient(account.signer);
+        await new Cw20Client(
+          signingCosmWasmClient,
+          account.address,
+          token.address,
+        ).burn({
+          amount: realAmount,
+        }, chain.calculateFee(GasLimit.Cw20Burn));
+      } else if (!token.denom.startsWith("factory/")) {
+        toast.error(`Token ${token.denom} cannot be burned`);
+      }
+      updateToken(token);
+      toast("Burned successfully", {
+        type: "success",
+        autoClose: 2000,
+      });
+    } catch (e) {
+      toast(String(e), {
+        type: "error",
+      });
+      console.log("Error when mint token");
+      console.log("error", e);
+    }
+  };
+  const onMint = async (id: string, amount: string) => {
+    if (!account) {
+      toast.error("Account is not connected");
+      return;
+    }
+    console.log(`Mint for ${id}, amount: ${amount}`);
+    const token = tokens.find((t) => t.id === id);
+    if (!token) {
+      toast.error(`Not found token ${id}`);
+      return;
+    }
+    const realAmount = BigNumber(amount).multipliedBy(BigNumber(10 ** token.decimals)).toFixed();
+    try {
+      if (token.type === "cw20") {
+        const signingCosmWasmClient = await chain.getSigningCosmWasmClient(account.signer);
+        await new Cw20Client(
+          signingCosmWasmClient,
+          account.address,
+          token.address,
+        ).mint({
+          amount: realAmount,
+          recipient: account.address,
+        }, chain.calculateFee(GasLimit.Cw20Mint));
+      } else if (!token.denom.startsWith("factory/")) {
+        toast.error(`Token ${token.denom} cannot be minted`);
+      }
+      updateToken(token);
+      toast("Minted successfully", {
+        type: "success",
+        autoClose: 2000,
+      });
+    } catch (e) {
+      toast(String(e), {
+        type: "error",
+      });
+      console.log("Error when mint token");
+      console.log("error", e);
+    }
+  };
   const onSend = async (id: string, recipient: string, amount: string) => {
     if (!account) {
       toast.error("Account is not connected");
@@ -214,7 +289,7 @@ export const useUserTokens = () => {
     let error = "";
     try {
       if (token.type === "cw20") {
-        const contractAddress = id.substring(5);
+        const contractAddress = token.address;
         const response = await new Cw20Client(
           signingCosmWasmClient,
           account.address,

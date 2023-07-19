@@ -4,6 +4,8 @@ export enum GasLimit {
   Cw20Instantiate,
   Cw20IncreaseAllowance,
   Cw20Send,
+  Cw20Mint,
+  Cw20Burn,
   PoolAddLiquidity,
   PoolFactoryCreatePool,
   NativeSendTokens,
@@ -23,6 +25,8 @@ const gasLimits = {
   [GasLimit.Cw20Instantiate]: 250000,
   [GasLimit.Cw20Send]: 150000,
   [GasLimit.NativeSendTokens]: 100000,
+  [GasLimit.Cw20Mint]: 150000,
+  [GasLimit.Cw20Burn]: 150000,
 };
 
 export const chainCosmwasmConfigs: Record<ChainId, ChainCosmwasmConfig> = {

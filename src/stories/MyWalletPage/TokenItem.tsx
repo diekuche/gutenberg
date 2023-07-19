@@ -155,7 +155,7 @@ const TokenItem = ({
             <div className={styles.tokenSend}>
               <div className={styles.sendformblock}>
                 <div className={styles.label}>
-                  Recepient:
+                  Amount:
                   <input
                     type="text"
                     value={burnAmount}
