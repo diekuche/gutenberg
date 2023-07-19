@@ -9,9 +9,10 @@ import { GasLimit } from "config/cosmwasm";
 import { useStore } from "hooks/useStore";
 import { useAccount } from "hooks/useAccount";
 import { STORE_USER_CW20_TOKENS_KEY } from "store/cw20";
-import FactoryTokenForm from "ui/CreatePage/FactoryTokenForm";
+import FactoryTokenForm, { CreateFactoryTokenFormValues } from "ui/CreatePage/FactoryTokenForm";
 import ManageAssets from "ui/CreatePage/ManageAssets";
 import { useUserTokens } from "hooks/useUserTokens";
+import { TOKENFACTORY_CREATE } from "mutations/tokenfactory";
 import styles from "./CreatePage.module.css";
 
 const CreatePage = () => {
@@ -22,6 +23,7 @@ const CreatePage = () => {
 
   const {
     addCw20Token,
+    addNativeToken,
     onDelete,
     onSend,
     tokens,
@@ -117,6 +119,31 @@ const CreatePage = () => {
     setCreating(false);
   };
 
+  const onCreateFactoryToken = async (
+    values: CreateFactoryTokenFormValues,
+  ) => {
+    if (!account) {
+      connect();
+      toast("Account is not connect");
+      return;
+    }
+
+    try {
+      const {
+        denom,
+      } = await TOKENFACTORY_CREATE(chain, account, values.name);
+      addNativeToken(denom);
+      toast(`Success! Token ${values.name} was created`, {
+        type: "success",
+      });
+    } catch (error) {
+      toast(error as string, {
+        type: "error",
+      });
+      console.log("error", error);
+    }
+  };
+
   return (
     <div className={styles.mainpage}>
       <div className={styles.group}>
@@ -136,7 +163,15 @@ const CreatePage = () => {
               onCreate={onCreateCw20Token}
             />
             )}
-            {selectedTabId === "native" && <FactoryTokenForm />}
+            {selectedTabId === "native"
+            && (
+            <FactoryTokenForm
+              isConnected={isConnected}
+              connect={connect}
+              creating={creating}
+              onCreate={onCreateFactoryToken}
+            />
+            )}
             {selectedTabId === "nft" && <NFT />}
             {selectedTabId === "ntt" && <NTT />}
           </div>

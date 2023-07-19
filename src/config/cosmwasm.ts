@@ -9,6 +9,9 @@ export enum GasLimit {
   PoolAddLiquidity,
   PoolFactoryCreatePool,
   NativeSendTokens,
+  TokenFactoryCreateDenom,
+  TokenFactoryMint,
+  TokenFactoryBurn,
 }
 
 export type ChainCosmwasmConfig = {
@@ -27,6 +30,9 @@ const gasLimits = {
   [GasLimit.NativeSendTokens]: 100000,
   [GasLimit.Cw20Mint]: 150000,
   [GasLimit.Cw20Burn]: 150000,
+  [GasLimit.TokenFactoryCreateDenom]: 3048994,
+  [GasLimit.TokenFactoryMint]: 3048994,
+  [GasLimit.TokenFactoryBurn]: 3048994,
 };
 
 export const chainCosmwasmConfigs: Record<ChainId, ChainCosmwasmConfig> = {
@@ -50,6 +56,10 @@ export const chainCosmwasmConfigs: Record<ChainId, ChainCosmwasmConfig> = {
   },
   "archway-1": {
     cw20ContractCodeId: 21,
+    gasLimits,
+  },
+  "osmo-test-5": {
+    cw20ContractCodeId: 1,
     gasLimits,
   },
 };

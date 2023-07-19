@@ -1,4 +1,5 @@
 import { OfflineAminoSigner } from "@cosmjs/amino";
+import { OfflineSigner } from "@cosmjs/proto-signing";
 import { Chain } from "./Chain";
 
 export type AccountConfig = {
@@ -12,7 +13,7 @@ export class Account {
 
   public chain: Chain;
 
-  public signer: OfflineAminoSigner;
+  public signer: OfflineSigner;
 
   constructor(public config: AccountConfig) {
     this.address = config.address;

@@ -34,8 +34,13 @@ export class Wallet {
     await keplr.disable(chain.config.chainId);
   }
 
-  async getSigner(chainId: string) {
+  async getAminoSigner(chainId: string) {
     const signer = this.getKeplr().getOfflineSignerOnlyAmino(chainId);
+    return signer;
+  }
+
+  async getSigner(chainId: string) {
+    const signer = this.getKeplr().getOfflineSigner(chainId);
     return signer;
   }
 

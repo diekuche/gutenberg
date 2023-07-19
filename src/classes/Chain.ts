@@ -1,12 +1,13 @@
 import { fromBech32 } from "@cosmjs/encoding";
-import { OfflineAminoSigner } from "@cosmjs/amino";
 import { CosmWasmClient, SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
 import {
-  GasPrice, QueryClient, calculateFee, setupBankExtension,
+  GasPrice, QueryClient, SigningStargateClient, calculateFee, setupBankExtension,
 } from "@cosmjs/stargate";
 import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
 import { ChainConfig } from "config/chains";
 import { ChainCosmwasmConfig, GasLimit, chainCosmwasmConfigs } from "config/cosmwasm";
+import { GeneratedType, OfflineSigner, Registry } from "@cosmjs/proto-signing";
+import { MsgBurn, MsgCreateDenom, MsgMint } from "generated/proto/osmosis/tokenfactory/v1beta1/tx";
 import { QueryCache } from "./QueryCache";
 
 export class Chain {
@@ -16,7 +17,7 @@ export class Chain {
 
   protected queryClient?: QueryClient;
 
-  protected cosmWasmClients: Map<OfflineAminoSigner, SigningCosmWasmClient> = new Map();
+  protected cosmWasmClients: Map<OfflineSigner, SigningCosmWasmClient> = new Map();
 
   cosmwasmConfigs: ChainCosmwasmConfig;
 
@@ -77,7 +78,7 @@ export class Chain {
     return this.cosmWasmClient;
   }
 
-  async getSigningCosmWasmClient(signer: OfflineAminoSigner) {
+  async getSigningCosmWasmClient(signer: OfflineSigner) {
     let cosmWasmClient = this.cosmWasmClients.get(signer);
     if (!cosmWasmClient) {
       cosmWasmClient = await SigningCosmWasmClient.createWithSigner(
@@ -87,6 +88,23 @@ export class Chain {
       this.cosmWasmClients.set(signer, cosmWasmClient);
     }
     return cosmWasmClient;
+  }
+
+  async getSigningStargateClient(signer: OfflineSigner) {
+    const registry = new Registry();
+    if (this.config.features?.includes("tokenfactory")) {
+      registry.register("/osmosis.tokenfactory.v1beta1.MsgCreateDenom", MsgCreateDenom as unknown as GeneratedType);
+      registry.register("/osmosis.tokenfactory.v1beta1.MsgMint", MsgMint as unknown as GeneratedType);
+      registry.register("/osmosis.tokenfactory.v1beta1.MsgBurn", MsgBurn as unknown as GeneratedType);
+    }
+    const signingStargateClient = await SigningStargateClient.createWithSigner(
+      await this.getTendermint(),
+      signer,
+      {
+        registry,
+      },
+    );
+    return signingStargateClient;
   }
 
   calculateFee(gasLimit: GasLimit) {

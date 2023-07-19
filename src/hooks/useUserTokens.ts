@@ -13,6 +13,8 @@ import { QueryCache } from "classes/QueryCache";
 import { STORE_USER_CW20_TOKENS_KEY } from "store/cw20";
 import { GasLimit } from "config/cosmwasm";
 import { TokenListItem, UserTokenDetails } from "types/tokens";
+import { createRpcQueryExtension } from "generated/proto/osmosis/tokenfactory/v1beta1/query.rpc.Query";
+import { TOKENFACTORY_BURN, TOKENFACTORY_MINT } from "mutations/tokenfactory";
 
 const fetchCw20Token = async (
   chain: Chain,
@@ -41,6 +43,7 @@ const fetchNativeToken = async (
   userBalance?: string,
 ): Promise<TokenItem> => {
   const bank = await chain.bank();
+
   const isFactoryToken = denom.toLowerCase().startsWith("factory/");
   let balance = userBalance;
   if (!balance) {
@@ -80,9 +83,24 @@ const fetchUserTokens = async (
   pushTokens: (tokens: TokenItem[]) => void,
 ) => {
   const bank = await chain.bank();
-  const balances = await bank.allBalances(account.address);
+  const balances: {
+    denom: string;
+    amount: string | undefined;
+  }[] = await bank.allBalances(account.address);
   const userCw20Tokens = await store.get(STORE_USER_CW20_TOKENS_KEY(chain, account));
-  await Promise.all(balances.map(async (coin) => {
+
+  let tokenFactoryTokens: string[] = [];
+  if (chain.config.features?.includes("tokenfactory")) {
+    const tokenFactoryQuery = createRpcQueryExtension(await chain.getQueryClient());
+    tokenFactoryTokens = (await tokenFactoryQuery.denomsFromCreator({
+      creator: account.address,
+    })).denoms;
+  }
+
+  await Promise.all(balances.concat(tokenFactoryTokens.map((t) => ({
+    denom: t,
+    amount: undefined,
+  }))).map(async (coin) => {
     const token = await fetchNativeToken(chain, coin.denom, account.address, coin.amount);
     pushTokens([token]);
   }).concat(userCw20Tokens.map(async (tokenAddress) => {
@@ -94,10 +112,10 @@ const fetchUserTokens = async (
 const userTokenToListItem = (token: TokenItem, address: string): TokenListItem => {
   const isCw20 = token.type === "cw20";
   let shortName: string;
+  const isFactoryToken = isCw20 ? false : token.denom.toLowerCase().startsWith("factory/");
   if (isCw20) {
     shortName = token.name;
   } else {
-    const isFactoryToken = isCw20 ? false : token.denom.toLowerCase().startsWith("factory/");
     shortName = isFactoryToken ? getShortTokenName(token) : token.denom;
   }
   return {
@@ -106,8 +124,8 @@ const userTokenToListItem = (token: TokenItem, address: string): TokenListItem =
     key: `${token.id}_${token.updatedAt}`,
     logoUrl: token.logo || "",
     userBalance: BigNumber(token.balance).dividedBy(10 ** token.decimals),
-    isBurnable: isCw20 && token.minter === address,
-    isMintable: isCw20 && token.minter === address,
+    isBurnable: (isCw20 && token.minter === address) || isFactoryToken,
+    isMintable: (isCw20 && token.minter === address) || isFactoryToken,
     isRemovable: isCw20,
     isSendable: true,
   };
@@ -188,6 +206,13 @@ export const useUserTokens = () => {
       : fetchNativeToken(chain, token.denom, account.address));
     setTokens(tokens.filter((t) => t.id !== token.id).concat(newToken));
   };
+  const addNativeToken = async (denom: string) => {
+    if (!account) {
+      return;
+    }
+    const newToken = await fetchNativeToken(chain, denom, account.address);
+    setTokens(tokens.concat(newToken));
+  };
 
   const onBurn = async (id: string, amount: string) => {
     if (!account) {
@@ -213,6 +238,13 @@ export const useUserTokens = () => {
         }, chain.calculateFee(GasLimit.Cw20Burn));
       } else if (!token.denom.startsWith("factory/")) {
         toast.error(`Token ${token.denom} cannot be burned`);
+      } else {
+        await TOKENFACTORY_BURN(
+          chain,
+          account,
+          token.denom,
+          amount,
+        );
       }
       updateToken(token);
       toast("Burned successfully", {
@@ -252,6 +284,13 @@ export const useUserTokens = () => {
         }, chain.calculateFee(GasLimit.Cw20Mint));
       } else if (!token.denom.startsWith("factory/")) {
         toast.error(`Token ${token.denom} cannot be minted`);
+      } else {
+        await TOKENFACTORY_MINT(
+          chain,
+          account,
+          token.denom,
+          amount,
+        );
       }
       updateToken(token);
       toast("Minted successfully", {
@@ -351,6 +390,7 @@ export const useUserTokens = () => {
     addTokenLoading,
     loading,
     addCw20Token,
+    addNativeToken,
     onBurn,
     onDelete,
     onMint,
