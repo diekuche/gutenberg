@@ -5,9 +5,9 @@ import {
 import SelectCustom, { SelectCustomProps } from "ui/SelectCustom";
 import SelectChainLabel from "ui/SelectCustom/SelectChainLabel";
 import { ChainId } from "config/chains";
+import iconWallet from "ui/assets/icon_wallet.svg";
 import styles from "./Header.module.css";
 import ConnectButton from "./ConnectButton";
-import iconWallet from "../../assets/icon_wallet.svg";
 
 export type HeaderProps = {
   chains: {

@@ -20,8 +20,8 @@ const gasLimits = {
   [GasLimit.Cw20IncreaseAllowance]: 60000,
   [GasLimit.PoolAddLiquidity]: 60000,
   [GasLimit.PoolFactoryCreatePool]: 60000,
-  [GasLimit.Cw20Instantiate]: 60000,
-  [GasLimit.Cw20Send]: 100000,
+  [GasLimit.Cw20Instantiate]: 250000,
+  [GasLimit.Cw20Send]: 150000,
   [GasLimit.NativeSendTokens]: 100000,
 };
 

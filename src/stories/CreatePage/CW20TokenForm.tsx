@@ -26,10 +26,12 @@ export type CreateCw20FormValues = {
 export type CW20TokenFormProps = {
   isConnected: boolean;
   connect: () => void;
+  creating: boolean;
   onCreate: (values: CreateCw20FormValues) => void;
 };
 
 const CW20TokenForm = ({
+  creating,
   isConnected,
   connect,
   onCreate,
@@ -208,8 +210,8 @@ const CW20TokenForm = ({
           Connect Wallet
         </Button>
       ) : (
-        <Button type="submit" color="yellow">
-          create!
+        <Button disabled={creating} type="submit" color="yellow">
+          {creating ? "creating..." : "create!"}
         </Button>
       )}
     </form>

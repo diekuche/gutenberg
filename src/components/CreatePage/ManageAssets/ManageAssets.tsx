@@ -99,11 +99,12 @@ function ManageTokens() {
           <TokenSender />
           <div className={styles.tokenList}>
             {userTokens.map((contractAddress) => (
-              <OtherTokenSender
-                contractAddress={contractAddress}
-                removeContract={removeUserToken}
-                key={contractAddress}
-              />
+              <div></div>
+              // <OtherTokenSender
+              //   contractAddress={contractAddress}
+              //   removeContract={removeUserToken}
+              //   key={contractAddress}
+              // />
             ))}
           </div>
           <div className={styles.inputs}>

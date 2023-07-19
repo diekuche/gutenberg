@@ -1,14 +1,8 @@
 import Button from "ui/Button";
 import { useState } from "react";
+import { TokenListItem } from "types/tokens";
 import styles from "./TokenList.module.css";
-import TokenItem, { TokenItemProps } from "./TokenItem";
-
-export type TokenListItem = Omit<
-TokenItemProps,
-"onBurn" | "onMint" | "onSend" | "onRemove"
-> & {
-  key: string;
-};
+import TokenItem from "./TokenItem";
 
 type TokenListProps = {
   addTokenLoading: boolean;

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Button from "ui/Button";
-import BigNumber from "bignumber.js";
 import basket from "ui/assets/basket.svg";
 import icon_send from "ui/assets/icon_send.svg";
 import swapMAYellow from "ui/assets/SwapCircleYellow.svg";
@@ -8,17 +7,10 @@ import icon_mint_yellow from "ui/assets/icon_mint_yellow.svg";
 import icon_burn_yellow from "ui/assets/icon_burn_yellow.svg";
 import icon_mint from "ui/assets/icon_mint.svg";
 import icon_burn from "ui/assets/icon_burn.svg";
+import { TokenListItem } from "types/tokens";
 import styles from "./TokenItem.module.css";
 
-export type TokenItemProps = {
-  id: string;
-  logoUrl: string;
-  shortName: string;
-  userBalance: BigNumber;
-  isSendable: boolean;
-  isBurnable: boolean;
-  isMintable: boolean;
-  isRemovable: boolean;
+export type TokenItemProps = Omit<TokenListItem, "key"> & {
   onBurn: (id: string, burnAmount: string) => void;
   onMint: (id: string, mintAmount: string) => void;
   onSend: (id: string, sendRecipient: string, sendAmount: string) => void;

@@ -1,3 +1,4 @@
+import BigNumber from "bignumber.js";
 import { Denom } from "generated/SwapPoolFactory.types";
 
 export type PoolDenom = Denom;
@@ -30,3 +31,15 @@ export type UserCw20TokenDetails = Cw20TokenDetails & UserTokenDetailsBase;
 export type UserNativeTokenDetails = NativeTokenDetails & UserTokenDetailsBase;
 
 export type UserTokenDetails = UserCw20TokenDetails | UserNativeTokenDetails;
+
+export type TokenListItem = {
+  id: string;
+  key: string;
+  logoUrl: string;
+  shortName: string;
+  userBalance: BigNumber;
+  isSendable: boolean;
+  isBurnable: boolean;
+  isMintable: boolean;
+  isRemovable: boolean;
+};

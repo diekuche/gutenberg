@@ -24,18 +24,18 @@ export function Token({ contractAddress, removeContract }: ContractDataProps) {
   const [isSent, setSent] = useState(false);
   const [balance, setBalance] = useState<typeof sendBalance>(sendBalance);
   const { account } = useAccount();
-  const { data: tokenBalance, refetch } = useQuerySmart<BalanceResponse, string>(
-    contractAddress,
-    {
-      balance: { address: account?.bech32Address },
-    },
-  );
-  const { data: tokenInfo } = useQuerySmart<TokenInfoResponse, string>(contractAddress, {
-    token_info: {},
-  });
-  const { data: marketingInfo } = useQuerySmart<MarketingInfoResponse, string>(contractAddress, {
-    marketing_info: {},
-  });
+  // const { data: tokenBalance, refetch } = useQuerySmart<BalanceResponse, string>(
+  //   contractAddress,
+  //   {
+  //     balance: { address: account?.bech32Address },
+  //   },
+  // );
+  // const { data: tokenInfo } = useQuerySmart<TokenInfoResponse, string>(contractAddress, {
+  //   token_info: {},
+  // });
+  // const { data: marketingInfo } = useQuerySmart<MarketingInfoResponse, string>(contractAddress, {
+  //   marketing_info: {},
+  // });
   // const { data: test } = useQuerySmart<any, any>(contractAddress, {
   //   get_config: {},
   // });

@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Window as KeplrWindow } from "@keplr-wallet/types";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import Header from "ui/Header";
 import WelcomePage from "ui/WelcomePage";
 import Footer from "ui/Footer";
 import { WalletContext } from "hooks/useWallet";
@@ -18,7 +19,6 @@ import { AppState, AppContext } from "./context/AppContext";
 import CreatePage from "./components/CreatePage/CreatePage";
 import LegalPage from "./components/LegalPage/LegalPage";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "./components/Header/Header";
 import Swap from "./components/Swap/Swap";
 import MyWalletPage from "./components/MyWalletPage/MyWalletPage";
 import License from "./components/LicensePage/LicensePage";
@@ -66,6 +66,7 @@ function App() {
 
   const onSelectChainId = (newChainId: ChainId) => {
     setChainId(newChainId);
+    store.set("selected-chain-id", newChainId);
     let found = chainRegistry.get(newChainId);
     if (!found) {
       found = new Chain(Chains[newChainId]);
@@ -96,6 +97,13 @@ function App() {
     onWalletUpdate(chain);
     return () => wallet.offUpdate(() => { onWalletUpdate(chain); });
   }, [chain]);
+
+  useEffect(() => {
+    store.get({
+      key: "selected-chain-id",
+      default: "bostrom" as ChainId,
+    }).then(setChainId);
+  }, []);
 
   const connect = useMemo(() => () => {
     wallet.connect(chain);

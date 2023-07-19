@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useCallback, useRef, useState,
+  useEffect, useRef, useState,
 } from "react";
 import { Coin, coins } from "@cosmjs/stargate";
 
@@ -22,46 +22,44 @@ function TokenSender() {
   const [isSent, setSent] = useState(false);
   const [open, setOpen] = useState(false);
   const { account } = useAccount();
-  const client = data?.stargate;
-  const fee = useFee();
   const ref = useRef<HTMLDivElement>(null);
 
-  const fetchBalance = useCallback(async () => {
-    if (account?.bech32Address) {
-      const balances = await client?.getAllBalances(account.bech32Address);
-      if (balances?.[0]) {
-        setCurrentBalance(balances[0]);
-      }
-    }
-  }, [client, account]);
+  // const fetchBalance = useCallback(async () => {
+  //   if (account?.bech32Address) {
+  //     const balances = await client?.getAllBalances(account.bech32Address);
+  //     if (balances?.[0]) {
+  //       setCurrentBalance(balances[0]);
+  //     }
+  //   }
+  // }, [client, account]);
 
-  const { sendTokens } = useSendTokens({
-    onError: (error) => {
-      toast(`${error}`, {
-        type: "error",
-      });
-      console.log("error", error);
-    },
-    onSuccess: (result) => {
-      toast("Success", {
-        type: "success",
-        autoClose: 2000,
-      });
-      console.log("success", result);
-      fetchBalance();
-      setSent(true);
+  // const { sendTokens } = useSendTokens({
+  //   onError: (error) => {
+  //     toast(`${error}`, {
+  //       type: "error",
+  //     });
+  //     console.log("error", error);
+  //   },
+  //   onSuccess: (result) => {
+  //     toast("Success", {
+  //       type: "success",
+  //       autoClose: 2000,
+  //     });
+  //     console.log("success", result);
+  //     fetchBalance();
+  //     setSent(true);
 
-      setTimeout(() => {
-        setSent(false);
-      }, 2000);
+  //     setTimeout(() => {
+  //       setSent(false);
+  //     }, 2000);
 
-      setBalance({ recepient: "", amount: "" });
-    },
-  });
+  //     setBalance({ recepient: "", amount: "" });
+  //   },
+  // });
 
-  useEffect(() => {
-    fetchBalance();
-  }, [fetchBalance]);
+  // useEffect(() => {
+  //   fetchBalance();
+  // }, [fetchBalance]);
 
   useEffect(() => {
     const checkIfClickedOutside = (e: MouseEvent) => {
