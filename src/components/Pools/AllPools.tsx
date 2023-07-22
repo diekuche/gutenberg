@@ -10,7 +10,7 @@ import circle from "../../assets/circle.svg";
 import atom from "../../assets/atom.svg";
 import leftarrow from "../../assets/greyArrowLeft.svg";
 import rightarrow from "../../assets/greyArrowRight.svg";
-// import greyArrowDown from "../../assets/greyArrowDown.svg";
+import greyArrowDown from "../../assets/greyArrowDown.svg";
 import PoolWindow from "../PoolWindow/PoolWindow";
 
 const PAGE_SIZE = 10;
@@ -76,7 +76,7 @@ const AllPools = ({
           <thead>
             <tr className={styles.theadPools}>
               <th className={styles.pair}>Pair</th>
-              {/* <th>APR</th>
+              <th>APR</th>
               <th>
                 Total Liquidity
                 <img
@@ -85,7 +85,7 @@ const AllPools = ({
                   alt=""
                 />
               </th>
-              <th className={styles.volume}>Volume (24h)</th> */}
+              <th className={styles.volume}>Volume (24h)</th>
             </tr>
           </thead>
           <tbody className={styles.mainTable}>
@@ -113,9 +113,12 @@ const AllPools = ({
                       </div>
                     </div>
                   </td>
-                  {/* <td className={styles.ARP}>54.51%</td>
-                  <td>$283,478,297</td>
-                  <td className={styles.volume}>$111,111,111</td> */}
+                  <td className={styles.ARP}>
+                    {(Math.random() * 100).toFixed(2)}
+                    %
+                  </td>
+                  <td>$0</td>
+                  <td className={styles.volume}>$0</td>
                 </tr>
               ))}
           </tbody>

@@ -112,6 +112,6 @@ export const Chains: Record<ChainId, ChainConfig> = {
         coinDecimals: 6,
       },
     ],
-    features: ["stargate", "ibc-transfer", "tokenfactory"],
+    features: ["stargate", "ibc-transfer"],
   },
 };

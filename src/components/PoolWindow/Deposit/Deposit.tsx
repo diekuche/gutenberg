@@ -24,7 +24,7 @@ export type DepProps = {
 
 const SLIPPAGE = 0.01;
 
-const Dep = ({
+const Deposit = ({
   onSuccess,
   pool,
   token1,
@@ -174,4 +174,4 @@ const Dep = ({
   );
 };
 
-export default Dep;
+export default Deposit;

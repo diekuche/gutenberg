@@ -19,6 +19,7 @@ export type Cw20TokenDetails = TokenDetailsBase & {
 export type NativeTokenDetails = TokenDetailsBase & {
   type: "native";
   denom: string;
+  minimalDenom?: string;
 };
 
 export type TokenDetails = Cw20TokenDetails | NativeTokenDetails;
@@ -42,4 +43,9 @@ export type TokenListItem = {
   isBurnable: boolean;
   isMintable: boolean;
   isRemovable: boolean;
+};
+
+export type TokenItem = UserTokenDetails & {
+  id: string;
+  updatedAt: number;
 };

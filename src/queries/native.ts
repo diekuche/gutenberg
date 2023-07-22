@@ -1,15 +1,36 @@
 import { Chain } from "classes/Chain";
 import { NativeTokenDetails } from "types/tokens";
-import { nativeTokenDetails } from "utils/tokens";
 
-export const NATIVE_TOKEN_DETAILS = (denom: { native: string }) => ({
-  queryKey: `v0.1/native/${denom.native}/details`,
+export const NATIVE_TOKEN_DETAILS = (denom: string) => ({
+  queryKey: `v0.1/native/${denom}/details`,
   queryFn: async ({ chain }: {
     chain: Chain
   }): Promise<NativeTokenDetails> => {
-    const bank = await chain.bank();
-    const native = await bank.denomMetadata(denom.native);
-    return nativeTokenDetails(native);
+    const isFactoryToken = denom.toLowerCase().startsWith("factory/");
+    if (isFactoryToken) {
+      const bank = await chain.bank();
+      const meta = await bank.denomMetadata(denom);
+      return {
+        type: "native",
+        denom,
+        decimals: meta.denomUnits[0].exponent,
+      };
+    }
+
+    const native = chain.config.currencies.find(
+      (currency) => currency.coinMinimalDenom === denom,
+    );
+    if (native) {
+      return {
+
+        type: "native",
+        logo: native.coinImageUrl,
+        denom: native.coinDenom,
+        minimalDenom: native.coinMinimalDenom,
+        decimals: native.coinDecimals,
+      };
+    }
+    throw new Error(`Unknown token ${denom}`);
   },
 });
 

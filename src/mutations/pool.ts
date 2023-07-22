@@ -104,13 +104,13 @@ export const ADD_LIQUIDITY = async (
   const funds: Coin[] = [];
   if (token1.type === "native") {
     funds.push({
-      denom: token1.denom,
+      denom: token1.minimalDenom || token1.denom,
       amount: token1RealAmount,
     });
   }
   if (token2.type === "native") {
     funds.push({
-      denom: token2.denom,
+      denom: token2.minimalDenom || token2.denom,
       amount: token2RealAmount,
     });
   }

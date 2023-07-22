@@ -3,111 +3,14 @@ import { useChain } from "hooks/useChain";
 import { getShortTokenName } from "utils/tokens";
 import BigNumber from "bignumber.js";
 import { toast } from "react-toastify";
-import { Chain } from "classes/Chain";
-import { CW20_USER_TOKEN_DETAILS } from "queries/cw20";
 import { useAccount } from "hooks/useAccount";
 import { Cw20Client } from "generated/Cw20.client";
-import { Account } from "classes/Account";
 import { useStore } from "hooks/useStore";
-import { QueryCache } from "classes/QueryCache";
 import { STORE_USER_CW20_TOKENS_KEY } from "store/cw20";
 import { GasLimit } from "config/cosmwasm";
-import { TokenListItem, UserTokenDetails } from "types/tokens";
-import { createRpcQueryExtension } from "generated/proto/osmosis/tokenfactory/v1beta1/query.rpc.Query";
+import { TokenItem, TokenListItem } from "types/tokens";
 import { TOKENFACTORY_BURN, TOKENFACTORY_MINT } from "mutations/tokenfactory";
-
-const fetchCw20Token = async (
-  chain: Chain,
-  tokenAddress: string,
-  accountAddress: string,
-): Promise<TokenItem> => {
-  const token = await chain.query(CW20_USER_TOKEN_DETAILS(tokenAddress, accountAddress));
-  return {
-    id: `cw20:${token.address}`,
-    type: "cw20",
-    name: token.name,
-    symbol: token.symbol,
-    address: token.address,
-    logo: token.logo || "",
-    balance: token.balance,
-    decimals: token.decimals,
-    minter: token.minter,
-    updatedAt: new Date().getTime(),
-  };
-};
-
-const fetchNativeToken = async (
-  chain: Chain,
-  denom: string,
-  accountAddress: string,
-  userBalance?: string,
-): Promise<TokenItem> => {
-  const bank = await chain.bank();
-
-  const isFactoryToken = denom.toLowerCase().startsWith("factory/");
-  let balance = userBalance;
-  if (!balance) {
-    balance = (await bank.balance(accountAddress, denom)).amount;
-  }
-  if (isFactoryToken) {
-    const meta = await bank.denomMetadata(denom);
-    return {
-      id: denom,
-      type: "native",
-      denom,
-      balance,
-      decimals: meta.denomUnits[0].exponent,
-      updatedAt: new Date().getTime(),
-    };
-  }
-  const native = chain.config.currencies.find((currency) => currency.coinMinimalDenom
-  === denom);
-  if (native) {
-    return {
-      id: denom,
-      type: "native",
-      logo: native.coinImageUrl,
-      denom,
-      decimals: native.coinDecimals,
-      balance,
-      updatedAt: new Date().getTime(),
-    };
-  }
-  throw new Error(`Unknown token ${denom}`);
-};
-
-const fetchUserTokens = async (
-  chain: Chain,
-  account: Account,
-  store: QueryCache,
-  pushTokens: (tokens: TokenItem[]) => void,
-) => {
-  const bank = await chain.bank();
-  const balances: {
-    denom: string;
-    amount: string | undefined;
-  }[] = await bank.allBalances(account.address);
-  const userCw20Tokens = await store.get(STORE_USER_CW20_TOKENS_KEY(chain, account));
-
-  let tokenFactoryTokens: string[] = [];
-  if (chain.config.features?.includes("tokenfactory")) {
-    const tokenFactoryQuery = createRpcQueryExtension(await chain.getQueryClient());
-    tokenFactoryTokens = (await tokenFactoryQuery.denomsFromCreator({
-      creator: account.address,
-    })).denoms;
-  }
-
-  await Promise.all(balances.concat(tokenFactoryTokens.map((t) => ({
-    denom: t,
-    amount: undefined,
-  }))).map(async (coin) => {
-    const token = await fetchNativeToken(chain, coin.denom, account.address, coin.amount);
-    pushTokens([token]);
-  }).concat(userCw20Tokens.map(async (tokenAddress) => {
-    const token = await fetchCw20Token(chain, tokenAddress, account.address);
-    pushTokens([token]);
-  })));
-};
+import { fetchUserCw20Token, fetchUserNativeToken, fetchUserTokens } from "queries/tokens";
 
 const userTokenToListItem = (token: TokenItem, address: string): TokenListItem => {
   const isCw20 = token.type === "cw20";
@@ -131,11 +34,6 @@ const userTokenToListItem = (token: TokenItem, address: string): TokenListItem =
   };
 };
 
-type TokenItem = UserTokenDetails & {
-  id: string;
-  updatedAt: number;
-};
-
 export const useUserTokens = () => {
   const chain = useChain();
   const { account } = useAccount();
@@ -151,6 +49,9 @@ export const useUserTokens = () => {
     setLoading(true);
     setTokens([]);
     if (!account) {
+      return;
+    }
+    if (account.chain !== chain) {
       return;
     }
     fetchUserTokens(
@@ -180,7 +81,7 @@ export const useUserTokens = () => {
       return;
     }
     setAddTokenLoading(true);
-    fetchCw20Token(chain, tokenAddress, account.address).then(async (newToken) => {
+    fetchUserCw20Token(chain, tokenAddress, account.address).then(async (newToken) => {
       await store.setInArray(STORE_USER_CW20_TOKENS_KEY(chain, account).key, tokenAddress);
       setTokens(tokens.filter((t) => t.id !== newToken.id).concat(newToken));
     }).catch((e) => {
@@ -202,15 +103,15 @@ export const useUserTokens = () => {
       return;
     }
     const newToken = await (token.type === "cw20"
-      ? fetchCw20Token(chain, token.address, account.address)
-      : fetchNativeToken(chain, token.denom, account.address));
+      ? fetchUserCw20Token(chain, token.address, account.address)
+      : fetchUserNativeToken(chain, token.denom, account.address));
     setTokens(tokens.filter((t) => t.id !== token.id).concat(newToken));
   };
   const addNativeToken = async (denom: string) => {
     if (!account) {
       return;
     }
-    const newToken = await fetchNativeToken(chain, denom, account.address);
+    const newToken = await fetchUserNativeToken(chain, denom, account.address);
     setTokens(tokens.concat(newToken));
   };
 

@@ -62,12 +62,12 @@ export const getShortTokenName = (token: TokenDetails) => {
   return token.symbol;
 };
 
-export const nativeTokenDetails = (nativeToken: Metadata): NativeTokenDetails => {
-  const { denom } = nativeToken.denomUnits[0];
+export const denomMetaDataToTokenDetails = (metadata: Metadata): NativeTokenDetails => {
+  const { denom } = metadata.denomUnits[0];
   return {
     denom,
     type: "native",
-    decimals: nativeToken.denomUnits[0].exponent,
+    decimals: metadata.denomUnits[0].exponent,
   };
 };
 

@@ -5,17 +5,16 @@ import { Triangle } from "react-loader-spinner";
 import Modal from "ui/Modal";
 import { useChain } from "hooks/useChain";
 import { PoolDenom, UserTokenDetails } from "types/tokens";
-import { compareTokens, nativeTokenDetails, tokenToPoolDenom } from "utils/tokens";
+import { compareTokens, tokenToPoolDenom } from "utils/tokens";
 import { Chain } from "classes/Chain";
 import { POOL_TOKEN_DETAILS, SWAP_POOL_INFO, SWAP_POOL_LIST } from "queries/pool";
 import { ADD_LIQUIDITY, CREATE_POOL } from "mutations/pool";
 import { useAccount } from "hooks/useAccount";
 import { Account } from "classes/Account";
 import { PoolDetails } from "types/pools";
-import { CW20_USER_TOKEN_DETAILS } from "queries/cw20";
 import { useStore } from "hooks/useStore";
 import { QueryCache } from "classes/QueryCache";
-import { STORE_USER_CW20_TOKENS_KEY } from "store/cw20";
+import { fetchUserTokens } from "queries/tokens";
 import styles from "./Pools.module.css";
 
 import AllPools from "./AllPools";
@@ -37,7 +36,6 @@ const fetchData = async (
       const token2Denom = (poolInfo.token2_denom as unknown as PoolDenom);
       const token1 = await chain.query(POOL_TOKEN_DETAILS(token1Denom));
       const token2 = await chain.query(POOL_TOKEN_DETAILS(token2Denom));
-
       return {
         address: poolAddress,
         index,
@@ -46,39 +44,16 @@ const fetchData = async (
       };
     }),
   );
-  let tokens: UserTokenDetails[] = [];
+
+  const tokens: UserTokenDetails[] = [];
   if (account) {
-    const { address } = account;
-    const poolTokens = newPools.reduce((result, pool) => {
-      if (pool.token1.type === "cw20" && !result.includes(pool.token1.address)) {
-        result.push(pool.token1.address);
-      }
-      if (pool.token2.type === "cw20" && !result.includes(pool.token2.address)) {
-        result.push(pool.token2.address);
-      }
-      return result;
-    }, [] as string[]);
-
-    const bank = await chain.bank();
-    const nativeTokens = await bank.denomsMetadata();
-    const nativeBalances = await bank.allBalances(address);
-    const nativeUserTokens: UserTokenDetails[] = nativeTokens.map((nativeToken) => {
-      const detail = nativeTokenDetails(nativeToken);
-      return {
-        ...detail,
-        balance: nativeBalances.find((b) => b.denom === nativeToken.denomUnits[0].denom)?.amount || "0",
-      };
+    await fetchUserTokens(chain, account, store, (items) => {
+      items.forEach((item) => {
+        if (!tokens.find((token) => compareTokens(token, item))) {
+          tokens.push(item);
+        }
+      });
     });
-    const userTokens = await store.get(STORE_USER_CW20_TOKENS_KEY(chain, account));
-
-    const allTokens = (userTokens || []).concat(poolTokens);
-    const allCw20Tokens: UserTokenDetails[] = (
-      await Promise.all(
-        allTokens.map((tokenAddr) => chain.query(CW20_USER_TOKEN_DETAILS(tokenAddr, address))),
-      )
-    );
-
-    tokens = allCw20Tokens.concat(nativeUserTokens);
   }
 
   return {
@@ -101,7 +76,7 @@ const Pools = () => {
   const [token1Amount, setToken1Amount] = useState("0");
   const [token2Amount, setToken2Amount] = useState("0");
   const [isNewPoolOpen, setIsNewPoolOpen] = useState(false);
-  const [lpFee, setLpFee] = useState(0.9);
+  const [lpFee, setLpFee] = useState(0.5);
   const [processing, setProcessing] = useState(false);
 
   const updateData = () => {
@@ -114,15 +89,17 @@ const Pools = () => {
       }).catch((e) => {
         console.log("Error when load info for page Pools");
         console.log(e);
-        toast.error("Data fetching error, page will reload after 25 seconds");
-        setTimeout(() => window.location.reload(), 25000);
+        toast.error("Data fetching error, page will reload after 50 seconds");
+        setTimeout(() => window.location.reload(), 50000);
       }).finally(() => {
         setLoading(false);
       });
   };
 
   useEffect(() => {
-    updateData();
+    if (account && chain === account.chain) {
+      updateData();
+    }
   }, [chain, account]);
 
   if (loading) {

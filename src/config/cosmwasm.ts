@@ -43,14 +43,14 @@ export const chainCosmwasmConfigs: Record<ChainId, ChainCosmwasmConfig> = {
     gasLimits,
   },
   "juno-1": {
-    factoryAddress: "juno1ppktvvht56q8dg3wzgxj5pfp90txu3v6c6sxp67c79ltqzuk9pkq0yhhaz",
-    swapPoolContractCodeId: "2562",
+    factoryAddress: "juno1q4x5lurm69ta2xu8wj7hwhqn0fhygapllv37a9q247607ezrt4kshp94qy",
+    swapPoolContractCodeId: "3360",
     cw20ContractCodeId: 1,
     gasLimits,
   },
   bostrom: {
-    factoryAddress: "bostrom1vtrwzjj5jdc6zsqjzmy8rl74qhlhp5svzrvk4r3syvv3hw9zk8sqcrash2",
-    swapPoolContractCodeId: "23",
+    factoryAddress: "bostrom1wlexzeqnd8dqvrhw0x0vlh3xqxr88ak88zztrx87sehfekje4ajqx3wnfx",
+    swapPoolContractCodeId: "30",
     cw20ContractCodeId: 1,
     gasLimits,
   },
