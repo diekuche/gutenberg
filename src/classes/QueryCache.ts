@@ -29,7 +29,7 @@ export class QueryCache {
   }[]> = new Map();
 
   constructor(config: QueryCacheConfig) {
-    this.prefix = config.prefix || "";
+    this.prefix = config.prefix ? `${config.prefix}/` : "";
     this.cacheTime = config.cacheTime || 10 * 365 * 24 * 60 * 60 * 1000; // 10 years
   }
 
@@ -63,10 +63,8 @@ export class QueryCache {
     cacheTime,
   }: {
     queryKey: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     queryFn: (context: C) => T | Promise<T>;
     cacheTime?: number;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   }, context: C, options?: {
     cacheTime?: number;
   }): Promise<T> {

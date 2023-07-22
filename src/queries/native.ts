@@ -30,7 +30,12 @@ export const NATIVE_TOKEN_DETAILS = (denom: string) => ({
         decimals: native.coinDecimals,
       };
     }
-    throw new Error(`Unknown token ${denom}`);
+    return {
+      type: "native",
+      logo: "",
+      denom,
+      decimals: 0,
+    };
   },
 });
 

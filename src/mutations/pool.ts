@@ -114,6 +114,7 @@ export const ADD_LIQUIDITY = async (
       amount: token2RealAmount,
     });
   }
+  console.log("funds", funds);
 
   const result = await poolFactoryExecutor.addLiquidity({
     token1Amount: token1RealAmount,

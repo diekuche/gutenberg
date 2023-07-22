@@ -108,7 +108,7 @@ const PoolWindow = ({
               token2={depositData.token2}
             />
             )}
-            {selectedTabKey === "withdraw" && <Withdraw />}
+            {selectedTabKey === "withdraw" && <Withdraw pool={pool} />}
             {selectedTabKey === "farm" && <Farm />}
             {selectedTabKey === "unfarm" && <Unfarm />}
           </div>

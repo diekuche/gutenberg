@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Slider.module.css";
 
-const Slider = () => {
-  const [value, setValue] = useState(0);
+type SliderProps = {
+  value: number;
+  setValue: (value: number) => void;
+};
 
+const Slider = ({
+  value,
+  setValue,
+}: SliderProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(parseInt(event.target.value, 10));
   };

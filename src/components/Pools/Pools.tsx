@@ -203,6 +203,7 @@ const Pools = () => {
         token2Amount,
       );
       toast.success("Liquidity was added");
+      await chain.invalidate(SWAP_POOL_LIST(chain.cosmwasmConfigs.factoryAddress));
       updateData();
 
       setIsDepositOpen(false);

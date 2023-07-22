@@ -36,9 +36,8 @@ const store = new QueryCache({
 
 const wallet = new Wallet();
 
-const activeChainList = Object.keys(Chains)
+let activeChainList = Object.keys(Chains)
   .map((chainId) => chainId as ChainId)
-// .filter((chainId) => !Chains[chainId].chainName.toLowerCase().includes("test"))
   .sort(
     (chainId1, chainId2) => Chains[chainId1].chainName.localeCompare(Chains[chainId2].chainName),
   )
@@ -47,6 +46,10 @@ const activeChainList = Object.keys(Chains)
     name: Chains[chainId].chainName,
     icon: chains.filter(({ chain_id }) => chain_id === chainId)[0].logo_URIs?.svg,
   }));
+
+if (process.env.NODE_ENV !== "development") {
+  activeChainList = activeChainList.filter((chain) => !Chains[chain.id].isTestNet);
+}
 
 const chainRegistry: Map<ChainId, Chain> = new Map();
 

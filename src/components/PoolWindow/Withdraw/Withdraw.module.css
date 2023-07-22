@@ -48,6 +48,7 @@
   margin-bottom: 12px;
 }
 .max {
+  cursor: pointer;
   color: #e2fb5f;
   border: 1px solid #e2fb5f;
   font-size: 14px;
