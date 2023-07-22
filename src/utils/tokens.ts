@@ -66,6 +66,7 @@ export const denomMetaDataToTokenDetails = (metadata: Metadata): NativeTokenDeta
   const { denom } = metadata.denomUnits[0];
   return {
     denom,
+    symbol: metadata.symbol,
     type: "native",
     decimals: metadata.denomUnits[0].exponent,
   };
