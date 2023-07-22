@@ -7,7 +7,7 @@ import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
 import { ChainConfig } from "config/chains";
 import { ChainCosmwasmConfig, GasLimit, chainCosmwasmConfigs } from "config/cosmwasm";
 import { GeneratedType, OfflineSigner, Registry } from "@cosmjs/proto-signing";
-import { MsgBurn, MsgCreateDenom, MsgMint } from "generated/proto/osmosis/tokenfactory/v1beta1/tx";
+import { MsgBurn, MsgCreateDenom, MsgMint } from "tokenfactory";
 import { QueryCache } from "./QueryCache";
 
 export class Chain {

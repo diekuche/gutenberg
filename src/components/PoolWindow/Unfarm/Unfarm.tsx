@@ -1,5 +1,5 @@
 import NewButton from "ui/NewButton";
-import MySlider from "ui/PoolWindow/Slider";
+// import MySlider from "ui/PoolWindow/Slider";
 import styles from "./Unfarm.module.css";
 
 const Unfarm = () => (
@@ -12,7 +12,7 @@ const Unfarm = () => (
       </div>
       <div className={styles.cash}>($0.0459031)</div>
       <div className={styles.scale}>
-        <MySlider />
+        {/* <MySlider /> */}
       </div>
     </div>
     <div className={styles.secondField}>

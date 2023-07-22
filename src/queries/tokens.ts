@@ -3,7 +3,7 @@ import { TokenDetails, TokenItem, UserTokenDetails } from "types/tokens";
 import { Account } from "classes/Account";
 import { QueryCache } from "classes/QueryCache";
 import { STORE_USER_CW20_TOKENS_KEY } from "store/cw20";
-import { createRpcQueryExtension } from "generated/proto/osmosis/tokenfactory/v1beta1/query.rpc.Query";
+import { createRpcQueryExtension } from "tokenfactory";
 import { CW20_USER_TOKEN_DETAILS } from "./cw20";
 import { NATIVE_TOKEN_DETAILS } from "./native";
 

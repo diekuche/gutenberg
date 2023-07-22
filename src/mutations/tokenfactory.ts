@@ -1,7 +1,7 @@
 import { Account } from "classes/Account";
 import { Chain } from "classes/Chain";
 import { GasLimit } from "config/cosmwasm";
-import { MsgBurn, MsgCreateDenom, MsgMint } from "generated/proto/osmosis/tokenfactory/v1beta1/tx";
+import { MsgBurn, MsgCreateDenom, MsgMint } from "tokenfactory";
 
 export const TOKENFACTORY_CREATE = async (
   chain: Chain,
