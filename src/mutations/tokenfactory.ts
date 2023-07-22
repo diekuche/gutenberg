@@ -1,7 +1,31 @@
 import { Account } from "classes/Account";
 import { Chain } from "classes/Chain";
 import { GasLimit } from "config/cosmwasm";
-import { MsgBurn, MsgCreateDenom, MsgMint } from "tokenfactory";
+import {
+  MsgBurn, MsgCreateDenom, MsgMint, MsgSetDenomMetadata,
+} from "tokenfactory";
+
+export const TOKENFACTORY_UPDATE_METADATA = async (
+  chain: Chain,
+  account: Account,
+  metadata: MsgSetDenomMetadata["metadata"],
+) => {
+  const signingStargateClient = await chain.getSigningStargateClient(account.signer);
+  console.log(`Set metadata for ${metadata.base}`);
+  const message: MsgSetDenomMetadata = {
+    sender: account.address,
+    metadata,
+  };
+  console.log("message", message);
+  const res = await signingStargateClient.signAndBroadcast(account.address, [{
+    typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata",
+    value: message,
+  }], chain.calculateFee(GasLimit.TokenFactoryUpdateMetaData));
+  console.log("Factory token update denom metadata result", res);
+  if (res.code !== 0) {
+    throw new Error(res.rawLog || "Unknown error");
+  }
+};
 
 export const TOKENFACTORY_CREATE = async (
   chain: Chain,
@@ -9,6 +33,7 @@ export const TOKENFACTORY_CREATE = async (
   subdenom: string,
 ) => {
   const signingStargateClient = await chain.getSigningStargateClient(account.signer);
+  console.log(`Create tokenfactory ${subdenom}`);
   const message: MsgCreateDenom = {
     sender: account.address,
     subdenom,
@@ -31,11 +56,12 @@ export const TOKENFACTORY_MINT = async (
   account: Account,
   denom: string,
   amount: string,
+  mintToAddress?: string,
 ) => {
   const signingStargateClient = await chain.getSigningStargateClient(account.signer);
   const message: MsgMint = {
     sender: account.address,
-    mintToAddress: account.address,
+    mintToAddress: mintToAddress || account.address,
     amount: {
       denom,
       amount,

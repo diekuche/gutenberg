@@ -1,21 +1,24 @@
-import { useState } from "react";
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
+import { useRef, useState } from "react";
 import { Tabs, Tab } from "ui/CreatePage/Tabs";
 import NTT from "ui/CreatePage/NTT";
 import NFT from "ui/CreatePage/NFT";
 import { useChain } from "hooks/useChain";
-import CW20TokenForm, { CreateCw20FormValues } from "ui/CreatePage/CW20TokenForm";
+import TokenForm, { CreateFormValues } from "ui/CreatePage/TokenForm";
 import { toast } from "react-toastify";
 import { GasLimit } from "config/cosmwasm";
 import { useStore } from "hooks/useStore";
 import { useAccount } from "hooks/useAccount";
 import { STORE_USER_CW20_TOKENS_KEY } from "store/cw20";
-import FactoryTokenForm, { CreateFactoryTokenFormValues } from "ui/CreatePage/FactoryTokenForm";
 import ManageAssets from "ui/CreatePage/ManageAssets";
 import { useUserTokens } from "hooks/useUserTokens";
-import { TOKENFACTORY_CREATE } from "mutations/tokenfactory";
+import { TOKENFACTORY_CREATE, TOKENFACTORY_MINT, TOKENFACTORY_UPDATE_METADATA } from "mutations/tokenfactory";
+import { MsgSetDenomMetadata } from "tokenfactory";
 import styles from "./CreatePage.module.css";
 
 const CreatePage = () => {
+  const form = useRef<HTMLFormElement>(null);
   const store = useStore();
   const chain = useChain();
   const [creating, setCreating] = useState(false);
@@ -33,17 +36,12 @@ const CreatePage = () => {
   const tabs: Tab[] = [
     { id: "cw20", label: "Token" },
   ];
-  if (chain.config.features?.includes("tokenfactory")) {
-    tabs.push({
-      id: "native",
-      label: "Native",
-    });
-  }
+
   tabs.push({ id: "nft", label: "NFT" });
   tabs.push({ id: "ntt", label: "NTT" });
   const [selectedTabId, setSelectedTabId] = useState(tabs[0].id);
 
-  const onCreateCw20Token = async (values: CreateCw20FormValues) => {
+  const onCreateCw20Token = async (values: CreateFormValues) => {
     if (!account) {
       connect();
       toast("Account is not connect");
@@ -108,6 +106,7 @@ const CreatePage = () => {
       toast(`Success! Contract address: ${res.contractAddress}`, {
         type: "success",
       });
+      form.current?.reset();
       await store.setInArray(STORE_USER_CW20_TOKENS_KEY(chain, account).key, res.contractAddress);
       addCw20Token(res.contractAddress);
     } catch (error) {
@@ -120,28 +119,97 @@ const CreatePage = () => {
   };
 
   const onCreateFactoryToken = async (
-    values: CreateFactoryTokenFormValues,
+    values: CreateFormValues,
   ) => {
     if (!account) {
       connect();
       toast("Account is not connect");
       return;
     }
+    if (!values.tokenName) {
+      toast.error("Please, input token name");
+      return;
+    }
+    if (!values.tokenSymbol) {
+      toast.error("Please, input token symbol");
+      return;
+    }
+    setCreating(true);
 
+    const decimals = Number(values.decimals);
+    const symbol = values.tokenSymbol;
+    const { tokenName } = values;
+    const uName = symbol;
     try {
       const {
         denom,
-      } = await TOKENFACTORY_CREATE(chain, account, values.name);
+      } = await TOKENFACTORY_CREATE(chain, account, decimals ? uName : symbol);
       addNativeToken(denom);
-      toast(`Success! Token ${values.name} was created`, {
+      toast(`Token ${values.tokenName} was created!`, {
         type: "success",
       });
+
+      const denomUnits: MsgSetDenomMetadata["metadata"]["denomUnits"] = [];
+      if (decimals !== 0) {
+        denomUnits.push({
+          denom,
+          exponent: 0,
+          aliases: [],
+        });
+      }
+      denomUnits.push({
+        denom: symbol,
+        exponent: decimals,
+        aliases: [],
+      });
+      toast("Minting balance to myself...");
+      await TOKENFACTORY_MINT(
+        chain,
+        account,
+        denom,
+        values.quantity,
+      );
+      toast("Minted! Update metadata...");
+
+      await TOKENFACTORY_UPDATE_METADATA(chain, account, {
+        description: values.description,
+        base: denom,
+        name: tokenName,
+        symbol,
+        display: symbol,
+        denomUnits,
+      });
+      toast(`Token ${tokenName} metadata was updated!${values.balances.length > 0 ? " Minting balances..." : ""}`, {
+        type: "success",
+      });
+      if (values.balances.length > 0) {
+        for (const balance of values.balances) {
+          await TOKENFACTORY_MINT(
+            chain,
+            account,
+            denom,
+            balance.amount,
+            balance.address,
+          );
+          toast(`Minted ${balance.amount} to ${balance.address}!`);
+        }
+      }
+      form.current?.reset();
     } catch (error) {
-      toast(error as string, {
+      toast.error(error as string, {
         type: "error",
       });
-      console.log("error", error);
+      console.error("error when create token", error);
+    } finally {
+      setCreating(false);
     }
+  };
+
+  const onCreateToken = (values: CreateFormValues) => {
+    if (chain.config.features?.includes("tokenfactory")) {
+      return onCreateFactoryToken(values);
+    }
+    return onCreateCw20Token(values);
   };
 
   return (
@@ -154,24 +222,13 @@ const CreatePage = () => {
         />
         <div className={styles.tools}>
           <div className={styles.tabPageContent}>
-            {selectedTabId === "cw20"
-            && (
-            <CW20TokenForm
+            <TokenForm
               isConnected={isConnected}
               connect={connect}
               creating={creating}
-              onCreate={onCreateCw20Token}
+              onCreate={onCreateToken}
+              ref={form}
             />
-            )}
-            {selectedTabId === "native"
-            && (
-            <FactoryTokenForm
-              isConnected={isConnected}
-              connect={connect}
-              creating={creating}
-              onCreate={onCreateFactoryToken}
-            />
-            )}
             {selectedTabId === "nft" && <NFT />}
             {selectedTabId === "ntt" && <NTT />}
           </div>

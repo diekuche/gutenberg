@@ -14,7 +14,7 @@ export type ChainConfig = Omit<ChainInfo, "chainId"> & {
 export const Chains: Record<ChainId, ChainConfig> = {
   "osmo-test-5": {
     ...osmoTest,
-    features: ["tokenfactory"],
+    features: [...osmoTest.features, "tokenfactory"],
     isTestNet: true,
   } as ChainConfig,
   "juno-1": { ...juno, features: ["tokenfactory"] } as ChainConfig,

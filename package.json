@@ -33,7 +33,7 @@
     "react-router-dom": "^6.14.1",
     "react-select": "^5.7.4",
     "react-toastify": "^9.1.3",
-    "tokenfactory": "^0.0.5",
+    "tokenfactory": "^0.0.7",
     "uuid": "^9.0.0",
     "with-error": "^0.1.5"
   },

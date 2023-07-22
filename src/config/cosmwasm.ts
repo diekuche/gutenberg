@@ -11,6 +11,7 @@ export enum GasLimit {
   PoolFactoryCreatePool,
   NativeSendTokens,
   TokenFactoryCreateDenom,
+  TokenFactoryUpdateMetaData,
   TokenFactoryMint,
   TokenFactoryBurn,
 }
@@ -33,6 +34,7 @@ const gasLimits = {
   [GasLimit.Cw20Mint]: 150000,
   [GasLimit.Cw20Burn]: 150000,
   [GasLimit.TokenFactoryCreateDenom]: 3048994,
+  [GasLimit.TokenFactoryUpdateMetaData]: 3048994,
   [GasLimit.TokenFactoryMint]: 3048994,
   [GasLimit.TokenFactoryBurn]: 3048994,
 };

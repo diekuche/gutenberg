@@ -7,7 +7,9 @@ import { Tendermint34Client } from "@cosmjs/tendermint-rpc";
 import { ChainConfig } from "config/chains";
 import { ChainCosmwasmConfig, GasLimit, chainCosmwasmConfigs } from "config/cosmwasm";
 import { GeneratedType, OfflineSigner, Registry } from "@cosmjs/proto-signing";
-import { MsgBurn, MsgCreateDenom, MsgMint } from "tokenfactory";
+import {
+  MsgBurn, MsgCreateDenom, MsgMint, MsgSetDenomMetadata,
+} from "tokenfactory";
 import { QueryCache } from "./QueryCache";
 
 export class Chain {
@@ -94,6 +96,7 @@ export class Chain {
     const registry = new Registry();
     if (this.config.features?.includes("tokenfactory")) {
       registry.register("/osmosis.tokenfactory.v1beta1.MsgCreateDenom", MsgCreateDenom as unknown as GeneratedType);
+      registry.register("/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata", MsgSetDenomMetadata as unknown as GeneratedType);
       registry.register("/osmosis.tokenfactory.v1beta1.MsgMint", MsgMint as unknown as GeneratedType);
       registry.register("/osmosis.tokenfactory.v1beta1.MsgBurn", MsgBurn as unknown as GeneratedType);
     }

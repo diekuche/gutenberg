@@ -18,6 +18,7 @@ export type Cw20TokenDetails = TokenDetailsBase & {
 
 export type NativeTokenDetails = TokenDetailsBase & {
   type: "native";
+  symbol: string;
   denom: string;
   minimalDenom?: string;
 };

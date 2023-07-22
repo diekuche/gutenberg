@@ -14,6 +14,7 @@ export const NATIVE_TOKEN_DETAILS = (denom: string) => ({
         type: "native",
         denom,
         decimals: meta.denomUnits[0].exponent,
+        symbol: meta.symbol,
       };
     }
 
@@ -22,12 +23,12 @@ export const NATIVE_TOKEN_DETAILS = (denom: string) => ({
     );
     if (native) {
       return {
-
         type: "native",
         logo: native.coinImageUrl,
         denom: native.coinDenom,
         minimalDenom: native.coinMinimalDenom,
         decimals: native.coinDecimals,
+        symbol: native.coinDenom,
       };
     }
     return {
@@ -35,6 +36,7 @@ export const NATIVE_TOKEN_DETAILS = (denom: string) => ({
       logo: "",
       denom,
       decimals: 0,
+      symbol: denom,
     };
   },
 });

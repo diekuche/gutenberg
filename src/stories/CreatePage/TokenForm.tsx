@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { RefObject, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "ui/Button";
 import Input, { InputProps } from "ui/CreatePage/Input";
@@ -13,7 +13,7 @@ const defaultBalance = {
 
 type Balance = typeof defaultBalance;
 
-export type CreateCw20FormValues = {
+export type CreateFormValues = {
   balances: Balance[];
   decimals: string;
   tokenName: string;
@@ -23,11 +23,12 @@ export type CreateCw20FormValues = {
   description: string;
 };
 
-export type CW20TokenFormProps = {
+export type TokenFormProps = {
   isConnected: boolean;
   connect: () => void;
   creating: boolean;
-  onCreate: (values: CreateCw20FormValues) => void;
+  onCreate: (values: CreateFormValues) => void;
+  ref: RefObject<HTMLFormElement> | undefined;
 };
 
 const CW20TokenForm = ({
@@ -35,7 +36,8 @@ const CW20TokenForm = ({
   isConnected,
   connect,
   onCreate,
-}: CW20TokenFormProps) => {
+  ref,
+}: TokenFormProps) => {
   const [balances, setBalances] = useState<Balance[]>([
     defaultBalance,
   ]);
@@ -100,6 +102,7 @@ const CW20TokenForm = ({
     <form
       className={styles.form}
       onSubmit={onSubmit}
+      ref={ref}
     >
       <div className={styles.formContent}>
         <Input
