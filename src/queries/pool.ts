@@ -17,7 +17,7 @@ export const SWAP_POOL_INFO = (poolAddress: string) => ({
 });
 
 export const SWAP_POOL_LIST = (factoryAddr: string) => ({
-  queryKey: `/v0.1/factory/${factoryAddr}/pools`,
+  queryKey: `/v0.01/factory/${factoryAddr}/pools`,
   queryFn: async ({ chain }: { chain: Chain }) => {
     try {
       const factory = new SwapPoolFactoryQueryClient(await chain.getCosmWasmClient(), factoryAddr);
@@ -45,7 +45,7 @@ export const POOL_TOKEN_DETAILS = (denom: PoolDenom): {
     return NATIVE_TOKEN_DETAILS(denom.native);
   }
   return {
-    queryKey: `/v0.1/cw20/${denom.cw20}/details`,
+    queryKey: `/v0.01/cw20/${denom.cw20}/details`,
     queryFn: (context: {
       chain: Chain
     }) => CW20_TOKEN_DETAILS(

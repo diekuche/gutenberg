@@ -1,4 +1,4 @@
-import { RefObject, useState } from "react";
+import { ForwardedRef, forwardRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "ui/Button";
 import Input, { InputProps } from "ui/CreatePage/Input";
@@ -28,16 +28,14 @@ export type TokenFormProps = {
   connect: () => void;
   creating: boolean;
   onCreate: (values: CreateFormValues) => void;
-  ref: RefObject<HTMLFormElement> | undefined;
 };
 
-const CW20TokenForm = ({
+const TokenForm = ({
   creating,
   isConnected,
   connect,
   onCreate,
-  ref,
-}: TokenFormProps) => {
+}: TokenFormProps, ref: ForwardedRef<HTMLFormElement>) => {
   const [balances, setBalances] = useState<Balance[]>([
     defaultBalance,
   ]);
@@ -221,4 +219,4 @@ const CW20TokenForm = ({
   );
 };
 
-export default CW20TokenForm;
+export default forwardRef<HTMLFormElement, TokenFormProps>(TokenForm);

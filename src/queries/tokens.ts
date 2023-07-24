@@ -10,7 +10,7 @@ import { NATIVE_TOKEN_DETAILS } from "./native";
 export const USER_TOKEN_DETAILS = (token: TokenDetails, userAddress: string) => {
   if (token.type === "native") {
     return {
-      queryKey: `/v0.1/user/${userAddress}/native/${token.denom}/details`,
+      queryKey: `/v0.01/user/${userAddress}/native/${token.denom}/details`,
       queryFn: async ({
         chain,
       }: {
@@ -27,7 +27,7 @@ export const USER_TOKEN_DETAILS = (token: TokenDetails, userAddress: string) => 
     };
   }
   return {
-    queryKey: `/v0.1/user/${userAddress}/cw20/${token.address}/details`,
+    queryKey: `/v0.01/user/${userAddress}/cw20/${token.address}/details`,
     queryFn: (
       context: {
         chain: Chain

@@ -28,7 +28,7 @@ const Bostrom = {
     {
       coinDenom: "boot",
       coinMinimalDenom: "boot",
-      coinDecimals: 6,
+      coinDecimals: 0,
       coinGeckoId: "bostrom",
       coinImageUrl: "https://raw.githubusercontent.com/cosmos/chain-registry/master/bostrom/images/boot.png",
     },

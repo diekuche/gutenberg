@@ -46,7 +46,7 @@ export const CW20_TOKEN_LOGO = (tokenAddr: string) => ({
 });
 
 export const CW20_TOKEN_DETAILS = (tokenAddr: string) => ({
-  queryKey: `/v0.1/cw20/${tokenAddr}/details`,
+  queryKey: `/v0.01/cw20/${tokenAddr}/details`,
   queryFn: async (context: {
     chain: Chain
   }): Promise<Cw20TokenDetails> => {
@@ -89,7 +89,7 @@ export const CW20_USER_TOKEN_DETAILS = (
   tokenAddress: string,
   userAddress: string,
 ) => ({
-  queryKey: `/v0.1/user/${userAddress}/cw20/${tokenAddress}/details`,
+  queryKey: `/v0.01/user/${userAddress}/cw20/${tokenAddress}/details`,
   queryFn: async (context: {
     chain: Chain
   }): Promise<UserCw20TokenDetails> => {
