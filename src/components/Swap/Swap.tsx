@@ -1,26 +1,25 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import SelectCustom from "ui/SelectCustom";
+import SelectTokenLabel from "ui/SelectCustom/SelectTokenLabel";
+import SearchLabel from "ui/SelectCustom/SearchLabel";
+import NewButton from "ui/NewButton";
 import styles from "./Swap.module.css";
 import UpDoAr from "../../assets/UpDoAr.svg";
-import NewBT from "../newButton/newButton";
-import SelectCustom from "../SelectCustom/SelectCustom";
-import TokenUI from "../SelectCustom/TokenUI/TokenUI";
 import pig_icon from "../../assets/pig_logo.svg";
 import mew_icon from "../../assets/mew_logo.svg";
 import shit_icon from "../../assets/shit_logo.svg";
 import ps_icon from "../../assets/ps_logo.svg";
 import boot_icon from "../../assets/boot_logo.svg";
-import Search from "../SelectCustom/Search/Search";
 
 const options = [
   {
     value: "search",
-    label: <Search />,
+    label: <SearchLabel />,
   },
   {
     value: "boot",
     label: (
-      <TokenUI
+      <SelectTokenLabel
         name="BOOT"
         chainName="Bostrom"
         balance="200,300,765"
@@ -31,19 +30,19 @@ const options = [
   {
     value: "pig",
     label: (
-      <TokenUI name="PIG" chainName="PigNon" balance="2,901" icon={pig_icon} />
+      <SelectTokenLabel name="PIG" chainName="PigNon" balance="2,901" icon={pig_icon} />
     ),
   },
   {
     value: "shit",
     label: (
-      <TokenUI name="Shit" chainName="Shitcoin" balance="4" icon={shit_icon} />
+      <SelectTokenLabel name="Shit" chainName="Shitcoin" balance="4" icon={shit_icon} />
     ),
   },
   {
     value: "mew",
     label: (
-      <TokenUI
+      <SelectTokenLabel
         name="MEW"
         chainName="Mew Mew Paw Paw Rrrrr"
         balance="194,34"
@@ -53,7 +52,7 @@ const options = [
   },
   {
     value: "ps",
-    label: <TokenUI name="Ps" chainName="Pussy" balance="0" icon={ps_icon} />,
+    label: <SelectTokenLabel name="Ps" chainName="Pussy" balance="0" icon={ps_icon} />,
   },
 ];
 
@@ -90,7 +89,7 @@ const Swap = () => (
       </div>
       <div />
     </div>
-    <NewBT size="hg">swap!</NewBT>
+    <NewButton size="hg">swap!</NewButton>
     <div className={styles.textToPools}>
       <Link to="/pools">Provide liquidity</Link>
       {" "}

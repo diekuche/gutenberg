@@ -1,0 +1,26 @@
+.chain {
+  display: flex;
+  color: white;
+  width: 100%;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  padding-right: 10px;
+}
+
+.name {
+  font-family: "Bai Jamjuree", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  margin: 0;
+  color: white;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+.nameWrapper {
+  display: flex;
+  flex-direction: column;
+}

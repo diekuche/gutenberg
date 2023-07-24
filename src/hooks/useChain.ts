@@ -1,8 +1,12 @@
-import { useContext, useMemo } from "react";
-import { Chains } from "../config/chains";
-import { AppStateContext } from "../context/AppStateContext";
+import { createContext, useContext } from "react";
+import { Chain } from "classes/Chain";
+
+export const ChainContext = createContext<Chain | null>(null);
 
 export const useChain = () => {
-  const { chainId } = useContext(AppStateContext);
-  return useMemo(() => Chains[chainId], [chainId]);
+  const chain = useContext(ChainContext);
+  if (!chain) {
+    throw new Error("Not found provided ChainContext");
+  }
+  return chain;
 };

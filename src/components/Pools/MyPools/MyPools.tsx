@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./MyPools.index.module.css";
 import greyArrowDown from "../../../assets/greyArrowDown.svg";
 import circle from "../../../assets/circle.svg";

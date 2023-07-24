@@ -1,0 +1,103 @@
+.depositWindow {
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  background: rgba(6, 15, 25, 0.95);
+  width: 470px;
+  margin: auto;
+}
+.nameField {
+  font-size: 28px;
+  line-height: 35px;
+  color: #f6f8fe;
+  font-weight: 600;
+}
+.anyWindow {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+.deposit,
+.withdraw,
+.farm,
+.unfarm {
+  padding: 6px 23px;
+  color: #060f19;
+  background: #e2fb5f;
+  border-radius: 4px;
+}
+.firstField {
+  display: flex;
+  flex-direction: column;
+  margin: 28px 38px 0px 38px;
+}
+.secondField {
+  display: flex;
+  flex-direction: column;
+  margin-top: 28px;
+  background: rgba(67, 151, 178, 0.1);
+}
+.firstString,
+.secondString {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-left: 26px;
+  padding-right: 26px;
+}
+.secondString {
+  margin-bottom: 12px;
+}
+.max {
+  cursor: pointer;
+  color: #e2fb5f;
+  border: 1px solid #e2fb5f;
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 2px 8px;
+  height: 20px;
+  align-self: center;
+  margin-right: 10px;
+}
+.percent,
+.percentNumber {
+  color: #f6f8fe;
+  font-weight: 100;
+}
+.percent {
+  align-self: center;
+  padding-top: 14px;
+}
+.percentString {
+  display: flex;
+  justify-content: center;
+}
+.percentNumber {
+  font-size: 36px;
+}
+.cash {
+  color: rgba(246, 248, 254, 0.4);
+  font-size: 14px;
+  text-align: center;
+}
+.firstStringName,
+.secondStringName {
+  color: rgba(246, 248, 254, 0.4);
+}
+.numberToken,
+.valueToken {
+  color: #f6f8fe;
+  font-size: 14px;
+  line-height: 18px;
+  padding-right: 10px;
+}
+.nameToken {
+  color: rgba(246, 248, 254, 0.6);
+}
+.firstPair,
+.secondPair {
+  display: flex;
+}
+.cross {
+  display: flex;
+  margin-left: auto;
+}

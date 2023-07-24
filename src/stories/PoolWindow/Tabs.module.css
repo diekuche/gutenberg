@@ -1,0 +1,23 @@
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.tabLabel {
+  background: #e2fb5f;
+  color: #060f19;
+  border-radius: 4px;
+  padding: 6px 35px;
+  cursor: pointer;
+}
+
+.tabLabel__selected {
+  padding: 6px 23px;
+  background: rgba(6, 15, 25, 0.95);
+  color: rgba(246, 248, 254, 0.4);
+}
+
+.tabLabel__selected:hover {
+  color: #e2fb5f;
+}

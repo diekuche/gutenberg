@@ -1,0 +1,185 @@
+.tableMA {
+  height: auto;
+  overflow: auto;
+  background: rgba(124, 196, 219, 0.05);
+  border: 1px solid rgba(115, 237, 201, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.theadMA {
+  background: rgba(6, 15, 25, 0.5);
+}
+
+.thLeft {
+  text-align: left;
+}
+
+.thwidth {
+  width: 60px;
+  padding: 0px 10px;
+}
+
+.iconToken {
+  width: 34px;
+  margin-right: 10px;
+}
+
+.nameToken {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 20px;
+  gap: 5px;
+}
+
+.balance {
+  font-weight: 400;
+  font-size: 20px;
+  text-align: start;
+}
+
+.tokenSend {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 14px 24px 14px 40px;
+}
+
+.sendformblock {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+
+.sendform,
+.sendformAmount {
+  box-sizing: border-box;
+  height: 40px;
+
+  background: rgba(29, 57, 66, 0.6);
+  border-radius: 8px;
+  border-style: none;
+  font-family: "Bai Jamjuree";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #f6f8fe;
+  padding-left: 14px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  font-size: 12px;
+  color: rgba(246, 248, 254, 0.6);
+  text-align: initial;
+  flex: 1;
+}
+
+.sendButton {
+  margin-top: auto;
+}
+
+.addToken {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 20px 40px 40px 40px;
+}
+
+.addTokenBlok {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.addContract {
+  box-sizing: border-box;
+  height: 40px;
+  width: 530px;
+  background: rgba(29, 57, 66, 0.6);
+  border-radius: 8px;
+  border-style: none;
+  font-family: "Bai Jamjuree";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #f6f8fe;
+  padding-left: 14px;
+}
+
+.addTokenButton {
+  margin-top: auto;
+}
+
+.error {
+  display: flex;
+  align-content: center;
+  color: rgba(246, 248, 254, 0.6);
+  font-family: "Bai Jamjuree";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  padding-top: 7px;
+}
+
+.colspan {
+  padding: 0px !important;
+}
+
+.buttonToken {
+  max-width: 250px;
+  margin-left: auto;
+}
+
+.fix {
+  padding: 10px 23px 10px 35px !important;
+}
+
+.addString {
+  display: flex;
+}
+
+.clickString {
+  display: flex;
+  width: 100%;
+}
+
+.textToken {
+  width: 49%;
+  text-align: justify;
+  color: #e2fb5f;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  align-self: center;
+}
+
+.tokenAdd {
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+  background: rgba(29, 57, 66, 0.6);
+  border-radius: 8px;
+  border-style: none;
+  font-family: "Bai Jamjuree";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #f6f8fe;
+  padding-left: 14px;
+  margin-right: 10px;
+}
+
+.buttonStyle {
+  margin-left: auto;
+  max-width: 250px;
+  margin-right: 10px;
+}
