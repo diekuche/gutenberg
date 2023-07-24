@@ -34,7 +34,7 @@ const CreatePage = () => {
   } = useUserTokens();
 
   const tabs: Tab[] = [
-    { id: "cw20", label: "Token" },
+    { id: "token", label: "Token" },
   ];
 
   tabs.push({ id: "nft", label: "NFT" });
@@ -222,6 +222,8 @@ const CreatePage = () => {
         />
         <div className={styles.tools}>
           <div className={styles.tabPageContent}>
+            {selectedTabId === "token"
+            && (
             <TokenForm
               isConnected={isConnected}
               connect={connect}
@@ -229,6 +231,7 @@ const CreatePage = () => {
               onCreate={onCreateToken}
               ref={form}
             />
+            )}
             {selectedTabId === "nft" && <NFT />}
             {selectedTabId === "ntt" && <NTT />}
           </div>
