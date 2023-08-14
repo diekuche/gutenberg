@@ -2,6 +2,7 @@ import { Chain } from "classes/Chain";
 import { NativeTokenDetails } from "types/tokens";
 
 export const NATIVE_TOKEN_DETAILS = (denom: string) => ({
+  cacheTime: 1,
   queryKey: `v0.01/native/${denom}/details`,
   queryFn: async ({ chain }: {
     chain: Chain
@@ -24,7 +25,8 @@ export const NATIVE_TOKEN_DETAILS = (denom: string) => ({
     }
 
     const native = chain.config.currencies.find(
-      (currency) => currency.coinMinimalDenom === denom,
+      (currency) => currency.coinMinimalDenom.toLowerCase() === denom.toLowerCase()
+      || currency.coinDenom.toLowerCase() === denom.toLowerCase(),
     );
 
     if (native) {

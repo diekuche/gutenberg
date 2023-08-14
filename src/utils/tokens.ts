@@ -75,7 +75,7 @@ export const denomMetaDataToTokenDetails = (metadata: Metadata): NativeTokenDeta
 export const tokenToPoolDenom = (token: TokenDetails): PoolDenom => (token.type === "cw20" ? {
   cw20: token.address,
 } : {
-  native: token.denom,
+  native: token.minimalDenom || token.denom,
 });
 
 export const searchInToken = (token: TokenDetails, q: string) => {

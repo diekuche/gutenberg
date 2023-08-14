@@ -7,6 +7,7 @@ import { Coin } from "@cosmjs/amino";
 import { SwapPoolClient } from "generated/SwapPool.client";
 import { Account } from "classes/Account";
 import { SwapPoolFactoryClient } from "generated/SwapPoolFactory.client";
+import { SWAP_POOL_INFO } from "queries/pool";
 import { USER_TOKEN_DETAILS } from "../queries/tokens";
 
 export const CREATE_POOL = async (
@@ -122,6 +123,7 @@ export const ADD_LIQUIDITY = async (
     minLiquidity: "0",
   }, chain.calculateFee(GasLimit.PoolAddLiquidity), undefined, funds);
   try {
+    chain.invalidate(SWAP_POOL_INFO(poolAddress));
     chain.invalidate(USER_TOKEN_DETAILS(token1, address));
     chain.invalidate(USER_TOKEN_DETAILS(token2, address));
   } catch (e) {

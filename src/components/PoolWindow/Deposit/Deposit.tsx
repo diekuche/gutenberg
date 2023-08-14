@@ -88,7 +88,7 @@ const Deposit = ({
       // No allowance for this account
       console.log("Error when deposit to pool", pool);
       console.log(e);
-      toast.error("Unknown error");
+      toast.error(`${e}`);
     }).finally(() => setProcessing(false));
   };
   return (
@@ -119,7 +119,11 @@ const Deposit = ({
           </div>
         </div>
         <div className={styles.secondStirngTwoField}>
-          <div className={styles.cash}>$0.00</div>
+          <div className={styles.cash}>
+            {tokenAmountToFloat(reserve1, token1.decimals)}
+            {" "}
+            {token1.symbol}
+          </div>
           <div className={styles.balance}>
             Balance:
             {" "}
@@ -153,7 +157,11 @@ const Deposit = ({
           </div>
         </div>
         <div className={styles.secondStirngTwoField}>
-          <div className={styles.cash}>$0.00</div>
+          <div className={styles.cash}>
+            {tokenAmountToFloat(reserve2, token2.decimals)}
+            {" "}
+            {token2.symbol}
+          </div>
           <div className={styles.balance}>
             Balance:
             {" "}

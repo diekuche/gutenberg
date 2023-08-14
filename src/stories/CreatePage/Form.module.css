@@ -5,15 +5,15 @@
   position: relative;
   width: 100%;
   height: 100%;
-  background: #12262d;
+  /* background: #12262d;
   border: solid 1px rgba(115, 237, 201, 0.1);
   border-radius: 0px 16px 16px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px); */
 }
 
 .formContent {
   display: inline;
-  padding: 35px 45px 0px 45px;
+  /* padding: 35px 45px 0px 45px; */
 }
 
 .formheader {
