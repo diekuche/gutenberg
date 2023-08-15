@@ -28,6 +28,7 @@ export type TokenFormProps = {
   connect: () => void;
   creating: boolean;
   onCreate: (values: CreateFormValues) => void;
+  isLogoEnabled: boolean;
 };
 
 const TokenForm = ({
@@ -35,6 +36,7 @@ const TokenForm = ({
   isConnected,
   connect,
   onCreate,
+  isLogoEnabled,
 }: TokenFormProps, ref: ForwardedRef<HTMLFormElement>) => {
   const [balances, setBalances] = useState<Balance[]>([
     defaultBalance,
@@ -91,7 +93,7 @@ const TokenForm = ({
       tokenName: token.value,
       tokenSymbol: symbol.value,
       quantity: quantity.value,
-      logo: logo.value,
+      logo: logo ? logo.value : "",
       description,
     });
   };
@@ -103,6 +105,14 @@ const TokenForm = ({
       ref={ref}
     >
       <div className={styles.formContent}>
+        <div style={{
+          marginBottom: "10px",
+          color: "white",
+          display: "flex",
+          gap: "20px",
+          alignItems: "center",
+        }}
+        />
         <Input
           id="token"
           label={"Token's Name:"}
@@ -141,6 +151,7 @@ const TokenForm = ({
           pattern="[0-9]{0,10}"
           placeholder="0"
         />
+        {isLogoEnabled && (
         <Input
           id="logo"
           htmlFor="logo"
@@ -148,6 +159,7 @@ const TokenForm = ({
           name="logo"
           placeholder="https://www.example.com/image.png"
         />
+        )}
         <Collapsible title="Changing initial balances">
           <div className={styles.inputComponent}>
             <div className={styles.article}>

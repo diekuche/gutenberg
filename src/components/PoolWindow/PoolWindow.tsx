@@ -27,6 +27,7 @@ const fetch = async (chain: Chain, account: Account, pool: PoolDetails) => {
     chain.query(USER_TOKEN_DETAILS(pool.token1, account.address)),
     chain.query(USER_TOKEN_DETAILS(pool.token2, account.address)),
   ]);
+  console.log("poolInfo", poolInfo);
   return {
     poolInfo,
     tokens,

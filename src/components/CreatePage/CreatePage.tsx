@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Tabs, Tab } from "ui/CreatePage/Tabs";
 import NTT from "ui/CreatePage/NTT";
 import NFT from "ui/CreatePage/NFT";
@@ -23,6 +23,7 @@ const CreatePage = () => {
   const chain = useChain();
   const [creating, setCreating] = useState(false);
   const { account, connect, isConnected } = useAccount();
+  const [tokenType, setTokenType] = useState("cw20");
 
   const {
     addCw20Token,
@@ -196,21 +197,30 @@ const CreatePage = () => {
       }
       form.current?.reset();
     } catch (error) {
-      toast.error(error as string, {
+      toast(`${error}`, {
         type: "error",
       });
-      console.error("error when create token", error);
+      console.error("error when create token");
+      console.log(error);
     } finally {
       setCreating(false);
     }
   };
 
   const onCreateToken = (values: CreateFormValues) => {
-    if (chain.config.features?.includes("tokenfactory")) {
-      return onCreateFactoryToken(values);
+    if (tokenType === "cw20") {
+      return onCreateCw20Token(values);
     }
-    return onCreateCw20Token(values);
+    return onCreateFactoryToken(values);
   };
+
+  const tokenTypes = useMemo(() => [{
+    key: "cw20",
+    label: "CW20",
+  }].concat(chain.config.features?.includes("tokenfactory") ? [{
+    key: "tokenfactory",
+    label: "Tokenfactory",
+  }] : []), [chain]);
 
   return (
     <div className={styles.mainpage}>
@@ -224,13 +234,34 @@ const CreatePage = () => {
           <div className={styles.tabPageContent}>
             {selectedTabId === "token"
             && (
-            <TokenForm
-              isConnected={isConnected}
-              connect={connect}
-              creating={creating}
-              onCreate={onCreateToken}
-              ref={form}
-            />
+              <div className={styles.tabBox}>
+                {tokenTypes.length > 1 && (
+                <div className={styles.tokenTypeSelect}>
+                  {tokenTypes.map((tt) => (
+                    <label>
+                      <span>
+                        {tt.label}
+                      </span>
+                      <input
+                        name="token-type"
+                        type="radio"
+                        value={tt.key}
+                        onChange={(e) => setTokenType(e.target.value)}
+                        checked={tokenType === tt.key}
+                      />
+                    </label>
+                  ))}
+                </div>
+                )}
+                <TokenForm
+                  isLogoEnabled={tokenType === "cw20"}
+                  isConnected={isConnected}
+                  connect={connect}
+                  creating={creating}
+                  onCreate={onCreateToken}
+                  ref={form}
+                />
+              </div>
             )}
             {selectedTabId === "nft" && <NFT />}
             {selectedTabId === "ntt" && <NTT />}

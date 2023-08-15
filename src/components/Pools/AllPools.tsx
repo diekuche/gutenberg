@@ -27,6 +27,7 @@ const AllPools = ({
   const [filter, setFilter] = useState("");
   const [page, setPage] = useState(1);
   const [poolForDeposit, setPoolForDeposit] = useState<PoolDetails | null>(null);
+
   const [modal, setModal] = useState(false);
   const pools = (
     filter
@@ -36,6 +37,7 @@ const AllPools = ({
       )
       : nonFilteredPools
   );
+
   const pagesCount = Math.ceil(pools.length / PAGE_SIZE);
 
   const toggleModal = () => {

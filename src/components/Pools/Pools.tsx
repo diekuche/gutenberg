@@ -36,6 +36,7 @@ const fetchData = async (
       const token2Denom = (poolInfo.token2_denom as unknown as PoolDenom);
       const token1 = await chain.query(POOL_TOKEN_DETAILS(token1Denom));
       const token2 = await chain.query(POOL_TOKEN_DETAILS(token2Denom));
+      console.log("token1", token1, "token2", token2);
       return {
         address: poolAddress,
         index,
