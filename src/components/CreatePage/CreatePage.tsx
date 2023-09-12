@@ -2,7 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 import { useMemo, useRef, useState } from "react";
 import { Tabs, Tab } from "ui/CreatePage/Tabs";
-import NTT from "ui/CreatePage/NTT";
+import NTT, { CreateFormValues as NTTCreateFormValues } from "ui/CreatePage/NTT";
 import NFT from "ui/CreatePage/NFT";
 import { useChain } from "hooks/useChain";
 import TokenForm, { CreateFormValues } from "ui/CreatePage/TokenForm";
@@ -15,13 +15,16 @@ import ManageAssets from "ui/CreatePage/ManageAssets";
 import { useUserTokens } from "hooks/useUserTokens";
 import { TOKENFACTORY_CREATE, TOKENFACTORY_MINT, TOKENFACTORY_UPDATE_METADATA } from "mutations/tokenfactory";
 import { MsgSetDenomMetadata } from "tokenfactory";
+import NTTComingSoon from "ui/CreatePage/NTTComingSoon";
 import styles from "./CreatePage.module.css";
 
 const CreatePage = () => {
   const form = useRef<HTMLFormElement>(null);
+  const nttForm = useRef<HTMLFormElement>(null);
   const store = useStore();
   const chain = useChain();
   const [creating, setCreating] = useState(false);
+  const [creatingNTT, setCreatingNTT] = useState(false);
   const { account, connect, isConnected } = useAccount();
   const [tokenType, setTokenType] = useState("cw20");
 
@@ -214,6 +217,55 @@ const CreatePage = () => {
     return onCreateFactoryToken(values);
   };
 
+  const onCreateNTT = async (values: NTTCreateFormValues) => {
+    if (!account) {
+      connect();
+      toast("Account is not connect");
+      return;
+    }
+    const codeId = chain.cosmwasmConfigs.nttContractCodeId;
+    if (!codeId) {
+      toast("Network not support NTT");
+      return;
+    }
+    setCreatingNTT(true);
+    const { tokenName, tokenSymbol } = values;
+
+    const msg = {
+      name: tokenName,
+      symbol: tokenSymbol,
+      minter: account.address,
+    };
+
+    console.log("msg", {
+      msg,
+      label: tokenName,
+    }, "activeChain", chain);
+
+    try {
+      const signingCosmWasmClient = await chain.getSigningCosmWasmClient(account.signer);
+      const res = await signingCosmWasmClient.instantiate(
+        account.address,
+        codeId,
+        msg,
+        tokenName,
+        chain.calculateFee(GasLimit.NttInstantiate),
+      );
+      console.log("instantiate response", res);
+      toast(`Success! Contract address: ${res.contractAddress}`, {
+        type: "success",
+      });
+      form.current?.reset();
+      // await store.setInArray(STORE_USER_NTT_TOKENS_KEY(chain, account).key, res.contractAddress);
+    } catch (error) {
+      toast(error as string, {
+        type: "error",
+      });
+      console.log("error", error);
+    }
+    setCreatingNTT(false);
+  };
+
   const tokenTypes = useMemo(() => [{
     key: "cw20",
     label: "CW20",
@@ -264,7 +316,16 @@ const CreatePage = () => {
               </div>
             )}
             {selectedTabId === "nft" && <NFT />}
-            {selectedTabId === "ntt" && <NTT />}
+            {selectedTabId === "ntt" && !chain.cosmwasmConfigs.nttContractCodeId && <NTTComingSoon />}
+            {selectedTabId === "ntt" && chain.cosmwasmConfigs.nttContractCodeId && (
+            <NTT
+              isConnected={isConnected}
+              connect={connect}
+              creating={creatingNTT}
+              onCreate={onCreateNTT}
+              ref={nttForm}
+            />
+            )}
           </div>
           <ManageAssets
             onAddCw20Token={addCw20Token}

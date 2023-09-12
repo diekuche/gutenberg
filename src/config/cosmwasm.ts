@@ -6,6 +6,7 @@ export enum GasLimit {
   Cw20Send,
   Cw20Mint,
   Cw20Burn,
+  NttInstantiate,
   PoolAddLiquidity,
   PoolRemoveLiquidity,
   PoolFactoryCreatePool,
@@ -20,6 +21,7 @@ export type ChainCosmwasmConfig = {
   factoryAddress: string;
   swapPoolContractCodeId: string;
   cw20ContractCodeId: number;
+  nttContractCodeId?: number;
   gasLimits: Record<GasLimit, number>
 };
 
@@ -37,6 +39,7 @@ const gasLimits = {
   [GasLimit.TokenFactoryUpdateMetaData]: 3048994,
   [GasLimit.TokenFactoryMint]: 3048994,
   [GasLimit.TokenFactoryBurn]: 3048994,
+  [GasLimit.NttInstantiate]: 250000,
 };
 
 export const chainCosmwasmConfigs: Record<ChainId, ChainCosmwasmConfig> = {
@@ -51,11 +54,13 @@ export const chainCosmwasmConfigs: Record<ChainId, ChainCosmwasmConfig> = {
     swapPoolContractCodeId: "3360",
     cw20ContractCodeId: 1,
     gasLimits,
+    nttContractCodeId: 3607,
   },
   bostrom: {
     factoryAddress: "bostrom1wlexzeqnd8dqvrhw0x0vlh3xqxr88ak88zztrx87sehfekje4ajqx3wnfx",
     swapPoolContractCodeId: "30",
     cw20ContractCodeId: 1,
+    nttContractCodeId: 34,
     gasLimits,
   },
   "archway-1": {
@@ -63,6 +68,7 @@ export const chainCosmwasmConfigs: Record<ChainId, ChainCosmwasmConfig> = {
     swapPoolContractCodeId: "77",
     cw20ContractCodeId: 88,
     gasLimits,
+    nttContractCodeId: 169,
   },
   "osmo-test-5": {
     factoryAddress: "osmo1h4a3wk756pwy6ank2dmeaqpz50tjx8jcvzp3r3499q2tj6yqtjqqucjf7s",
@@ -75,11 +81,13 @@ export const chainCosmwasmConfigs: Record<ChainId, ChainCosmwasmConfig> = {
     cw20ContractCodeId: 6,
     swapPoolContractCodeId: "8",
     gasLimits,
+    nttContractCodeId: 9,
   },
   "neutron-1": {
     factoryAddress: "neutron19l5xwvd04c5aa6h6zgqjlu7l58gg0k7cjn3duqq3rtsvjwhhzakqyhzgag",
     cw20ContractCodeId: 125,
     swapPoolContractCodeId: "126",
     gasLimits,
+    nttContractCodeId: 235,
   },
 };
